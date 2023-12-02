@@ -1,4 +1,7 @@
-﻿jQuery(document).ready(() => getBehavior());
+﻿jQuery(document).ready(() => {
+    loadingGif();
+    getBehavior();
+});
 
 //Declare variable for use global
 let behavior = [];

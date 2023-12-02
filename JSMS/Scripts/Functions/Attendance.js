@@ -1,4 +1,5 @@
 ﻿jQuery(document).ready(() => {
+    loadingGif();
     getAttendance();
     monthYear.change(() => getReportAttendance());
     byShift.change(() => getReportAttendance());

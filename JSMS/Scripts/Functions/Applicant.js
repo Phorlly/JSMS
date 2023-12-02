@@ -1,4 +1,5 @@
 ﻿jQuery(document).ready(() => {
+    loadingGif();
     getApplicant();
     numberOnly("phone1");
     numberOnly("phone2");

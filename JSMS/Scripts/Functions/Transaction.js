@@ -1,5 +1,5 @@
 ﻿$(document).ready(() => {
- 
+    loadingGif();
 });
 
 //Declare variable for use global

@@ -1,4 +1,7 @@
-﻿jQuery(document).ready(() => getClient());
+﻿jQuery(document).ready(() => {
+    loadingGif();
+    getClient();
+});
 
 //Declare vaariable 
 let client = [];

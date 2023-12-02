@@ -1,4 +1,7 @@
-﻿jQuery(document).ready(() => getApplicant());
+﻿jQuery(document).ready(() => {
+    loadingGif();
+    getApplicant();
+});
 
 //Declare variable 
 let applicant = [];

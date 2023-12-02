@@ -1,4 +1,5 @@
 ﻿jQuery(document).ready(() => {
+    loadingGif();
     getAll();
     monthYear.change(() => getReportStock());
     byProduct.change(() => getReportStock());

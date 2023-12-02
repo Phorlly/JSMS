@@ -1,5 +1,6 @@
 ﻿
 $(document).ready(() => {
+    loadingGif();
     unitPrice.on("input", amountAndTotal);
     currency.on("input", amountAndTotal);
     exchangeRate.on("change", amountAndTotal);

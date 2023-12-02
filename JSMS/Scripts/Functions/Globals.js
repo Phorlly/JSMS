@@ -32,15 +32,20 @@ const sexOption = (selecter, dataId) => {
 };
 
 //get file image
-// const readUrl = (input, imageFile) => {
-//   if (input.files && input.files[0]) {
-//     let reader = new FileReader();
-//     reader.onload = (e) => {
-//       imageFile.attr("src", e.target.result);
-//     };
-//     reader.readAsDataURL(input.files[0]);
-//   }
-// };
+//const readUrl = (uploadInput, imagePreview) => {
+
+//    let input = $(uploadInput);
+
+//    if (input.files && input.files[0]) {
+//        const reader = new FileReader();
+
+//        reader.onload = function (e) {
+//            $(imagePreview).src = e.target.result;
+//        };
+
+//        reader.readAsDataURL(input.files[0]);
+//    }
+//};
 
 //Format to number and dot only
 const numberOnly = (selector) => {
@@ -197,3 +202,12 @@ const formatDate = (val) => {
         ("0" + date.getDate()).slice(-2);
     return val ? dateFormated : "";
 };
+
+//Loading gif
+const loadingGif = () => {
+    $(document).ajaxStart(() => {
+        $("#loading-gif").addClass("show");
+    }).ajaxStop(() => {
+        $("#loading-gif").removeClass("show");
+    });
+}

@@ -99,7 +99,7 @@ span {
     display: block;
     position: fixed;
     z-index: 100;
-    background-image: url('loading.gif');
+    background-image: url('/Images/loading.gif');
     opacity: .4;
     background-repeat: no-repeat;
     background-position: center;

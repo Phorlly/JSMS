@@ -1,4 +1,5 @@
 ﻿jQuery(document).ready(() => {
+    loadingGif();
     getGuarantor();
     numberOnly("g-phone1");
     numberOnly("g-phone2");

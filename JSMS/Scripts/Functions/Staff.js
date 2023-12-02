@@ -1,4 +1,4 @@
-﻿jQuery(document).ready(() => getAll());
+﻿jQuery(document).ready(() => { loadingGif(); getAll(); });
 
 //Declare variable for use global
 let table = [];

@@ -435,6 +435,7 @@
     <Content Include="Content\icons.css" />
     <Content Include="Content\icons.min.css" />
     <Content Include="Images\kh.png" />
+    <Content Include="Images\loading.gif" />
     <Content Include="Images\us.png" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
@@ -489,8 +490,6 @@
     <Content Include="Scripts\Libraries\dataTables.bootstrap.js" />
     <Content Include="Scripts\Functions\Applicant.js" />
     <Content Include="Scripts\Functions\Attendance.js" />
-    <Content Include="Scripts\Functions\AttendanceTest.js" />
-    <Content Include="Scripts\Functions\AttTest.js" />
     <Content Include="Scripts\Functions\Behavior.js" />
     <Content Include="Scripts\Functions\Checkin-Checkout.js" />
     <Content Include="Scripts\Functions\Client.js" />
@@ -503,7 +502,6 @@
     <Content Include="Scripts\Functions\Recruitment.js" />
     <Content Include="Scripts\Functions\Short-List.js" />
     <Content Include="Scripts\Functions\Staff.js" />
-    <Content Include="Scripts\Functions\TestAtt.js" />
     <Content Include="Scripts\Functions\Transaction.js" />
     <Content Include="Scripts\Functions\User-Role.js" />
     <None Include="Scripts\Libraries\jquery-3.4.1.intellisense.js" />

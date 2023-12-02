@@ -1,5 +1,5 @@
 ﻿jQuery(document).ready(() => {
-
+    loadingGif();
 });
 
 //Declare vaiable
