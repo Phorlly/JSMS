@@ -1,0 +1,235 @@
+﻿<div class="modal fade" id="modal-gaurantor" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Guarantor Infomations</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" id="data-id">
+
+                <div class="modal-body">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" class="form-control" id="birth-name" placeholder="">
+                                            <label class="fw-normal" for="birth-name">Please input name of birth</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" class="form-control" id="nick-name" placeholder="">
+                                            <label class="fw-normal" for="nick-name">Please input nick name</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" class="form-control" id="national" placeholder="">
+                                            <label class="fw-normal" for="national">Please input national</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" class="form-control" id="nationality" placeholder="">
+                                            <label class="fw-normal" for="nationality">Please input nationality</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" maxlength="15" class="form-control" id="phone1"
+                                                   placeholder="">
+                                            <label class="fw-normal" for="phone1">Please input phone number 1</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" maxlength="15" class="form-control" id="phone2"
+                                                   placeholder="">
+                                            <label class="fw-normal" for="phone2">Please input phone number 2</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 pl-5">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <img class="center img-responsive img-thumbnail"
+                                             style="width: 12rem; height: 10.5rem" src="~/Images/blank-image.png"
+                                             id="image" />
+                                        <b class="btn-style-2 btn btn-dark">
+                                            <i class="fa fa-upload pe-lg-3"></i> Upload Image
+                                            <input onchange="readUrl(this);" type="file" id="imageFile" accept=".png, .jpg, .jpeg, .svg"/>
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select class="form-select" id="gender">
+                                        <option value="true">ប្រុស (Male)</option>
+                                        <option value="false">ស្រី ​(Female)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="position">Education Level</label>
+                                    <select class="form-select" id="education">
+                                        <option value="-1">---Select education---</option>
+                                        <option value="មិនបានសិក្សា (Not Studied)">មិនបានសិក្សា (Not Studied)</option>
+                                        <option value="បឋមសិក្សា (Primary School)">បឋមសិក្សា (Primary School)</option>
+                                        <option value="អនុវិទ្យាល័យ (Secondary School)">អនុវិទ្យាល័យ (Secondary School)</option>
+                                        <option value="វិទ្យាល័យ (High School)">វិទ្យាល័យ (High School)</option>
+                                        <option value="សាកលវិទ្យាល័យ (University)">សាកលវិទ្យាល័យ (University)</option>
+                                        <option value="ផ្សេងៗ (Other)">ផ្សេងៗ (Other)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Place of Birth</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="birth-province">Province</label>
+                                    <select id="birth-province" class="form-select">
+                                        <option value="-1">---Please Select Province---</option>
+                                        @foreach (var province in Model)
+                                        {
+                                            <option value="@province.Id">@province.NameKh / @province.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="birth-dis">
+                                <div class="form-group">
+                                    <label for="birth-district">District</label>
+                                    <input type="hidden" id="birth-dis-id" />
+                                    <select id="birth-district" class="form-select">
+                                        <option value="-1">---Please Select District---</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" id="birth-com">
+                                <div class="form-group">
+                                    <label for="birth-commune">Commune</label>
+                                    <input type="hidden" id="birth-com-id" />
+                                    <select id="birth-commune" class="form-select">
+                                        <option value="-1">---Please Select Commune---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group" id="birth-vil">
+                                    <label for="birth-village">Village</label>
+                                    <input type="hidden" id="birth-vil-id" />
+                                    <select id="birth-village" class="form-select">
+                                        <option value="-1">---Please Select Village---</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-2">
+                                <div class="form-floating mb-2">
+                                    <input type="date" class="form-control" id="dob">
+                                    <label for="dob">Please select Date of birth</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <div class="form-floating mb-2">
+                                    <textarea class="form-control" id="noted" placeholder=""></textarea>
+                                    <label for="noted">Please input description</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Current Address</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="current-province">Province</label>
+                                    <select id="current-province" class="form-select">
+                                        <option value="-1">---Please Select Province---</option>
+                                        @foreach (var province in Model)
+                                        {
+                                            <option value="@province.Id">@province.NameKh / @province.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="current-dis">
+                                <div class="form-group">
+                                    <label for="current-district">District</label>
+                                    <input type="hidden" id="current-dis-id" />
+                                    <select id="current-district" class="form-select">
+                                        <option value="-1">---Please Select District---</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" id="current-com">
+                                <div class="form-group">
+                                    <label for="current-commune">Commune</label>
+                                    <input type="hidden" id="current-com-id" />
+                                    <select id="current-commune" class="form-select">
+                                        <option value="-1">---Please Select Commune---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group" id="current-vil">
+                                    <label for="current-village">Village</label>
+                                    <input type="hidden" id="current-vil-id" />
+                                    <select id="current-village" class="form-select">
+                                        <option value="-1">---Please Select Village---</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="modal-footer">
+                    <section>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                            <i class=" fas fa-times-circle"></i>
+                            <span class="text-uppercase">Close</span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="update">
+                            <i class=" fas fas fa-redo-alt"></i>
+                            <span class="text-uppercase">Update</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="save">
+                            <i class=" fas fa-save"></i>
+                            <span class="text-uppercase">Save</span>
+                        </button>
+                    </section>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+

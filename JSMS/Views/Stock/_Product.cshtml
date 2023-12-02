@@ -1,0 +1,73 @@
+﻿<div class="modal fade" id="modal-product" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Product Infomations</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" id="product-id">
+
+                <div class="modal-body">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-2">
+                                            <input type="text" class="form-control" id="product-name" placeholder="">
+                                            <label class="fw-normal" for="product-name">Product's Name</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 mt-2">
+                                        <div class="form-floating mb-2">
+                                            <textarea class="form-control" rows="3" id="noted" placeholder=""></textarea>
+                                            <label class="fw-normal" for="noted">Description</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <img class="mr-4 center img-responsive img-thumbnail" style="width: 10rem; height: 8rem"
+                                         src="~/Images/blank-image.png" id="image" />
+                                    <b class="btn-style-2 btn btn-dark w-auto">
+                                        <i class="fa fa-upload pe-lg-3"></i> Upload Image
+                                        <input onchange="productImage(this);" type="file" id="image-file" accept=".png, .jpg, .jpeg, .svg" />
+                                    </b>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="modal-footer">
+                    <section>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                            <i class=" fas fa-times-circle"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="update-product">
+                            <i class=" fas fas fa-redo-alt"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="save-product">
+                            <i class=" fas fa-save"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
+                        </button>
+                    </section>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+

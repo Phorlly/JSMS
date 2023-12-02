@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewBag.Title = "Career";
+    Layout = "~/Views/Shared/OfficialWebsite/Blog.cshtml";
+}
+<!-- Hero Start -->
+<div class="container-fluid bg-light py-6 my-6 mt-0">
+    <div class="container text-center animated bounceInDown">
+        <h1 class="display-1 mb-4">Career</h1>
+        <ol class="breadcrumb justify-content-center mb-0 animated bounceInDown">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+            <li class="breadcrumb-item text-dark" aria-current="page">Career</li>
+        </ol>
+    </div>
+</div>
+<!-- Hero End -->
+<!-- Book Us Start -->
+
+<div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="dataId" id="data-id" value="" />
+        <div class="container">
+            <div class="row g-0">
+
+
+                <div class="col-1">
+                    <img src="~/Theme/Official/img/gard/10-event-security-a.jpg" class="img-fluid h-100 w-100 rounded-start" style="object-fit: cover; opacity: 0.7;" alt="">
+                </div>
+
+
+                <div class="col-10">
+                    <div class="border-bottom border-top border-primary bg-light py-5 px-4">
+                        <div class="text-center">
+                            <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Apply Now</small>
+                            <h1 class="display-5 mb-5">Need job?</h1>
+                        </div>
+                        <div class="row g-4 form">
+                            <div class="col-lg-4 col-md-6">
+                                <input type="text" class="form-control border-primary p-2" id="name-in-certificate" placeholder="Applicant Name">
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <input type="text" class="form-control border-primary p-2" id="nick-name" placeholder="NickName">
+                            </div>
+
+                            <div class="col-lg-4 col-md-6">
+                                <select class="form-select border-primary p-2" id="sex" aria-label="Default select example">
+                                    <option value="-1" selected>Gender</option>
+                                    <option value="1">Female</option>
+                                    <option value="2">Male</option>
+                                    <option value="3">Batman</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <input type="text" class="form-control border-primary p-2" id="national" placeholder="National">
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <input type="text" class="form-control border-primary p-2" id="nationality" placeholder="Nationality">
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <input type="text" maxlength="15" class="form-control border-primary p-2" id="phone1" placeholder="Phone Number 1">
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <input type="text" maxlength="15" class="form-control border-primary p-2" id="phone2" placeholder="Phone Number 2(Optional)">
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <select class="form-select border-primary p-2" id="education" aria-label="Default select example">
+                                    <option value="-1" selected>Education level</option>
+                                    <option value="1">មិនបានសិក្សា(Not Study)</option>
+                                    <option value="2">បឋមសិក្សា(Primary School)</option>
+                                    <option value="3">អនុវិទ្យាល័យ (Secondary School)</option>
+                                    <option value="4">វិទ្យាល័យ (High School)</option>
+                                    <option value="5">សាកលវិទ្យាល័យ (University)</option>
+                                    <option value="6">ផ្សេងៗ (Other)</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <select class="form-select border-primary p-2" id="place-of-birth" aria-label="Default select example">
+                                    <option value="-1" selected>Place of Birth</option>
+                                    @foreach (var response in Model)
+                                    {
+                                        <option value="@response.Id">@response.NameKh (@response.Name)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <input type="date" class="form-control border-primary p-2" id="date-of-birth" placeholder="Date Of Birth">
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <select class="form-select border-primary p-2" id="address" aria-label="Default select example">
+                                    <option value="-1" selected>Current Address</option>
+                                    @foreach (var response in Model)
+                                    {
+                                        <option value="@response.Id">@response.NameKh (@response.Name)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <select class="form-select border-primary p-2" id="position" aria-label="Default select example">
+                                    <option value="-1" selected>Please Choose Position</option>
+                                    <option value="1">IT</option>
+                                    <option value="2">HR</option>
+                                    <option value="3">Guard</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="mb-3">
+                                    <input class="form-control border-primary p-2" accept=".doc, .docx,.pdf" type="file" id="attachment">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <input type="text" class="form-control border-primary p-2" id="noted" placeholder="Note">
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <button type="button" class="btn btn-primary px-5 py-3 rounded-pill" id="apply-now">Apply Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-1">
+                    <img src="~/Theme/Official/img/gard/15.jpg" class="img-fluid h-100 w-100 rounded-end" style="object-fit: cover; opacity: 0.7;" alt="">
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+</div>
+<!-- Book Us End -->
+
+<div class="container text-center animated bounceInDown">
+    <h1 class="display-1 mb-4 fs-1">Or Contact Us</h1>
+</div>
+
+<!-- Contact Start -->
+<div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="p-5 bg-light rounded contact-form">
+            <div class="row g-4">
+                <div class="col-12">
+                    <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Get in touch</small>
+                    <h1 class="display-5 mb-0">Contact Us For Any Queries!</h1>
+                </div>
+                <div class="col-md-6 col-lg-7">
+                    <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
+                    <form>
+                        <input type="text" class="w-100 form-control p-3 mb-4 border-primary bg-light" placeholder="Your Name">
+                        <input type="email" class="w-100 form-control p-3 mb-4 border-primary bg-light" placeholder="Enter Your Email">
+                        <textarea class="w-100 form-control mb-4 p-3 border-primary bg-light" rows="4" cols="10" placeholder="Your Message"></textarea>
+                        <button class="w-100 btn btn-primary form-control p-3 border-primary bg-primary rounded-pill" type="submit">Submit Now</button>
+                    </form>
+                </div>
+                <div class="col-md-6 col-lg-5">
+                    <div>
+                        <div class="d-inline-flex w-100 border border-primary p-4 rounded mb-4">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
+                            <div class="">
+                                <h4>Address</h4>
+                                <p>Khan Reussei Keo, Teuk Thlar,  Phnom Penh, CAMBODIA</p>
+                            </div>
+                        </div>
+                        <div class="d-inline-flex w-100 border border-primary p-4 rounded mb-4">
+                            <i class="fas fa-envelope fa-2x text-primary me-4"></i>
+                            <div class="">
+                                <h4>Mail Us</h4>
+                                <p class="mb-2">jinglongsecurity@gmail.com</p>
+                                <p class="mb-0">jlsupport@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="d-inline-flex w-100 border border-primary p-4 rounded">
+                            <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
+                            <div class="">
+                                <h4>Telephone</h4>
+                                <p class="mb-2">(+855) 76 414 4432</p>
+                                <p class="mb-0">(+704) 97 385 9847</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+
+@section scripts {
+    @Scripts.Render("~/Scripts/Functions/Online-Applicant.js")
+}

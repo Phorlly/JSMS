@@ -1,43 +1,82 @@
 ﻿@model JSMS.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
+
+    Layout = null;
+
 }
+<!DOCTYPE html>
+<html lang="en">
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="~/Images/logoHRMS.png">
+    <title>LOGUP</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+</head>
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+<body>
+    <!--New form-->
+    <div style="height: 100vh; " class="d-flex justify-content-center align-items-center">
+
+        <section>
+            <div class="form-control d-flex  shadow-lg p-5 mb-5 bg-body-tertiary rounded-4">
+
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="bg-body-tertiary">
+                        <div class="mb-3 text-center">
+                            <h1 class="text-secondary text-uppercase">Create New Account</h1>
+                            <p class="fst-italic">Please remember your Username and Password</p>
+                        </div>
+                        <div>
+                            @*<div class="form-floating mb-4">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "" })
+                                @Html.LabelFor(c => c.Email)
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>*@
+
+                            <div class="form-floating mb-4">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "" })
+                                @Html.LabelFor(c => c.UserName)
+                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "" })
+                                @Html.LabelFor(c => c.Password)
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-floating mb-4">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "" })
+                                @Html.LabelFor(c => c.ConfirmPassword)
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="footer">
+                            <button type="submit" class="btn btn-secondary w-100 mb-2">
+                                <i class="fas fa-user-plus"></i>
+                                <b class="text-uppercase">Create Account</b>
+                            </button>
+                            <div class="text-center">
+                                @Html.ActionLink("Already account for Login right?", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
+                            </div>
+                        </div>
+
+                    </div>
+                }
             </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            <div class="offset-md-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-outline-dark" />
-            </div>
-        </div>
+        </section>
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
     }
-</main>
+</body>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</html>

@@ -9,6 +9,22 @@ namespace JSMS.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+    public class CreateRoleViewModel
+    {
+        [Required]
+        [Display(Name = "Role Name")]
+        public string RoleName { get; set; }
+
+        [Required]
+        [Display(Name = "User ID")]
+        public string UserId { get; set; }
+
+        [Required]
+        [Display(Name = "Role")]
+        public string UserRole { get; set; }
+
+        // Other properties as needed...
+    }
 
     public class ExternalLoginListViewModel
     {
@@ -49,9 +65,8 @@ namespace JSMS.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; } 
 
         [Required]
         [DataType(DataType.Password)]
@@ -65,9 +80,15 @@ namespace JSMS.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
+        public string Phone { get; set; }
+        public string Role { get; set; } 
+
+        //[EmailAddress]
+        //[Display(Name = "Email Address")]
+        //public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

@@ -1,0 +1,129 @@
+﻿
+@using Microsoft.AspNet.Identity
+@using JSMS.Models.Admin
+@{
+    var moduleItems = new List<MenuItem>();
+
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.Dashboard,
+        Controller = "Home",
+        Icon = "fas fa-tachometer-alt",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }
+    });
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.Apllicant,
+        Controller = "Applicant",
+        Icon = "fas fa-user-friends",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }
+    });
+
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.Recruitment,
+        Controller = "Recruitment",
+        Icon = "fas fa-user-edit",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }
+    });
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.ShortList,
+        Controller = "ShortList",
+        Icon = "fas fa-user-check",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }
+    });
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.Client,
+        Controller = "Client",
+        Icon = "fas fa-user-friends",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }
+    });
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.Staff,
+        Controller = "Staff",
+        Icon = " fas fa-user-friends",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }
+    });
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.Attendance,
+        Controller = "Attendance",
+        Icon = "fas fa-tasks",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR" }
+    });
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.Transaction,
+        Controller = "Transaction",
+        Icon = "fas fa-id-card",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR" }
+    });
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.RegisterOnline,
+        Controller = "RequestOnline",
+        Icon = "fas fa-user-edit",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR" }
+    });
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.Stock,
+        Controller = "Stock",
+        Icon = "fas fa-shopping-cart",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR" }
+    });
+    //User Account
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.User,
+        Controller = "UserRole",
+        Icon = "fas fa-user-friends",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR" }
+    });
+
+}
+
+@if (Request.IsAuthenticated)
+{
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+        @foreach (var item in moduleItems)
+        {
+            if (item.Role.Any(role => User.IsInRole(role)))
+            {
+                <li class="nav-item">
+                    <a href="@Url.Action(item.Action, item.Controller)" class="nav-link @Url.IsLinkActive(item.Action, item.Controller)">
+                        <i class="@item.Icon nav-icon"></i>
+                        <p class="text-bold text-white">@item.Name</p>
+                    </a>
+                </li>
+            }
+        }
+
+        @*Logout*@
+        <li class="nav-item mt-3">
+            <form action="@Url.Action("LogOff", "Account")" id="logoutForm" method="post">
+                @Html.AntiForgeryToken()
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link">
+                    <i class="fas fa-sign-out-alt nav-icon"></i>
+                    <p class="text-bold text-white">@JSMS.Resources.Language.Logout</p>
+                </a>
+            </form>
+        </li>
+    </ul>
+
+}

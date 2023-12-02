@@ -1,0 +1,199 @@
+﻿<div class="modal fade" id="modal-expense" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Expense Infomations</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" id="expense-id">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group mb-2">
+                            <label class="fw-normal" for="general-salary">Ganeral or Salary</label>
+                            <select id="general-salary" class="form-select">
+                                <option value="0">Ganeral Paymant</option>
+                                <option value="1">Salary Payment</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <section id="general-transaction">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="expense-type">Expense Type</label>
+                                    <select id="expense-type" class="form-select">
+                                        <option value="-1">---Select expense type---</option>
+                                        <option value="1">បង់ពន្ធប្រចាំខែ</option>
+                                        <option value="2">បង់ពន្ធប្រចាំឆ្នាំ</option>
+                                        <option value="3">ផាកពិន័យពន្ធ</option>
+                                        <option value="4">ប្រាក់បៀវត្សរ៍និងប្រាក់ឈ្នួលរបស់និយោជិត</option>
+                                        <option value="5">ថ្លៃសម្ភារៈ និងការផ្គត់ផ្គង់</option>
+                                        <option value="6">ការចំណាយលើការជួលទីតាំង</option>
+                                        <option value="7">ការផ្គត់ផ្គង់ក្រុមហ៊ុន (អគ្គិសនី, ថ្លៃទឹក)</option>
+                                        <option value="8">ការចំណាយលើការធានារ៉ាប់រង</option>
+                                        <option value="9">ថ្លៃថែទាំ និងជួសជុល</option>
+                                        <option value="10">ការចំណាយលើទីផ្សារ និងការផ្សាយពាណិជ្ជកម្ម</option>
+                                        <option value="11">ការចំណាយលើសម្ភារៈ</option>
+                                        <option value="12"> ការចំណាយលើការធ្វើដំណើរ និងការកម្សាន្ត</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="g-payment">Payment Method</label>
+                                    <select id="g-payment" class="form-select">
+                                        <option value="-1">---Select payment---</option>
+                                        <option value="1">By Cash</option>
+                                        <option value="2">By Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control" id="g-amount" placeholder="">
+                                    <label class="fw-normal" for="g-amount">Amount</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-2">
+                                    <input type="number" class="form-control" value="4000" id="g-exchange-rate" placeholder="">
+                                    <label class="fw-normal" for="exchange-rate">Exchang Rate</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-2 mt-3">
+                                    <input type="date" class="form-control" id="g-date-expense" placeholder="">
+                                    <label class="fw-normal" for="on-date">Date of Expense</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="g-currency">Currency</label>
+                                    <select id="g-currency" class="form-select">
+                                        <option value="1">USD ($)</option>
+                                        <option value="0">KHR (៛)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating mb-2">
+                                    <textarea type="text" class="form-control" id="g-description" placeholder=""></textarea>
+                                    <label class="fw-normal" for="description">Description</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <section id="salary-transaction">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="staff">Staff</label>
+                                    <select id="staff" class="form-select">
+                                        <option value="-1">---Please selesct staff---</option>
+                                        @foreach (var response in Model.Staffs)
+                                        {
+                                            <option value="@response.Id">@response.Code</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="s-location">Location Standby</label>
+                                    <input type="text" readonly class="form-control" id="s-location" placeholder="Location Standby">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-2">
+                                    <input type="text" readonly value="0.00" class="form-control" id="main-salary" placeholder="">
+                                    <label class="fw-normal" for="total">Main Salary</label>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control" id="s-amount" placeholder="">
+                                    <label class="fw-normal" for="total">Amount of Payment</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-2">
+                                    <input type="number" class="form-control" value="4000" id="s-exchange-rate"
+                                           placeholder="">
+                                    <label class="fw-normal" for="exchange-rate">Exchang Rate</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-2">
+                                    <input type="month" class="form-control" id="monthly-expense" placeholder="">
+                                    <label class="fw-normal" for="on-date">Monthly of Expense</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="s-currency">Currency</label>
+                                    <select id="s-currency" class="form-select">
+                                        <option value="1">USD ($)</option>
+                                        <option value="0">KHR (៛)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="s-payment">Payment Method</label>
+                                    <select id="s-payment" class="form-select">
+                                        <option value="-1">---Select payment---</option>
+                                        <option value="1">By Cash</option>
+                                        <option value="2">By Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating mb-2">
+                                    <textarea type="text" class="form-control" id="s-description" placeholder=""></textarea>
+                                    <label class="fw-normal" for="description">Description</label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="modal-footer">
+                    <section>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                            <i class=" fas fa-times-circle"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="update-expense">
+                            <i class="fas fas fa-redo-alt"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="save-expense">
+                            <i class=" fas fa-save"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
+                        </button>
+                    </section>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

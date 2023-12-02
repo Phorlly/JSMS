@@ -1,8 +1,14 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using JSMS.Controllers.Api;
+using JSMS.Models.Admin;
+using JSMS.Models.User;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+
 
 namespace JSMS.Models
 {
@@ -18,10 +24,39 @@ namespace JSMS.Models
         }
     }
 
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        //Add table here
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Commune> Communes { get; set; }
+        public DbSet<Village> Villages { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<State> States { get; set; } 
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Applicant> Applicants { get; set; }
+        public DbSet<Behavior> Behaviors { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Gaurantor> Gaurantors { get; set; }  
+        public DbSet<LogAction> LogActions { get; set; }
+        public DbSet<Recruitment> Recruitments { get; set; }
+        public DbSet<ShortList> ShortLists { get; set; }
+        public DbSet<Staff> Staffs { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Leave> Leaves { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }  
+        public DbSet<AttendanceTest> AttendanceTests { get; set; }
+        public DbSet<TestAtt> TestAtts { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<StockTransaction> StockTransactions { get; set; }
+        public DbSet<Product> Products { get; set; } 
+
+        //User blog
+        public DbSet<OnlineApplicant> OnlineApplicants { get; set; }
+        public DbSet<OnlineClient> OnlineClients { get; set; }  
+
+        public ApplicationDbContext(): base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
@@ -29,5 +64,5 @@ namespace JSMS.Models
         {
             return new ApplicationDbContext();
         }
-    }
+    } 
 }

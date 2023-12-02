@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Jinglong Security</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    @Html.Partial("OfficialWebsite/_Link")
+
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+    <!-- Navbar start -->
+    <div class="container-fluid nav-bar">
+        @Html.Partial("OfficialWebsite/_Navbar")
+    </div>
+    <!-- Navbar End -->
+    <!-- Modal Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        @Html.Partial("OfficialWebsite/_ModalSearch")
+    </div>
+    <!-- Modal Search End -->
+    <main>
+        <div class="bg-light container-fluid">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-6 my-6 mb-0 bg-light wow bounceInUp" data-wow-delay="0.1s">
+        @Html.Partial("OfficialWebsite/_Footer")
+    </div>
+    <!-- Footer End -->
+    @Html.Partial("OfficialWebsite/_CopyWrite")
+    <a href="#" class="btn btn-md-square btn-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    @Html.Partial("OfficialWebsite/_Script")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

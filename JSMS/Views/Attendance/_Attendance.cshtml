@@ -1,0 +1,79 @@
+﻿<div class="modal fade" id="modal-attendance" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Attendance Infomations</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" id="data-id">
+
+                <div class="modal-body">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="fw-normal" for="staff">Attendance Activity</label>
+                                    <select id="staff" class="form-select">
+                                        <option value="-1">---Please select staff---</option>
+                                        @foreach (var response in Model) //
+                                        {
+                                            <option value="@response.Id">
+                                                @response.Code
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-4">
+                                    <input type="datetime-local" class="form-control" id="check-in" placeholder="">
+                                    <label class="fw-normal" for="checkIn">Please Check In</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-4">
+                                    <input type="datetime-local" class="form-control" id="check-out" placeholder="">
+                                    <label class="fw-normal" for="check-out">Please Check Out</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating mb-4">
+                                    <textarea type="text" class="form-control" id="noted" placeholder=""></textarea>
+                                    <label class="fw-normal" for="noted">Note</label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="modal-footer">
+                    <section>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                            <i class=" fas fa-times-circle"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="update">
+                            <i class=" fas fas fa-redo-alt"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="save">
+                            <i class=" fas fa-save"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
+                        </button>
+                    </section>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

@@ -13,8 +13,98 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
+}*/
+
+td, select, a, span, input, textarea, li,
+option {
+    font-family: Hanuman,'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+/*label{
+    font-size: small;*/
+/*color: cadetblue;*/
+/*}*/
+.modal-title {
+    margin: 0 auto;
+}
+
+span {
+    cursor: default;
+    font-weight: bold;
+}
+
+.custom-swal-title {
+    color: blue;
+    font-size: 12px;
+    font-family: Hanuman,'Times New Roman', Times, sans-serif !important;
+}
+
+/* Styles for normal view */
+.print-hidden {
+    display: none;
+}
+
+
+.btn-style {
+    position: relative;
+    border-radius: 8px;
+    border: 0;
+    overflow: hidden;
+    width: 17rem;
+    margin-top: 1rem;
+}
+
+    .btn-style input[type="file"] {
+        cursor: pointer;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        transform: scale(3);
+        opacity: 0;
+    }
+
+.btn-style-2 {
+    position: relative;
+    border-radius: 8px;
+    border: 0;
+    overflow: hidden;
+    width: 12rem;
+    margin-top: 1rem;
+}
+
+    .btn-style-2 input[type="file"] {
+        cursor: pointer;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        transform: scale(3);
+        opacity: 0;
+    }
+
+
+.btn {
+    color: #fff;
+}
+
+    .btn:hover {
+        color: #fff;
+    }
+
+
+#loading-gif.show {
+    display: block;
+    position: fixed;
+    z-index: 100;
+    background-image: url('loading.gif');
+    opacity: .4;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }

@@ -1,0 +1,104 @@
+﻿<div class="modal fade" id="modal-short-List" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Short List Infomations</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" id="data-id">
+
+                <div class="modal-body">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="recruitment">Recruitment of Applicant</label>
+                                    <select id="recruitment" class="form-select">
+                                        <option value="-1">---Please selesct recruitment of applicant---</option>
+                                        @foreach (var response in Model)
+                                        {
+                                            <option value="@response.Recruitment.Id">@response.Applicant.Name @response.Applicant.NickName </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="interview-number">Code for Interview</label>
+                                    <select id="interview-number" class="form-select">
+                                        <option value="-1">---Select code for interview---</option>
+                                        <option value="1">JLS-001</option>
+                                        <option value="2">JLS-002</option>
+                                        <option value="3">JLS-003</option>
+                                        <option value="4">JLS-004</option>
+                                        <option value="5">JLS-005</option>
+                                        <option value="6">JLS-006</option>
+                                        <option value="7">JLS-007</option>
+                                        <option value="8">JLS-008</option>
+                                        <option value="9">JLS-009</option>
+                                        <option value="10">JLS-010</option>
+                                        <option value="11">JLS-011</option>
+                                        <option value="12">JLS-012</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating mb-2">
+                                    <input type="date" class="form-control" id="on-date" placeholder="">
+                                    <label class="fw-normal" for="on-date">Date Interview</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="rating">Rating</label>
+                                    <select id="rating" class="form-select">
+                                        <option value="-1">---Please select rating---</option>
+                                        <option value="1">Star 1</option>
+                                        <option value="2">Star 2</option>
+                                        <option value="3">Star 3</option>
+                                        <option value="4">Star 4</option>
+                                        <option value="5">Star 5</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating mb-2">
+                                    <textarea type="text" class="form-control" id="noted" placeholder=""></textarea>
+                                    <label class="fw-normal" for="noted">Description</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+
+                <div class="modal-footer">
+                    <section>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                            <i class=" fas fa-times-circle"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="update">
+                            <i class=" fas fas fa-redo-alt"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="save">
+                            <i class=" fas fa-save"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
+                        </button>
+                    </section>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

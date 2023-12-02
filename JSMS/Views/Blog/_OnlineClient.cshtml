@@ -1,0 +1,73 @@
+﻿<div class="container">
+    <div class="row g-0">
+        <div class="col-1">
+            <img src="~/Theme/Official/img/gard/10-event-security-a.jpg" loading="lazy"
+                 class="img-fluid h-100 w-100 rounded-start" style="object-fit: cover; opacity: 0.7;" alt="">
+        </div>
+        <div class="col-10">
+            <div class="border-bottom border-top border-primary bg-light py-5 px-4">
+                <div class="text-center">
+                    <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">
+                        Register Now
+                    </small>
+                    <h1 class="display-5 mb-5">Where you want Our Services</h1>
+                </div>
+                <div class="row g-4 form">
+                    <div class="col-lg-4 col-md-6">
+                        <input type="text" id="register-name" class="form-control border-primary p-2" placeholder="Register Name">
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <input type="text" id="company" class="form-control border-primary p-2" placeholder="Company Name">
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <select id="gender" class="form-select border-primary p-2" aria-label="Default select example">
+                            <option value="-1" selected>Select Gender</option>
+                            <option value="1">Female</option>
+                            <option value="2">Male</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <input type="email" id="email-address" class="form-control border-primary p-2" placeholder="Email address">
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <input type="text" id="c-phone1" class="form-control border-primary p-2" placeholder="Phone Number 1">
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <input type="text" id="c-phone2" class="form-control border-primary p-2" placeholder="Phone Number 2 (Optional)">
+                    </div>
+                    <!-- <div class="col-lg-4 col-md-6">
+                            <input type="date" class="form-control border-primary p-2" placeholder="Select Date">
+                        </div> -->
+                    <div class="col-lg-4 col-md-6">
+                        <select id="county" class="form-select">
+                            <option value="-1">Select Country</option>
+                            @foreach (var response in Model)
+                            {
+                                <option value="@response.Id">@response.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <select id="state-city" class="form-select">
+                            <option value="-1">Select Province/City</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <input type="text" id="c-noted" class="form-control border-primary p-2" placeholder="Note">
+                    </div>
+                    <div class="col-12 text-center">
+                        <button type="button" id="submit-now" class="btn btn-primary px-5 py-3 rounded-pill">Submit Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+            <img src="~/Theme/Official/img/event-4.jpg" loading="lazy" class="img-fluid h-100 w-100 rounded-end"
+                 style="object-fit: cover; opacity: 0.7;" alt="">
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/Functions/Online-Client.js")
+}

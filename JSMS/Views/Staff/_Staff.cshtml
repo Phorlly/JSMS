@@ -1,0 +1,118 @@
+﻿<div class="modal fade" id="modal-staff" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Staff Infomations</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" id="data-id">
+
+                <div class="modal-body">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="short-list">Applicant Passed Short List</label>
+                                    <select id="short-list" class="form-select">
+                                        <option value="-1">---Please selesct applicant passed short list---</option>
+                                        @foreach (var response in Model.ShortLists)
+                                        {
+                                            <option value="@response.ShortList.Id">@response.Applicant.Name @response.Applicant.NickName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="client">Client to Destination</label>
+                                    <select id="client" class="form-select">
+                                        <option value="-1">---Please selesct client to destination---</option>
+                                        @foreach (var response in Model.Clients)
+                                        {
+                                            <option value="@response.Id">
+                                                @response.Name/
+                                                @response.Company
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control" id="code" placeholder="">
+                                    <label class="fw-normal" for="code">Code Number of Staff</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="shift">Shift</label>
+                                    <select id="shift" class="form-select">
+                                        <option value="0">ថ្ងៃ​ (Morning)</option>
+                                        <option value="1">យប់ (Night)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control" id="main-salary" placeholder="">
+                                    <label class="fw-normal" for="main-salary">Main Salary</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating mb-2">
+                                    <input type="date" class="form-control" id="on-date" placeholder="">
+                                    <label class="fw-normal" for="on-date">Joining Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-2">
+                                    <label class="fw-normal" for="position">Job Type</label>
+                                    <select id="position" class="form-select">
+                                        <option value="-1">---Please select position---</option>
+                                        <option value="1">ការងារ​ពេញ​ម៉ោង</option>
+                                        <option value="2">ក្រៅ​ម៉ោង</option>
+                                        <option value="3">ជំនួសគេ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating mb-2">
+                                    <textarea type="text" class="form-control" id="noted" placeholder=""></textarea>
+                                    <label class="fw-normal" for="noted">Descriptions</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+
+                <div class="modal-footer">
+                    <section>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                            <i class=" fas fa-times-circle"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="update">
+                            <i class=" fas fas fa-redo-alt"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="save">
+                            <i class=" fas fa-save"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
+                        </button>
+                    </section>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

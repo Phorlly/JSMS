@@ -1,0 +1,28 @@
+﻿@*@model List<JSMS.Models.Admin.MenuItem>*@
+<!-- Brand Logo -->
+<a href="@Url.Action("Index", "Home")" class="brand-link">
+    <img src="~/images/logoHRMS.png" alt="AdminLTE Logo" class="img-fluid" style="opacity: .8">
+    @*<span class="brand-text font-weight-light">Linda Gold Crucible</span>*@
+</a>
+<!-- Sidebar -->
+<div class="sidebar">
+    <!-- SidebarSearch Form -->
+    <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-sidebar">
+                    <i class="fas fa-search fa-fw"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        @Html.Partial("./Admin/_Menu")
+    </nav>
+    <!-- /.sidebar-menu -->
+
+</div>
+<!-- /.sidebar -->

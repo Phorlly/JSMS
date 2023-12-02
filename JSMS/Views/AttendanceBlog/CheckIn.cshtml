@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/OfficialWebsite/Blog.cshtml";
+}
+
+
+<!-- Hero Start -->
+<div class="container-fluid bg-light py-6 my-6 mt-0 ">
+    <div class="container">
+
+        <input type="hidden" id="data-id">
+
+        <div class="row g-5 align-items-center">
+            <div class="col-md-12 text-center">
+                <h1 class="display-1 mb-4">Attendance Daily</h1>
+                <br><hr />
+                @if (Model != null)
+                {
+                    <div class="col-md-12">
+                        <select id="staff-check-in" class="form-select border-primary p-2" aria-label="Default select example" style="font-family: Hanuman, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                            <option value="-1">---សូមជ្រើសរើសអត្តលេខបុគ្គលិកមួយ---</option>
+                            @foreach (var response in Model) //
+                            {
+                                <option value="@response.Id">
+                                    @response.Code
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <input type="hidden" id="location" class="form-control"/>
+                }
+                else
+                {
+                    <p>There are somewhere error with your code please check again</p>
+                }
+                <br />
+                <br>
+                <button id="add-check-in" type="button" class="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 me-4 animated bounceInLeft" data-bs-toggle="modal" data-bs-target="">
+                    Check In
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    @Scripts.Render("~/Scripts/Functions/Checkin-Checkout.js")
+}
+

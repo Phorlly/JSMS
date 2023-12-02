@@ -1,9 +1,197 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
+﻿@*@model List<JSMS.Models.Admin.Province>*@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index","Home")">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center text-uppercase">Welcome to Address Management</h4>
+            </div>
+            <div class="card-body">
+                <form method="GET">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="province">Province</label>
+                                <select id="province" class="form-control" name="province">
+                                    <option value="">---Please Select Province---</option>
+                                    @foreach (var province in Model)
+                                    {
+                                        <option value=@province.Id>@province.NameKh</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="district">District</label>
+                                <select id="district" class="form-control" name="district">
+                                    <option value="">---Please Select District---</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <label for="commune">Commune</label>
+                                <select id="commune" class="form-control" name="commune">
+                                    <option value="">---Please Select Commune---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                                <label for="village">Village</label>
+                                <select id="village" class="form-control" name="village">
+                                    <option value="">---Please Select Village---</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <p>Use this area to provide additional information.</p>
-</main>
+
+@section scripts{
+    @*<script>
+        $(document).ready(() => {
+            //Declare variable
+            let province = $("#province");
+            let district = $("#district");
+            let commune = $("#commune");
+            let village = $("#village");
+
+            //$.ajax({
+            //    url: '/api/address/province',
+            //    type: 'GET',
+            //    dataType: 'json',
+            //    success: response => {
+            //        console.log(response);
+            //        $.each(response, (index, row) => {
+            //            province.append($("<option>").val(row.id).text(row.nameKh));
+            //        });
+            //    },
+            //    error: hasError => {
+            //        console.log(hasError);
+            //    }
+            //});
+
+            //Change value
+            province.change(() => {
+                let provinceId = province.val();
+                console.log({ provinceId: provinceId });
+
+                if (provinceId !== null) {
+                    district.empty();
+                    commune.empty();
+                    village.empty();
+                    district.append($("<option>").val('').html('Please wait ...'));
+
+                    $.ajax({
+                        url: "/home/getDistrict",
+                        type: "GET",
+                        data: { provinceId: provinceId },
+                        dataType: "JSON",
+                        success: response => {
+                            console.log(response);
+                            district.empty(); // Clear the please wait
+                            district.append($("<option>").val(-1).text("---Please Select District---"));
+                            commune.append($("<option>").val(-1).text("---Please Select Commune---"));
+                            village.append($("<option>").val(-1).text("---Please Select Village---"));
+
+                            $.each(response, (inex, row) => {
+                                district.append($("<option>").val(row.Id).text(row.NameKh));
+                            });
+                        },
+                        error: hasError => {
+                            console.log(hasError);
+                        }
+                    });
+                }
+
+            });
+
+            //Change value
+            district.change(() => {
+                let districtId = district.val();
+                console.log({ districtId: districtId });
+
+                if (districtId !== null) {
+                    commune.empty();
+                    village.empty();
+                    commune.append($("<option></option>").val('').html('Please wait ...'));
+
+                    $.ajax({
+                        url: "/home/getCommune",
+                        type: "GET",
+                        data: { districtId: districtId },
+                        dataType: "JSON",
+                        success: response => {
+                            console.log(response);
+                            commune.empty(); // Clear the please wait
+                            commune.append($("<option>").val(-1).text("---Please Select Commune---"));
+                            village.append($("<option>").val(-1).text("---Please Select Village---"));
+
+                            $.each(response, (inex, row) => {
+                                commune.append($("<option>").val(row.Id).text(row.NameKh));
+                            });
+                        },
+                        error: hasError => {
+                            console.log(hasError);
+                        }
+                    });
+                }
+            });
+
+            //Change value
+            commune.change(() => {
+                let communeId = commune.val();
+                console.log({ communeId: communeId })
+
+                if (communeId !== null) {
+                    village.empty();
+                    village.append($("<option>").val('').html('Please wait ...'));
+
+                    $.ajax({
+                        url: "/home/getVillage",
+                        type: "GET",
+                        data: { communeId: communeId },
+                        dataType: "JSON",
+                        success: response => {
+                            console.log(response);
+                            village.empty(); // Clear the please wait
+                            village.append($("<option>").val(-1).text("---Please Select Village---"));
+
+                            $.each(response, (inex, row) => {
+                                village.append($("<option>").val(row.Id).html(row.NameKh));
+                            });
+                        },
+                        error: hasError => {
+                            village.append($("<option>").val(-1).text("---Please Select Village---"));
+                            console.log(hasError);
+                        }
+                    });
+                }
+            });
+        });
+    </script>*@
+}

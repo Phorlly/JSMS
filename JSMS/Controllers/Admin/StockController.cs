@@ -1,0 +1,26 @@
+﻿using JSMS.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace JSMS.Controllers.Admin
+{
+    [Authorize]
+    public class StockController : Controller
+    {
+        protected readonly ApplicationDbContext context;
+
+        public StockController()
+        {
+            context = new ApplicationDbContext();
+        }
+
+        // GET: Stock
+        public ActionResult Index()
+        {
+            return View(context.Products.ToList());
+        }
+    }
+}

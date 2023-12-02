@@ -1,0 +1,42 @@
+﻿@*@model List<JSMS.Models.Admin.MenuItem>*@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HRMS</title>
+    <link rel="icon" href="~/Images/logoHRMS.png">
+
+    @*flatpicker    *@
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    @Html.Partial("./Admin/_Style")
+
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            @Html.Partial("./Admin/_Navbar")
+        </nav>
+
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            @Html.Partial("./Admin/_Sidebar")
+        </aside>
+
+        <main>
+            <div class="content-wrapper">
+                <div class="content-header ms-4 me-4">
+                    @RenderBody()
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    @Html.Partial("./Admin/_Script")
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
