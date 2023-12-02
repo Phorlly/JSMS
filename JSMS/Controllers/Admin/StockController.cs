@@ -20,7 +20,7 @@ namespace JSMS.Controllers.Admin
         // GET: Stock
         public ActionResult Index()
         {
-            return View(context.Products.ToList());
+            return View(context.Products.Where(c => c.IsActive.Equals(true)).ToList());
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Xml.Linq;
 
 namespace JSMS.Helpers
@@ -18,6 +19,19 @@ namespace JSMS.Helpers
         User
     }
 
+    public static class Utilitaries
+    {
+        public static string IsLinkActive(this UrlHelper url, string action, string controller)
+        {
+            if (url.RequestContext.RouteData.Values["controller"].ToString() == controller &&
+                url.RequestContext.RouteData.Values["action"].ToString() == action)
+            {
+                return "active";
+            }
+
+            return "";
+        }
+    }
     public class Global
     {
         public int Id { get; set; }

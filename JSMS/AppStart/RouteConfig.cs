@@ -75,6 +75,10 @@ namespace JSMS
               name: "Transaction Management",
               url: "admin/transaction-info",
               defaults: new { controller = "Transaction", action = "Index" });
+            routes.MapRoute(
+              name: "Stock Management",
+              url: "admin/stock-info",
+              defaults: new { controller = "Stock", action = "Index" });
 
             //default route
             //routes.MapRoute(

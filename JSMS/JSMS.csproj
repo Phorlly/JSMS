@@ -347,7 +347,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\ApplicantController.cs" />
     <Compile Include="Controllers\Admin\AttendanceController.cs" />
-    <Compile Include="Controllers\Admin\AttendanceTestViewController.cs" />
     <Compile Include="Controllers\Admin\ClientController.cs" />
     <Compile Include="Controllers\Admin\StockController.cs" />
     <Compile Include="Controllers\Api\ExpendController.cs" />
@@ -375,14 +374,8 @@
     <Compile Include="Controllers\Api\StocksController.cs" />
     <Compile Include="Controllers\Api\TransactionsController.cs" />
     <Compile Include="Controllers\Api\TestAttController.cs" />
-    <Compile Include="Controllers\Blog\AboutController.cs" />
     <Compile Include="Controllers\Blog\AttendanceBlogController.cs" />
     <Compile Include="Controllers\Blog\BlogController.cs" />
-    <Compile Include="Controllers\Blog\CareerController.cs" />
-    <Compile Include="Controllers\Blog\CheckOutController.cs" />
-    <Compile Include="Controllers\Blog\ContactController.cs" />
-    <Compile Include="Controllers\Blog\ServiceController.cs" />
-    <Compile Include="Controllers\Blog\TestAttController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\UserRolesController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
@@ -2735,9 +2728,6 @@
     <Content Include="Views\Stock\_Stock.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\AttendanceTestView\Index.cshtml" />
-    <Content Include="Views\AttendanceTestView\_AttendanceTest.cshtml" />
-    <Content Include="Views\AttendanceTestView\CheckOut.cshtml" />
     <Content Include="Views\Shared\OfficialWebsite\Blog.cshtml" />
     <Content Include="Views\Account\Theme\Official\img\gard\pexels-photo-8591607.webp" />
     <Content Include="Views\Account\Theme\Official\scss\bootstrap.scss" />
@@ -2833,8 +2823,6 @@
     <Content Include="Views\Blog\Contact.cshtml" />
     <Content Include="Views\Blog\Service.cshtml" />
     <Content Include="Views\Blog\Career.cshtml" />
-    <Content Include="Views\TestAtt\Index.cshtml" />
-    <Content Include="Views\CheckOut\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AppData\Files\" />
