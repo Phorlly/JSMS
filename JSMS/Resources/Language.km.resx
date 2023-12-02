@@ -123,6 +123,9 @@
   <data name="Add" xml:space="preserve">
     <value>បន្ថែមថ្មី</value>
   </data>
+  <data name="AlreadyAccount" xml:space="preserve">
+    <value>តើអ្នកមានគណនីសម្រាប់ចូលប្រើហើយឬនៅ?</value>
+  </data>
   <data name="Apllicant" xml:space="preserve">
     <value>អ្នកដាក់ពាក្យ</value>
   </data>
@@ -138,8 +141,17 @@
   <data name="Close" xml:space="preserve">
     <value>បិទ</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>បញ្ជាក់ពាក្យសម្ងាត់ម្តងទៀត</value>
+  </data>
   <data name="Contact" xml:space="preserve">
     <value>ទំនាក់ទំនងមកយើង</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>បង្កើតគណនី</value>
+  </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>បង្កើតគណនីសម្រាប់ប្រើប្រព័ន្ធថ្មី</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>ផ្ទាំងគ្រប់គ្រង</value>
@@ -150,14 +162,29 @@
   <data name="Home" xml:space="preserve">
     <value>ទំព័រដើម</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>ចូលប្រើ</value>
+  </data>
+  <data name="LoginInto" xml:space="preserve">
+    <value>ចូលប្រើប្រាស់ប្រព័ន្ធ</value>
+  </data>
+  <data name="LoginWith" xml:space="preserve">
+    <value>ចូលប្រើប្រព័ន្ធជាមួយឈ្មោះអ្នកប្រើប្រាស់ និងពាក្យសម្ងាត់</value>
+  </data>
   <data name="Logout" xml:space="preserve">
     <value>ចាកចេញពីប្រព័ន្ធ</value>
+  </data>
+  <data name="NoAccount" xml:space="preserve">
+    <value>មិនទាន់មានគណនីសម្រប់ចូលប្រើមែនទេ?</value>
   </data>
   <data name="OnlineApplicant" xml:space="preserve">
     <value>អ្នកដាក់ពាក្យតាមអនឡាញ</value>
   </data>
   <data name="OnlineClient" xml:space="preserve">
     <value>អតិថិជនតាមអនឡាញ</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>សូមបំពេញពាក្យសម្ងាត់</value>
   </data>
   <data name="Recruitment" xml:space="preserve">
     <value>ការជ្រើសរើស</value>
@@ -167,6 +194,12 @@
   </data>
   <data name="RegisterOnline" xml:space="preserve">
     <value>ការចុះឈ្មោះតាមអនឡាញ</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>ចងចាំខ្ញុំ?</value>
+  </data>
+  <data name="RememberUP" xml:space="preserve">
+    <value>សូមចងចាំនូវឈ្មោះអ្នកប្រើប្រាស់ និងពាក្យសម្ងាត់</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>រក្សាទុក</value>
@@ -188,5 +221,8 @@
   </data>
   <data name="User" xml:space="preserve">
     <value>អ្នកប្រើប្រាស់</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>សូមបំពេញឈ្មោះអ្នកប្រើប្រាស់</value>
   </data>
 </root>

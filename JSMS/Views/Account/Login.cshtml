@@ -4,7 +4,6 @@
 }
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +11,7 @@
     <title>LOGIN</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
 
 </head>
 
@@ -29,33 +29,50 @@
 
                     <div class="bg-body-tertiary">
                         <div class="mb-3 text-center">
-                            <h1 class=" text-primary text-uppercase">Please login to use System</h1>
-                            <p>Please login your Username and Password</p>
+                            <h1 class=" text-primary text-uppercase">@JSMS.Resources.Language.LoginInto</h1>
+                            <p>@JSMS.Resources.Language.LoginWith</p>
                         </div>
 
                         <div class="form-floating mb-4">
                             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "" })
-                            @Html.LabelFor(c => c.UserName)
+                            <label>@JSMS.Resources.Language.Username</label>
                             @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-floating mb-4">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "" })
-                            <label asp-for="Password" class="form-label">Password</label>
+                            <label>@JSMS.Resources.Language.Password</label>
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                         <div class="mb-3">
                             @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                            <label>@JSMS.Resources.Language.RememberMe</label>
                         </div>
 
                         <div class="footer">
                             <button type="submit" class="btn btn-primary w-100 mb-2">
                                 <i class="fas fa-sign-in-alt"></i>
-                                <b>LOGIN</b>
+                                <b>@JSMS.Resources.Language.Login</b>
                             </button>
+
                             <div class="text-center">
-                                @Html.ActionLink("No account for Login right?", "Register", "Account", new { area = "" }, new { @class = "nav-link" })
+                                <a class="nav-link" href="@Url.Action("Register","Account")">@JSMS.Resources.Language.NoAccount</a>
+                                @* @Html.ActionLink("No account for Login right?", "Register", "Account", new { area = "" }, new { @class = "nav-link" })*@
+                            </div>
+                            <div class="text-center mt-2">
+                                @if (Request.Cookies["Languages"].Value == "km")
+                                {
+                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "en"})" role="button">
+                                        <img src="~/Images/us.png" style=" width: 17px;"> English
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "km"})" role="button">
+                                        <img src="~/Images/kh.png" style=" width: 17px;">
+                                        <span style="font-family:Hanuman">ភាសាខ្មែរ</span>
+                                    </a>
+                                }
                             </div>
                         </div>
 
@@ -63,6 +80,7 @@
                 }
             </div>
         </section>
+
     </div>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

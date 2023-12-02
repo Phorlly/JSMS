@@ -123,6 +123,9 @@
   <data name="Add" xml:space="preserve">
     <value>Add New</value>
   </data>
+  <data name="AlreadyAccount" xml:space="preserve">
+    <value>Already Account for Login?</value>
+  </data>
   <data name="Apllicant" xml:space="preserve">
     <value>Apllicant</value>
   </data>
@@ -138,8 +141,17 @@
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm your password</value>
+  </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact Us</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create New Account</value>
+  </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>Create New Account</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
@@ -150,14 +162,29 @@
   <data name="Home" xml:space="preserve">
     <value>Home Page</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginInto" xml:space="preserve">
+    <value>Login into System</value>
+  </data>
+  <data name="LoginWith" xml:space="preserve">
+    <value>Login with Username and Password</value>
+  </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
+  </data>
+  <data name="NoAccount" xml:space="preserve">
+    <value>No Account for Login?</value>
   </data>
   <data name="OnlineApplicant" xml:space="preserve">
     <value>Online​ Applicant</value>
   </data>
   <data name="OnlineClient" xml:space="preserve">
     <value>Online​ Client</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Input your password</value>
   </data>
   <data name="Recruitment" xml:space="preserve">
     <value>Recruitment</value>
@@ -167,6 +194,12 @@
   </data>
   <data name="RegisterOnline" xml:space="preserve">
     <value>Register Online</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="RememberUP" xml:space="preserve">
+    <value>Please remember your Username and Password</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -188,5 +221,8 @@
   </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Input your username</value>
   </data>
 </root>

@@ -19,10 +19,12 @@ textarea {
     max-width: 280px;
 }*/
 
-td, select, a, span, input, textarea, li,
+td, select, a, span, input, textarea, li, label, b, h1,p,
 option {
     font-family: Hanuman,'Times New Roman', Times, serif;
     font-weight: bold;
+    /*padding-bottom: 12px;*/
+    font-size: large;
 }
 /*label{
     font-size: small;*/
