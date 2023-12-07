@@ -120,7 +120,28 @@
   <data name="About" xml:space="preserve">
     <value>About Us</value>
   </data>
+  <data name="Accounting" xml:space="preserve">
+    <value>Accounting</value>
+  </data>
+  <data name="AccountingManagement" xml:space="preserve">
+    <value>Accounting Management</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
   <data name="Add" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="AddApplicant" xml:space="preserve">
+    <value>Add Applicant</value>
+  </data>
+  <data name="AddBehavoir" xml:space="preserve">
+    <value>Add Behavoir</value>
+  </data>
+  <data name="AddGuarantor" xml:space="preserve">
+    <value>Add Guarantor</value>
+  </data>
+  <data name="AddNew" xml:space="preserve">
     <value>Add New</value>
   </data>
   <data name="AlreadyAccount" xml:space="preserve">
@@ -129,17 +150,71 @@
   <data name="Apllicant" xml:space="preserve">
     <value>Apllicant</value>
   </data>
+  <data name="ApplicantInfo" xml:space="preserve">
+    <value>Applicant Infomations</value>
+  </data>
+  <data name="ApplicantManagement" xml:space="preserve">
+    <value>Applicant Management</value>
+  </data>
+  <data name="ApplicantPassedShortList" xml:space="preserve">
+    <value>Applicant passed in Short-List</value>
+  </data>
+  <data name="ApplicantPassRecruitment" xml:space="preserve">
+    <value>Applicant Pass in Recruitment</value>
+  </data>
+  <data name="Assistance" xml:space="preserve">
+    <value>Assistance</value>
+  </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>Attachment</value>
+  </data>
   <data name="Attendance" xml:space="preserve">
     <value>Attendance</value>
+  </data>
+  <data name="AttendanceInfo" xml:space="preserve">
+    <value>Attendance Infomations</value>
+  </data>
+  <data name="AttendanceManagement" xml:space="preserve">
+    <value>Attendance Management</value>
   </data>
   <data name="Behavior" xml:space="preserve">
     <value>Behavior</value>
   </data>
+  <data name="BehaviorInfo" xml:space="preserve">
+    <value>Behavior Infomations</value>
+  </data>
+  <data name="BehaviorManagement" xml:space="preserve">
+    <value>Behavior​ Management</value>
+  </data>
+  <data name="CheckIn" xml:space="preserve">
+    <value>Check In</value>
+  </data>
+  <data name="CheckOut" xml:space="preserve">
+    <value>Check Out</value>
+  </data>
   <data name="Client" xml:space="preserve">
     <value>Client</value>
   </data>
+  <data name="ClientInfo" xml:space="preserve">
+    <value>Client Infomations</value>
+  </data>
+  <data name="ClientManagement" xml:space="preserve">
+    <value>Client Management</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code Number</value>
+  </data>
+  <data name="Commune" xml:space="preserve">
+    <value>Commune</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>Confirmed By</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm your password</value>
@@ -150,17 +225,104 @@
   <data name="CreateAccount" xml:space="preserve">
     <value>Create New Account</value>
   </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
   <data name="CreateNewAccount" xml:space="preserve">
     <value>Create New Account</value>
+  </data>
+  <data name="CurrentAddress" xml:space="preserve">
+    <value>Current Address</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>District</value>
+  </data>
+  <data name="DOB" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="ExpenseType" xml:space="preserve">
+    <value>Expense Type</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Fullname</value>
+  </data>
+  <data name="FullTime" xml:space="preserve">
+    <value>Full-Time</value>
+  </data>
+  <data name="GDTREG" xml:space="preserve">
+    <value>GDTREG</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="GeneralManager" xml:space="preserve">
+    <value>General-Manager</value>
+  </data>
   <data name="Guarantor" xml:space="preserve">
     <value>Guarantor</value>
   </data>
+  <data name="GuarantorInfo" xml:space="preserve">
+    <value>Guarantor Infomations</value>
+  </data>
+  <data name="GuarantorManagement" xml:space="preserve">
+    <value>Guarantor Management</value>
+  </data>
+  <data name="HighSchool" xml:space="preserve">
+    <value>High School</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home Page</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="IncomeType" xml:space="preserve">
+    <value>Income Type</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Please input data</value>
+  </data>
+  <data name="Instead" xml:space="preserve">
+    <value>Instead</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Invoice​ Number</value>
+  </data>
+  <data name="JoiningDate" xml:space="preserve">
+    <value>Joining Date</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
@@ -174,8 +336,38 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="Main" xml:space="preserve">
+    <value>Main​ Salary</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Find by Month</value>
+  </data>
+  <data name="Morning" xml:space="preserve">
+    <value>Morning</value>
+  </data>
+  <data name="NameOfApplcant" xml:space="preserve">
+    <value>Name of Applcant</value>
+  </data>
+  <data name="NameOfGuarantor" xml:space="preserve">
+    <value>Name of Guarantor</value>
+  </data>
+  <data name="National" xml:space="preserve">
+    <value>National</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="Night" xml:space="preserve">
+    <value>Night</value>
+  </data>
   <data name="NoAccount" xml:space="preserve">
     <value>No Account for Login?</value>
+  </data>
+  <data name="NotStudied" xml:space="preserve">
+    <value>Not Studied</value>
   </data>
   <data name="OnlineApplicant" xml:space="preserve">
     <value>Online​ Applicant</value>
@@ -183,11 +375,59 @@
   <data name="OnlineClient" xml:space="preserve">
     <value>Online​ Client</value>
   </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="PartTime" xml:space="preserve">
+    <value>Part-Time</value>
+  </data>
   <data name="Password" xml:space="preserve">
-    <value>Input your password</value>
+    <value>Password</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment​ Method</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telephone line 1</value>
+  </data>
+  <data name="Phone2" xml:space="preserve">
+    <value>Telephone line 2 (Optional)</value>
+  </data>
+  <data name="POB" xml:space="preserve">
+    <value>Place of Birth</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Premier" xml:space="preserve">
+    <value>Premier Maney</value>
+  </data>
+  <data name="PrimarySchool" xml:space="preserve">
+    <value>Primary School</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Province" xml:space="preserve">
+    <value>Province</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>Purpose</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
   </data>
   <data name="Recruitment" xml:space="preserve">
     <value>Recruitment</value>
+  </data>
+  <data name="RecruitmentInfo" xml:space="preserve">
+    <value>Recruitment Infomations</value>
+  </data>
+  <data name="RecruitmentManagement" xml:space="preserve">
+    <value>Recruitment Management</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
@@ -201,28 +441,106 @@
   <data name="RememberUP" xml:space="preserve">
     <value>Please remember your Username and Password</value>
   </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="SalaryPayment" xml:space="preserve">
+    <value>Salary​ Payment</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SecondarySchool" xml:space="preserve">
+    <value>Secondary School</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Please select a data</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Please select date</value>
+  </data>
+  <data name="ShiftType" xml:space="preserve">
+    <value>Shift Type</value>
   </data>
   <data name="ShortList" xml:space="preserve">
     <value>Short​​ List</value>
   </data>
+  <data name="ShortListInfo" xml:space="preserve">
+    <value>Short-List Infomations</value>
+  </data>
+  <data name="ShortListManagement" xml:space="preserve">
+    <value>Short-List Management</value>
+  </data>
+  <data name="ShowData" xml:space="preserve">
+    <value>Show all data</value>
+  </data>
   <data name="Staff" xml:space="preserve">
     <value>Staff</value>
+  </data>
+  <data name="StaffInfo" xml:space="preserve">
+    <value>Staff Infomations</value>
+  </data>
+  <data name="StaffManagement" xml:space="preserve">
+    <value>Staff Management</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="Stock" xml:space="preserve">
     <value>Stock Product</value>
   </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Summary ​Data</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TotalAbsent" xml:space="preserve">
+    <value>Total Absent</value>
+  </data>
+  <data name="TotalPresent" xml:space="preserve">
+    <value>Total Present​</value>
+  </data>
   <data name="Transaction" xml:space="preserve">
     <value>Transaction</value>
   </data>
+  <data name="TransactionManagement" xml:space="preserve">
+    <value>Transaction Management</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Job Type</value>
+  </data>
+  <data name="University" xml:space="preserve">
+    <value>University</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>Update</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="UploadImage" xml:space="preserve">
+    <value>Upload Image</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Input your username</value>
+    <value>Username</value>
+  </data>
+  <data name="VATTIN" xml:space="preserve">
+    <value>VATTIN</value>
+  </data>
+  <data name="ViceManager" xml:space="preserve">
+    <value>Vice-Manager</value>
+  </data>
+  <data name="Village" xml:space="preserve">
+    <value>Village</value>
   </data>
 </root>

@@ -4,6 +4,7 @@
 }
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,19 @@
     <title>LOGIN</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style>
+        h1,
+        span {
+            font-display: inherit;
+            font-family: 'Khmer OS Moul', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        p,
+        label,a,input {
+            font-family: 'Khmer OS Battambang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: large;
+        }
+    </style>
 
 </head>
 
@@ -21,7 +34,10 @@
         <section>
             <div class="form-control d-flex  shadow-lg p-5 mb-5 bg-body-tertiary rounded-4  ">
 
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new
+                {
+                    role = "form"
+                }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -29,19 +45,19 @@
 
                     <div class="bg-body-tertiary">
                         <div class="mb-3 text-center">
-                            <h1 class=" text-primary text-uppercase">@JSMS.Resources.Language.LoginInto</h1>
+                            <h1 class=" text-primary text-uppercase pb-2">@JSMS.Resources.Language.LoginInto</h1>
                             <p>@JSMS.Resources.Language.LoginWith</p>
                         </div>
 
-                        <div class="form-floating mb-4">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "" })
+                        <div class="form-group mb-4">
                             <label>@JSMS.Resources.Language.Username</label>
+                            <input type="text" name="UserName" class="form-control" placeholder="@JSMS.Resources.Language.Input">
                             @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                         </div>
 
-                        <div class="form-floating mb-4">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "" })
+                        <div class="form-group mb-4">
                             <label>@JSMS.Resources.Language.Password</label>
+                            <input type="text" name="Password" class="form-control" placeholder="@JSMS.Resources.Language.Input">
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                         <div class="mb-3">
@@ -52,23 +68,26 @@
                         <div class="footer">
                             <button type="submit" class="btn btn-primary w-100 mb-2">
                                 <i class="fas fa-sign-in-alt"></i>
-                                <b>@JSMS.Resources.Language.Login</b>
+                                <span>@JSMS.Resources.Language.Login</span>
                             </button>
 
                             <div class="text-center">
-                                <a class="nav-link" href="@Url.Action("Register","Account")">@JSMS.Resources.Language.NoAccount</a>
-                                @* @Html.ActionLink("No account for Login right?", "Register", "Account", new { area = "" }, new { @class = "nav-link" })*@
+                                <a href="@Url.Action("Register","Account")">@JSMS.Resources.Language.NoAccount</a>
+                                @* @Html.ActionLink("No account for Login right?", "Register", "Account", new { area = "" },
+                            new { @class = "nav-link" })*@
                             </div>
                             <div class="text-center mt-2">
                                 @if (Request.Cookies["Languages"].Value == "km")
                                 {
-                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "en"})" role="button">
+                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "en"})"
+                                        role="button">
                                         <img src="~/Images/us.png" style=" width: 17px;"> English
                                     </a>
                                 }
                                 else
                                 {
-                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "km"})" role="button">
+                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "km"})"
+                                        role="button">
                                         <img src="~/Images/kh.png" style=" width: 17px;">
                                         <span style="font-family:Hanuman">ភាសាខ្មែរ</span>
                                     </a>

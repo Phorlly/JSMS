@@ -1,6 +1,7 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    getBehavior();
+    $("#show-data-behavior").click(() => getBehavior());
+    datePicker("#current-date");
 });
 
 //Declare variable for use global
@@ -17,6 +18,7 @@ let applicantId = $("#applicant-id");
 let fileShow = $("#get-file");
 let modalBehavior = $("#modal-behavior");
 
+
 //Get all data
 const getBehavior = () => {
     behavior = $("#behavior").DataTable({
@@ -26,7 +28,7 @@ const getBehavior = () => {
             method: "GET",
         },
         responsive: true,
-        //destroy: true,
+        destroy: true,
         // autoWidth: false,
         //scrollX: true,
         dom: "Bfrtip",
@@ -39,37 +41,42 @@ const getBehavior = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "N<sup>o</sup>",
+                //title: "N<sup>o</sup>",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name of Applicant",
+                //title: "Name of Applicant",
                 data: null,
                 render: (row) => `${row.Applicant.Name} ${row.Applicant.NickName}`
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Applicant.Gender",
                 render: (row) => row === true ? "ប្រុស" : "ស្រី",
             },
             {
-                title: "Profile",
+                //title: "Profile",
                 data: "Applicant.Image",
                 render: (row) => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
                     "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
             },
             {
-                title: "Confirmed",
+                //title: "Telephone",
+                data: null,
+                render: (row) => `${row.Applicant.Phone1} ${row.Applicant.Phone2}`,
+            },
+            {
+                //title: "Confirmed",
                 data: "Behavior.ConfirmBy",
             },
             {
-                title: "Date",
+                //title: "Date",
                 data: "Behavior.CurrentDate",
                 render: row => row ? moment(row).format("DD/MMM/YYYY") : "",
             },
             {
-                title: "Attachment",
+                //title: "Attachment",
                 data: "Behavior.Attachment",
                 render: row => {
                     if (row === null) {
@@ -81,21 +88,21 @@ const getBehavior = () => {
                 },
             },
             {
-                title: "Decription",
+                //title: "Decription",
                 data: "Behavior.Noted",
             },
             {
-                title: "Created",
+                //title: "Created",
                 data: "Behavior.CreatedAt",
                 render: row => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Behavior.UpdatedAt",
                 render: row => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Behavior.Id",
                 render: row => `<div> 
                                     <button onclick= "editBehavior('${row}')" class= 'btn btn-warning btn-sm' >

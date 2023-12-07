@@ -1,10 +1,10 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    getAttendance();
     monthYear.change(() => getReportAttendance());
     byShift.change(() => getReportAttendance());
     byStaff.change(() => getReportAttendance());
     getReportAttendance();
+    showData.click(() => getAttendance());
 });
 
 //Declare variable for use global
@@ -27,6 +27,7 @@ let staff = $("#staff");
 let checkIn = $("#check-in");
 let checkOut = $("#check-out");
 let noted = $("#noted");
+let showData = $("#show-data");
 
 const getAttendance = () => {
     tblAttendance = $("#attendance").DataTable({
@@ -37,6 +38,7 @@ const getAttendance = () => {
         },
         responsive: true,
         // scrollX: true,
+        destroy: true,
         dom: "Bfrtip",
         language: {
             paginate: {
@@ -47,46 +49,46 @@ const getAttendance = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "No.",
+                //title: "No.",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name",
+                //title: "Name",
                 data: null,
                 render: (row) => {
                     return `${row.Applicant.Name} ${row.Applicant.NickName}`;
                 },
             },
             {
-                title: "Code",
+                //title: "Code",
                 data: "Staff.Code",
             },
             {
-                title: "Shift",
+                //title: "Shift",
                 data: "Staff.Status",
                 render: row => row === 0 ? "ថ្ងៃ" : "យប់",
             },
             {
-                title: "Location",
+                //title: "Location",
                 data: "Staff.Noted",
             },
             {
-                title: "Check In",
+                //title: "Check In",
                 data: "Attendance.CheckIn",
                 render: row => row ? moment(row).format('DD/MMM/YY, LT') : ""
             },
             {
-                title: "Check Out",
+                //title: "Check Out",
                 data: "Attendance.CheckOut",
                 render: row => row ? moment(row).format('DD/MMM/YY, LT') : ""
             },
             {
-                title: "Status",
+                //title: "Status",
                 data: "Status",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Attendance.Id",
                 render: (row) => `<div> 
                                       <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
@@ -131,12 +133,10 @@ const getAttendance = () => {
         },
     });
 };
-//Relaod data
-refresh.click(() => location.reload());
 
 //Hide show tab
-tabAttendance.click(() => addNew.show());
-tabSummary.click(() => addNew.hide());
+tabAttendance.click(() => { addNew.show(); showData.show(); });
+tabSummary.click(() => { addNew.hide(), showData.hide() });
 
 
 //Get report attendance
@@ -173,6 +173,8 @@ const getReportAttendance = () => {
                 $('#attendance-summary').DataTable({
                     dom: "Bfrtip",
                     buttons: ["excel", "pdf", "print"],
+                    responive: true,
+                    autoWidth: false,
                     language: {
                         paginate: {
                             previous: "<i class='fas fa-chevron-left'>",
@@ -194,6 +196,12 @@ const getReportAttendance = () => {
                             extend: "print",
                             text: "<i class='fa fa-print'> </i> Print",
                             className: "btn btn-dark btn-sm mt-2",
+                        },
+                        {
+                            title: "ATTENDANCE REPORT",
+                            extend: "copy",
+                            text: "<i class='fa fa-copy'> </i> Copy Text",
+                            className: "btn btn-info btn-sm mt-2",
                         },
                     ],
                 });

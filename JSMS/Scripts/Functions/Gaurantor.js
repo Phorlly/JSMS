@@ -1,8 +1,9 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    getGuarantor();
     numberOnly("g-phone1");
     numberOnly("g-phone2");
+    $("#show-data-guarantor").click(() => getGuarantor());
+    datePicker("#g-dob");
 });
 
 //Declare variable for use global
@@ -66,6 +67,7 @@ const getGuarantor = () => {
         },
         // responsive: true,
         autoWidth: true,
+        destroy: true,
         //scrollX: true,
         dom: "Bfrtip",
         language: {
@@ -77,47 +79,47 @@ const getGuarantor = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "N<sup>o</sup>",
+                //title: "N<sup>o</sup>",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name",
+                //title: "Name",
                 data: null,
                 render: (row) => `${row.Gaurantor.Name} ${row.Gaurantor.NickName}`,
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Gaurantor.Gender",
                 render: (row) => row === true ? "ប្រុស" : "ស្រី",
             },
             {
-                title: "Education",
-                data: "Gaurantor.Education",
-                render: row => row ? formatEducation(row) : "",
-            },
-            {
-                title: "Profile",
+                //title: "Profile",
                 data: "Gaurantor.Image",
                 render: row => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
                     "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
             },
             {
-                title: "DOB",
+                //title: "Education",
+                data: "Gaurantor.Education",
+                render: row => row ? formatEducation(row) : "",
+            },
+            {
+                //title: "DOB",
                 data: "Gaurantor.DOB",
                 render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
             },
             {
-                title: "Nationality",
+                //title: "Nationality",
                 data: "Gaurantor.Nationality",
             },
             {
-                title: "Telephone",
+                //title: "Telephone",
                 data: null,
                 render: (row) => `${row.Gaurantor.Phone1} ${row.Gaurantor.Phone2}`,
             },
             {
-                title: "Address",
+                //title: "Address",
                 data: null,
                 render: (row) => `${row.CVillage.NameKh},
                                   ${row.CCommune.NameKh},
@@ -125,18 +127,22 @@ const getGuarantor = () => {
                                   ${row.CProvince.NameKh}`,
             },
             {
-                title: "Created",
+                //title: "Created",
+                data: "Gaurantor.Noted",
+            },
+            {
+                //title: "Created",
                 data: "Gaurantor.CreatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
 
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Gaurantor.UpdatedAt",
                 render: row => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Gaurantor.Id",
                 render: (row) => `<div> 
                                       <button onclick= "editGuarantor('${row}')" class= 'btn btn-warning btn-sm' >
@@ -460,12 +466,12 @@ const removeGuarantor = (id) => {
 
 //Clear control
 const clearGuarantor = () => {
-    gBDis.hide();
-    gBCom.hide();
-    gBVil.hide();
-    gCDis.hide();
-    gCCom.hide();
-    gCVil.hide();
+    gBDis.show();
+    gBCom.show();
+    gBVil.show();
+    gCDis.show();
+    gCCom.show();
+    gCVil.show();
     gImageFile.val("");
     gImage.attr("src", "../Images/blank-image.png");
     gBirthName.val("");

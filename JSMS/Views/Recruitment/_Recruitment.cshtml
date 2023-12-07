@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-uppercase">Recruitment Infomations</h4>
+                <h4 class="modal-title text-uppercase">@JSMS.Resources.Language.RecruitmentManagement</h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -15,10 +15,10 @@
                     <section>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group mb-2">
-                                    <label class="fw-normal" for="applicant">Applicant</label>
+                                <div class="form-group mb-3">
+                                    <label for="applicant">@JSMS.Resources.Language.Apllicant</label>
                                     <select id="applicant" class="form-select">
-                                        <option value="-1">---Please selesct applicant---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                         @foreach (var response in Model.Applicants)
                                         {
                                             <option value="@response.Id">@response.Name @response.NickName</option>
@@ -27,10 +27,10 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-group mb-2">
-                                    <label class="fw-normal" for="gaurantor">Gaurantor</label>
+                                <div class="form-group mb-3">
+                                    <label for="gaurantor">@JSMS.Resources.Language.Guarantor</label>
                                     <select id="gaurantor" class="form-select">
-                                        <option value="-1">---Please selesct gaurantor---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                         @foreach (var response in Model.Gaurantors)
                                         {
                                             <option value="@response.Id">@response.Name @response.NickName</option>
@@ -39,15 +39,17 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-floating mb-2">
-                                    <input type="date" class="form-control" id="on-date" placeholder="">
-                                    <label class="fw-normal" for="on-date">Please input do on date</label>
+                                <div class="form-group mb-3">
+                                    <label for="on-date">@JSMS.Resources.Language.Date</label>
+                                    <input type="text" class="form-control" id="on-date" placeholder="@JSMS.Resources.Language.SelectDate">
+
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-floating mb-2">
-                                    <textarea type="text" class="form-control" id="noted" placeholder=""></textarea>
-                                    <label class="fw-normal" for="noted">Please input dcription</label>
+                                <div class="form-group mb-3">
+                                    <label for="noted">@JSMS.Resources.Language.Description</label>
+                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+
                                 </div>
                             </div>
                         </div>

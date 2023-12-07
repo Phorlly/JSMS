@@ -1,4 +1,7 @@
-﻿jQuery(document).ready(() => { loadingGif(); getAll(); });
+﻿jQuery(document).ready(() => {
+    loadingGif();
+    refresh.click(() => getAll());
+});
 
 //Declare variable for use global
 let table = [];
@@ -11,6 +14,7 @@ let refresh = $("#refresh");
 let recruitment = $("#recruitment");
 let interview = $("#interview-number");
 let onDate = $("#on-date");
+datePicker("#on-date");
 let rating = $("#rating");
 let noted = $("#noted");
 let createdBy = $("#log-by").data("logby");
@@ -24,6 +28,7 @@ const getAll = () => {
             method: "GET",
         },
         responsive: true,
+        destroy: true,
         // autoWidth: false,
         // scrollX: true,
         dom: "Bfrtip",
@@ -37,57 +42,57 @@ const getAll = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "#",
+                //title: "#",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name",
+                //title: "Name",
                 data: null,
                 render: (row) => `${row.Applicant.Name} ${row.Applicant.NickName}`,
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Applicant.Gender",
                 render: (row) => row === true ? "ប្រុស" : "ស្រី",
             },
             {
-                title: "Profile",
+                //title: "Profile",
                 data: "Applicant.Image",
                 render: (row) => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
                     "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
             },
             {
-                title: "Code",
+                //title: "Code",
                 data: "ShortList.InterviewNo",
                 render: row => row ? formatInterview(row) : "",
             },
             {
-                title: "Rating",
+                //title: "Rating",
                 data: null,
                 render: (row) => `${row.ShortList.Rating} 🖤`,
             },
             {
-                title: "Date",
+                //title: "Date",
                 data: "ShortList.CurrentDate",
                 render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
             },
             {
-                title: "Decription",
+                //title: "Decription",
                 data: "ShortList.Noted",
             },
             {
-                title: "Created",
+                //title: "Created",
                 data: "ShortList.CreatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "ShortList.UpdatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "ShortList.Id",
                 render: (row) => `<div> 
                                       <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
@@ -134,7 +139,7 @@ const getAll = () => {
 };
 
 //Reload data
-refresh.click(() => location.reload());
+/*refresh.click(() => location.reload());*/
 
 //Add new
 addNew.click(() => {

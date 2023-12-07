@@ -92,7 +92,8 @@ namespace JSMS.Controllers.Api
                 request.Created = DateTime.Now;
                 request.Updated = DateTime.Now;
                 request.IsActive = true;
-                request.CreatedBy = request.CreatedBy == null ? "admin@system.com" : request.CreatedBy.ToString();
+                request.Noted = request.Noted == "" ? "ដាក់ចូល ឬដកចេញ" : request.Noted;
+                request.CreatedBy = request.CreatedBy == "" ? "admin@system.com" : request.CreatedBy.ToString();
                 var stockExist = context.Stocks.SingleOrDefault(c => c.Product == request.Product);
                 //Stock-in
                 if (request.Status == 1)
@@ -154,6 +155,15 @@ namespace JSMS.Controllers.Api
             {
                 var response = context.StockTransactions.Find(id);
                 var stockExist = context.Stocks.SingleOrDefault(c => c.Product == request.Product);
+                response.Status = request.Status;
+                response.Updated = DateTime.Now;
+                response.CreatedBy = response.CreatedBy;
+                response.Created = response.Created;
+                response.Product = request.Product;
+                response.Quantity = request.Quantity;
+                response.Noted = request.Noted == "" ? "ដាក់ចូល ឬដកចេញ" : request.Noted;
+                response.Date = request.Date;
+                response.IsActive = true;
 
                 //Stock-in
                 if (request.Status == 1)
@@ -164,15 +174,6 @@ namespace JSMS.Controllers.Api
                     }
 
                     stockExist.Total += request.Quantity;
-                    response.Status = request.Status;
-                    response.Updated = DateTime.Now;
-                    response.CreatedBy = response.CreatedBy;
-                    response.Created = response.Created;
-                    response.Product = request.Product;
-                    response.Quantity = request.Quantity;
-                    response.Noted = request.Noted;
-                    response.Date = request.Date;
-                    response.IsActive = true;
 
                     context.Entry(stockExist).State = EntityState.Modified;
                     context.Entry(response).State = EntityState.Modified;
@@ -195,15 +196,6 @@ namespace JSMS.Controllers.Api
                     else
                     {
                         stockExist.Total -= request.Quantity;
-                        response.Status = request.Status;
-                        response.Updated = DateTime.Now;
-                        response.CreatedBy = response.CreatedBy;
-                        response.Created = response.Created;
-                        response.Product = request.Product;
-                        response.Quantity = request.Quantity;
-                        response.Noted = request.Noted;
-                        response.Date = request.Date;
-                        response.IsActive = true;
 
                         context.Entry(stockExist).State = EntityState.Modified;
                         context.Entry(response).State = EntityState.Modified;

@@ -1,4 +1,7 @@
-﻿jQuery(document).ready(() => { loadingGif(); getAll(); });
+﻿jQuery(document).ready(() => {
+    loadingGif();
+    refresh.click(() => getAll());
+});
 
 //Declare variable for use global
 let table = [];
@@ -11,6 +14,7 @@ let refresh = $("#refresh");
 let applicant = $("#applicant");
 let gaurantor = $("#gaurantor");
 let onDate = $("#on-date");
+datePicker("#on-date");
 let noted = $("#noted");
 let createdBy = $("#log-by").data("logby");
 
@@ -23,6 +27,7 @@ const getAll = () => {
             method: "GET",
         },
         responsive: true,
+        destroy: true,
         // autoWidth: false,
         // scrollX: true,
         dom: "Bfrtip",
@@ -35,63 +40,63 @@ const getAll = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "#",
+                //title: "#",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name of Applcant",
+                //title: "Name of Applicant",
                 data: null,
                 render: row => `${row.Applicant.Name} ${row.Applicant.NickName}`,
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Applicant.Gender",
                 render: row => row === true ? "ប្រុស" : "ស្រី",
             },
             {
-                title: "Profile",
+                //title: "Profile",
                 data: "Applicant.Image",
                 render: row => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
                     "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>"
             },
             {
-                title: "Name of Gaurantor",
+                //title: "Name of Gaurantor",
                 data: null,
                 render: row => `${row.Gaurantor.Name} ${row.Gaurantor.NickName}`,
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Gaurantor.Gender",
                 render: row => row === true ? "ប្រុស" : "ស្រី",
             },
             {
-                title: "Profile",
+                //title: "Profile",
                 data: "Gaurantor.Image",
                 render: row => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
                     "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
             },
             {
-                title: "Date",
+                //title: "Date",
                 data: "Recruitment.CurrentDate",
                 render: row => row ? moment(row).format("DD/MMM/YYYY") : "",
             },
             {
-                title: "Description",
+                //title: "Description",
                 data: "Recruitment.Noted",
             },
             {
-                title: "Created",
+                //title: "Created",
                 data: "Recruitment.CreatedAt",
                 render: row => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Recruitment.UpdatedAt",
                 render: row => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Recruitment.Id",
                 render: row => `<div> 
                                       <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
@@ -138,7 +143,7 @@ const getAll = () => {
 };
 
 //Relaod data
-refresh.click(() => location.reload());
+//refresh.click(() => location.reload());
 
 //Add new
 addNew.click(() => {

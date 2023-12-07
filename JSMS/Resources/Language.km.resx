@@ -120,8 +120,26 @@
   <data name="About" xml:space="preserve">
     <value>អំពីយើង</value>
   </data>
+  <data name="Accounting" xml:space="preserve">
+    <value>គណនេយ្យ</value>
+  </data>
+  <data name="AccountingManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងគណនេយ្យ</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>សកម្មភាព</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>បន្ថែមថ្មី</value>
+  </data>
+  <data name="AddApplicant" xml:space="preserve">
+    <value>បន្ថែមអ្នកដាក់</value>
+  </data>
+  <data name="AddBehavoir" xml:space="preserve">
+    <value>បន្ថែមអាប្បកិរិយាមាយទ</value>
+  </data>
+  <data name="AddGuarantor" xml:space="preserve">
+    <value>បន្ថែមអ្នកធានា</value>
   </data>
   <data name="AlreadyAccount" xml:space="preserve">
     <value>តើអ្នកមានគណនីសម្រាប់ចូលប្រើហើយឬនៅ?</value>
@@ -129,17 +147,71 @@
   <data name="Apllicant" xml:space="preserve">
     <value>អ្នកដាក់ពាក្យ</value>
   </data>
+  <data name="ApplicantInfo" xml:space="preserve">
+    <value>ពត៌មានអ្នកដាក់ពាក្យ</value>
+  </data>
+  <data name="ApplicantManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងអ្នកដាក់ពាក្យ</value>
+  </data>
+  <data name="ApplicantPassedShortList" xml:space="preserve">
+    <value>បេក្ខជនដែលបានជាប់ក្នុងបញ្ជីហៅសម្ភាសន៍</value>
+  </data>
+  <data name="ApplicantPassRecruitment" xml:space="preserve">
+    <value>បេក្ខជនដែលបានជាប់ការជ្រើសរើស</value>
+  </data>
+  <data name="Assistance" xml:space="preserve">
+    <value>លេខា</value>
+  </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>ឯកសារ​ភ្ជាប់</value>
+  </data>
   <data name="Attendance" xml:space="preserve">
     <value>បញ្ជីវត្តមាន</value>
+  </data>
+  <data name="AttendanceInfo" xml:space="preserve">
+    <value>ព័ត៌មានអំពីវត្តមាន</value>
+  </data>
+  <data name="AttendanceManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងបញ្ជីវត្តមាន</value>
   </data>
   <data name="Behavior" xml:space="preserve">
     <value>បញ្ជាក់អាកប្បមាយាទ</value>
   </data>
+  <data name="BehaviorInfo" xml:space="preserve">
+    <value>ព័ត៌មានអំពីអាកប្បកិរិយាមាយាទ</value>
+  </data>
+  <data name="BehaviorManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងអំពីអាកិរិយាមាយាទ</value>
+  </data>
+  <data name="CheckIn" xml:space="preserve">
+    <value>ថ្ងៃខែឆ្នាំ និងម៉ោងចូល</value>
+  </data>
+  <data name="CheckOut" xml:space="preserve">
+    <value>ថ្ងៃខែឆ្នាំ​ និងម៉ោងចេញ</value>
+  </data>
   <data name="Client" xml:space="preserve">
     <value>អតិថិជន</value>
   </data>
+  <data name="ClientInfo" xml:space="preserve">
+    <value>ព័ត៌មានរបស់អតិថិជន</value>
+  </data>
+  <data name="ClientManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងអតិថិជន</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>បិទ</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>លេខកូដ</value>
+  </data>
+  <data name="Commune" xml:space="preserve">
+    <value>ឃុំ សង្កាត</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>ក្រុមហ៊ុន</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>បញ្ជាក់ដោយ</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>បញ្ជាក់ពាក្យសម្ងាត់ម្តងទៀត</value>
@@ -150,17 +222,104 @@
   <data name="CreateAccount" xml:space="preserve">
     <value>បង្កើតគណនី</value>
   </data>
+  <data name="Created" xml:space="preserve">
+    <value>បានបង្កើត</value>
+  </data>
   <data name="CreateNewAccount" xml:space="preserve">
-    <value>បង្កើតគណនីសម្រាប់ប្រើប្រព័ន្ធថ្មី</value>
+    <value>បង្កើតគណនីថ្មី</value>
+  </data>
+  <data name="CurrentAddress" xml:space="preserve">
+    <value>អាសយដ្ឋានបច្ចុប្បន្ន</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>ផ្ទាំងគ្រប់គ្រង</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>ថ្ងៃខែឆ្នាំ</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>បរិយាយ</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>ស្រុក</value>
+  </data>
+  <data name="DOB" xml:space="preserve">
+    <value>ថ្ងៃខែឆ្នាំកំណើត</value>
+  </data>
+  <data name="Education" xml:space="preserve">
+    <value>កម្រិតការសិក្សា</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>ថ្ងៃខែចុងក្រោយ</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>ចំណាយ</value>
+  </data>
+  <data name="ExpenseType" xml:space="preserve">
+    <value>ប្រភេទចំណាយ</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>ស្រី</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>នាមត្រកូល</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>ឈ្មោះពេញ</value>
+  </data>
+  <data name="FullTime" xml:space="preserve">
+    <value>ការងារ​ពេញ​ម៉ោង</value>
+  </data>
+  <data name="GDTREG" xml:space="preserve">
+    <value>GDTREG</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>ភេទ</value>
+  </data>
+  <data name="GeneralManager" xml:space="preserve">
+    <value>អ្នកគ្រប់គ្រង</value>
+  </data>
   <data name="Guarantor" xml:space="preserve">
     <value>អ្នកធានា</value>
   </data>
+  <data name="GuarantorInfo" xml:space="preserve">
+    <value>ព័ត៌មានអំពីអ្នកធានា</value>
+  </data>
+  <data name="GuarantorManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងអំពីអ្នកធានា</value>
+  </data>
+  <data name="HighSchool" xml:space="preserve">
+    <value>វិទ្យាល័យ</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>ទំព័រដើម</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>ល.រ</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>ចំណូល</value>
+  </data>
+  <data name="IncomeType" xml:space="preserve">
+    <value>ប្រភេទចំណូល</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>សូមបំពេញទិន្នន័យ</value>
+  </data>
+  <data name="Instead" xml:space="preserve">
+    <value>ជំនួសគេ</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>លេខវិក័យបត្រ</value>
+  </data>
+  <data name="JoiningDate" xml:space="preserve">
+    <value>ថ្ងៃខែចូលធ្វើការងារ</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>នាមខ្លួន</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>ទីតាំងការពារ</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>ចូលប្រើ</value>
@@ -174,8 +333,38 @@
   <data name="Logout" xml:space="preserve">
     <value>ចាកចេញពីប្រព័ន្ធ</value>
   </data>
+  <data name="Main" xml:space="preserve">
+    <value>ប្រាក់ខែគោល</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>ប្រុស</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>ស្វែងរកតាមរយៈខែ</value>
+  </data>
+  <data name="Morning" xml:space="preserve">
+    <value>ថ្ងៃ</value>
+  </data>
+  <data name="NameOfApplcant" xml:space="preserve">
+    <value>ឈ្មោះ​របស់​បេក្ខជន</value>
+  </data>
+  <data name="NameOfGuarantor" xml:space="preserve">
+    <value>ឈ្មោះរបស់អ្នកធានា</value>
+  </data>
+  <data name="National" xml:space="preserve">
+    <value>ជនជាតិ</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>សញ្ជាតិ</value>
+  </data>
+  <data name="Night" xml:space="preserve">
+    <value>យប់</value>
+  </data>
   <data name="NoAccount" xml:space="preserve">
-    <value>មិនទាន់មានគណនីសម្រប់ចូលប្រើមែនទេ?</value>
+    <value>មិនទាន់មានគណនីសម្រាប់ចូលប្រើមែនទេ?</value>
+  </data>
+  <data name="NotStudied" xml:space="preserve">
+    <value>មិនបានសិក្សា</value>
   </data>
   <data name="OnlineApplicant" xml:space="preserve">
     <value>អ្នកដាក់ពាក្យតាមអនឡាញ</value>
@@ -183,11 +372,59 @@
   <data name="OnlineClient" xml:space="preserve">
     <value>អតិថិជនតាមអនឡាញ</value>
   </data>
+  <data name="Other" xml:space="preserve">
+    <value>ផ្សេងៗ</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>ម្ចាស់ភាគហ៊ុន</value>
+  </data>
+  <data name="PartTime" xml:space="preserve">
+    <value>ការងារ​ក្រៅម៉ោង</value>
+  </data>
   <data name="Password" xml:space="preserve">
-    <value>សូមបំពេញពាក្យសម្ងាត់</value>
+    <value>ពាក្យសម្ងាត់</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>វិធីសាស្ត្រទូរទាត់ប្រាក់</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>លេខទូរសព្ទខ្សែទីមួយ</value>
+  </data>
+  <data name="Phone2" xml:space="preserve">
+    <value>លេខទូរសព្ទខ្សែទីពីរ (ស្រេចចិត្ត)</value>
+  </data>
+  <data name="POB" xml:space="preserve">
+    <value>ទីកន្លែងកំណើត</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>តំណែង</value>
+  </data>
+  <data name="Premier" xml:space="preserve">
+    <value>លុយព្រីម</value>
+  </data>
+  <data name="PrimarySchool" xml:space="preserve">
+    <value>បឋមសិក្សា</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>រូបតំណាង</value>
+  </data>
+  <data name="Province" xml:space="preserve">
+    <value>ខេត្ត</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>គោលបំណង</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>ការវាយតម្លៃ</value>
   </data>
   <data name="Recruitment" xml:space="preserve">
     <value>ការជ្រើសរើស</value>
+  </data>
+  <data name="RecruitmentInfo" xml:space="preserve">
+    <value>ព័ត៌មានជ្រើសរើសបុគ្គលិក</value>
+  </data>
+  <data name="RecruitmentManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងការជ្រើសរើសបុគ្គលិក</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>ទាញម្ដងទៀត</value>
@@ -199,30 +436,108 @@
     <value>ចងចាំខ្ញុំ?</value>
   </data>
   <data name="RememberUP" xml:space="preserve">
-    <value>សូមចងចាំនូវឈ្មោះអ្នកប្រើប្រាស់ និងពាក្យសម្ងាត់</value>
+    <value>សូមចងចាំនូវឈ្មោះអ្នកប្រើប្រាស់ និងពាក្យសម្ងាត់ផង</value>
+  </data>
+  <data name="Salary" xml:space="preserve">
+    <value>ប្រាក់ខែ</value>
+  </data>
+  <data name="SalaryPayment" xml:space="preserve">
+    <value>ប្រាក់បៀរវត្សដែលទទួលបាន</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>រក្សាទុក</value>
   </data>
+  <data name="SecondarySchool" xml:space="preserve">
+    <value>អនុវិទ្យាល័យ</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>សូមជ្រើសរើសជម្រើសមួយ</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>សូមជ្រើសរើសថ្ងៃខែ</value>
+  </data>
+  <data name="ShiftType" xml:space="preserve">
+    <value>ប្រភេទវេន</value>
+  </data>
   <data name="ShortList" xml:space="preserve">
-    <value>ជាប់ក្នុងបញ្ជីហៅសម្ភាសន៍</value>
+    <value>អ្នកជាប់ក្នុងបញ្ជីហៅសម្ភាសន៍</value>
+  </data>
+  <data name="ShortListInfo" xml:space="preserve">
+    <value>ព័ត៌មានអ្នកជាប់ក្នុងបញ្ជីហៅសម្ភាសន៍</value>
+  </data>
+  <data name="ShortListManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងអ្នកជាប់ក្នុងបញ្ជីហៅសម្ភាសន៍</value>
+  </data>
+  <data name="ShowData" xml:space="preserve">
+    <value>បង្ហាញទិន្នន័យទាំងអស់</value>
   </data>
   <data name="Staff" xml:space="preserve">
     <value>បុគ្គលិក</value>
   </data>
+  <data name="StaffInfo" xml:space="preserve">
+    <value>ព័ត៌មានរបស់បុគ្គលិក</value>
+  </data>
+  <data name="StaffManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងបុគ្គលិក</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>ថ្ងៃខែចាប់ផ្ដើម</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>ស្ថានភាព</value>
+  </data>
   <data name="Stock" xml:space="preserve">
     <value>ស្តុកទំនិញ</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>សង្ខេបទិន្ន័យ</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>លេខទូរសព្ទ</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>សរុប</value>
+  </data>
+  <data name="TotalAbsent" xml:space="preserve">
+    <value>សរុបចំនួនអវត្តមាន</value>
+  </data>
+  <data name="TotalPresent" xml:space="preserve">
+    <value>សរុបចំនួនវត្តមាន</value>
   </data>
   <data name="Transaction" xml:space="preserve">
     <value>ប្រតិបត្តការ</value>
   </data>
+  <data name="TransactionManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងប្រតិបត្តិការ</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>ប្រភេទការងារ</value>
+  </data>
+  <data name="University" xml:space="preserve">
+    <value>សាកលវិទ្យាល័យ</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>កែប្រជាថ្មី</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>បានកែប្រែ</value>
+  </data>
+  <data name="UploadImage" xml:space="preserve">
+    <value>បង្ហោះរូបភាព</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>អ្នកប្រើប្រាស់</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>សូមបំពេញឈ្មោះអ្នកប្រើប្រាស់</value>
+    <value>ឈ្មោះអ្នកប្រើប្រាស់</value>
+  </data>
+  <data name="VATTIN" xml:space="preserve">
+    <value>VATTIN</value>
+  </data>
+  <data name="ViceManager" xml:space="preserve">
+    <value>ថៅកែ</value>
+  </data>
+  <data name="Village" xml:space="preserve">
+    <value>ភូមិ</value>
   </data>
 </root>

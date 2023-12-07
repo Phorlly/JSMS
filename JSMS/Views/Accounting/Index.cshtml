@@ -1,0 +1,142 @@
+﻿<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-uppercase">@JSMS.Resources.Language.AccountingManagement</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index","Home")">@JSMS.Resources.Language.Home</a>
+                    </li>
+                    <li class="breadcrumb-item">@JSMS.Resources.Language.Accounting</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</div>
+<div id="loading-gif"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <ul class="nav nav-pills ml-auto p-2">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tab-summary" href="#table-accounting-summary" data-toggle="tab">
+                                    <i class="fas fa-users"></i>
+                                    <span>@JSMS.Resources.Language.Salary</span>​
+                                </a>
+                            </li>
+                            @*<li class="nav-item">
+                                    <a class="nav-link " id="tab-accounting" href="#table-accounting"
+                                       data-toggle="tab">
+                                        <i class="fas fa-user-friends"></i>
+                                        <span>@JSMS.Resources.Language.Summary</span>
+                                    </a>
+                                </li>*@
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6 mt-2">
+                        <div class="float-sm-right mr-5">
+                            <button type="button" id="add-new" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus-circle"></i>
+                                <span class="text-uppercase">@JSMS.Resources.Language.Add</span>
+                            </button>
+                            <button type="button" id="show-data" class="btn btn-success btn-sm">
+                                <i class="fas fa-sync-alt"></i>
+                                <span class="text-uppercase">@JSMS.Resources.Language.Refresh</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="table-accounting-summary">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="start-date">@JSMS.Resources.Language.StartDate</label>
+                                    <input type="text" id="start-date" class="form-control" placeholder="@JSMS.Resources.Language.SelectDate">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="end-date">@JSMS.Resources.Language.EndDate</label>
+                                    <input type="text" id="end-date" class="form-control" placeholder="@JSMS.Resources.Language.SelectDate">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="staff-id">@JSMS.Resources.Language.Code</label>
+                                    <select id="staff-id" class="form-select">
+                                        <option value="null">@JSMS.Resources.Language.Select</option>
+                                        @foreach (var response in Model)
+                                        {
+                                            <option value="@response.Id">@response.Code</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="shift-type">@JSMS.Resources.Language.ShiftType</label>
+                                    <select id="shift-type" class="form-select">
+                                        <option value="null">@JSMS.Resources.Language.Select</option>
+                                        <option value="0">ថ្ងៃ (Morning)</option>
+                                        <option value="1">យប់ (Night)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-md-12 mt-3 print-section">
+                                    <table id="accounting-summary" class="table table-group-divider text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>@JSMS.Resources.Language.Id</th>
+                                                <th>@JSMS.Resources.Language.FullName</th>
+                                                <th>@JSMS.Resources.Language.Code</th>
+                                                <th>@JSMS.Resources.Language.ShiftType</th>
+                                                <th>@JSMS.Resources.Language.Location</th>
+                                                <th>@JSMS.Resources.Language.TotalPresent</th>
+                                                <th>@JSMS.Resources.Language.TotalAbsent</th>
+                                                <th>@JSMS.Resources.Language.SalaryPayment</th>
+                                                <th>@JSMS.Resources.Language.Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-4" id="t2">
+                            <div class="card-body">
+                                @Html.Partial("_Accounting")
+                            </div>
+                        </div>
+
+                    </div>
+                    @*<div class="tab-pane " id="table-accounting">
+                            <div class="col-md-12">
+                                @Html.Partial("_Accounting")
+                            </div>
+                        </div>*@
+                </div>
+                <!-- /.tab-content -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/Functions/Accounting.js")
+}

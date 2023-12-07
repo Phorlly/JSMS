@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-uppercase">Short List Infomations</h4>
+                <h4 class="modal-title text-uppercase">@JSMS.Resources.Language.ShortListInfo</h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -15,10 +15,10 @@
                     <section>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group mb-2">
-                                    <label class="fw-normal" for="recruitment">Recruitment of Applicant</label>
+                                <div class="form-group mb-3">
+                                    <label class="fw-normal" for="recruitment">@JSMS.Resources.Language.ApplicantPassRecruitment</label>
                                     <select id="recruitment" class="form-select">
-                                        <option value="-1">---Please selesct recruitment of applicant---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                         @foreach (var response in Model)
                                         {
                                             <option value="@response.Recruitment.Id">@response.Applicant.Name @response.Applicant.NickName </option>
@@ -28,10 +28,10 @@
                             </div>
 
                             <div class="col-md-12">
-                                <div class="form-group mb-2">
-                                    <label class="fw-normal" for="interview-number">Code for Interview</label>
+                                <div class="form-group mb-3">
+                                    <label class="fw-normal" for="interview-number">@JSMS.Resources.Language.Code</label>
                                     <select id="interview-number" class="form-select">
-                                        <option value="-1">---Select code for interview---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                         <option value="1">JLS-001</option>
                                         <option value="2">JLS-002</option>
                                         <option value="3">JLS-003</option>
@@ -49,16 +49,17 @@
                             </div>
 
                             <div class="col-md-12">
-                                <div class="form-floating mb-2">
-                                    <input type="date" class="form-control" id="on-date" placeholder="">
-                                    <label class="fw-normal" for="on-date">Date Interview</label>
+                                <div class="form-group mb-3">
+                                    <label class="fw-normal" for="on-date">@JSMS.Resources.Language.Date</label>
+                                    <input type="text" class="form-control" id="on-date" placeholder="@JSMS.Resources.Language.SelectDate">
+
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-group mb-2">
-                                    <label class="fw-normal" for="rating">Rating</label>
+                                <div class="form-group mb-3">
+                                    <label class="fw-normal" for="rating">@JSMS.Resources.Language.Rating</label>
                                     <select id="rating" class="form-select">
-                                        <option value="-1">---Please select rating---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                         <option value="1">Star 1</option>
                                         <option value="2">Star 2</option>
                                         <option value="3">Star 3</option>
@@ -68,9 +69,10 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-floating mb-2">
-                                    <textarea type="text" class="form-control" id="noted" placeholder=""></textarea>
-                                    <label class="fw-normal" for="noted">Description</label>
+                                <div class="form-group mb-3">
+                                    <label class="fw-normal" for="noted">@JSMS.Resources.Language.Description</label>
+                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+
                                 </div>
                             </div>
 

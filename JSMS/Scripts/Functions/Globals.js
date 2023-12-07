@@ -9,27 +9,30 @@ const formatCurrency = (currencyType, data) => {
             .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} <sup>៛</sup></span>`;
 };
 
-const sexOption = (selecter, dataId) => {
-    let select = document.getElementById(selecter);
-    let data = [
-        { id: -1, name: "---Please select option---" },
-        { id: true, name: "Female" },
-        { id: false, name: "Male" },
-    ];
-    data.forEach((item) => {
-        let option = document.createElement("option");
-        option.value = item.id;
-        option.text = item.name;
-        // if (item.id === dataId) {
-        //     option.selected = true;
-        // }
-        if (item.id === -1) {
-            option.selected = true;
-        }
-
-        select.appendChild(option);
+//Format datepicker
+const datePicker = (selecter) => {
+    flatpickr(selecter, {
+        //enableTime: true,
+        dateFormat: "Y-m-d",
+        allowInput: false,
     });
 };
+
+//Format VATTIN
+const formatVattin = (id) => {
+    let data = [
+        { id: 1, name: "L001-901901806" },
+        { id: 2, name: "L002-901901807" },
+        { id: 3, name: "L003-901901808" },
+        { id: 4, name: "L004-901901809" },
+        { id: 5, name: "L004-901901810" },
+    ];
+
+    let matchedItem = data.find((item) => item.id === id);
+
+    return matchedItem ? matchedItem.name : "";
+};
+
 
 //get file image
 //const readUrl = (uploadInput, imagePreview) => {

@@ -19,17 +19,15 @@ textarea {
     max-width: 280px;
 }*/
 
-td, select, a, span, input, textarea, li, label, b, h1,p,
+td, select, a, span, input, textarea, li,label,
 option {
-    font-family: Hanuman,'Times New Roman', Times, serif;
+    font-family: Battambang,'Segoe UI', sans-serif;
     font-weight: bold;
-    /*padding-bottom: 12px;*/
-    font-size: large;
+    /*font-size: 16px;*/
 }
-/*label{
-    font-size: small;*/
-/*color: cadetblue;*/
-/*}*/
+h1, h1, h3, h4, h5, h6, th {
+    font-family: 'Khmer OS Moul','Segoe UI', sans-serif;
+}
 .modal-title {
     margin: 0 auto;
 }
@@ -42,7 +40,7 @@ span {
 .custom-swal-title {
     color: blue;
     font-size: 12px;
-    font-family: Hanuman,'Times New Roman', Times, sans-serif !important;
+    font-family: 'Kh Battambang','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Styles for normal view */
@@ -50,6 +48,12 @@ span {
     display: none;
 }
 
+@media print {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
 
 .btn-style {
     position: relative;

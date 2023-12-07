@@ -345,6 +345,7 @@
     <Compile Include="AppStart\Startup.Auth.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\AccountingController.cs" />
     <Compile Include="Controllers\Admin\ApplicantController.cs" />
     <Compile Include="Controllers\Admin\AttendanceController.cs" />
     <Compile Include="Controllers\Admin\ClientController.cs" />
@@ -432,6 +433,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css" />
     <Content Include="Content\bootstrap-grid.rtl.min.css" />
     <Content Include="Content\bootstrap-rating.css" />
+    <Content Include="Content\flatpickr.min.css" />
     <Content Include="Content\icons.css" />
     <Content Include="Content\icons.min.css" />
     <Content Include="Images\kh.png" />
@@ -476,6 +478,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Scripts\Functions\Accounting.js" />
     <Content Include="Scripts\Functions\Product.js" />
     <Content Include="Scripts\Functions\Stock.js" />
     <Content Include="Scripts\Libraries\bootstrap-rating.min.js" />
@@ -505,6 +508,7 @@
     <Content Include="Scripts\Functions\Transaction.js" />
     <Content Include="Scripts\Functions\User-Role.js" />
     <None Include="Scripts\Libraries\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Libraries\flatpickr.js" />
     <Content Include="Scripts\Libraries\jquery-3.4.1.js" />
     <Content Include="Scripts\Libraries\jquery-3.4.1.min.js" />
     <Content Include="Scripts\Libraries\jquery-3.4.1.slim.js" />
@@ -531,6 +535,8 @@
     <Content Include="Scripts\Libraries\toastr.js" />
     <Content Include="Scripts\Libraries\toastr.min.js" />
     <Content Include="Scripts\Libraries\ZeroClipboard.js" />
+    <Content Include="Theme\Prints\CSS\style.css" />
+    <Content Include="Theme\Prints\JS\script.js" />
     <Content Include="Views\Account\Theme\dist\css\adminlte.css" />
     <Content Include="Views\Account\Theme\dist\css\adminlte.min.css" />
     <Content Include="Views\Account\Theme\dist\css\alt\adminlte.components.css" />
@@ -2724,6 +2730,8 @@
     <Content Include="Views\Stock\Index.cshtml" />
     <Content Include="Views\Stock\_Product.cshtml" />
     <Content Include="Views\Stock\_Stock.cshtml" />
+    <Content Include="Views\Accounting\Index.cshtml" />
+    <Content Include="Views\Accounting\_Accounting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\OfficialWebsite\Blog.cshtml" />
@@ -2851,12 +2859,9 @@
     <Folder Include="Theme\plugins\bootstrap-switch\css\bootstrap2\" />
     <Folder Include="Theme\plugins\bootstrap-switch\css\bootstrap3\" />
     <Folder Include="Theme\plugins\bootstrap-switch\js\" />
-    <Folder Include="Theme\plugins\bootstrap4-duallistbox\" />
     <Folder Include="Theme\plugins\bootstrap\js\" />
-    <Folder Include="Theme\plugins\bs-custom-file-input\" />
     <Folder Include="Theme\plugins\bs-stepper\css\" />
     <Folder Include="Theme\plugins\bs-stepper\js\" />
-    <Folder Include="Theme\plugins\chart.js\" />
     <Folder Include="Theme\plugins\codemirror\addon\comment\" />
     <Folder Include="Theme\plugins\codemirror\addon\dialog\" />
     <Folder Include="Theme\plugins\codemirror\addon\display\" />
@@ -3023,7 +3028,6 @@
     <Folder Include="Theme\plugins\datatables-searchpanes\js\" />
     <Folder Include="Theme\plugins\datatables-select\css\" />
     <Folder Include="Theme\plugins\datatables-select\js\" />
-    <Folder Include="Theme\plugins\datatables\" />
     <Folder Include="Theme\plugins\daterangepicker\" />
     <Folder Include="Theme\plugins\dropzone\min\" />
     <Folder Include="Theme\plugins\ekko-lightbox\" />
@@ -3040,12 +3044,9 @@
     <Folder Include="Theme\plugins\inputmask\" />
     <Folder Include="Theme\plugins\ion-rangeslider\css\" />
     <Folder Include="Theme\plugins\ion-rangeslider\js\" />
-    <Folder Include="Theme\plugins\jquery-knob\" />
     <Folder Include="Theme\plugins\jquery-mapael\maps\" />
-    <Folder Include="Theme\plugins\jquery-mousewheel\" />
     <Folder Include="Theme\plugins\jquery-ui\images\" />
     <Folder Include="Theme\plugins\jquery-validation\localization\" />
-    <Folder Include="Theme\plugins\jquery\" />
     <Folder Include="Theme\plugins\jqvmap\maps\continents\" />
     <Folder Include="Theme\plugins\jsgrid\demos\" />
     <Folder Include="Theme\plugins\jsgrid\i18n\" />

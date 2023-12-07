@@ -10,8 +10,7 @@ namespace JSMS.Models.Admin
     {
         public string Name { get; set; }
         public string Company { get; set; }
-        public string GDTREG { get; set; }
-        public string VATTIN { get; set; }
+        public int VATTIN { get; set; }
         public bool Gender { get; set; }
         public bool IsClient { get; set; }
         public DateTime? DOB { get; set; }

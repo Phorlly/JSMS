@@ -15,7 +15,16 @@
     <title>LOGUP</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style>
+        h1, span {
+            font-display: inherit;
+            font-family: 'Khmer OS Moul','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        p, label, a ,input{
+            font-family: 'Khmer OS Battambang','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: large;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,26 +44,20 @@
                             <p class="fst-italic">@JSMS.Resources.Language.RememberUP</p>
                         </div>
                         <div>
-                            @*<div class="form-floating mb-4">
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "" })
-                                @Html.LabelFor(c => c.Email)
-                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                            </div>*@
-
-                            <div class="form-floating mb-4">
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "" })
-                                <label for="username">@JSMS.Resources.Language.Username</label>
+                            <div class="form-group mb-4">
+                                <label>@JSMS.Resources.Language.Username</label>
+                                <input type="text" class="form-control" name="UserName" placeholder="@JSMS.Resources.Language.Input">
                                 @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                             </div>
 
-                            <div class="form-floating mb-4">
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "" })
-                                <label for="username">@JSMS.Resources.Language.Password</label>
+                            <div class="form-group mb-4">
+                                <label>@JSMS.Resources.Language.Password</label>
+                                <input type="text" class="form-control" name="Password" placeholder="@JSMS.Resources.Language.Input">
                                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-floating mb-4">
-                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "" })
-                                <label for="username">@JSMS.Resources.Language.ConfirmPassword</label>
+                            <div class="form-group mb-4">
+                                <label>@JSMS.Resources.Language.ConfirmPassword</label>
+                                <input type="text" class="form-control" name="ConfirmPassword" placeholder="@JSMS.Resources.Language.Input">
                                 @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                             </div>
 
@@ -62,10 +65,10 @@
                         <div class="footer">
                             <button type="submit" class="btn btn-secondary w-100 mb-2">
                                 <i class="fas fa-user-plus"></i>
-                                <b class="text-uppercase">@JSMS.Resources.Language.CreateAccount</b>
+                                <span class="text-uppercase">@JSMS.Resources.Language.CreateAccount</span>
                             </button>
                             <div class="text-center">
-                                <a class="nav-link" href="@Url.Action("Login","Account")">@JSMS.Resources.Language.AlreadyAccount</a>
+                                <a href="@Url.Action("Login","Account")">@JSMS.Resources.Language.AlreadyAccount</a>
                                 @*@Html.ActionLink("Already account for Login right?", "Login", "Account", new { area = "" }, new { @class = "nav-link" })*@
                             </div>
                             <div class="text-center mt-2">

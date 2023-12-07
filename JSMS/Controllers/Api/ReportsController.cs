@@ -20,10 +20,12 @@ namespace JSMS.Controllers.Api
     public class ReportsController : ApiController
     {
         protected readonly ApplicationDbContext context;
+        private readonly GetAttendanceReport getAttendance;
 
         public ReportsController()
         {
             context = new ApplicationDbContext();
+            getAttendance = new GetAttendanceReport();
         }
 
         [HttpGet]
@@ -38,10 +40,7 @@ namespace JSMS.Controllers.Api
                 }
 
                 var startOfMonth = new DateTime(date.Year, date.Month, 1);
-                var endOfMonth = startOfMonth.AddMonths(1).AddDays(0).Date;
-
-                // Generate a list of dates from 1 to the last day of the month
-                //var dateRange = Enumerable.Range(1, endOfMonth.Day).Select(day => new DateTime(date.Year, date.Month, day)).ToList(); ;
+                var endOfMonth = startOfMonth.AddMonths(1);
 
                 var response = (from staffEntity in context.Staffs
                                 join shortList in context.ShortLists on staffEntity.ShortList equals shortList.Id
@@ -49,7 +48,8 @@ namespace JSMS.Controllers.Api
                                 join applicant in context.Applicants on recruitment.Applicant equals applicant.Id
                                 join attendance in context.Attendances on staffEntity.Id equals attendance.Staff
 
-                                where attendance.CheckIn >= startOfMonth && attendance.CheckIn <= endOfMonth
+                                where (attendance.CheckIn.HasValue && attendance.CheckIn >= startOfMonth && attendance.CheckIn <= endOfMonth)
+                                //(attendance.CheckOut.HasValue && attendance.CheckOut >= startOfMonth && attendance.CheckOut <= endOfMonth)
                                 select new
                                 {
                                     Name = applicant.Name + " " + applicant.NickName,
@@ -60,29 +60,10 @@ namespace JSMS.Controllers.Api
                                     attendance.CheckOut,
                                     Total = attendance.CheckIn == null ? 0 : 1,
                                     Staff = staffEntity,
-                                    //AttendanceDate = attendance.CheckIn != null ? DbFunctions.TruncateTime(attendance.CheckIn) : (DateTime?)null
+
                                 }).Where(record => (staff == null || record.Staff.Id == staff) &&
-                                                   (shift == null || record.Staff.Status == shift)).ToList();
-
-                //dateRange.Contains(record.AttendanceDate.HasValue ? (DateTime)record.AttendanceDate : default(DateTime)))
-                //.GroupBy(record => new
-                //{
-                //    Name = record.Name.ToString(),
-                //    Code = record.Code.ToString(),
-                //    Shift = record.Shift.ToString(),
-                //    Status = record.IOStatus,
-                //    Location = record.Location.ToString()
-                //})
-                //.Select(group => new
-                //{
-                //    Name = group.Key.Name.ToString(),
-                //    Code = group.Key.Code.ToString(),
-                //    Shift = group.Key.Shift.ToString(),
-                //    Location = group.Key.Location.ToString(),
-                //    TotalWorked = group.Sum(record => record.IOStatus),
-                //    NetSalary = CalculateNetSalary(group.Key.Code, startOfMonth, endOfMonth)
-                //}).ToList();
-
+                                                   (shift == null || record.Staff.Status == shift))
+                                  .ToList();
                 if (response == null)
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
@@ -97,6 +78,31 @@ namespace JSMS.Controllers.Api
             }
         }
 
+        [HttpGet]
+        [Route("get-salary")]
+        public IHttpActionResult GetSalaryByAttendance(DateTime start, DateTime end, int? staff = null, int? shift = null)
+        {
+            try
+            {
+                var record = getAttendance.GetAttendanceData(start,end,staff);
+                int totalWorkedDays = getAttendance.CountPresentDays(start, end, staff);
+                int totalAbsentDays = getAttendance.CountAbsentDays(start, end, staff);
+                decimal salary = getAttendance.GetSalaryPayment(context.Staffs.ToList(), totalWorkedDays, totalAbsentDays, staff);
+                var response = GetSalaryQuery(start, end, staff, shift, totalWorkedDays, totalAbsentDays, salary);
+
+                if (totalWorkedDays == 0 || staff == null)
+                {
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message }));
+            }
+        }
 
         [HttpGet]
         [Route("get-stock")]
@@ -110,7 +116,7 @@ namespace JSMS.Controllers.Api
                 }
 
                 var startOfMonth = new DateTime(date.Year, date.Month, 1);
-                var endOfMonth = startOfMonth.AddMonths(1).AddDays(0).Date;
+                var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
 
                 var response = (from Product in context.Products
                                 join Transaction in context.StockTransactions on Product.Id equals Transaction.Product
@@ -122,7 +128,7 @@ namespace JSMS.Controllers.Api
                                 {
                                     Product.Name,
                                     Transaction.Status,
-                                    Transaction.Quantity, 
+                                    Transaction.Quantity,
                                     Transaction.Date,
                                     Noted = Transaction.Noted == null ? Product.Noted : Transaction.Noted,
                                     Stock = Transaction,
@@ -143,24 +149,63 @@ namespace JSMS.Controllers.Api
             }
         }
 
+        //Get all record by attendance
+        private List<object> GetSalaryQuery(DateTime start, DateTime end, int? staff, int? shift, int totalWorkedDays, int totalAbsentDays, decimal salary)
+        {
+            var query = (from staffEntity in context.Staffs
+                         join shortList in context.ShortLists on staffEntity.ShortList equals shortList.Id
+                         join recruitment in context.Recruitments on shortList.Recruitment equals recruitment.Id
+                         join applicant in context.Applicants on recruitment.Applicant equals applicant.Id
+                         join attendance in context.Attendances on staffEntity.Id equals attendance.Staff
 
-        //private decimal CalculateNetSalary(string staffCode, DateTime startOfMonth, DateTime endOfMonth)
-        //{
-        //    var staff = context.Staffs.SingleOrDefault(s => s.Code == staffCode);
+                         where staffEntity.IsActive.Equals(true) &&
+                              (attendance.CheckIn.HasValue && attendance.CheckIn >= start && attendance.CheckIn <= end)
+                         select new
+                         {
+                             staffEntity.Id,
+                             Name = applicant.Name + " " + applicant.NickName,
+                             Code = staffEntity.Code.ToString(),
+                             Shift = staffEntity.Status == 0 ? "ថ្ងៃ" : "យប់",
+                             Location = staffEntity.Noted,
+                             TotalWorkedDays = totalWorkedDays,
+                             TotalAbsentDays = totalAbsentDays,
+                             SalaryPayment = salary,
+                             Staff = staffEntity
+                         });
 
-        //    if (staff == null)
-        //    {
-        //        // Handle the case where staff is not found
-        //        return 0;
-        //    }
+            var filteredQuery = query
+                .Where(record => (staff == null || record.Staff.Id == staff) &&
+                                 (shift == null || record.Staff.Status == shift))
+                .ToList();
 
-        //    var attendance = context.Attendances
-        //        .Where(a => a.Staff == staff.Id && a.CheckIn >= startOfMonth && a.CheckIn <= endOfMonth)
-        //        .ToList();
+            var groupedQuery = filteredQuery
+                .GroupBy(record => new
+                {
+                    Id = record.Id,
+                    Name = record.Name.ToString(),
+                    Code = record.Code.ToString(),
+                    Shift = record.Shift.ToString(),
+                    Location = record.Location.ToString(),
+                    TotalWorkedDays = record.TotalWorkedDays,
+                    TotalAbsentDays = record.TotalAbsentDays,
+                    SalaryPayment = record.SalaryPayment,
+                })
+               .Select(group => new
+               {
+                   Id = group.Key.Id,
+                   FullName = group.Key.Name.ToString(), 
+                   Code = group.Key.Code.ToString(),
+                   Shift = group.Key.Shift.ToString(),
+                   Location = group.Key.Location.ToString(),
+                   TotalWorked = group.Key.TotalWorkedDays,
+                   TotalAbsent = group.Key.TotalAbsentDays,
+                   TotalPayment = group.Key.SalaryPayment,
+               }).ToList();
 
-        //    // Use the SalaryCalculator to calculate net salary
-        //    return (decimal)staff.MainSalary;
-        //}
+
+            // Convert the result to List<object>
+            return groupedQuery.Cast<object>().ToList();
+        }
 
     }
 }

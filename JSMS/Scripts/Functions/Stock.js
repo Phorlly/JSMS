@@ -5,11 +5,12 @@
     byProduct.change(() => getReportStock());
     byStock.change(() => getReportStock());
     getReportStock();
+    datePicker("#date-in-out");
 });
 
 //Declare variable for use global
 let tableStock = [];
-let addStock2 = $("#add-stock");
+let addStock2 = $("#add-stock"); 
 let updateStock = $("#update-stock");
 let saveStock = $("#save-stock");
 let modalStock = $("#modal-stock");

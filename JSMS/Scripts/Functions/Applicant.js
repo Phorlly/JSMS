@@ -1,11 +1,18 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    getApplicant();
     numberOnly("phone1");
     numberOnly("phone2");
     addNew.show();
     addBevior.hide();
     addGuanrantor.hide();
+    dataApplicant.show();
+    dataBehavior.hide();
+    dataGuarantor.hide();
+    titleApplicant.show();
+    titleBehavior.hide();
+    titleGuarantor.hide();
+    $("#show-data-applicant").click(() => getApplicant());
+    datePicker("#dob");
 });
 
 //Declare variable for use global
@@ -18,7 +25,6 @@ let tabGuarntor = $("#tab-guarantor");
 let tabBehavior = $("#tab-behavior");
 let modalApplicant = $("#modal-applicant");
 let dataId = $("#data-id");
-let refresh = $("#refresh");
 let imageFile = $("#image-file");
 let image = $("#image");
 let birthName = $("#birth-name");
@@ -50,6 +56,12 @@ let dob = $("#dob");
 let cDistrictId = $("#current-dis-id");
 let cCommuneId = $("#current-com-id");
 let cVillageId = $("#current-vil-id");
+let dataApplicant = $("#show-data-applicant");
+let dataGuarantor = $("#show-data-guarantor");
+let dataBehavior = $("#show-data-behavior");
+let titleApplicant = $("#title-applicant");
+let titleGuarantor = $("#title-guaranotor");
+let titleBehavior = $("#title-behavior");
 
 let cDis = $("#current-dis");
 let cCom = $("#current-com");
@@ -67,6 +79,7 @@ const getApplicant = () => {
         //responsive: true,
         // autoWidth: false,
         scrollX: true,
+        destroy: true,
         dom: "Bfrtip",
         language: {
             paginate: {
@@ -77,47 +90,47 @@ const getApplicant = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "N<sup>o</sup>",
+                //title: "N<sup>o</sup>",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name",
+                //title: "Name",
                 data: null,
                 render: (row) => `${row.Applicant.Name} ${row.Applicant.NickName}`,
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Applicant.Gender",
                 render: (row) => row === true ? "ប្រុស" : "ស្រី",
             },
             {
-                title: "Profile",
+                //title: "Profile",
                 data: "Applicant.Image",
                 render: (row) => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
                     "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
             },
             {
-                title: "Education",
+                //title: "Education",
                 data: "Applicant.Education",
                 render: row => formatEducation(row),
             },
             {
-                title: "DOB",
+                //title: "DOB",
                 data: "Applicant.DOB",
                 render: row => row ? moment(row).format("DD/MMM/YYYY") : ""
             },
             {
-                title: "Nationality",
+                //title: "Nationality",
                 data: "Applicant.Nationality",
             },
             {
-                title: "Telephone",
+                //title: "Telephone",
                 data: null,
                 render: (row) => `${row.Applicant.Phone1} ${row.Applicant.Phone2}`,
             },
             {
-                title: "Address",
+                //title: "Address",
                 data: null,
                 render: (row) => `${row.CVillage.NameKh},
                                  ​ ${row.CCommune.NameKh},
@@ -125,21 +138,21 @@ const getApplicant = () => {
                                   ${row.CProvince.NameKh}`,
             },
             {
-                title: "Description",
+                //title: "Description",
                 data: "Applicant.Noted",
             },
             {
-                title: "Created",
+                //title: "Created",
                 data: "Applicant.CreatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Applicant.UpdatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Applicant.Id",
                 render: (row) => `<div> 
                                       <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
@@ -204,26 +217,42 @@ addNew.click(() => {
 });
 
 
-//Refresh data
-refresh.click(() => location.reload());
 
 //Hide or show button action
 tabApplicant.click(() => {
     addNew.show();
     addBevior.hide();
     addGuanrantor.hide();
+    dataApplicant.show();
+    dataBehavior.hide();
+    dataGuarantor.hide();
+    titleApplicant.show();
+    titleBehavior.hide();
+    titleGuarantor.hide();
 });
 
 tabBehavior.click(() => {
     addBevior.show();
     addNew.hide();
     addGuanrantor.hide();
+    dataBehavior.show();
+    dataApplicant.hide();
+    dataGuarantor.hide();
+    titleApplicant.hide();
+    titleBehavior.show();
+    titleGuarantor.hide();
 });
 
 tabGuarntor.click(() => {
     addGuanrantor.show();
     addBevior.hide();
     addNew.hide();
+    dataGuarantor.show();
+    dataBehavior.hide();
+    dataApplicant.hide();
+    titleApplicant.hide();
+    titleBehavior.hide();
+    titleGuarantor.show();
 });
 
 //Save data
@@ -482,12 +511,12 @@ const remove = (id) => {
 const clear = () => {
     update.hide();
     save.show();
-    bDis.hide();
-    bCom.hide();
-    bVil.hide();
-    cDis.hide();
-    cCom.hide();
-    cVil.hide();
+    bDis.show();
+    bCom.show();
+    bVil.show();
+    cDis.show();
+    cCom.show();
+    cVil.show();
     imageFile.val("");
     image.attr("src", "../Images/blank-image.png");
     birthName.val("");

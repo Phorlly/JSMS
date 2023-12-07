@@ -100,11 +100,11 @@ namespace JSMS.Controllers.Api
             {
                 var fileName = FormHelper.SaveFile("Attachment", "Transaction", "~/AppData/Files", "../AppData/Files");
                 var request = new Transaction();
-                var exist = context.Transactions.FirstOrDefault(c => c.Code.Equals(code));
-                if (exist != null)
-                {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "លេខកូដនេះកំពុងប្រើហើយ​​ 📛" }));
-                }
+                //var exist = context.Transactions.FirstOrDefault(c => c.Code.Equals(code));
+                //if (exist != null)
+                //{
+                //    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "លេខកូដនេះកំពុងប្រើហើយ​​ 📛" }));
+                //}
 
                 //Asign value to model
                 request.Attachment = fileName;

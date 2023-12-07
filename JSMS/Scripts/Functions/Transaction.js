@@ -185,7 +185,7 @@ const getAll = () => {
 };
 
 //Reload data
-$("#refresh").click(() => location.reload());
+//$("#refresh").click(() => location.reload());
 
 tabTransaction.click(() => {
     addIncome.hide();

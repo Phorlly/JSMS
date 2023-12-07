@@ -324,22 +324,22 @@ namespace JSMS.Controllers.Api
                 {
                     if (checkInTime <= expectedCheckInMorning.Add(shiftTolerance))
                     {
-                        return "Early";
+                        return "ធម្មតា";
                     }
                     else
                     {
-                        return "Late";
+                        return "យឺត";
                     }
                 }
                 else if (staff.Status == 1) // Night shift
                 {
                     if (checkInTime <= expectedCheckInNight.Add(shiftTolerance))
                     {
-                        return "Early";
+                        return "ធម្មតា";
                     }
                     else
                     {
-                        return "Late";
+                        return "យឺត";
                     }
                 }
             }

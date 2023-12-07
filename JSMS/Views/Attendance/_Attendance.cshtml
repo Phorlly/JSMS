@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-uppercase">Attendance Infomations</h4>
+                <h4 class="modal-title text-uppercase">@JSMS.Resources.Language.AttendanceInfo</h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -16,37 +16,38 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group mb-4">
-                                    <label class="fw-normal" for="staff">Attendance Activity</label>
+                                    <label for="staff">@JSMS.Resources.Language.Staff</label>
                                     <select id="staff" class="form-select">
-                                        <option value="-1">---Please select staff---</option>
-                                        @foreach (var response in Model) //
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        @foreach (var response in Model)
                                         {
-                                            <option value="@response.Id">
-                                                @response.Code
-                                            </option>
+                                            <option value="@response.Id"> @response.Code  </option>
                                         }
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-floating mb-4">
+                                <div class="form-group mb-4">
+                                    <label for="checkIn">@JSMS.Resources.Language.CheckIn</label>
                                     <input type="datetime-local" class="form-control" id="check-in" placeholder="">
-                                    <label class="fw-normal" for="checkIn">Please Check In</label>
+
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-floating mb-4">
+                                <div class="form-group mb-4">
+                                    <label for="check-out">@JSMS.Resources.Language.CheckOut</label>
                                     <input type="datetime-local" class="form-control" id="check-out" placeholder="">
-                                    <label class="fw-normal" for="check-out">Please Check Out</label>
+
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-                                <div class="form-floating mb-4">
-                                    <textarea type="text" class="form-control" id="noted" placeholder=""></textarea>
-                                    <label class="fw-normal" for="noted">Note</label>
+                                <div class="form-group mb-4">
+                                    <label for="noted">@JSMS.Resources.Language.Description</label>
+                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+
                                 </div>
                             </div>
                         </div>

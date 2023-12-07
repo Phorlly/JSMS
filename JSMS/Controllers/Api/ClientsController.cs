@@ -18,7 +18,6 @@ namespace JSMS.Controllers.Api
         protected readonly ApplicationDbContext context;
         protected string ownerName = FormHelper.Form("Name");
         protected string company = FormHelper.Form("Company");
-        protected string gdtreg = FormHelper.Form("GDTREG");
         protected string vattin = FormHelper.Form("VATTIN");
         protected string gender = FormHelper.Form("Gender");
         protected string dob = FormHelper.Form("DOB");
@@ -119,8 +118,7 @@ namespace JSMS.Controllers.Api
                 {
                     Name = ownerName,
                     Company = company,
-                    GDTREG = gdtreg,
-                    VATTIN = vattin,
+                    VATTIN = int.Parse(vattin),
                     CreatedBy = createdBy,
                     Gender = bool.Parse(gender),
                     Phone1 = phone1,
@@ -177,8 +175,7 @@ namespace JSMS.Controllers.Api
                 //Assign value
                 response.Name = ownerName;
                 response.Company = company;
-                response.GDTREG = gdtreg;
-                response.VATTIN = vattin;
+                response.VATTIN = int.Parse(vattin);
                 response.CreatedBy = response.CreatedBy;
                 response.Gender = bool.Parse(gender);
                 response.Phone1 = phone1;
@@ -238,21 +235,5 @@ namespace JSMS.Controllers.Api
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
             }
         }
-
-        //private string GenerateCode(string keyWord)
-        //{
-        //    var existCode = context.Clients.Max(c => c.Code);
-        //    if (existCode != null)
-        //    {
-        //        int number = int.Parse(existCode.Split('-')[1]) + 1;
-        //        string newCode = $"{keyWord.ToUpper()}-{number.ToString("D5")}";
-
-        //        return newCode;
-        //    }
-        //    else
-        //    {
-        //        return $"{keyWord.ToUpper()}-00001";
-        //    }
-        //}
     }
 }

@@ -1,4 +1,7 @@
-﻿jQuery(document).ready(() => { loadingGif(); getAll(); });
+﻿jQuery(document).ready(() => {
+    loadingGif();
+    refresh.click(() => getAll());
+});
 
 //Declare variable for use global
 let table = [];
@@ -11,6 +14,7 @@ let refresh = $("#refresh");
 let shortList = $("#short-list");
 let client = $("#client");
 let onDate = $("#on-date");
+datePicker("#on-date");
 let mainSalary = $("#main-salary");
 let position = $("#position");
 let noted = $("#noted");
@@ -28,6 +32,7 @@ const getAll = () => {
         },
         responsive: true,
         autoWidth: false,
+        destroy: true,
         // scrollX: true,
         dom: "Bfrtip",
         language: {
@@ -39,75 +44,75 @@ const getAll = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "#",
+                //title: "#",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name",
+                //title: "Name",
                 data: null,
                 render: (row) => `${row.Applicant.Name} ${row.Applicant.NickName}`,
             },
             {
-                title: "Code",
+                //title: "Code",
                 data: "Staff.Code",
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Applicant.Gender",
                 render: (row) => row === true ? "ប្រុស" : "ស្រី",
             },
             {
-                title: "Shift",
+                //title: "Shift",
                 data: "Staff.Status",
                 render: row => row === 0 ? "ថ្ងៃ" : "យប់"
             },
             {
-                title: "Profile",
+                //title: "Profile",
                 data: "Applicant.Image",
                 render: (row) => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
                     "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
             },
             {
-                title: "Company",
+                //title: "Company",
                 data: "Client.Company",
             },
             {
-                title: "Type",
+                //title: "Type",
                 data: "Staff.Position",
                 render: row => row === 1 ? "ការងារ​ពេញ​ម៉ោង" : row == 2 ? "ក្រៅ​ម៉ោង" : "ជំនួសគេ"
             },
             {
-                title: "Main",
+                //title: "Main",
                 data: null,
                 render: (row) => `${row.Staff.MainSalary.toFixed(2)} <sup>$</sup>`,
             },
             {
-                title: "Premier",
+                //title: "Premier",
                 data: null,
                 render: (row) => `${row.Staff.PremierSalary.toFixed(2)} <sup>$</sup>`,
             },
             {
-                title: "Joined",
+                //title: "Joined",
                 data: "Staff.CurrentDate",
                 render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
             },
             {
-                title: "Description",
+                //title: "Description",
                 data: "Staff.Noted",
             },
             {
-                title: "Created",
+                //title: "Created",
                 data: "Staff.CreatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Staff.UpdatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Staff.Id",
                 render: (row) => `<div> 
                                       <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
@@ -163,7 +168,7 @@ addNew.click(() => {
 });
 
 //Refresh data
-refresh.click(() => location.reload());
+/*refresh.click(() => location.reload());*/
 
 //Save data
 save.click(() => {

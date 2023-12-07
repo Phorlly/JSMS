@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-uppercase">Client Infomations</h4>
+                <h4 class="modal-title text-uppercase">@JSMS.Resources.Language.ClientInfo</h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -17,57 +17,68 @@
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-floating mb-2">
-                                            <input type="text" class="form-control" id="ownername" placeholder="">
-                                            <label class="fw-normal" for="ownername">Please input ownername</label>
+                                        <div class="form-group mb-3">
+                                            <label for="ownername">@JSMS.Resources.Language.FullName</label>
+                                            <input type="text" class="form-control" id="ownername" placeholder="@JSMS.Resources.Language.Input">
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-floating mb-2">
-                                            <input type="text" class="form-control" id="company" placeholder="">
-                                            <label class="fw-normal" for="company">Please input company's name</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-2">
-                                            <input type="text" class="form-control" id="gdtreg" placeholder="">
-                                            <label class="fw-normal" for="gdtreg">Please input GDTREG</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-2">
-                                            <input type="text" class="form-control" id="vattin" placeholder="">
-                                            <label class="fw-normal" for="vattin">Please input VATTIN</label>
+                                        <div class="form-group mb-3">
+                                            <label for="company">@JSMS.Resources.Language.Company</label>
+                                            <input type="text" class="form-control" id="company" placeholder="@JSMS.Resources.Language.Input">
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-floating mb-2">
+                                        <div class="form-group mb-3">
+                                            <label for="vattin">@JSMS.Resources.Language.VATTIN</label>
+                                            <select class="form-select" id="vattin">
+                                                <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                                <option value="1">L001-901901806</option>
+                                                <option value="2">L002-901901807</option>
+                                                <option value="3">L003-901901808</option>
+                                                <option value="4">L004-901901809</option>
+                                                <option value="5">L004-901901810</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <div class="form-group mb-3">
+                                            <label for="dob">@JSMS.Resources.Language.SelectDate</label>
+                                            <input type="text" class="form-control" id="dob" placeholder="@JSMS.Resources.Language.SelectDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="phone1">@JSMS.Resources.Language.Phone</label>
                                             <input type="text" maxlength="15" class="form-control" id="phone1"
-                                                   placeholder="">
-                                            <label class="fw-normal" for="phone1">Please input phone number 1</label>
+                                                   placeholder="@JSMS.Resources.Language.Input">
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-floating mb-2">
+                                        <div class="form-group mb-3">
+                                            <label for="phone2">@JSMS.Resources.Language.Phone2</label>
                                             <input type="text" maxlength="15" class="form-control" id="phone2"
-                                                   placeholder="">
-                                            <label class="fw-normal" for="phone2">Please input phone number 2</label>
+                                                   placeholder="@JSMS.Resources.Language.Input">
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 pl-5">
+                            <div class="col-md-3 pl-5 mt-4">
                                 <div class="row">
                                     <div class="form-group">
                                         <img class="center img-responsive img-thumbnail"
                                              style="width: 12rem; height: 10.5rem" src="~/Images/blank-image.png"
                                              id="image" />
                                         <b class="btn-style-2 btn btn-dark">
-                                            <i class="fa fa-upload pe-lg-3"></i> Upload Image
+                                            <i class="fa fa-upload pe-lg-3"></i> <span> @JSMS.Resources.Language.UploadImage</span>
                                             <input onchange="readUrl(this);" type="file" id="imageFile" accept=".png, .jpg, .jpeg, .svg" />
                                         </b>
                                     </div>
@@ -78,37 +89,23 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="gender">Gender</label>
+                                    <label for="gender">@JSMS.Resources.Language.Gender</label>
                                     <select class="form-select" id="gender">
-                                        <option value="true">ប្រុស (Male)</option>
-                                        <option value="false">ស្រី ​(Female)</option>
+                                        <option value="false">@JSMS.Resources.Language.Female</option>
+                                        <option value="true">@JSMS.Resources.Language.Male</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="position">Position</label>
+                                    <label for="position">@JSMS.Resources.Language.Position</label>
                                     <select class="form-select" id="position">
-                                        <option value="-1">---Select position---</option>
-                                        <option value="1">ម្ចាស់ភាគហ៊ុន (Owner)</option>
-                                        <option value="2">ថៅកែ (Vice-Manager)</option>
-                                        <option value="3">អ្នកគ្រប់គ្រង (General-Manager)</option>
-                                        <option value="4">លេខា (Assistance)</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="1">@JSMS.Resources.Language.Owner</option>
+                                        <option value="2">@JSMS.Resources.Language.ViceManager</option>
+                                        <option value="3">@JSMS.Resources.Language.GeneralManager</option>
+                                        <option value="4">@JSMS.Resources.Language.Assistance</option>
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mt-2">
-                                <div class="form-floating mb-2">
-                                    <input type="date" class="form-control" id="dob">
-                                    <label for="dob">Please select Date of birth</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-2">
-                                <div class="form-floating mb-2">
-                                    <textarea class="form-control" id="noted" placeholder=""></textarea>
-                                    <label for="noted">Please input description</label>
                                 </div>
                             </div>
                         </div>
@@ -116,9 +113,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="province">Province</label>
+                                    <label for="province">@JSMS.Resources.Language.Province</label>
                                     <select id="province" class="form-select" name="province">
-                                        <option value="-1">---Please Select Province---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                         @foreach (var province in Model)
                                         {
                                             <option value="@province.Id">@province.NameKh / @province.Name</option>
@@ -128,10 +125,10 @@
                             </div>
                             <div class="col-md-6" id="dis">
                                 <div class="form-group">
-                                    <label for="district">District</label>
+                                    <label for="district">@JSMS.Resources.Language.District</label>
                                     <input type="hidden" id="district-id" />
                                     <select id="district" class="form-select" name="district">
-                                        <option value="-1">---Please Select District---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                     </select>
                                 </div>
                             </div>
@@ -139,20 +136,27 @@
                         <div class="row">
                             <div class="col-md-6" id="com">
                                 <div class="form-group">
-                                    <label for="commune">Commune</label>
+                                    <label for="commune">@JSMS.Resources.Language.Commune</label>
                                     <input type="hidden" id="commune-id" />
                                     <select id="commune" class="form-select" name="commune">
-                                        <option value="-1">---Please Select Commune---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 ">
                                 <div class="form-group" id="vil">
-                                    <label for="village">Village</label>
+                                    <label for="village">@JSMS.Resources.Language.Village</label>
                                     <input type="hidden" id="village-id" />
                                     <select id="village" class="form-select" name="village">
-                                        <option value="-1">---Please Select Village---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="form-group mb-3">
+                                    <label for="noted">@JSMS.Resources.Language.Description</label>
+                                    <textarea class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+
                                 </div>
                             </div>
                         </div>

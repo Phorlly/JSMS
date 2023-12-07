@@ -63,6 +63,14 @@
     });
     moduleItems.Add(new MenuItem
     {
+        Name = JSMS.Resources.Language.Accounting, 
+        Controller = "Accounting",
+        Icon = "fas fa-donate",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR" }
+    });
+    moduleItems.Add(new MenuItem
+    {
         Name = JSMS.Resources.Language.Transaction,
         Controller = "Transaction",
         Icon = "fas fa-id-card",
@@ -81,7 +89,7 @@
     {
         Name = JSMS.Resources.Language.Stock,
         Controller = "Stock",
-        Icon = "fas fa-shopping-cart",
+        Icon = "fas fa-chart-line",
         Action = "Index",
         Role = new List<string> { "AdminOrHR" }
     });

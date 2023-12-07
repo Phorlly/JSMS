@@ -5,10 +5,10 @@ $(document).ready(() => {
     currency.on("input", amountAndTotal);
     exchangeRate.on("change", amountAndTotal);
     client.on("change", countStaff);
-    getIncome();
     numberOnly("unit-price");
     addIncome.show();
     addExpense.hide();
+    $("#refresh").click(() => getIncome());
 });
 
 //Declar variable
@@ -47,6 +47,7 @@ const getIncome = () => {
         // responsive: true,
         // autoWidth: false,
         scrollX: true,
+        destroy: true,
         dom: "Bfrtip",
         language: {
             paginate: {
@@ -57,27 +58,27 @@ const getIncome = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "#",
+                //title: "#",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Type",
+                //title: "Type",
                 data: "Income.Type",
                 render: row => row ? formatIncome(row) : "",
             },
             {
-                title: "Company",
+                //title: "Company",
                 data: "Client.Company",
             },
             {
-                title: "Profile",
+                //title: "Profile",
                 data: "Client.Image",
                 render: (row) => row ? "<img src='../Images/blank-image.png' class='rounded-circle' width='50px'/>" :
                     `<img src="${row}" class='rounded-circle' width='50px'/>`,
             },
             {
-                title: "Date",
+                //title: "Date",
                 data: "Income.DateInOrEx",
                 render: row => row ? moment(row).format("DD/MMM/YYYY") : "",
             },
@@ -86,26 +87,34 @@ const getIncome = () => {
             //    data: "Income.Currency",
             //    render: (row) => row === 1 ? `<span class="btn btn-success rounded-circle" style="cursor: default;">$</span>` : `<span class="btn btn-warning rounded-circle" style="cursor: default;">៛</span>`,
             //},
+            //{
+            //    title: "Total",
+            //    data: null,
+            //    render: row => {
+            //        let currency = row.Income.Currency;
+            //        let total = row.Income.Total;
+            //        if (currency) {
+            //            return formatCurrency(currency, total);
+            //        } else {
+            //            return "";
+            //        }
+            //    },
+            //},
             {
-                title: "Total",
-                data: null,
-                render: row => formatCurrency(row.Income.Currency, row.Income.Total),
-            },
-            {
-                title: "Purpose",
+                //title: "Purpose",
                 data: "Income.Noted",
             },
             {
-                title: "Invoice",
+                //title: "Invoice",
                 data: "Income.Code",
             },
             {
-                title: "Payment",
+                //title: "Payment",
                 data: "Income.Payment",
                 render: row => row === 1 ? "By Cash" : "By Bank",
             },
             {
-                title: "Attachment",
+                //title: "Attachment",
                 data: "Income.Attachment",
                 render: (row) => {
                     if (row === null) {
@@ -117,21 +126,21 @@ const getIncome = () => {
                 },
             },
             {
-                title: "Description",
+                //title: "Description",
                 data: "Income.Description",
             },
             {
-                title: "Created",
+                //title: "Created",
                 data: "Income.CreatedAt",
                 render: row => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Income.UpdatedAt",
                 render: row => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Income.Id",
                 render: row => `<div> 
                                     <button onclick= "editIncome('${row}')" class= 'btn btn-warning btn-sm' >

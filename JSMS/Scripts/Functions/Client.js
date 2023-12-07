@@ -1,8 +1,9 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    getAll();
     numberOnly("phone1");
     numberOnly("phone2");
+    datePicker("#dob");
+    refresh.click(() => getAll());
 });
 
 //Declare variable for use global
@@ -17,7 +18,6 @@ let imageFile = $("#imageFile");
 let image = $("#image");
 let ownername = $("#ownername");
 let company = $("#company");
-let gdtreg = $("#gdtreg");
 let vattin = $("#vattin");
 let phone1 = $("#phone1");
 let phone2 = $("#phone2");
@@ -45,9 +45,10 @@ const getAll = () => {
             dataSrc: "",
             method: "GET",
         },
-        // responsive: true,
-        // autoWidth: false,
-        scrollX: true,
+         responsive: true,
+         autoWidth: false,
+        destroy: true,
+        //scrollX: true,
         dom: "Bfrtip",
         language: {
             paginate: {
@@ -58,54 +59,51 @@ const getAll = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "#",
+                //title: "#",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name",
+                //title: "Name",
                 data: "Client.Name",
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Client.Gender",
                 render: (row) => row === true ? "ប្រុស" : "ស្រី",
             },
             {
-                title: "Position",
+                //title: "Position",
                 data: "Client.Position",
                 render: row => row ? formatPosition(row) : "",
             },
             {
-                title: "Company",
+                //title: "Company",
                 data: "Client.Company",
             },
             {
-                title: "Profile",
+                //title: "Profile",
                 data: "Client.Image",
                 render: row => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
                     "<img src='../Images/blank-image.png' class='rounded-circle' width='50px'/>",
             },
             {
-                title: "DOB",
+                //title: "DOB",
                 data: "Client.DOB",
                 render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
             },
             {
-                title: "GDTREG",
-                data: "Client.GDTREG",
-            },
-            {
-                title: "VATTIN",
+                //title: "VATTIN",
                 data: "Client.VATTIN",
+                render: row => formatVattin(row),
             },
             {
-                title: "Telephone",
+                //title: "Telephone",
                 data: null,
                 render: (row) => `${row.Client.Phone1} ${row.Client.Phone2}`,
             },
             {
-                title: "Address",
+                //title: "Address",
                 data: null,
                 render: (row) => `${row.Village.NameKh},
                                   ${row.Commune.NameKh},
@@ -113,21 +111,21 @@ const getAll = () => {
                                   ${row.Province.NameKh}`,
             },
             {
-                title: "Description",
+                //title: "Description",
                 data: "Client.Noted",
             },
             {
-                title: "Created",
+                //title: "Created",
                 data: "Client.CreatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Client.UpdatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Client.Id",
                 render: (row) => `<div> 
                                       <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
@@ -185,15 +183,12 @@ const readUrl = (input) => {
 };
 
 //Relaod data
-refresh.click(() => location.reload());
+/*refresh.click(() => location.reload());*/
 
 //Add new
 addNew.click(() => {
     clear();
     setColor();
-    dis.hide();
-    com.hide();
-    vil.hide();
     modalClient.modal("show");
 });
 
@@ -209,7 +204,6 @@ save.click(() => {
 
     formData.append("Name", ownername.val());
     formData.append("Company", company.val());
-    formData.append("GDTREG", gdtreg.val());
     formData.append("VATTIN", vattin.val());
     formData.append("Gender", gender.val());
     formData.append("DOB", dob.val());
@@ -277,7 +271,6 @@ const edit = (id) => {
                 dataId.val(response.Client.Id);
                 ownername.val(response.Client.Name);
                 company.val(response.Client.Company);
-                gdtreg.val(response.Client.GDTREG);
                 vattin.val(response.Client.VATTIN);
                 response.Client.Gender === true ? gender.val("true") : gender.val("false");
                 phone1.val(response.Client.Phone1);
@@ -322,9 +315,8 @@ update.click(() => {
 
     formData.append("Name", ownername.val());
     formData.append("Company", company.val());
-    formData.append("GDTREG", gdtreg.val());
-    formData.append("VATTIN", vattin.val());
     formData.append("Gender", gender.val());
+    formData.append("VATTIN", vattin.val());
     formData.append("DOB", dob.val());
     formData.append("Position", position.val());
     formData.append("Phone1", phone1.val());
@@ -437,11 +429,10 @@ const clear = () => {
     image.attr("src", "../Images/blank-image.png");
     ownername.val("");
     company.val("");
-    gdtreg.val("");
-    vattin.val("");
+    vattin.val("-1");
     phone1.val("");
     phone2.val("");
-    gender.val("true");
+    gender.val("false");
     position.val(-1);
     dob.val("");
     noted.val("");
@@ -449,13 +440,15 @@ const clear = () => {
     district.val(-1);
     commune.val(-1);
     village.val(-1);
+    dis.show();
+    com.show();
+    vil.show();
 };
 
 //Set color to border control
 const setColor = () => {
     ownername.css("border-color", "#cccccc");
     company.css("border-color", "#cccccc");
-    gdtreg.css("border-color", "#cccccc");
     position.css("border-color", "#cccccc");
     vattin.css("border-color", "#cccccc");
     phone1.css("border-color", "#cccccc");
@@ -491,7 +484,7 @@ const validate = () => {
             isValid = false;
         } else {
             company.css("border-color", "#cccccc");
-            if (gdtreg.val() === "") {
+            if (vattin.val() === "-1") {
                 Swal.fire({
                     title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
                     icon: "warning",
@@ -499,12 +492,12 @@ const validate = () => {
                     customClass: { title: 'custom-swal-title' },
                     timer: 1500,
                 });
-                gdtreg.css("border-color", "red");
-                gdtreg.focus();
+                vattin.css("border-color", "red");
+                vattin.focus();
                 isValid = false;
             } else {
-                gdtreg.css("border-color", "#cccccc");
-                if (vattin.val() === "") {
+                vattin.css("border-color", "#cccccc");
+                if (phone1.val() === "") {
                     Swal.fire({
                         title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
                         icon: "warning",
@@ -512,12 +505,12 @@ const validate = () => {
                         customClass: { title: 'custom-swal-title' },
                         timer: 1500,
                     });
-                    vattin.css("border-color", "red");
-                    vattin.focus();
+                    phone1.css("border-color", "red");
+                    phone1.focus();
                     isValid = false;
                 } else {
-                    vattin.css("border-color", "#cccccc");
-                    if (phone1.val() === "") {
+                    phone1.css("border-color", "#cccccc");
+                    if (position.val() === "-1") {
                         Swal.fire({
                             title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
                             icon: "warning",
@@ -525,12 +518,12 @@ const validate = () => {
                             customClass: { title: 'custom-swal-title' },
                             timer: 1500,
                         });
-                        phone1.css("border-color", "red");
-                        phone1.focus();
+                        position.css("border-color", "red");
+                        position.focus();
                         isValid = false;
                     } else {
-                        phone1.css("border-color", "#cccccc");
-                        if (position.val() === "-1") {
+                        position.css("border-color", "#cccccc");
+                        if (dob.val() === "") {
                             Swal.fire({
                                 title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
                                 icon: "warning",
@@ -538,25 +531,11 @@ const validate = () => {
                                 customClass: { title: 'custom-swal-title' },
                                 timer: 1500,
                             });
-                            position.css("border-color", "red");
-                            position.focus();
+                            dob.css("border-color", "red");
+                            dob.focus();
                             isValid = false;
                         } else {
-                            position.css("border-color", "#cccccc");
-                            if (dob.val() === "") {
-                                Swal.fire({
-                                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
-                                    icon: "warning",
-                                    showConfirmButton: false,
-                                    customClass: { title: 'custom-swal-title' },
-                                    timer: 1500,
-                                });
-                                dob.css("border-color", "red");
-                                dob.focus();
-                                isValid = false;
-                            } else {
-                                dob.css("border-color", "#cccccc");
-                            }
+                            dob.css("border-color", "#cccccc");
                         }
                     }
                 }
