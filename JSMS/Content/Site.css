@@ -19,15 +19,17 @@ textarea {
     max-width: 280px;
 }*/
 
-td, select, a, span, input, textarea, li,label,
+td, select, a, span, input, textarea, li, label,
 option {
     font-family: Battambang,'Segoe UI', sans-serif;
     font-weight: bold;
     /*font-size: 16px;*/
 }
-h1, h1, h3, h4, h5, h6, th {
+
+h1, h2, h3, h4, h5, h6, th {
     font-family: 'Khmer OS Moul','Segoe UI', sans-serif;
 }
+
 .modal-title {
     margin: 0 auto;
 }
@@ -53,7 +55,24 @@ span {
         max-width: 100%;
         height: auto;
     }
+
+    /*body {
+        display: none;
+    }*/
+/*
+    #product {
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid black;
+        text-align: center;
+    }*/
 }
+
 
 .btn-style {
     position: relative;

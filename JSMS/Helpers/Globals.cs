@@ -45,7 +45,7 @@ namespace JSMS.Helpers
     }
 
 
-    public static class EmailGenerator
+    public class EmailGenerator
     {
         private static readonly Random random = new Random();
         private static readonly string[] domains = { "gmail.com", "yahoo.com", "hotmail.com", "example.com" };

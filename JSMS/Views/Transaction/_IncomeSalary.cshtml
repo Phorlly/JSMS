@@ -1,0 +1,178 @@
+﻿<div class="modal fade" id="modal-income-salary" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Income Infomations</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" id="income-id">
+
+                <div class="modal-body">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="income-type">Income Type</label>
+                                    <select id="income-type" class="form-select">
+                                        <option value="-1">---Select income type---</option>
+                                        <option value="1">ចំណូលពីការឧបត្ថម្ភស្ម័គ្រចិត្ត</option>
+                                        <option value="2">ចំណូលពីការលក់សេវាកម្ម</option>
+                                        <option value="3"> ចំណូលពីការពីការឧបត្ថម្ភពីរដ្ឋ</option>
+                                        <option value="4">ប្រាក់ចំណូលពីការលក់ផលិតផល</option>
+                                        <option value="5">ចំណូលពីថ្លៃសេវា</option>
+                                        <option value="6"> ប្រាក់ចំណូលពីការផ្សាយពាណិជ្ជកម្ម</option>
+                                        <option value="7">ចំណូលពីចំណូលការប្រាក់</option>
+                                        <option value="8">ចំណូលពីសួយសារអាករ</option>
+                                        <option value="9">ចំណូលពីថ្លៃប្រឹក្សាយោបល់</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="client">Client </label>
+                                    <select id="client" class="form-select">
+                                        <option value="-1">---Please selesct client---</option>
+                                        @foreach (var response in Model.Clients)
+                                        {
+                                            <option value="@response.Id">
+                                                @response.Name/
+                                                @response.Company
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="number" readonly class="form-control" value="0" id="quantity">
+                                            <label for="quantity">Quantity</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="number" readonly class="form-control" value="0.00" id="amount"
+                                                   placeholder="">
+                                            <label for="amount">Amount</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="number" readonly class="form-control" value="0.00" id="vat"
+                                                   placeholder="">
+                                            <label for="vat">TAX 10% of Amount</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group mb-3">
+                                            <input type="number" class="form-control" id="unit-price" placeholder="">
+                                            <label for="unit-price">Unit Price</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <input type="text" readonly class="form-control" value="0.00"
+                                                   id="total-price" placeholder="">
+                                            <label for="total-price">Total Price</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <input type="number" class="form-control" value="4000" id="exchange-rate"
+                                           placeholder="">
+                                    <label for="exchange-rate">Exchang Rate</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <input type="date" class="form-control" id="date-income" placeholder="">
+                                    <label for="on-date">Date of Income</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="currency">Currency</label>
+                                    <select id="currency" class="form-select">
+                                        <option value="1">USD ($)</option>
+                                        <option value="0">KHR (៛)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="payment">Payment Method</label>
+                                    <select id="payment" class="form-select">
+                                        <option value="-1">---Select payment---</option>
+                                        <option value="1">By Cash</option>
+                                        <option value="2">By Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <input type="text" class="form-control" id="invoice" placeholder="">
+                                    <label for="invoice">Invoice Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <input type="text" class="form-control" id="noted" placeholder="">
+                                    <label for="noted">Purpose</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-2">
+                                    <label for="attachment">Attachment</label>
+                                    <input type="file" class="form-control" id="attachment" accept=".doc, .docx, .pdf">
+                                </div>
+                                <div id="file"></div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group mb-3">
+                                    <textarea type="text" class="form-control" id="description"
+                                              placeholder=""></textarea>
+                                    <label for="description">Please input dcription</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+
+                <div class="modal-footer">
+                    <section>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                            <i class=" fas fa-times-circle"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="update-income">
+                            <i class=" fas fas fa-redo-alt"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="save-income">
+                            <i class=" fas fa-save"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
+                        </button>
+                    </section>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+

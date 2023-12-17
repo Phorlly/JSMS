@@ -3,13 +3,11 @@
 });
 
 //Declare vaiable
-let addExpense = $("#add-expense");
 let monthly = formatMonthYear("#monthly-expense");
 let modalExpense = $("#modal-expense");
 let generalSalary = $("#general-salary");
 let generalTransaction = $("#general-transaction");
 let salaryTransaction = $("#salary-transaction");
-let tabExpense = $("#tab-expense");
 let saveExpense = $("#save-expense");
 let updateExpense = $("#update-expense");
 let expenseType = $("#expense-type");
@@ -31,28 +29,11 @@ let sDescription = $("#s-description");
 //Add new
 addExpense.click(() => {
     modalExpense.modal("show");
-    generalTransaction.show();
-    salaryTransaction.hide();
-    clearExpense();
+    //generalTransaction.show();
+    //salaryTransaction.hide();
+    //clearExpense();
 });
 
-//Hide show 
-tabExpense.click(() => {
-    addIncome.hide();
-    addExpense.show();
-});
-
-//Change value
-generalSalary.change(() => {
-    //console.log(generalSalary.val())
-    if (generalSalary.val() === "0") {
-        generalTransaction.show();
-        salaryTransaction.hide();
-    } else {
-        generalTransaction.hide();
-        salaryTransaction.show();
-    }
-});
 
 //Clear control 
 const clearExpense = () => {

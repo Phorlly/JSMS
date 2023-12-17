@@ -116,25 +116,25 @@ const getBehavior = () => {
         ],
         buttons: [
             {
-                title: "BEHAVIOR CERTIFICATE OF APPLICANT ",
+                title: "លិខិត្តចញ្ជាក់អាកប្បកិរិយាមាយាទបស់អ្នកដាក់ពាក្យ",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "BEHAVIOR CERTIFICATE OF APPLICANT ",
+                title: "លិខិត្តចញ្ជាក់អាកប្បកិរិយាមាយាទបស់អ្នកដាក់ពាក្យ",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "BEHAVIOR CERTIFICATE OF APPLICANT ",
+                title: "លិខិត្តចញ្ជាក់អាកប្បកិរិយាមាយាទបស់អ្នកដាក់ពាក្យ",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "BEHAVIOR CERTIFICATE OF APPLICANT ",
+                title: "លិខិត្តចញ្ជាក់អាកប្បកិរិយាមាយាទបស់អ្នកដាក់ពាក្យ",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -175,33 +175,30 @@ saveBevior.click(() => {
         contentType: false,
         processData: false,
         data: formData,
-        statusCode: {
-            200: (response) => {
-                behaviorId.val(response.Id);
-                behavior.ajax.reload();
-                clearBehavior();
-                colorBehavior();
-                //modalBehavior.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        success: (response) => {
+            behaviorId.val(response.Id);
+            behavior.ajax.reload();
+            clearBehavior();
+            colorBehavior();
+            //modalBehavior.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -212,33 +209,30 @@ const editBehavior = (id) => {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                //console.log(response);
-                colorBehavior();
-                clearBehavior();
-                updateBevior.show();
-                saveBevior.hide();
+        success: (response) => {
+            //console.log(response);
+            colorBehavior();
+            clearBehavior();
+            updateBevior.show();
+            saveBevior.hide();
 
-                behaviorId.val(response.Behavior.Id);
-                applicantId.val(response.Behavior.Applicant);
-                confirmBy.val(response.Behavior.ConfirmBy);
-                bNoted.val(response.Behavior.Noted);
-                currentDate.val(formatDate(response.Behavior.CurrentDate));
-                response.Behavior.Attachment ? fileShow.html(showFile(response.Behavior.Attachment)) : "";
-                modalBehavior.modal("show");
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            behaviorId.val(response.Behavior.Id);
+            applicantId.val(response.Behavior.Applicant);
+            confirmBy.val(response.Behavior.ConfirmBy);
+            bNoted.val(response.Behavior.Noted);
+            currentDate.val(formatDate(response.Behavior.CurrentDate));
+            response.Behavior.Attachment ? fileShow.html(showFile(response.Behavior.Attachment)) : "";
+            modalBehavior.modal("show");
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -262,30 +256,27 @@ updateBevior.click(() => {
         contentType: false,
         processData: false,
         data: formData,
-        statusCode: {
-            200: (response) => {
-                behavior.ajax.reload();
-                modalBehavior.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        success: (response) => {
+            behavior.ajax.reload();
+            modalBehavior.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -304,29 +295,26 @@ const removeBehavior = (id) => {
             ? $.ajax({
                 method: "DELETE",
                 url: "/api/hr/behaviors/delete-by-id/" + id,
-                statusCode: {
-                    200: (response) => {
-                        behavior.ajax.reload();
-                        Swal.fire({
-                            //position: "top-end",
-                            title: response.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
-                        });
-                    },
-                    404: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    500: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
+                success: (response) => {
+                    behavior.ajax.reload();
+                    Swal.fire({
+                        //position: "top-end",
+                        title: response.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    });
                 },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        //position: "top-end",
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
                 title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",

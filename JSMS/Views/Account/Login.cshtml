@@ -20,9 +20,9 @@
         }
 
         p,
-        label,a,input {
+        label, a, input {
             font-family: 'Khmer OS Battambang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: large;
+            /*font-size: large;*/
         }
     </style>
 
@@ -57,7 +57,7 @@
 
                         <div class="form-group mb-4">
                             <label>@JSMS.Resources.Language.Password</label>
-                            <input type="text" name="Password" class="form-control" placeholder="@JSMS.Resources.Language.Input">
+                            <input type="password" name="Password" class="form-control" placeholder="@JSMS.Resources.Language.Input">
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                         <div class="mb-3">
@@ -73,21 +73,19 @@
 
                             <div class="text-center">
                                 <a href="@Url.Action("Register","Account")">@JSMS.Resources.Language.NoAccount</a>
-                                @* @Html.ActionLink("No account for Login right?", "Register", "Account", new { area = "" },
-                            new { @class = "nav-link" })*@
                             </div>
                             <div class="text-center mt-2">
                                 @if (Request.Cookies["Languages"].Value == "km")
                                 {
                                     <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "en"})"
-                                        role="button">
+                                       role="button">
                                         <img src="~/Images/us.png" style=" width: 17px;"> English
                                     </a>
                                 }
                                 else
                                 {
                                     <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "km"})"
-                                        role="button">
+                                       role="button">
                                         <img src="~/Images/kh.png" style=" width: 17px;">
                                         <span style="font-family:Hanuman">ភាសាខ្មែរ</span>
                                     </a>

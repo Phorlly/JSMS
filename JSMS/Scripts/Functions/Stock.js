@@ -1,16 +1,16 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    getAll();
-    monthYear.change(() => getReportStock());
-    byProduct.change(() => getReportStock());
-    byStock.change(() => getReportStock());
-    getReportStock();
+    monthYear.change(() => getStockReport());
+    byProduct.change(() => getStockReport());
+    byStock.change(() => getStockReport());
+    getStockReport();
     datePicker("#date-in-out");
+    $("#show-stock").click(() => getAll());
 });
 
 //Declare variable for use global
 let tableStock = [];
-let addStock2 = $("#add-stock"); 
+let addStock2 = $("#add-stock");
 let updateStock = $("#update-stock");
 let saveStock = $("#save-stock");
 let modalStock = $("#modal-stock");
@@ -36,6 +36,7 @@ const getAll = () => {
         },
         responsive: true,
         autoWidth: false,
+        destroy: true,
         // scrollX: true,
         dom: "Bfrtip",
         language: {
@@ -47,55 +48,51 @@ const getAll = () => {
         drawCallback: () => $(".datatableStocks_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "#",
+                //title: "#",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Product's Name",
+                //title: "Product's Name",
                 data: "Product.Name",
             },
             {
-                title: "Image",
+                //title: "Image",
                 data: "Product.Image",
                 render: (row) => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
                     "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
             },
             {
-                title: "Stock In",
+                //title: "Stock In",
                 data: null,
                 render: row => row.Stock.Status === 1 ? `<span class="text-warning fw-bolder">${row.Stock.Quantity}</span>` : 0
             },
             {
-                title: "Stock Out",
+                //title: "Stock Out",
                 data: null,
                 render: row => row.Stock.Status === 2 ? `<span class="text-danger fw-bolder">-${row.Stock.Quantity}</span>` : 0
             },
-            //{
-            //    title: "Total",
-            //    data: "Quantity.Total",
-            //},
             {
-                title: "Date In/Out",
+                //title: "Date In/Out",
                 data: "Stock.Date",
                 render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
             },
             {
-                title: "Description",
+                //title: "Description",
                 data: "Stock.Noted",
             },
             {
-                title: "Created",
+                //title: "Created",
                 data: "Stock.Created",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Stock.Updated",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Stock.Id",
                 render: (row) => `<div> 
                                       <button onclick= "editStock('${row}')" class= 'btn btn-warning btn-sm' >
@@ -110,26 +107,26 @@ const getAll = () => {
         ],
         buttons: [
             {
-                title: "STOCK LIST",
+                title: "បញ្ជីស្តុកទំនិញ",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
 
             {
-                title: "STOCK LIST",
+                title: "បញ្ជីស្តុកទំនិញ",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "STOCK LIST",
+                title: "បញ្ជីស្តុកទំនិញ",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "STOCK LIST",
+                title: "បញ្ជីស្តុកទំនិញ",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -143,8 +140,8 @@ const getAll = () => {
     });
 };
 
-//Get report attendance
-const getReportStock = () => {
+//Get report stock
+const getStockReport = () => {
     $.ajax({
         url: "/api/hr/reports/get-stock",
         type: "GET",
@@ -155,16 +152,15 @@ const getReportStock = () => {
         },
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                $('#stock-summary').DataTable().destroy();
-                $('#stock-summary tbody').empty();
-                $.each(response, (index, row) => {
-                    let date = moment(row.Date).format('DD/MMM/YY');
-                    let stockIn = row.Status === 1 ? `<b class="text-warning fst-italic fw-bolder">${row.Quantity} </b>` : 0;
-                    let stockOut = row.Status === 2 ? `<b class="text-danger fst-italic fw-bolder">-${row.Stock.Quantity}</b>` : 0;
+        success: (response) => {
+            $('#stock-summary').DataTable().destroy();
+            $('#stock-summary tbody').empty();
+            $.each(response, (index, row) => {
+                let date = moment(row.Created).format('DD/MMM/YY');
+                let stockIn = row.Status === 1 ? `<b class="text-warning fst-italic fw-bolder">${row.Quantity} </b>` : 0;
+                let stockOut = row.Status === 2 ? `<b class="text-danger fst-italic fw-bolder">-${row.Stock.Quantity}</b>` : 0;
 
-                    var newRow = `<tr>
+                var newRow = `<tr>
                                     <td>${index + 1}</td>
                                     <td>${row.Name}</td>
                                     <td>${stockIn}</td>
@@ -172,54 +168,52 @@ const getReportStock = () => {
                                     <td>${date}</td>
                                     <td>${row.Noted}</td>
                                   </tr>`;
-                    $('#stock-summary tbody').append(newRow);
-                });
+                $('#stock-summary tbody').append(newRow);
+            });
 
-                // Initialize DataTables
-                $('#stock-summary').DataTable({
-                    dom: "Bfrtip",
-                    buttons: ["excel", "pdf", "print"],
-                    language: {
-                        paginate: {
-                            previous: "<i class='fas fa-chevron-left'>",
-                            next: "<i class='fas fa-chevron-right'>",
-                        },
+            // Initialize DataTables
+            $('#stock-summary').DataTable({
+                dom: "Bfrtip",
+                buttons: ["excel", "pdf", "print"],
+                language: {
+                    paginate: {
+                        previous: "<i class='fas fa-chevron-left'>",
+                        next: "<i class='fas fa-chevron-right'>",
                     },
-                    drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
-                    searching: false,
-                    lengthChange: false,
-                    buttons: [
-                        {
-                            title: "STOCK REPORT",
-                            extend: "excelHtml5",
-                            text: "<i class='fa fa-file-excel'> </i> Excel",
-                            className: "btn btn-success btn-sm mt-2",
-                        },
-                        {
-                            title: "STOCK REPORT",
-                            extend: "print",
-                            text: "<i class='fa fa-print'> </i> Print",
-                            className: "btn btn-dark btn-sm mt-2",
-                        },
-                    ],
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+                },
+                drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
+                searching: false,
+                lengthChange: false,
+                buttons: [
+                    {
+                        title: "របាយការណ៍ស្តុកទំនិញ",
+                        extend: "excelHtml5",
+                        text: "<i class='fa fa-file-excel'> </i> Excel",
+                        className: "btn btn-success btn-sm mt-2",
+                    },
+                    {
+                        title: "របាយការណ៍ស្តុកទំនិញ",
+                        extend: "print",
+                        text: "<i class='fa fa-print'> </i> Print",
+                        className: "btn btn-dark btn-sm mt-2",
+                    },
+                ],
+            });
         },
+        400: (xhr) => {
+            xhr.responseJSON && xhr.responseJSON.message ?
+                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
+                console.log(xhr.responseText);
+        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -250,44 +244,30 @@ saveStock.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
-        statusCode: {
-            200: (response) => {
+        success: (response) => {
 
-                dataId.val(response.Id);
-                tableStock.ajax.reload();
-                clearStock();
-                //modalStock.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    Swal.fire({
-                        //position: "top-end",
-                        title: xhr.responseJSON.message,
-                        icon: "success",
-                        showConfirmButton: false,
-                        customClass: { title: 'custom-swal-title' },
-                        timer: 1500,
-                    }) : console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            dataId.val(response.Id);
+            tableStock.ajax.reload();
+            clearStock();
+            //modalStock.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -298,34 +278,31 @@ const editStock = (id) => {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                //console.log(response);
-                setColorStock();
-                clearStock();
-                updateStock.show();
-                saveStock.hide();
+        success: (response) => {
+            //console.log(response);
+            setColorStock();
+            clearStock();
+            updateStock.show();
+            saveStock.hide();
 
-                dataId.val(response.Stock.Id);
-                productType.val(response.Product.Id);
-                quantity.val(response.Stock.Quantity);
-                sNoted.val(response.Stock.Noted);
-                dateIO.val(formatDate(response.Stock.Date));
-                stockIO.val(response.Stock.Status === 1 ? 1 : 2)
+            dataId.val(response.Stock.Id);
+            productType.val(response.Product.Id);
+            quantity.val(response.Stock.Quantity);
+            sNoted.val(response.Stock.Noted);
+            dateIO.val(formatDate(response.Stock.Date));
+            stockIO.val(response.Stock.Status === 1 ? 1 : 2)
 
-                modalStock.modal("show");
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            modalStock.modal("show");
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -347,44 +324,30 @@ updateStock.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
-        statusCode: {
-            200: (response) => {
-                dataId.val(response.Id);
-                tableStock.ajax.reload();
-                clearStock();
-                modalStock.modal("hide");
+        success: (response) => {
+            dataId.val(response.Id);
+            tableStock.ajax.reload();
+            clearStock();
+            modalStock.modal("hide");
 
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    Swal.fire({
-                        //position: "top-end",
-                        title: xhr.responseJSON.message,
-                        icon: "success",
-                        showConfirmButton: false,
-                        customClass: { title: 'custom-swal-title' },
-                        timer: 1500,
-                    }) : console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -403,33 +366,25 @@ const removeStock = (id) => {
             $.ajax({
                 method: "DELETE",
                 url: "/api/hr/stocks/delete-by-id/" + id,
-                statusCode: {
-                    200: (response) => {
-                        tableStock.ajax.reload();
-                        Swal.fire({
-                            title: response.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
-                        });
-                    },
-                    400: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    404: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    500: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
+                success: (response) => {
+                    tableStock.ajax.reload();
+                    Swal.fire({
+                        title: response.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    });
                 },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        //position: "top-end",
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
                 title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",

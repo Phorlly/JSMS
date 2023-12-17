@@ -14,7 +14,6 @@ $(document).ready(() => {
 //Declar variable
 let income = [];
 let incomeId = $("#income-id");
-let addIncome = $("#add-income");
 let saveIncome = $("#save-income");
 let updateIncome = $("#update-income");
 let modalIncome = $("#modal-income");
@@ -33,7 +32,7 @@ let payment = $("#payment");
 let attachment = $("#attachment");
 let incomeType = $("#income-type");
 let description = $("#description");
-let tabIncome = $("#tab-income");
+
 
 
 //Get all data
@@ -155,25 +154,25 @@ const getIncome = () => {
         ],
         buttons: [
             {
-                title: "INCOME LIST",
+                title: "បញ្ជីប្រាក់ចំណូល",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "INCOME LIST",
+                title: "បញ្ជីប្រាក់ចំណូល",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "INCOME LIST",
+                title: "បញ្ជីប្រាក់ចំណូល",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "INCOME LIST",
+                title: "បញ្ជីប្រាក់ចំណូល",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -187,16 +186,11 @@ const getIncome = () => {
     });
 };
 
-//Hide or Show button action
-tabIncome.click(() => {
-    addIncome.show();
-    addExpense.hide();
-});
 
 //Add new
 addIncome.click(() => {
-    clearIncome();
-    setColorIncome();
+    //clearIncome();
+    //setColorIncome();
     modalIncome.modal("show");
 });
 
@@ -232,32 +226,30 @@ saveIncome.click(() => {
         contentType: false,
         processData: false,
         data: formData,
-        statusCode: {
-            200: (response) => {
-                incomeId.val(response.Id);
-                income.ajax.reload();
-                clearIncome();
-                modalIncome.modal("hide");
-                Swal.fire({
-                    position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        succes: (response) => {
+            incomeId.val(response.Id);
+            income.ajax.reload();
+            clearIncome();
+            modalIncome.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
+
     }) : false;
 });
 
@@ -268,53 +260,50 @@ const editIncome = (id) => {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                //console.log(response);
-                setColorIncome();
-                clearIncome();
-                updateIncome.show();
-                saveIncome.hide();
+        success: (response) => {
+            //console.log(response);
+            setColorIncome();
+            clearIncome();
+            updateIncome.show();
+            saveIncome.hide();
 
-                incomeId.val(response.Income.Id);
-                client.val(response.Client.Id);
-                invoice.val(response.Income.Code);
-                noted.val(response.Income.Noted);
-                quantity.val(response.Income.Quantity);
-                unitPrice.val(response.Income.Unit);
-                amount.val(response.Income.Amount);
-                description.val(response.Income.Description);
-                if (response !== null) {
-                    const d = new Date(response.Income.DateInOrEx);
-                    const formattedDate =
-                        d.getFullYear() +
-                        "-" +
-                        ("0" + (d.getMonth() + 1)).slice(-2) +
-                        "-" +
-                        ("0" + d.getDate()).slice(-2);
-                    dateIncome.val(formattedDate);
-                }
-                exchangeRate.val(response.Income.Exchange);
-                vat.val(response.Income.VAT);
-                totalPrice.val(response.Income.Total);
-                currency.val(response.Income.Currency);
-                payment.val(response.Income.Payment);
+            incomeId.val(response.Income.Id);
+            client.val(response.Client.Id);
+            invoice.val(response.Income.Code);
+            noted.val(response.Income.Noted);
+            quantity.val(response.Income.Quantity);
+            unitPrice.val(response.Income.Unit);
+            amount.val(response.Income.Amount);
+            description.val(response.Income.Description);
+            if (response !== null) {
+                const d = new Date(response.Income.DateInOrEx);
+                const formattedDate =
+                    d.getFullYear() +
+                    "-" +
+                    ("0" + (d.getMonth() + 1)).slice(-2) +
+                    "-" +
+                    ("0" + d.getDate()).slice(-2);
+                dateIncome.val(formattedDate);
+            }
+            exchangeRate.val(response.Income.Exchange);
+            vat.val(response.Income.VAT);
+            totalPrice.val(response.Income.Total);
+            currency.val(response.Income.Currency);
+            payment.val(response.Income.Payment);
 
-                response.Income.Attachment ? $("#file").html(showFile(response.Income.Attachment)) : "";
-                incomeType.val(response.Income.Type);
-                modalIncome.modal("show");
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            response.Income.Attachment ? $("#file").html(showFile(response.Income.Attachment)) : "";
+            incomeType.val(response.Income.Type);
+            modalIncome.modal("show");
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -350,36 +339,28 @@ updateIncome.click(() => {
         contentType: false,
         processData: false,
         data: formData,
-        statusCode: {
-            200: (response) => {
-                income.ajax.reload();
-                clearIncome();
-                modalIncome.modal("hide");
-                Swal.fire({
-                    position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        success: (response) => {
+            income.ajax.reload();
+            clearIncome();
+            modalIncome.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -400,29 +381,26 @@ const removeIncome = (id) => {
             ? $.ajax({
                 method: "DELETE",
                 url: "/api/hr/incomes/delete-by-id/" + id,
-                statusCode: {
-                    200: (response) => {
-                        income.ajax.reload();
-                        Swal.fire({
-                            title: response.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            allowHtml: true,
-                            customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
-                        });
-                    },
-                    404: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    500: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
+                success: (response) => {
+                    income.ajax.reload();
+                    Swal.fire({
+                        title: response.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        allowHtml: true,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    });
                 },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        //position: "top-end",
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
                 title: "បានបោះបង់",

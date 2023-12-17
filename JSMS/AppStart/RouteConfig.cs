@@ -14,7 +14,7 @@ namespace JSMS
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             //routes.LowercaseUrls = true;
 
-            //add custom route for Addmin onl
+            //add custom route for Addmin only
             routes.MapRoute(
               name: "Log In",
               url: "admin/log-in",

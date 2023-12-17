@@ -11,7 +11,6 @@
 });
 
 //Declare variable
-let pushedRecords = [];
 let startDate = formatMonthYear("#start-date");
 let endDate = formatMonthYear("#end-date");
 let staffId = $("#staff-id");
@@ -40,8 +39,8 @@ const getSalaryReport = () => {
                                    <td>${row.Code}</td>
                                     <td>${row.Shift}</td>
                                     <td>${row.Location}</td>
-                                    <td>${row.TotalWorked}x</td>
-                                    <td>${row.TotalAbsent}x</td>
+                                    <td>${row.TotalWorked} ដង</td>
+                                    <td>${row.TotalAbsent} ដង</td>
                                     <td>${row.TotalPayment.toFixed(2)}<sup>$</sup></td>
                                     <td>
                                         <button onclick= "pushToGetPayroll('${row.Id}',
@@ -65,7 +64,7 @@ const getSalaryReport = () => {
 
 //Get data
 const updateData = () => {
-    $('#get-payroll').DataTable().destroy();
+    //$('#get-payroll').DataTable().destroy();
     $('#get-payroll tbody').empty();
 
     //Initialize DataTables
@@ -73,6 +72,7 @@ const updateData = () => {
         dom: "Bfrtip",
         buttons: ["excel", "pdf", "print"],
         responive: true,
+        destroy: true,
         autoWidth: false,
         language: {
             paginate: {
@@ -85,49 +85,82 @@ const updateData = () => {
         lengthChange: false,
         buttons: [
             {
-                title: "PAYROLL REPORT",
+                title: "របាយការណ៍ប្រាក់ខែ",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "PAYROLL REPORT",
+                title: "របាយការណ៍ប្រាក់ខែ",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "PAYROLL REPORT",
+                title: "របាយការណ៍ប្រាក់ខែ",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
         ],
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 }
 
 
-// Function to push data from accounting-summary to get-payroll
 const pushToGetPayroll = (id, name, code, shift, location, totalWorked, totalAbsent, totalPayment) => {
     $('#t2').show();
     updateData();
     // Check if totalPayment is a valid number
     totalPayment = isNaN(totalPayment) ? 0 : parseFloat(totalPayment);
-
     // Assuming 'get-payroll' is the ID of your DataTable
     let dataTable = $('#get-payroll').DataTable();
 
     // Add the new row to the DataTable
-    dataTable.row.add([
+    let newRow = [
         id,
         name,
         code,
         shift,
         location,
-        totalWorked + 'x',
-        totalAbsent + 'x',
-        totalPayment.toFixed(2) + '<sup>$</sup>'
-    ]).draw(); // Draw the DataTable to reflect the changes
-};
+        totalWorked + '​ ដង',
+        totalAbsent + ' ដង',
+        totalPayment.toFixed(2) + '<sup>$</sup>' + "  " +
+        `<button class="remove-row-btn btn btn-danger btn-sm" data-id="${id}">
+            <span class='fas fa-trash-alt'></span> Remove
+        </button>`,
+    ];
 
+    dataTable.row.add(newRow).draw();
+
+    // Attach click event to the remove button
+    $('.remove-row-btn').click(() => {
+        let rowIdToRemove = $(this).data('id');
+
+        // Find and remove the row based on the 'id' column
+        let rowIndexToRemove = -1;
+        dataTable.rows().every((index, element) => {
+            let rowData = dataTable.row(index).data();``
+            if (rowData.id === rowIdToRemove) {
+                rowIndexToRemove = index;
+                return false; // Stop iterating once the row is found
+            }
+        });
+
+        // Remove the row if found
+        if (rowIndexToRemove !== -1) {
+            dataTable.row(rowIndexToRemove).remove().draw();
+        } else {
+            console.log("Row with ID " + rowIdToRemove + " not found.");
+        }
+    });
+};
 

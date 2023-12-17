@@ -8,8 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 namespace JSMS.Controllers.Api
 {
@@ -88,7 +89,7 @@ namespace JSMS.Controllers.Api
 
         [HttpPost]
         [Route("post")]
-        public IHttpActionResult Post()
+        public async Task<IHttpActionResult> Post()
         {
             try
             {
@@ -110,7 +111,7 @@ namespace JSMS.Controllers.Api
                 if (request != null)
                 {
                     context.Behaviors.Add(request);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new {  message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
@@ -123,11 +124,11 @@ namespace JSMS.Controllers.Api
 
         [HttpPut]
         [Route("put-by-id/{id}")]
-        public IHttpActionResult PutById(int id)
+        public async Task<IHttpActionResult> PutById(int id)
         {
             try
             {
-                var response = context.Behaviors.Find(id);
+                var response =await context.Behaviors.FindAsync(id);
                 if (response == null)
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
@@ -154,7 +155,7 @@ namespace JSMS.Controllers.Api
                 if (response != null)
                 {
                     context.Entry(response).State = EntityState.Modified;
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
@@ -168,11 +169,11 @@ namespace JSMS.Controllers.Api
 
         [HttpDelete]
         [Route("delete-by-id/{id}")]
-        public IHttpActionResult DeleteById(int id)
+        public async Task<IHttpActionResult> DeleteById(int id)
         {
             try
             {
-                var response = context.Behaviors.Find(id);
+                var response = await context.Behaviors.FindAsync(id);
                 if (response == null)
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
@@ -183,7 +184,7 @@ namespace JSMS.Controllers.Api
                     response.DeletedAt = DateTime.Now;
                     //FormHelper.DeleteFile(response.Attachment, "~/AppData/Files");
                     //context.Behaviors.Remove(response);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });

@@ -84,10 +84,10 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var record = getAttendance.GetAttendanceData(start,end,staff);
+                var record = getAttendance.GetAttendanceData(start, end, staff);
                 int totalWorkedDays = getAttendance.CountPresentDays(start, end, staff);
                 int totalAbsentDays = getAttendance.CountAbsentDays(start, end, staff);
-                decimal salary = getAttendance.GetSalaryPayment(context.Staffs.ToList(), totalWorkedDays, totalAbsentDays, staff);
+                decimal salary = getAttendance.GetSalaryPayment(context.Staffs.ToList(), totalAbsentDays, staff);
                 var response = GetSalaryQuery(start, end, staff, shift, totalWorkedDays, totalAbsentDays, salary);
 
                 if (totalWorkedDays == 0 || staff == null)
@@ -149,6 +149,40 @@ namespace JSMS.Controllers.Api
             }
         }
 
+
+        [HttpGet]
+        [Route("get-remain-stock")]
+        public IHttpActionResult GetRemainStockReport()
+        {
+            try
+            {
+                var response = (from Product in context.Products
+                                join Stock in context.Stocks on Product.Id equals Stock.Product
+
+                                where Product.IsActive.Equals(true)
+                                select new
+                                {
+                                    Product.Name,
+                                    Product.Image,
+                                    Stock.Total,
+                                    Product.Noted,
+                                    Product.Created
+                                }).ToList();
+
+                if (response == null)
+                {
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message }));
+            }
+        }
+
         //Get all record by attendance
         private List<object> GetSalaryQuery(DateTime start, DateTime end, int? staff, int? shift, int totalWorkedDays, int totalAbsentDays, decimal salary)
         {
@@ -193,7 +227,7 @@ namespace JSMS.Controllers.Api
                .Select(group => new
                {
                    Id = group.Key.Id,
-                   FullName = group.Key.Name.ToString(), 
+                   FullName = group.Key.Name.ToString(),
                    Code = group.Key.Code.ToString(),
                    Shift = group.Key.Shift.ToString(),
                    Location = group.Key.Location.ToString(),

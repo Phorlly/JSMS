@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace JSMS.Controllers.Api
 {
@@ -81,7 +82,7 @@ namespace JSMS.Controllers.Api
 
         [HttpPost]
         [Route("post")]
-        public IHttpActionResult Post(Recruitment request)
+        public async Task<IHttpActionResult> Post(Recruitment request)
         {
             try
             {
@@ -93,7 +94,7 @@ namespace JSMS.Controllers.Api
                 if (request != null)
                 {
                     context.Recruitments.Add(request);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
@@ -106,11 +107,11 @@ namespace JSMS.Controllers.Api
 
         [HttpPut]
         [Route("put-by-id/{id}")]
-        public IHttpActionResult PutById(Recruitment request, int id)
+        public async Task<IHttpActionResult> PutById(Recruitment request, int id)
         {
             try
             {
-                var response = context.Recruitments.Find(id);
+                var response = await context.Recruitments.FindAsync(id);
                 if (response == null)
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
@@ -129,7 +130,7 @@ namespace JSMS.Controllers.Api
                 if (response != null && request != null)
                 {
                     context.Entry(response).State = EntityState.Modified;
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
@@ -143,11 +144,11 @@ namespace JSMS.Controllers.Api
 
         [HttpDelete]
         [Route("delete-by-id/{id}")]
-        public IHttpActionResult DeleteById(int id)
+        public async Task<IHttpActionResult> DeleteById(int id)
         {
             try
             {
-                var response = context.Recruitments.Find(id);
+                var response = await context.Recruitments.FindAsync(id);
                 if (response == null)
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
@@ -157,7 +158,7 @@ namespace JSMS.Controllers.Api
                     response.IsActive = false;
                     response.DeletedAt = DateTime.Now;
                     //context.Recruitments.Remove(response);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });

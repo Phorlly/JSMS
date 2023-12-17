@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Services.Description;
@@ -84,11 +85,11 @@ namespace JSMS.Controllers.Api
         [HttpPost]
         [Route("post")]
         [Obsolete]
-        public IHttpActionResult Post(Attendance request)
+        public async Task<IHttpActionResult> Post(Attendance request)
         {
             try
             {
-                var isExist = context.Attendances.FirstOrDefault(a => a.Staff == request.Staff &&
+                var isExist = await context.Attendances.FirstOrDefaultAsync(a => a.Staff == request.Staff &&
                                                                       a.CheckIn != null &&
                               DbFunctions.TruncateTime(a.CheckIn) == DbFunctions.TruncateTime(request.CheckIn));
                 if (isExist != null)
@@ -106,7 +107,7 @@ namespace JSMS.Controllers.Api
                 if (request != null)
                 {
                     context.Attendances.Add(request);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
@@ -119,7 +120,7 @@ namespace JSMS.Controllers.Api
 
         [HttpPost]
         [Route("post-check-in")]
-        public IHttpActionResult PostCheckIn(Attendance request)
+        public async Task<IHttpActionResult> PostCheckIn(Attendance request)
         {
             try
             {
@@ -127,7 +128,7 @@ namespace JSMS.Controllers.Api
                 var currentDate = DateTime.Now.Date;
 
                 // Check if there's an existing check-in for the same staff member on the current date
-                var isExist = context.Attendances.FirstOrDefault(m => m.Staff == request.Staff &&
+                var isExist = await context.Attendances.FirstOrDefaultAsync(m => m.Staff == request.Staff &&
                               m.CheckIn.HasValue && DbFunctions.TruncateTime(m.CheckIn) == currentDate);
                 if (isExist != null)
                 {
@@ -148,7 +149,7 @@ namespace JSMS.Controllers.Api
                 if (request != null)
                 {
                     context.Attendances.Add(request);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "សូមអរគុណ សម្រាប់ការកត់ត្រាចូល 😍" });
@@ -162,11 +163,11 @@ namespace JSMS.Controllers.Api
 
         [HttpPut]
         [Route("put-by-id/{id}")]
-        public IHttpActionResult PutById(Attendance request, int id)
+        public async Task<IHttpActionResult> PutById(Attendance request, int id)
         {
             try
             {
-                var response = context.Attendances.Find(id);
+                var response = await context.Attendances.FindAsync(id);
                 if (response == null)
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
@@ -188,7 +189,7 @@ namespace JSMS.Controllers.Api
                     if (response != null && request != null)
                     {
                         context.Entry(response).State = EntityState.Modified;
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
                     }
 
                     return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
@@ -213,7 +214,7 @@ namespace JSMS.Controllers.Api
                     if (response != null && request != null)
                     {
                         context.Entry(response).State = EntityState.Modified;
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
                     }
 
                     return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
@@ -232,7 +233,7 @@ namespace JSMS.Controllers.Api
 
         [HttpPut]
         [Route("put-ckeck-out")]
-        public IHttpActionResult PutCkeckOutById(Attendance request)
+        public async Task<IHttpActionResult> PutCkeckOutById(Attendance request)
         {
             try
             {
@@ -240,8 +241,8 @@ namespace JSMS.Controllers.Api
                 var currentDate = DateTime.Now.Date;
 
                 // Check if there's an existing check-in for the same staff member on the current date
-                var isExist = context.Attendances
-                      .FirstOrDefault(m => m.Staff == request.Staff &&
+                var isExist = await context.Attendances
+                      .FirstOrDefaultAsync(m => m.Staff == request.Staff &&
                                            m.CheckIn.HasValue && DbFunctions.TruncateTime(m.CheckIn) == currentDate);
 
                 if (isExist != null)
@@ -267,7 +268,7 @@ namespace JSMS.Controllers.Api
                     if (request != null)
                     {
                         context.Entry(isExist).State = EntityState.Modified;
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
                     }
                 }
                 else
@@ -287,11 +288,11 @@ namespace JSMS.Controllers.Api
         [HttpDelete]
         [Route("delete-by-id/{id}")]
 
-        public IHttpActionResult DeleteById(int id)
+        public async Task<IHttpActionResult> DeleteById(int id)
         {
             try
             {
-                var response = context.Attendances.Find(id);
+                var response = await context.Attendances.FindAsync(id);
                 if (response == null)
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
@@ -345,7 +346,7 @@ namespace JSMS.Controllers.Api
             }
 
             // If there is no check-in, consider it Early
-            return "Early";
+            return "ធម្មតា";
         }
     }
 }

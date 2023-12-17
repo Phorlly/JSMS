@@ -106,47 +106,20 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Applicant.
-        /// </summary>
-        public static string AddApplicant {
-            get {
-                return ResourceManager.GetString("AddApplicant", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Behavoir.
-        /// </summary>
-        public static string AddBehavoir {
-            get {
-                return ResourceManager.GetString("AddBehavoir", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Guarantor.
-        /// </summary>
-        public static string AddGuarantor {
-            get {
-                return ResourceManager.GetString("AddGuarantor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add New.
-        /// </summary>
-        public static string AddNew {
-            get {
-                return ResourceManager.GetString("AddNew", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Already Account for Login?.
         /// </summary>
         public static string AlreadyAccount {
             get {
                 return ResourceManager.GetString("AlreadyAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
             }
         }
         
@@ -187,7 +160,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applicant Pass in Recruitment.
+        ///   Looks up a localized string similar to Applicant passed in Recruitment.
         /// </summary>
         public static string ApplicantPassRecruitment {
             get {
@@ -264,6 +237,15 @@ namespace JSMS.Resources {
         public static string BehaviorManagement {
             get {
                 return ResourceManager.GetString("BehaviorManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Password.
+        /// </summary>
+        public static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
             }
         }
         
@@ -376,6 +358,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Price.
+        /// </summary>
+        public static string Cost {
+            get {
+                return ResourceManager.GetString("Cost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create New Account.
         /// </summary>
         public static string CreateAccount {
@@ -399,6 +390,15 @@ namespace JSMS.Resources {
         public static string CreateNewAccount {
             get {
                 return ResourceManager.GetString("CreateNewAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency Type.
+        /// </summary>
+        public static string Currency {
+            get {
+                return ResourceManager.GetString("Currency", resourceCulture);
             }
         }
         
@@ -466,6 +466,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email Address.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Date.
         /// </summary>
         public static string EndDate {
@@ -475,11 +484,47 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expense.
+        ///   Looks up a localized string similar to Exchang Rate.
+        /// </summary>
+        public static string ExchangRate {
+            get {
+                return ResourceManager.GetString("ExchangRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General Expense.
         /// </summary>
         public static string Expense {
             get {
                 return ResourceManager.GetString("Expense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General-Expense Management.
+        /// </summary>
+        public static string ExpenseManagement {
+            get {
+                return ResourceManager.GetString("ExpenseManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expense on Salary.
+        /// </summary>
+        public static string ExpenseSalary {
+            get {
+                return ResourceManager.GetString("ExpenseSalary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expense on Salary Management.
+        /// </summary>
+        public static string ExpenseSalaryManagement {
+            get {
+                return ResourceManager.GetString("ExpenseSalaryManagement", resourceCulture);
             }
         }
         
@@ -610,11 +655,128 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Income.
+        ///   Looks up a localized string similar to Ganeral Income.
         /// </summary>
         public static string Income {
             get {
                 return ResourceManager.GetString("Income", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advertising revenue.
+        /// </summary>
+        public static string IncomeAds {
+            get {
+                return ResourceManager.GetString("IncomeAds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Earnings from comment value.
+        /// </summary>
+        public static string IncomeAdvisor {
+            get {
+                return ResourceManager.GetString("IncomeAdvisor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revenue from service fee.
+        /// </summary>
+        public static string IncomeCost {
+            get {
+                return ResourceManager.GetString("IncomeCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Income from interest income.
+        /// </summary>
+        public static string IncomeExpensive {
+            get {
+                return ResourceManager.GetString("IncomeExpensive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General-Income Infomations.
+        /// </summary>
+        public static string IncomeInfo {
+            get {
+                return ResourceManager.GetString("IncomeInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General-Income Management.
+        /// </summary>
+        public static string IncomeManagement {
+            get {
+                return ResourceManager.GetString("IncomeManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Income from Salary.
+        /// </summary>
+        public static string IncomeSalary {
+            get {
+                return ResourceManager.GetString("IncomeSalary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Income​ from Salary Management.
+        /// </summary>
+        public static string IncomeSalaryManagement {
+            get {
+                return ResourceManager.GetString("IncomeSalaryManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revenue from product sales.
+        /// </summary>
+        public static string IncomeSell {
+            get {
+                return ResourceManager.GetString("IncomeSell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revenue from sales of services.
+        /// </summary>
+        public static string IncomeService {
+            get {
+                return ResourceManager.GetString("IncomeService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Income from voluntary sponsorship.
+        /// </summary>
+        public static string IncomeSponsored {
+            get {
+                return ResourceManager.GetString("IncomeSponsored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Income from state sponsorship.
+        /// </summary>
+        public static string IncomeState {
+            get {
+                return ResourceManager.GetString("IncomeState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revenue from taxes.
+        /// </summary>
+        public static string IncomeTax {
+            get {
+                return ResourceManager.GetString("IncomeTax", resourceCulture);
             }
         }
         
@@ -660,6 +822,15 @@ namespace JSMS.Resources {
         public static string JoiningDate {
             get {
                 return ResourceManager.GetString("JoiningDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KHR (៛).
+        /// </summary>
+        public static string KHR {
+            get {
+                return ResourceManager.GetString("KHR", resourceCulture);
             }
         }
         
@@ -754,6 +925,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name of Applcant.
         /// </summary>
         public static string NameOfApplcant {
@@ -790,6 +970,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Night.
         /// </summary>
         public static string Night {
@@ -813,6 +1002,15 @@ namespace JSMS.Resources {
         public static string NotStudied {
             get {
                 return ResourceManager.GetString("NotStudied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old password.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
             }
         }
         
@@ -934,6 +1132,33 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Procduct Management.
+        /// </summary>
+        public static string ProcductManagement {
+            get {
+                return ResourceManager.GetString("ProcductManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product.
+        /// </summary>
+        public static string Product {
+            get {
+                return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product Infomations.
+        /// </summary>
+        public static string ProductInfo {
+            get {
+                return ResourceManager.GetString("ProductInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile.
         /// </summary>
         public static string Profile {
@@ -957,6 +1182,15 @@ namespace JSMS.Resources {
         public static string Purpose {
             get {
                 return ResourceManager.GetString("Purpose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity.
+        /// </summary>
+        public static string Quantity {
+            get {
+                return ResourceManager.GetString("Quantity", resourceCulture);
             }
         }
         
@@ -1015,6 +1249,33 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register Online Management.
+        /// </summary>
+        public static string RegisterOnlineManagement {
+            get {
+                return ResourceManager.GetString("RegisterOnlineManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remain-Stock.
+        /// </summary>
+        public static string RemainStock {
+            get {
+                return ResourceManager.GetString("RemainStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remain-Stock Management.
+        /// </summary>
+        public static string RemainStockManagement {
+            get {
+                return ResourceManager.GetString("RemainStockManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remember me?.
         /// </summary>
         public static string RememberMe {
@@ -1029,6 +1290,33 @@ namespace JSMS.Resources {
         public static string RememberUP {
             get {
                 return ResourceManager.GetString("RememberUP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report Management.
+        /// </summary>
+        public static string ReportManagement {
+            get {
+                return ResourceManager.GetString("ReportManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role Permission.
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role Permission.
+        /// </summary>
+        public static string RolePermission {
+            get {
+                return ResourceManager.GetString("RolePermission", resourceCulture);
             }
         }
         
@@ -1186,11 +1474,65 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary ​Data.
+        ///   Looks up a localized string similar to Stock-In.
+        /// </summary>
+        public static string StockIn {
+            get {
+                return ResourceManager.GetString("StockIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock Management.
+        /// </summary>
+        public static string StockManagement {
+            get {
+                return ResourceManager.GetString("StockManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock-Out.
+        /// </summary>
+        public static string StockOut {
+            get {
+                return ResourceManager.GetString("StockOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock-Product Infomations.
+        /// </summary>
+        public static string StockProductInfo {
+            get {
+                return ResourceManager.GetString("StockProductInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock Type.
+        /// </summary>
+        public static string StockType {
+            get {
+                return ResourceManager.GetString("StockType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report .
         /// </summary>
         public static string Summary {
             get {
                 return ResourceManager.GetString("Summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tax.
+        /// </summary>
+        public static string Tax {
+            get {
+                return ResourceManager.GetString("Tax", resourceCulture);
             }
         }
         
@@ -1258,6 +1600,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unit Price.
+        /// </summary>
+        public static string UnitPrice {
+            get {
+                return ResourceManager.GetString("UnitPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to University.
         /// </summary>
         public static string University {
@@ -1294,11 +1645,38 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to USD ($).
+        /// </summary>
+        public static string USD {
+            get {
+                return ResourceManager.GetString("USD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User.
         /// </summary>
         public static string User {
             get {
                 return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Infomations.
+        /// </summary>
+        public static string UserInfo {
+            get {
+                return ResourceManager.GetString("UserInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Management.
+        /// </summary>
+        public static string UserManagement {
+            get {
+                return ResourceManager.GetString("UserManagement", resourceCulture);
             }
         }
         

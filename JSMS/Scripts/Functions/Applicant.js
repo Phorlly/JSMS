@@ -166,35 +166,39 @@ const getApplicant = () => {
         ],
         buttons: [
             {
-                title: "APPLICANT LIST",
+                title: "បញ្ជីបេក្ខជនបានដាក់ពាក្យ",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "APPLICANT LIST",
+                title: "បញ្ជីបេក្ខជនបានដាក់ពាក្យ",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "APPLICANT LIST",
+                title: "បញ្ជីបេក្ខជនបានដាក់ពាក្យ",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "APPLICANT LIST",
+                title: "បញ្ជីបេក្ខជនបានដាក់ពាក្យ",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -292,32 +296,29 @@ save.click(() => {
         contentType: false,
         processData: false,
         data: formData,
-        statusCode: {
-            200: (response) => {
-                dataId.val(response.Id);
-                table.ajax.reload();
-                clear();
-                //modalApplicant.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        success: (response) => {
+            dataId.val(response.Id);
+            table.ajax.reload();
+            clear();
+            //modalApplicant.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -328,55 +329,52 @@ const edit = (id) => {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                //console.log(response);
-                clear();
-                setColor();
-                update.show();
-                save.hide();
+        success: (response) => {
+            //console.log(response);
+            clear();
+            setColor();
+            update.show();
+            save.hide();
 
-                response.Applicant.Gender === true ? gender.val("true") : gender.val("false");
-                dataId.val(response.Applicant.Id);
-                birthName.val(response.Applicant.Name);
-                nickName.val(response.Applicant.NickName);
-                national.val(response.Applicant.National);
-                nationality.val(response.Applicant.Nationality);
-                phone1.val(response.Applicant.Phone1);
-                phone2.val(response.Applicant.Phone2);
-                education.val(response.Applicant.Education);
-                response.Applicant.Image ? image.attr("src", response.Applicant.Image) : image.attr("src", "../Images/blank-image.png");
-                noted.val(response.Applicant.Noted);
-                dob.val(formatDate(response.Applicant.DOB));
-                bProvince.val(response.BProvince.Id);
-                bDistrictId.val(response.BDistrict.Id);
-                bCommuneId.val(response.BCommune.Id);
-                bVillageId.val(response.BVillage.Id);
-                bDis.hide();
-                bCom.hide();
-                bVil.hide();
+            response.Applicant.Gender === true ? gender.val("true") : gender.val("false");
+            dataId.val(response.Applicant.Id);
+            birthName.val(response.Applicant.Name);
+            nickName.val(response.Applicant.NickName);
+            national.val(response.Applicant.National);
+            nationality.val(response.Applicant.Nationality);
+            phone1.val(response.Applicant.Phone1);
+            phone2.val(response.Applicant.Phone2);
+            education.val(response.Applicant.Education);
+            response.Applicant.Image ? image.attr("src", response.Applicant.Image) : image.attr("src", "../Images/blank-image.png");
+            noted.val(response.Applicant.Noted);
+            dob.val(formatDate(response.Applicant.DOB));
+            bProvince.val(response.BProvince.Id);
+            bDistrictId.val(response.BDistrict.Id);
+            bCommuneId.val(response.BCommune.Id);
+            bVillageId.val(response.BVillage.Id);
+            bDis.hide();
+            bCom.hide();
+            bVil.hide();
 
-                cProvince.val(response.CProvince.Id);
-                cDistrictId.val(response.CDistrict.Id);
-                cCommuneId.val(response.CCommune.Id);
-                cVillageId.val(response.CVillage.Id);
-                cDis.hide();
-                cCom.hide();
-                cVil.hide();
+            cProvince.val(response.CProvince.Id);
+            cDistrictId.val(response.CDistrict.Id);
+            cCommuneId.val(response.CCommune.Id);
+            cVillageId.val(response.CVillage.Id);
+            cDis.hide();
+            cCom.hide();
+            cVil.hide();
 
-                modalApplicant.modal("show");
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            modalApplicant.modal("show");
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -427,35 +425,27 @@ update.click(() => {
         contentType: false,
         processData: false,
         data: formData,
-        statusCode: {
-            200: (response) => {
-                table.ajax.reload();
-                modalApplicant.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        success: (response) => {
+            table.ajax.reload();
+            modalApplicant.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -474,28 +464,25 @@ const remove = (id) => {
             $.ajax({
                 method: "DELETE",
                 url: "/api/hr/applicants/delete-by-id/" + id,
-                statusCode: {
-                    200: (response) => {
-                        table.ajax.reload();
-                        Swal.fire({
-                            title: response.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
-                        });
-                    },
-                    404: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    500: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
+                success: (response) => {
+                    table.ajax.reload();
+                    Swal.fire({
+                        title: response.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    });
                 },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        //position: "top-end",
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
                 title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",

@@ -1,60 +1,110 @@
 ﻿<div class="modal fade" id="modal-user" data-bs-backdrop="static" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title ml-5 text-uppercase">User Infomations</h4>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
+        <form id="form-account" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title ml-5 text-uppercase">@JSMS.Resources.Language.UserInfo</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
                     <input type="hidden" id="data-id">
                     <div class="col-md-12">
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="username" placeholder="">
-                            <label for="username">Please input your username</label>
+                        <div class="form-group mb-4">
+                            <label for="username">@JSMS.Resources.Language.Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="@JSMS.Resources.Language.Input">
+
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="form-floating mb-4">
-                            <input type="text" maxlength="15" class="form-control" id="phone" placeholder="">
-                            <label for="phone">Please input your phone number</label>
+                        <div class="form-group mb-4">
+                            <label for="phone">@JSMS.Resources.Language.Telephone</label>
+                            <input type="text" maxlength="15" class="form-control" id="phone" placeholder="@JSMS.Resources.Language.Input">
+
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="password" placeholder="">
-                            <label for="password">Please input your password</label>
+                    <div class="col-md-12" id="is-change">
+                        <div class="form-group mb-4">
+                            <label>@JSMS.Resources.Language.ChangePassword</label>
+                            <select class="form-select" id="change-password">
+                                <option value="0">@JSMS.Resources.Language.OldPassword</option>
+                                <option value="1">@JSMS.Resources.Language.NewPassword</option>
+                            </select>
                         </div>
                     </div>
+
+                    <section id="show-change">
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label for="old-password">@JSMS.Resources.Language.OldPassword</label> 
+                                <input type="password" class="form-control" id="old-password" placeholder="@JSMS.Resources.Language.Input">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label for="new-password">@JSMS.Resources.Language.NewPassword</label>
+                                <input type="password" class="form-control" id="new-password" placeholder="@JSMS.Resources.Language.Input">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label for="confirm-password">@JSMS.Resources.Language.ConfirmPassword</label>
+                                <input type="password" class="form-control" id="confirm-new-password" placeholder="@JSMS.Resources.Language.Input">
+
+                            </div>
+                        </div>
+                    </section>
+                    <section id="show-passowrd">
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label for="password">@JSMS.Resources.Language.Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="@JSMS.Resources.Language.Input">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label for="confirm-password">@JSMS.Resources.Language.ConfirmPassword</label>
+                                <input type="password" class="form-control" id="confirm-password" placeholder="@JSMS.Resources.Language.Input">
+
+                            </div>
+                        </div>
+                    </section>
+
                     <div class="col-md-12">
-                        <select class="form-select mb-4" id="role">
-                            <option value="-1">---Please select role---</option>
-                            @foreach (var response in Model)
-                            {
-                                <option value="@response.Name">@response.Name</option>
-                            }
-                        </select>
+                        <div class="form-group mb-2">
+                            <label>@JSMS.Resources.Language.Role</label>
+                            <select class="form-select" id="role">
+                                <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                @foreach (var response in Model)
+                                {
+                                    <option value="@response.Name">@response.Name</option>
+                                }
+                            </select>
+                        </div>
                     </div>
                 </div>
 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                        <i class=" fas fa-times-circle"></i>
+                        <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                    </button>
+                    <button type="button" class="btn btn-success" id="update">
+                        <i class=" fas fas fa-redo-alt"></i>
+                        <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="save">
+                        <i class=" fas fa-save"></i>
+                        <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
+                    </button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
-                    <i class=" fas fa-times-circle"></i>
-                    <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
-                </button>
-                <button type="button" class="btn btn-success" id="update">
-                    <i class=" fas fas fa-redo-alt"></i>
-                    <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
-                </button>
-                <button type="button" class="btn btn-secondary" id="save">
-                    <i class=" fas fa-save"></i>
-                    <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
-                </button>
-            </div>
-        </div>
+        </form>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->

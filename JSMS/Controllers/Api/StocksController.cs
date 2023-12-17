@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace JSMS.Controllers.Api
@@ -29,7 +30,6 @@ namespace JSMS.Controllers.Api
             base.Dispose(disposing);
         }
 
-
         [HttpGet]
         [Route("get")]
         public IHttpActionResult Get()
@@ -38,10 +38,9 @@ namespace JSMS.Controllers.Api
             {
                 var response = (from Product in context.Products
                                 join Stock in context.StockTransactions on Product.Id equals Stock.Product
-                                join Quantity in context.Stocks on Product.Id equals Quantity.Product
 
                                 where Product.IsActive.Equals(true) && Stock.IsActive.Equals(true)
-                                select new { Product, Stock, Quantity }).OrderByDescending(c => c.Stock.Id).ToList();
+                                select new { Product, Stock }).OrderByDescending(c => c.Stock.Id).ToList();
 
                 if (response == null)
                 {
@@ -84,7 +83,7 @@ namespace JSMS.Controllers.Api
 
         [HttpPost]
         [Route("post")]
-        public IHttpActionResult StockInOrOut(StockTransaction request)
+        public async Task<IHttpActionResult> StockInOrOut(StockTransaction request)
         {
             try
             {
@@ -113,7 +112,7 @@ namespace JSMS.Controllers.Api
                         context.StockTransactions.Add(request);
                     }
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 //Stock-out
@@ -136,7 +135,7 @@ namespace JSMS.Controllers.Api
                         context.StockTransactions.Add(request);
                     }
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
@@ -149,7 +148,7 @@ namespace JSMS.Controllers.Api
 
         [HttpPut]
         [Route("put-by-id/{id}")]
-        public IHttpActionResult PutById(StockTransaction request, int id)
+        public async Task<IHttpActionResult> PutById(StockTransaction request, int id)
         {
             try
             {
@@ -177,7 +176,7 @@ namespace JSMS.Controllers.Api
 
                     context.Entry(stockExist).State = EntityState.Modified;
                     context.Entry(response).State = EntityState.Modified;
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 //Stock-out
@@ -201,7 +200,7 @@ namespace JSMS.Controllers.Api
                         context.Entry(response).State = EntityState.Modified;
                     }
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
@@ -215,7 +214,7 @@ namespace JSMS.Controllers.Api
 
         [HttpDelete]
         [Route("delete-by-id/{id}")]
-        public IHttpActionResult DeleteById(int id)
+        public async Task<IHttpActionResult> DeleteById(int id)
         {
             try
             {
@@ -229,7 +228,7 @@ namespace JSMS.Controllers.Api
                     response.IsActive = false;
                     response.Deleted = DateTime.Now;
                     //context.StockTransactions.Remove(response);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });

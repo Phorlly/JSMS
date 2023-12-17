@@ -1,196 +1,278 @@
 ﻿$(document).ready(() => {
     loadingGif();
+    titleGeneralIncome.show();
+    titleIncomeSalary.hide();
+    titleGeneralExpense.hide();
+    titleExpenseSalary.hide();
+    addIncome.show();
+    addIncomeSalary.hide();
+    addExpense.hide();
+    addExpenseSalary.hide();
+    showIncome.show();
+    showIncomeSalary.hide();
+    showExpense.hide();
+    showExpenseSalary.hide();
 });
 
 //Declare variable for use global
-let table = [];
-let update = $("#update");
-let save = $("#save");
-let dataId = $("#data-id");
 let createdBy = $("#log-by").data("logby");
 let tabTransaction = $("#tab-transaction");
+let tabGeneralIncome = $("#tab-income");
+let tabIncomeSalary = $("#tab-income-salary");
+let tabGeneralExpense = $("#tab-expense");
+let tabExpenseSalary = $("#tab-expense-salary");
+let titleGeneralIncome = $("#title-income");
+let titleIncomeSalary = $("#title-income-salary");
+let titleGeneralExpense = $("#title-expense");
+let titleExpenseSalary = $("#title-expense-salary");
+let addIncome = $("#add-income");
+let addIncomeSalary = $("#add-income-salary");
+let addExpense = $("#add-expense");
+let addExpenseSalary = $("#add-expense-salary");
+let showIncome = $("#show-income");
+let showIncomeSalary = $("#show-income-salary");
+let showExpense = $("#show-expesne");
+let showExpenseSalary = $("#show-epense-salary");
+let modalIncomeSalary = $("#modal-income-salary");
 
+//Hide show 
+tabGeneralIncome.click(() => {
+    titleGeneralIncome.show();
+    titleIncomeSalary.hide();
+    titleGeneralExpense.hide();
+    titleExpenseSalary.hide();
+    addIncome.show();
+    addIncomeSalary.hide();
+    addExpense.hide();
+    addExpenseSalary.hide();
+    showIncome.show();
+    showIncomeSalary.hide();
+    showExpense.hide();
+    showExpenseSalary.hide();
+});
+tabIncomeSalary.click(() => {
+    titleGeneralIncome.hide();
+    titleIncomeSalary.show();
+    titleGeneralExpense.hide();
+    titleExpenseSalary.hide();
+    addIncome.hide();
+    addIncomeSalary.show();
+    addExpense.hide();
+    addExpenseSalary.hide();
+    showIncome.hide();
+    showIncomeSalary.show();
+    showExpense.hide();
+    showExpenseSalary.hide();
+});
+tabGeneralExpense.click(() => {
+    titleGeneralIncome.hide();
+    titleIncomeSalary.hide();
+    titleGeneralExpense.show();
+    titleExpenseSalary.hide();
+    addIncome.hide();
+    addIncomeSalary.hide();
+    addExpense.show();
+    addExpenseSalary.hide();
+    showIncome.hide();
+    showIncomeSalary.hide();
+    showExpense.show();
+    showExpenseSalary.hide();
+});
+tabExpenseSalary.click(() => {
+    titleGeneralIncome.hide();
+    titleIncomeSalary.hide();
+    titleGeneralExpense.hide();
+    titleExpenseSalary.show();
+    addIncome.hide();
+    addIncomeSalary.hide();
+    addExpense.hide();
+    addExpenseSalary.show();
+    showIncome.hide();
+    showIncomeSalary.hide();
+    showExpense.hide();
+    showExpenseSalary.show();
+});
 
 //Get all data
-const getAll = () => {
-    table = $("#transaction").DataTable({
-        ajax: {
-            url: "/api/hr/transactions/get",
-            dataSrc: "",
-            method: "GET",
-        },
-        // responsive: true,
-        // autoWidth: false,
-        scrollX: true,
-        dom: "Bfrtip",
-        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        language: {
-            paginate: {
-                previous: "<i class='fas fa-chevron-left'>",
-                next: "<i class='fas fa-chevron-right'>",
-            },
-        },
-        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
-        columns: [
-            {
-                title: "#",
-                data: null,
-                render: (data, type, row, meta) => `${meta.row + 1}`,
-            },
-            {
-                title: "Name",
-                data: null,
-                render: (row) => `${row.Client.Name} ${row.Client.Company}`,
-            },
-            {
-                title: "Profile",
-                data: "Client.Image",
-                render: (row) => {
-                    if (row == null || row == "") {
-                        return "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>";
-                    }
-                    return `<img src="${row}" class='rounded-circle' width='50px'/>`;
-                },
-            },
-            {
-                title: "Date",
-                data: "Transaction.DateInOrEx",
-                render: (data) => data ? moment(data).format("DD/MMM/YYYY") : "",
-            },
-            {
-                title: "Currency",
-                data: "Transaction.Currency",
-                render: (row) => row === 1 ? `<span class="btn btn-success rounded-circle" style="cursor: default;">$</span>` : `<span class="btn btn-warning rounded-circle" style="cursor: default;">៛</span>`,
-            },
-            {
-                title: "Total Price",
-                data: null,
-                render: (row) => formatCurrency(row.Transaction.Currency, row.Transaction.Total),
-            },
-            {
-                title: "Purpose",
-                data: "Transaction.Noted",
-            },
-            {
-                title: "In",
-                data: "Transaction.Noted",
-            },
-            {
-                title: "Purpose",
-                data: "Transaction.Noted",
-            },
-            //   {
-            //     title: "Transaction",
-            //     data: null,
-            //     render: (data, type, row, meta) => {
-            //       let symbol = row.Transaction.Currency === 1 ? "$" : "៛";
-            //       let amount = row.Transaction.Amount;
-            //       let total = row.Transaction.Total;
-            //       let vat = row.Transaction.VAT;
-            //       let unit = row.Transaction.Unit;
-            //       let subTotal = total - vat;
-            //       // ${meta.row + 1}
-            //       //                             ${row.Transaction.Description}
-            //       //                             ${row.Transaction.Quantity}
-            //       //                             ${formatCurrency(unit, symbol)}
-            //       //                             <td>${formatCurrency(amount, symbol)}
-            //     },
-            //   },
-            {
-                title: "Invoice",
-                data: "Transaction.Code",
-            },
-            {
-                title: "File",
-                data: "Transaction.Attachment",
-                render: (row) => {
-                    if (row === null) {
-                        return "";
-                    } else {
-                        let fileInfo = readFile(row);
-                        return `<a href="${fileInfo.url}" target="_blank">${fileInfo.name}</a>`;
-                    }
-                },
-            },
-            {
-                title: "Description",
-                data: "Transaction.Description",
-            },
-            {
-                title: "Created",
-                data: "Transaction.CreatedAt",
-                render: (data) => {
-                    if (data != null) {
-                        return moment(data).fromNow();
-                    }
-                },
-            },
-            {
-                title: "Updated",
-                data: "Transaction.UpdatedAt",
-                render: (data) => {
-                    if (data != null) {
-                        return moment(data).fromNow();
-                    }
-                },
-            },
-            {
-                title: "Transaction",
-                data: "Transaction.Id",
-                render: (row) => {
-                    return `<div> 
-                    <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
-                        <span class='fas fa-edit'></span>
-                    </button>
-                    <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
-                        <span class='fas fa-trash-alt'></span>
-                    </button>
-                  </div>`;
-                },
-            },
-        ],
-        buttons: [
-            {
-                title: "Report of Users",
-                extend: "excelHtml5",
-                text: "<i class='fa fa-file-excel'> </i> Excel",
-                className: "btn btn-success btn-sm mt-2",
-            },
-            {
-                title: "Report of Users",
-                extend: "pdfHtml5",
-                text: "<i class='fa fa-file-pdf'> </i> PDF",
-                className: "btn btn-danger btn-sm mt-2",
-            },
-            {
-                title: "Report of Users",
-                extend: "print",
-                text: "<i class='fa fa-print'> </i> Print",
-                className: "btn btn-dark btn-sm mt-2",
-            },
-            {
-                title: "Report of Users",
-                extend: "copy",
-                text: "<i class='fa fa-copy'> </i> Copy Text",
-                className: "btn btn-info btn-sm mt-2",
-            },
-            {
-                title: "Report of Users",
-                extend: "colvis",
-                text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
-                className: "btn btn-primary btn-sm mt-2",
-            },
-        ],
-    });
-};
+//const getAll = () => {
+//    table = $("#transaction").DataTable({
+//        ajax: {
+//            url: "/api/hr/transactions/get",
+//            dataSrc: "",
+//            method: "GET",
+//        },
+//        // responsive: true,
+//        // autoWidth: false,
+//        scrollX: true,
+//        dom: "Bfrtip",
+//        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+//        language: {
+//            paginate: {
+//                previous: "<i class='fas fa-chevron-left'>",
+//                next: "<i class='fas fa-chevron-right'>",
+//            },
+//        },
+//        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
+//        columns: [
+//            {
+//                title: "#",
+//                data: null,
+//                render: (data, type, row, meta) => `${meta.row + 1}`,
+//            },
+//            {
+//                title: "Name",
+//                data: null,
+//                render: (row) => `${row.Client.Name} ${row.Client.Company}`,
+//            },
+//            {
+//                title: "Profile",
+//                data: "Client.Image",
+//                render: (row) => {
+//                    if (row == null || row == "") {
+//                        return "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>";
+//                    }
+//                    return `<img src="${row}" class='rounded-circle' width='50px'/>`;
+//                },
+//            },
+//            {
+//                title: "Date",
+//                data: "Transaction.DateInOrEx",
+//                render: (data) => data ? moment(data).format("DD/MMM/YYYY") : "",
+//            },
+//            {
+//                title: "Currency",
+//                data: "Transaction.Currency",
+//                render: (row) => row === 1 ? `<span class="btn btn-success rounded-circle" style="cursor: default;">$</span>` : `<span class="btn btn-warning rounded-circle" style="cursor: default;">៛</span>`,
+//            },
+//            {
+//                title: "Total Price",
+//                data: null,
+//                render: (row) => formatCurrency(row.Transaction.Currency, row.Transaction.Total),
+//            },
+//            {
+//                title: "Purpose",
+//                data: "Transaction.Noted",
+//            },
+//            {
+//                title: "In",
+//                data: "Transaction.Noted",
+//            },
+//            {
+//                title: "Purpose",
+//                data: "Transaction.Noted",
+//            },
+//            //   {
+//            //     title: "Transaction",
+//            //     data: null,
+//            //     render: (data, type, row, meta) => {
+//            //       let symbol = row.Transaction.Currency === 1 ? "$" : "៛";
+//            //       let amount = row.Transaction.Amount;
+//            //       let total = row.Transaction.Total;
+//            //       let vat = row.Transaction.VAT;
+//            //       let unit = row.Transaction.Unit;
+//            //       let subTotal = total - vat;
+//            //       // ${meta.row + 1}
+//            //       //                             ${row.Transaction.Description}
+//            //       //                             ${row.Transaction.Quantity}
+//            //       //                             ${formatCurrency(unit, symbol)}
+//            //       //                             <td>${formatCurrency(amount, symbol)}
+//            //     },
+//            //   },
+//            {
+//                title: "Invoice",
+//                data: "Transaction.Code",
+//            },
+//            {
+//                title: "File",
+//                data: "Transaction.Attachment",
+//                render: (row) => {
+//                    if (row === null) {
+//                        return "";
+//                    } else {
+//                        let fileInfo = readFile(row);
+//                        return `<a href="${fileInfo.url}" target="_blank">${fileInfo.name}</a>`;
+//                    }
+//                },
+//            },
+//            {
+//                title: "Description",
+//                data: "Transaction.Description",
+//            },
+//            {
+//                title: "Created",
+//                data: "Transaction.CreatedAt",
+//                render: (data) => {
+//                    if (data != null) {
+//                        return moment(data).fromNow();
+//                    }
+//                },
+//            },
+//            {
+//                title: "Updated",
+//                data: "Transaction.UpdatedAt",
+//                render: (data) => {
+//                    if (data != null) {
+//                        return moment(data).fromNow();
+//                    }
+//                },
+//            },
+//            {
+//                title: "Transaction",
+//                data: "Transaction.Id",
+//                render: (row) => {
+//                    return `<div> 
+//                    <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
+//                        <span class='fas fa-edit'></span>
+//                    </button>
+//                    <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
+//                        <span class='fas fa-trash-alt'></span>
+//                    </button>
+//                  </div>`;
+//                },
+//            },
+//        ],
+//        buttons: [
+//            {
+//                title: "Report of Users",
+//                extend: "excelHtml5",
+//                text: "<i class='fa fa-file-excel'> </i> Excel",
+//                className: "btn btn-success btn-sm mt-2",
+//            },
+//            {
+//                title: "Report of Users",
+//                extend: "pdfHtml5",
+//                text: "<i class='fa fa-file-pdf'> </i> PDF",
+//                className: "btn btn-danger btn-sm mt-2",
+//            },
+//            {
+//                title: "Report of Users",
+//                extend: "print",
+//                text: "<i class='fa fa-print'> </i> Print",
+//                className: "btn btn-dark btn-sm mt-2",
+//            },
+//            {
+//                title: "Report of Users",
+//                extend: "copy",
+//                text: "<i class='fa fa-copy'> </i> Copy Text",
+//                className: "btn btn-info btn-sm mt-2",
+//            },
+//            {
+//                title: "Report of Users",
+//                extend: "colvis",
+//                text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
+//                className: "btn btn-primary btn-sm mt-2",
+//            },
+//        ],
+//    });
+//};
 
 //Reload data
 //$("#refresh").click(() => location.reload());
 
-tabTransaction.click(() => {
-    addIncome.hide();
-    addExpense.hide();
-});
+//tabTransaction.click(() => {
+//    addIncome.hide();
+//    addExpense.hide();
+//});
 
 ////Add new
 //addIncome.click(() => {

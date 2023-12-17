@@ -132,20 +132,11 @@
   <data name="Add" xml:space="preserve">
     <value>Add New</value>
   </data>
-  <data name="AddApplicant" xml:space="preserve">
-    <value>Add Applicant</value>
-  </data>
-  <data name="AddBehavoir" xml:space="preserve">
-    <value>Add Behavoir</value>
-  </data>
-  <data name="AddGuarantor" xml:space="preserve">
-    <value>Add Guarantor</value>
-  </data>
-  <data name="AddNew" xml:space="preserve">
-    <value>Add New</value>
-  </data>
   <data name="AlreadyAccount" xml:space="preserve">
     <value>Already Account for Login?</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
   </data>
   <data name="Apllicant" xml:space="preserve">
     <value>Apllicant</value>
@@ -160,7 +151,7 @@
     <value>Applicant passed in Short-List</value>
   </data>
   <data name="ApplicantPassRecruitment" xml:space="preserve">
-    <value>Applicant Pass in Recruitment</value>
+    <value>Applicant passed in Recruitment</value>
   </data>
   <data name="Assistance" xml:space="preserve">
     <value>Assistance</value>
@@ -185,6 +176,9 @@
   </data>
   <data name="BehaviorManagement" xml:space="preserve">
     <value>Behavior​ Management</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
   </data>
   <data name="CheckIn" xml:space="preserve">
     <value>Check In</value>
@@ -222,6 +216,9 @@
   <data name="Contact" xml:space="preserve">
     <value>Contact Us</value>
   </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Total Price</value>
+  </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Create New Account</value>
   </data>
@@ -230,6 +227,9 @@
   </data>
   <data name="CreateNewAccount" xml:space="preserve">
     <value>Create New Account</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency Type</value>
   </data>
   <data name="CurrentAddress" xml:space="preserve">
     <value>Current Address</value>
@@ -252,11 +252,26 @@
   <data name="Education" xml:space="preserve">
     <value>Education</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
   <data name="EndDate" xml:space="preserve">
     <value>End Date</value>
   </data>
+  <data name="ExchangRate" xml:space="preserve">
+    <value>Exchang Rate</value>
+  </data>
   <data name="Expense" xml:space="preserve">
-    <value>Expense</value>
+    <value>General Expense</value>
+  </data>
+  <data name="ExpenseManagement" xml:space="preserve">
+    <value>General-Expense Management</value>
+  </data>
+  <data name="ExpenseSalary" xml:space="preserve">
+    <value>Expense on Salary</value>
+  </data>
+  <data name="ExpenseSalaryManagement" xml:space="preserve">
+    <value>Expense on Salary Management</value>
   </data>
   <data name="ExpenseType" xml:space="preserve">
     <value>Expense Type</value>
@@ -301,7 +316,46 @@
     <value>No.</value>
   </data>
   <data name="Income" xml:space="preserve">
-    <value>Income</value>
+    <value>Ganeral Income</value>
+  </data>
+  <data name="IncomeAds" xml:space="preserve">
+    <value>Advertising revenue</value>
+  </data>
+  <data name="IncomeAdvisor" xml:space="preserve">
+    <value>Earnings from comment value</value>
+  </data>
+  <data name="IncomeCost" xml:space="preserve">
+    <value>Revenue from service fee</value>
+  </data>
+  <data name="IncomeExpensive" xml:space="preserve">
+    <value>Income from interest income</value>
+  </data>
+  <data name="IncomeInfo" xml:space="preserve">
+    <value>General-Income Infomations</value>
+  </data>
+  <data name="IncomeManagement" xml:space="preserve">
+    <value>General-Income Management</value>
+  </data>
+  <data name="IncomeSalary" xml:space="preserve">
+    <value>Income from Salary</value>
+  </data>
+  <data name="IncomeSalaryManagement" xml:space="preserve">
+    <value>Income​ from Salary Management</value>
+  </data>
+  <data name="IncomeSell" xml:space="preserve">
+    <value>Revenue from product sales</value>
+  </data>
+  <data name="IncomeService" xml:space="preserve">
+    <value>Revenue from sales of services</value>
+  </data>
+  <data name="IncomeSponsored" xml:space="preserve">
+    <value>Income from voluntary sponsorship</value>
+  </data>
+  <data name="IncomeState" xml:space="preserve">
+    <value>Income from state sponsorship</value>
+  </data>
+  <data name="IncomeTax" xml:space="preserve">
+    <value>Revenue from taxes</value>
   </data>
   <data name="IncomeType" xml:space="preserve">
     <value>Income Type</value>
@@ -317,6 +371,9 @@
   </data>
   <data name="JoiningDate" xml:space="preserve">
     <value>Joining Date</value>
+  </data>
+  <data name="KHR" xml:space="preserve">
+    <value>KHR (៛)</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
@@ -348,6 +405,9 @@
   <data name="Morning" xml:space="preserve">
     <value>Morning</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="NameOfApplcant" xml:space="preserve">
     <value>Name of Applcant</value>
   </data>
@@ -360,6 +420,9 @@
   <data name="Nationality" xml:space="preserve">
     <value>Nationality</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="Night" xml:space="preserve">
     <value>Night</value>
   </data>
@@ -368,6 +431,9 @@
   </data>
   <data name="NotStudied" xml:space="preserve">
     <value>Not Studied</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old password</value>
   </data>
   <data name="OnlineApplicant" xml:space="preserve">
     <value>Online​ Applicant</value>
@@ -408,6 +474,15 @@
   <data name="PrimarySchool" xml:space="preserve">
     <value>Primary School</value>
   </data>
+  <data name="ProcductManagement" xml:space="preserve">
+    <value>Procduct Management</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ProductInfo" xml:space="preserve">
+    <value>Product Infomations</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
@@ -416,6 +491,9 @@
   </data>
   <data name="Purpose" xml:space="preserve">
     <value>Purpose</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
   </data>
   <data name="Rating" xml:space="preserve">
     <value>Rating</value>
@@ -435,11 +513,29 @@
   <data name="RegisterOnline" xml:space="preserve">
     <value>Register Online</value>
   </data>
+  <data name="RegisterOnlineManagement" xml:space="preserve">
+    <value>Register Online Management</value>
+  </data>
+  <data name="RemainStock" xml:space="preserve">
+    <value>Remain-Stock</value>
+  </data>
+  <data name="RemainStockManagement" xml:space="preserve">
+    <value>Remain-Stock Management</value>
+  </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me?</value>
   </data>
   <data name="RememberUP" xml:space="preserve">
     <value>Please remember your Username and Password</value>
+  </data>
+  <data name="ReportManagement" xml:space="preserve">
+    <value>Report Management</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role Permission</value>
+  </data>
+  <data name="RolePermission" xml:space="preserve">
+    <value>Role Permission</value>
   </data>
   <data name="Salary" xml:space="preserve">
     <value>Salary</value>
@@ -492,8 +588,26 @@
   <data name="Stock" xml:space="preserve">
     <value>Stock Product</value>
   </data>
+  <data name="StockIn" xml:space="preserve">
+    <value>Stock-In</value>
+  </data>
+  <data name="StockManagement" xml:space="preserve">
+    <value>Stock Management</value>
+  </data>
+  <data name="StockOut" xml:space="preserve">
+    <value>Stock-Out</value>
+  </data>
+  <data name="StockProductInfo" xml:space="preserve">
+    <value>Stock-Product Infomations</value>
+  </data>
+  <data name="StockType" xml:space="preserve">
+    <value>Stock Type</value>
+  </data>
   <data name="Summary" xml:space="preserve">
-    <value>Summary ​Data</value>
+    <value>Report </value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Tax</value>
   </data>
   <data name="Telephone" xml:space="preserve">
     <value>Telephone</value>
@@ -516,6 +630,9 @@
   <data name="Type" xml:space="preserve">
     <value>Job Type</value>
   </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Unit Price</value>
+  </data>
   <data name="University" xml:space="preserve">
     <value>University</value>
   </data>
@@ -528,8 +645,17 @@
   <data name="UploadImage" xml:space="preserve">
     <value>Upload Image</value>
   </data>
+  <data name="USD" xml:space="preserve">
+    <value>USD ($)</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
+  </data>
+  <data name="UserInfo" xml:space="preserve">
+    <value>User Infomations</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>User Management</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>

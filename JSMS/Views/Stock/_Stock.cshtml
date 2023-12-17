@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-uppercase">Stock Product Infomations</h4>
+                <h4 class="modal-title text-uppercase">@JSMS.Resources.Language.StockProductInfo</h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -15,10 +15,10 @@
                     <section>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group mb-2">
-                                    <label class="fw-normal" for="product-type">Product's Name</label>
+                                <div class="form-group mb-3">
+                                    <label for="product-type">@JSMS.Resources.Language.Product</label>
                                     <select id="product-type" class="form-select">
-                                        <option value="-1">---Select product's name---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
                                         @foreach (var response in Model)
                                         {
                                             <option value="@response.Id">@response.Name</option>
@@ -27,33 +27,36 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-group mb-2">
-                                    <label class="fw-normal" for="stock-in-out">Stock In/Out</label>
+                                <div class="form-group mb-3">
+                                    <label for="stock-in-out">@JSMS.Resources.Language.StockType</label>
                                     <select id="stock-in-out" class="form-select">
-                                        <option value="-1">Select Stock In/Out</option>
-                                        <option value="1">ទំនិញចូលក្នុងស្តុក (Stock-in)</option>
-                                        <option value="2">ទំនិញចេញពីស្តុក (Stock-out)</option>
+                                        <option value="-1">@JSMS.Resources.Language.Select</option>
+                                        <option value="1">@JSMS.Resources.Language.StockIn</option>
+                                        <option value="2">@JSMS.Resources.Language.StockOut)</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" id="quantity" placeholder="">
-                                    <label class="fw-normal" for="quantity">Quantity</label>
+                                <div class="form-group mb-3">
+                                    <label for="quantity">Quantity</label>
+                                    <input type="text" class="form-control" id="quantity" placeholder="@JSMS.Resources.Language.Input">
+
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-                                <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" id="date-in-out" placeholder="">
-                                    <label class="fw-normal" for="date-in-out">@JSMS.Resources.Language.SelectDate</label>
+                                <div class="form-group mb-3">
+                                    <label for="date-in-out">@JSMS.Resources.Language.Date</label>
+                                    <input type="text" class="form-control" id="date-in-out" placeholder="@JSMS.Resources.Language.SelectDate">
+
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-                                <div class="form-floating mb-2">
-                                    <textarea type="text" class="form-control" id="s-noted" placeholder=""></textarea>
-                                    <label class="fw-normal" for="s-noted">Descriptions</label>
+                                <div class="form-group mb-3">
+                                    <label for="s-noted">@JSMS.Resources.Language.Description</label>
+                                    <textarea type="text" class="form-control" id="s-noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+
                                 </div>
                             </div>
 

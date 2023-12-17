@@ -1,6 +1,8 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    getClient();
+    $("#show-data-client").click(() => getClient());
+    $("#show-data-client").show();
+    $("#show-data-applicant").hide();
 });
 
 //Declare vaariable 
@@ -25,6 +27,7 @@ const getClient = () => {
             method: "GET",
         },
         responsive: true,
+        destroy: true,
         // autoWidth: false,
         //scrollX: true,
         dom: "Bfrtip",
@@ -37,51 +40,51 @@ const getClient = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "N<sup>o</sup>",
+                //title: "N<sup>o</sup>",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name",
+                //title: "Name",
                 data: null,
                 render: row => `${row.Client.Name} (${row.Client.Company})`,
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Client.Sex",
                 render: row => row === 2 ? "Male" : row === 1 ? "Female" : "Batmen"
             },
             {
-                title: "Telephone",
+                //title: "Telephone",
                 data: null,
                 render: row => `${row.Client.Phone1} ${row.Client.Phone2}`,
             },
             {
-                title: "Address",
+                //title: "Address",
                 data: null,
                 render: row => `${row.Province.Name}, ${row.Country.Name}`,
             },
             {
-                title: "Description",
-                data: "Client.Noted",
-            },
-            {
-                title: "Status",
+                //title: "Status",
                 data: "Client.Status",
                 render: row => formatStatus(row),
             },
             {
-                title: "Created",
+                //title: "Description",
+                data: "Client.Noted",
+            },
+            {
+                //title: "Created",
                 data: "Client.CreatedAt",
                 render: row => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Client.UpdatedAt",
                 render: row => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Client.Id",
                 render: row => `<div> 
                                      <button onclick= "editClient('${row}')" class= 'btn btn-warning btn-sm' >
@@ -95,25 +98,25 @@ const getClient = () => {
         ],
         buttons: [
             {
-                title: "ONLINE CLIENT LIST",
+                title: "បញ្ជីអតិថិជនស្នើតាមអនឡាញ",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "ONLINE CLIENT LIST",
+                title: "បញ្ជីអតិថិជនស្នើតាមអនឡាញ",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "ONLINE CLIENT LIST",
+                title: "បញ្ជីអតិថិជនស្នើតាមអនឡាញ",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "ONLINE CLIENT LIST",
+                title: "បញ្ជីអតិថិជនស្នើតាមអនឡាញ",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -127,6 +130,11 @@ const getClient = () => {
     });
 };
 
+//Hide show tab
+$("#tab-client").click(() => {
+    $("#show-data-client").show();
+    $("#show-data-applicant").hide();
+});
 
 //Submit now
 submitNow.click(() => {
@@ -149,30 +157,27 @@ submitNow.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
-        statusCode: {
-            200: (response) => {
-                clearClient();
-                setColorClient();
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        success: (response) => {
+            clearClient();
+            setColorClient();
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 

@@ -1,12 +1,11 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    getApplicant();
+    $("#show-data-applicant").click(() => getApplicant());
 });
 
 //Declare variable 
 let applicant = [];
 let applyNow = $("#apply-now");
-let refresh = $("#refresh");
 let nameIn = $("#name-in-certificate");
 let nickName = $("#nick-name");
 let sex = $("#sex");
@@ -32,6 +31,7 @@ const getApplicant = () => {
         },
         //responsive: true,
         // autoWidth: false,
+        destroy: true,
         scrollX: true,
         dom: "Bfrtip",
         language: {
@@ -43,51 +43,51 @@ const getApplicant = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "N<sup>o</sup>",
+                //title: "N<sup>o</sup>",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Name",
+                //title: "Name",
                 data: null,
                 render: (row) => `${row.Applicant.Name} ${row.Applicant.NickName}`,
             },
             {
-                title: "Gender",
+                //title: "Gender",
                 data: "Applicant.Sex",
                 render: (row) => row === 2 ? "Male" : row === 1 ? "Female" : "Batman",
             },
             {
-                title: "Education",
+                //title: "Education",
                 data: "Applicant.Education",
                 render: row => formatEducation(row),
             },
             {
-                title: "Position",
+                //title: "Position",
                 data: "Applicant.Position",
                 render: row => row === 1 ? "IT" : row === 2 ? "HR" : "Guard",
             },
             {
-                title: "DOB",
+                //title: "DOB",
                 data: "Applicant.DOB",
                 render: (row) => row ? moment(row).format("YYYY") : ""
             },
             {
-                title: "Nationality",
+                //title: "Nationality",
                 data: null,
                 render: (row) => `${row.Applicant.National}`,
             },
             {
-                title: "Telphone",
+                //title: "Telephone",
                 data: null,
                 render: (row) => `${row.Applicant.Phone1} ${row.Applicant.Phone2}`,
             },
             {
-                title: "Address",
+                //title: "Address",
                 data: "Address.NameKh",
             },
             {
-                title: "Attachment",
+                //title: "Attachment",
                 data: "Applicant.Attachment",
                 render: (row) => {
                     if (row === null) {
@@ -99,26 +99,26 @@ const getApplicant = () => {
                 },
             },
             {
-                title: "Description",
-                data: "Applicant.Noted",
-            },
-            {
-                title: "Status",
+                //title: "Status",
                 data: "Applicant.Status",
                 render: row => formatStatus(row),
             },
             {
-                title: "Created",
+                //title: "Description",
+                data: "Applicant.Noted",
+            },
+            {
+                //title: "Created",
                 data: "Applicant.CreatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Updated",
+                //title: "Updated",
                 data: "Applicant.UpdatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             {
-                title: "Actions",
+                //title: "Actions",
                 data: "Applicant.Id",
                 render: (row) => `<div> 
                                       <button onclick= "editApplicant('${row}')" class= 'btn btn-warning btn-sm' >
@@ -132,25 +132,25 @@ const getApplicant = () => {
         ],
         buttons: [
             {
-                title: "ONLINE APPLICANT LIST",
+                title: "បញ្ជីបេក្ខជនដាក់ពាក្យតាមអនឡាញ",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "ONLINE APPLICANT LIST",
+                title: "បញ្ជីបេក្ខជនដាក់ពាក្យតាមអនឡាញ",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "ONLINE APPLICANT LIST",
+                title: "បញ្ជីបេក្ខជនដាក់ពាក្យតាមអនឡាញ",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "ONLINE APPLICANT LIST",
+                title: "បញ្ជីបេក្ខជនដាក់ពាក្យតាមអនឡាញ",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -165,7 +165,13 @@ const getApplicant = () => {
 };
 
 //Reload data
-refresh.click(() => location.reload());
+//refresh.click(() => location.reload());
+
+//Hide show tab
+$("#tab-applicant").click(() => {
+    $("#show-data-client").hide();
+    $("#show-data-applicant").show();
+});
 
 //Apply now 
 applyNow.click(() => {
@@ -196,8 +202,7 @@ applyNow.click(() => {
         contentType: false,
         processData: false,
         data: formData,
-        statusCode: {
-            200: (response) => {
+        success: (response) => {
                 setColor();
                 clear();
                 Swal.fire({
@@ -209,22 +214,15 @@ applyNow.click(() => {
                     timer: 1500,
                 });
             },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 

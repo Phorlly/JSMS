@@ -62,7 +62,7 @@ namespace JSMS.Helpers
         }
 
         //Calculate salary 
-        public decimal GetSalaryPayment(IEnumerable<Staff> staffList, int totalWorkingDays, int absentDays, int? staff = null)
+        public decimal GetSalaryPayment(IEnumerable<Staff> staffList, int absentDays, int? staff = null)
         {
             decimal totalSalaries = 0;
             foreach (var allStaff in staffList)
@@ -75,7 +75,7 @@ namespace JSMS.Helpers
                 decimal totalSalary = CalculateTotalSalary(allStaff);
 
                 // Calculate rate per working day
-                decimal ratePerWorkingDay = totalSalary / totalWorkingDays;
+                //decimal ratePerWorkingDay = totalSalary / totalWorkingDays;
 
                 // Deduct salary for absent days
                 if (absentDays == 1)

@@ -156,25 +156,25 @@ const getGuarantor = () => {
         ],
         buttons: [
             {
-                title: "GUARANTOR LIST",
+                title: "បញ្ជីអ្នកធានា",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "GUARANTOR LIST",
+                title: "បញ្ជីអ្នកធានា",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "GUARANTOR LIST",
+                title: "បញ្ជីអ្នកធានា",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "GUARANTOR LIST",
+                title: "បញ្ជីអ្នកធានា",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -241,34 +241,31 @@ saveGuarantor.click(() => {
         contentType: false,
         processData: false,
         data: formData,
-        statusCode: {
-            200: (response) => {
-                guarantorId.val(response.Id);
-                guarantor.ajax.reload();
-                clearGuarantor();
-                colorGuarantor();
+        success: (response) => {
+            guarantorId.val(response.Id);
+            guarantor.ajax.reload();
+            clearGuarantor();
+            colorGuarantor();
 
-                //modalGaurantor.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            //modalGaurantor.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -279,56 +276,53 @@ const editGuarantor = (id) => {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                //console.log(response);
-                colorGuarantor();
-                clearGuarantor();
-                updateGuarantor.show();
-                saveGuarantor.hide();
+        success: (response) => {
+            //console.log(response);
+            colorGuarantor();
+            clearGuarantor();
+            updateGuarantor.show();
+            saveGuarantor.hide();
 
-                response.Gaurantor.Gender === true ? gGender.val("true") : gGender.val("false");
-                guarantorId.val(response.Gaurantor.Id);
-                gBirthName.val(response.Gaurantor.Name);
-                gNickName.val(response.Gaurantor.NickName);
-                gNational.val(response.Gaurantor.National);
-                gNationality.val(response.Gaurantor.Nationality);
-                gPhone1.val(response.Gaurantor.Phone1);
-                gPhone2.val(response.Gaurantor.Phone2);
-                gEducation.val(response.Gaurantor.Education);
-                response.Gaurantor.Image ? gImage.attr("src", response.Gaurantor.Image) : image.attr("src", "../Images/blank-image.png");
-                gNoted.val(response.Gaurantor.Noted);
-                gDOB.val(formatDate(response.Gaurantor.DOB));
-                gBProvince.val(response.BProvince.Id);
-                gBDistrictId.val(response.BDistrict.Id);
-                gBCommuneId.val(response.BCommune.Id);
-                gBVillageId.val(response.BVillage.Id);
+            response.Gaurantor.Gender === true ? gGender.val("true") : gGender.val("false");
+            guarantorId.val(response.Gaurantor.Id);
+            gBirthName.val(response.Gaurantor.Name);
+            gNickName.val(response.Gaurantor.NickName);
+            gNational.val(response.Gaurantor.National);
+            gNationality.val(response.Gaurantor.Nationality);
+            gPhone1.val(response.Gaurantor.Phone1);
+            gPhone2.val(response.Gaurantor.Phone2);
+            gEducation.val(response.Gaurantor.Education);
+            response.Gaurantor.Image ? gImage.attr("src", response.Gaurantor.Image) : image.attr("src", "../Images/blank-image.png");
+            gNoted.val(response.Gaurantor.Noted);
+            gDOB.val(formatDate(response.Gaurantor.DOB));
+            gBProvince.val(response.BProvince.Id);
+            gBDistrictId.val(response.BDistrict.Id);
+            gBCommuneId.val(response.BCommune.Id);
+            gBVillageId.val(response.BVillage.Id);
 
-                gBDis.hide();
-                gBCom.hide();
-                gBVil.hide();
+            gBDis.hide();
+            gBCom.hide();
+            gBVil.hide();
 
-                gCProvince.val(response.CProvince.Id);
-                gCDistrictId.val(response.CDistrict.Id);
-                gCCommuneId.val(response.CCommune.Id);
-                gCVillageId.val(response.CVillage.Id);
+            gCProvince.val(response.CProvince.Id);
+            gCDistrictId.val(response.CDistrict.Id);
+            gCCommuneId.val(response.CCommune.Id);
+            gCVillageId.val(response.CVillage.Id);
 
-                gBDis.hide();
-                gBCom.hide();
-                gBVil.hide();
-                modalGaurantor.modal("show");
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            gBDis.hide();
+            gBCom.hide();
+            gBVil.hide();
+            modalGaurantor.modal("show");
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -384,35 +378,27 @@ updateGuarantor.click(() => {
         contentType: false,
         processData: false,
         data: formData,
-        statusCode: {
-            200: (response) => {
-                guarantor.ajax.reload();
-                modalGaurantor.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        success: (response) => {
+            guarantor.ajax.reload();
+            modalGaurantor.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -430,29 +416,26 @@ const removeGuarantor = (id) => {
         param.value ? $.ajax({
             method: "DELETE",
             url: "/api/hr/gaurantors/delete-by-id/" + id,
-            statusCode: {
-                200: (response) => {
-                    guarantor.ajax.reload();
-                    Swal.fire({
-                        //position: "top-end",
-                        title: response.message,
-                        icon: "success",
-                        showConfirmButton: false,
-                        customClass: { title: 'custom-swal-title' },
-                        timer: 1500,
-                    });
-                },
-                404: (xhr) => {
-                    xhr.responseJSON && xhr.responseJSON.message ?
-                        toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                        console.log(xhr.responseText);
-                },
-                500: (xhr) => {
-                    xhr.responseJSON && xhr.responseJSON.message ?
-                        toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                        console.log(xhr.responseText);
-                },
+            success: (response) => {
+                guarantor.ajax.reload();
+                Swal.fire({
+                    //position: "top-end",
+                    title: response.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    customClass: { title: 'custom-swal-title' },
+                    timer: 1500,
+                });
             },
+            error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                Swal.fire({
+                    //position: "top-end",
+                    title: xhr.responseJSON.message,
+                    icon: "error",
+                    showConfirmButton: false,
+                    customClass: { title: 'custom-swal-title' },
+                    timer: 1500,
+                }) : console.log(xhr.responseText),
         }) : param.dismiss === Swal.DismissReason.cancel &&
         Swal.fire({
             title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",

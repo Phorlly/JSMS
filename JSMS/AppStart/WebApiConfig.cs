@@ -5,7 +5,7 @@ using System.Web.Http;
 
 namespace JSMS
 {
-    public static class WebApiConfig
+    public class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {

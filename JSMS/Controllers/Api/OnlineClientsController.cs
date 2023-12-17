@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace JSMS.Controllers.Api
@@ -85,7 +86,7 @@ namespace JSMS.Controllers.Api
 
         [HttpPost]
         [Route("post")]
-        public IHttpActionResult Post(OnlineClient request)
+        public async Task<IHttpActionResult> Post(OnlineClient request)
         {
             try
             {
@@ -104,7 +105,7 @@ namespace JSMS.Controllers.Api
                 if (request != null)
                 {
                     context.OnlineClients.Add(request);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
@@ -117,7 +118,7 @@ namespace JSMS.Controllers.Api
 
         [HttpPut]
         [Route("put-by-id/{id}")]
-        public IHttpActionResult PutById(OnlineClient request, int id)
+        public async Task<IHttpActionResult> PutById(OnlineClient request, int id)
         {
             try
             {
@@ -146,7 +147,7 @@ namespace JSMS.Controllers.Api
                 if (response != null && request != null)
                 {
                     context.Entry(response).State = EntityState.Modified;
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
@@ -159,7 +160,7 @@ namespace JSMS.Controllers.Api
 
         [HttpDelete]
         [Route("delete-by-id/{id}")]
-        public IHttpActionResult DeleteById(int id)
+        public async Task<IHttpActionResult> DeleteById(int id)
         {
             try
             {
@@ -173,7 +174,7 @@ namespace JSMS.Controllers.Api
                     response.IsActive = false;
                     response.DeletedAt = DateTime.Now;
                     //context.OnlineClients.Remove(response);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });

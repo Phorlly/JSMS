@@ -4,6 +4,8 @@
     byShift.change(() => getReportAttendance());
     byStaff.change(() => getReportAttendance());
     getReportAttendance();
+    $("#title-attendance").show();
+    $("#tite-report").hide();
     showData.click(() => getAttendance());
 });
 
@@ -102,25 +104,25 @@ const getAttendance = () => {
         ],
         buttons: [
             {
-                title: "ATTENDANCE LIST",
+                title: "បញ្ជីវត្តមានរបស់បុគ្គលិក",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "ATTENDANCE LIST",
+                title: "បញ្ជីវត្តមានរបស់បុគ្គលិក",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "ATTENDANCE LIST",
+                title: "បញ្ជីវត្តមានរបស់បុគ្គលិក",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "ATTENDANCE LIST",
+                title: "បញ្ជីវត្តមានរបស់បុគ្គលិក",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -135,8 +137,18 @@ const getAttendance = () => {
 };
 
 //Hide show tab
-tabAttendance.click(() => { addNew.show(); showData.show(); });
-tabSummary.click(() => { addNew.hide(), showData.hide() });
+tabAttendance.click(() => {
+    addNew.show();
+    showData.show();
+    $("#title-attendance").show();
+    $("#tite-report").hide();
+});
+tabSummary.click(() => {
+    addNew.hide();
+    showData.hide();
+    $("#title-attendance").hide();
+    $("#tite-report").show();
+});
 
 
 //Get report attendance
@@ -151,14 +163,13 @@ const getReportAttendance = () => {
         },
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                $('#attendance-summary').DataTable().destroy();
-                $('#attendance-summary tbody').empty();
-                $.each(response, (index, row) => {
-                    let checkIn = moment(row.CheckIn).format('DD/MMM/YY, LT');
-                    let checkOut = moment(row.CheckOut).format('DD/MMM/YY, LT');
-                    var newRow = `<tr>
+        success: (response) => {
+            $('#attendance-summary').DataTable().destroy();
+            $('#attendance-summary tbody').empty();
+            $.each(response, (index, row) => {
+                let checkIn = row.CheckIn ? moment(row.CheckIn).format('DD/MMM/YY, LT') : "";
+                let checkOut = row.CheckOut ? moment(row.CheckOut).format('DD/MMM/YY, LT') : "";
+                var newRow = `<tr>
                                     <td>${index + 1}</td>
                                     <td>${row.Name}</td>
                                     <td>${row.Code}</td>
@@ -167,61 +178,54 @@ const getReportAttendance = () => {
                                     <td>${checkIn}</td>
                                     <td>${checkOut}</td>
                                   </tr>`;
-                    $('#attendance-summary tbody').append(newRow);
-                });
-                // Initialize DataTables
-                $('#attendance-summary').DataTable({
-                    dom: "Bfrtip",
-                    buttons: ["excel", "pdf", "print"],
-                    responive: true,
-                    autoWidth: false,
-                    language: {
-                        paginate: {
-                            previous: "<i class='fas fa-chevron-left'>",
-                            next: "<i class='fas fa-chevron-right'>",
-                        },
+                $('#attendance-summary tbody').append(newRow);
+            });
+            // Initialize DataTables
+            $('#attendance-summary').DataTable({
+                dom: "Bfrtip",
+                buttons: ["excel", "pdf", "print"],
+                responive: true,
+                autoWidth: false,
+                language: {
+                    paginate: {
+                        previous: "<i class='fas fa-chevron-left'>",
+                        next: "<i class='fas fa-chevron-right'>",
                     },
-                    drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
-                    searching: false,
-                    lengthChange: false,
-                    buttons: [
-                        {
-                            title: "ATTENDANCE REPORT",
-                            extend: "excelHtml5",
-                            text: "<i class='fa fa-file-excel'> </i> Excel",
-                            className: "btn btn-success btn-sm mt-2",
-                        },
-                        {
-                            title: "ATTENDANCE REPORT",
-                            extend: "print",
-                            text: "<i class='fa fa-print'> </i> Print",
-                            className: "btn btn-dark btn-sm mt-2",
-                        },
-                        {
-                            title: "ATTENDANCE REPORT",
-                            extend: "copy",
-                            text: "<i class='fa fa-copy'> </i> Copy Text",
-                            className: "btn btn-info btn-sm mt-2",
-                        },
-                    ],
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+                },
+                drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
+                searching: false,
+                lengthChange: false,
+                buttons: [
+                    {
+                        title: "ATTENDANCE REPORT",
+                        extend: "excelHtml5",
+                        text: "<i class='fa fa-file-excel'> </i> Excel",
+                        className: "btn btn-success btn-sm mt-2",
+                    },
+                    {
+                        title: "ATTENDANCE REPORT",
+                        extend: "print",
+                        text: "<i class='fa fa-print'> </i> Print",
+                        className: "btn btn-dark btn-sm mt-2",
+                    },
+                    {
+                        title: "ATTENDANCE REPORT",
+                        extend: "copy",
+                        text: "<i class='fa fa-copy'> </i> Copy Text",
+                        className: "btn btn-info btn-sm mt-2",
+                    },
+                ],
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -298,38 +302,30 @@ const edit = (id) => {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                //console.log(response);
-                setColor();
-                clear();
-                update.show();
-                save.hide();
+        success: (response) => {
+            //console.log(response);
+            setColor();
+            clear();
+            update.show();
+            save.hide();
 
-                dataId.val(response.Attendance.Id); //object in controller
-                staff.val(response.Attendance.Staff); //object in controller
-                checkIn.val(response.Attendance.CheckIn);
-                checkOut.val(response.Attendance.CheckOut); //input that we declared on the top.val(response.Key-Database)
-                noted.val(response.Attendance.Noted);
+            dataId.val(response.Attendance.Id); //object in controller
+            staff.val(response.Attendance.Staff); //object in controller
+            checkIn.val(response.Attendance.CheckIn);
+            checkOut.val(response.Attendance.CheckOut); //input that we declared on the top.val(response.Key-Database)
+            noted.val(response.Attendance.Noted);
 
-                modalAtt.modal("show");
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-        }
+            modalAtt.modal("show");
+        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 }
 
@@ -349,44 +345,29 @@ update.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
-        statusCode: {
-            200: (response) => {
-                tblAttendance.ajax.reload();
+        success: (response) => {
+            tblAttendance.ajax.reload();
 
-                clear();
-                modalAtt.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    Swal.fire({
-                        //position: "top-end",
-                        title: xhr.responseJSON.message,
-                        icon: "warning",
-                        showConfirmButton: false,
-                        customClass: { title: 'custom-swal-title' },
-                        timer: 1500,
-                    }) : console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-
-        }
+            clear();
+            modalAtt.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
+        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
@@ -405,34 +386,31 @@ const remove = (id) => {
             ? $.ajax({
                 method: "DELETE",
                 url: "/api/hr/attendances/delete-by-id/" + id,
-                statusCode: {
-                    200: (response) => {
-                        tblAttendance.ajax.reload();
+                success: (response) => {
+                    tblAttendance.ajax.reload();
 
-                        Swal.fire({
-                            title: response.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
-                        });
-                    },
-                    400: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    404: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    500: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
+                    Swal.fire({
+                        title: response.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    });
                 },
+                400: (xhr) => {
+                    xhr.responseJSON && xhr.responseJSON.message ?
+                        toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
+                        console.log(xhr.responseText);
+                },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        //position: "top-end",
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
                 title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",
