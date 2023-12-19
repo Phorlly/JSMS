@@ -438,8 +438,8 @@ updateExpense.click(() => {
 
 const removeExpense = (id) => {
     Swal.fire({
-        title: id,
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: "ខ្ញុំខ្លាំង",
+        text: "ទេ! ខ្ញុំខ្លាំងជាង",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "យល់ព្រម",

@@ -359,6 +359,7 @@
     <Compile Include="Controllers\Admin\ApplicantController.cs" />
     <Compile Include="Controllers\Admin\AttendanceController.cs" />
     <Compile Include="Controllers\Admin\ClientController.cs" />
+    <Compile Include="Controllers\Admin\GeneralLedgerController.cs" />
     <Compile Include="Controllers\Admin\StockController.cs" />
     <Compile Include="Controllers\Api\ExpendController.cs" />
     <Compile Include="Controllers\Admin\RecruitmentController.cs" />
@@ -375,6 +376,7 @@
     <Compile Include="Controllers\Api\GaurantorsController.cs" />
     <Compile Include="Controllers\Api\IncomesController.cs" />
     <Compile Include="Controllers\Api\OnlineClientsController.cs" />
+    <Compile Include="Controllers\Api\OtherExpensesController.cs" />
     <Compile Include="Controllers\Api\ProductsController.cs" />
     <Compile Include="Controllers\Api\RecruitmentsController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
@@ -408,6 +410,7 @@
     <Compile Include="Models\Admin\Leave.cs" />
     <Compile Include="Models\Admin\LogAction.cs" />
     <Compile Include="Models\Admin\MenuItem.cs" />
+    <Compile Include="Models\Admin\OtherExpense.cs" />
     <Compile Include="Models\Admin\Product.cs" />
     <Compile Include="Models\Admin\Recruitment.cs" />
     <Compile Include="Models\Admin\ShortList.cs" />
@@ -887,6 +890,7 @@
     <Folder Include="Theme\plugins\tempusdominus-bootstrap-4\js\" />
     <Folder Include="Theme\plugins\toastr\" />
     <Folder Include="Theme\plugins\uplot\" />
+    <Folder Include="Views\GeneralLedger\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

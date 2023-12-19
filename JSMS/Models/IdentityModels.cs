@@ -50,8 +50,10 @@ namespace JSMS.Models
         public DbSet<TestAtt> TestAtts { get; set; }
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<StockTransaction> StockTransactions { get; set; }
-        public DbSet<Product> Products { get; set; } 
-	public DbSet <OtherExpense> OtherExpenses { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<OtherExpense> OtherExpenses { get; set; }
+      
+
         //User blog
         public DbSet<OnlineApplicant> OnlineApplicants { get; set; }
         public DbSet<OnlineClient> OnlineClients { get; set; }  

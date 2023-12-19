@@ -56,7 +56,7 @@ namespace JSMS.Controllers.Api
         {
             var res = _context.OtherExpenses.SingleOrDefault(c => c.Id == Id);
 
-            if(res == null)
+            if (res == null)
             {
                 return BadRequest("No Data");
             }
@@ -97,9 +97,9 @@ namespace JSMS.Controllers.Api
                     return BadRequest("InvoiceID already exists.");
                 }
 
-                if(post.Cost <= 0)
+                if (post.Cost <= 0)
                 {
-                    return BadRequest("Cost must be greater than 0");                
+                    return BadRequest("Cost must be greater than 0");
                 }
 
                 if (post.Status == 1) // Income
@@ -127,7 +127,7 @@ namespace JSMS.Controllers.Api
                     if (post.Cost > currentTotalCost)
                     {
                         return BadRequest("Expense cannot exceed total income.");
-                    } 
+                    }
 
                     // Add expense transaction
                     var expenseTransaction = new OtherExpense
@@ -150,9 +150,9 @@ namespace JSMS.Controllers.Api
 
                 // Update the Total field in the Transaction table
                 var total = _context.OtherExpenses.Sum(t => t.Cost);
-                var transaction = new Transaction
+                var transaction = new OtherExpense
                 {
-                    Total = total
+                    Total = (double)total
                 };
 
                 // Save changes to the database
@@ -199,7 +199,7 @@ namespace JSMS.Controllers.Api
                 existingExpense.Status = update.Status;
                 existingExpense.PaymentType = update.PaymentType;
 
-                if(update.Status == 1)
+                if (update.Status == 1)
                 {
                     // Update existing record
                     existingExpense.Date = update.Date;
@@ -209,7 +209,8 @@ namespace JSMS.Controllers.Api
                     existingExpense.Note = update.Note;
                     existingExpense.Status = update.Status;
                     existingExpense.PaymentType = update.PaymentType;
-                } else if(update.Status == 2)
+                }
+                else if (update.Status == 2)
                 {
                     var currentTotalCost = _context.OtherExpenses.Sum(t => t.Cost);
 

@@ -1,5 +1,4 @@
-﻿using JSMS.Helpers;
-using JSMS.Models;
+﻿using JSMS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +7,20 @@ using System.Web.Mvc;
 
 namespace JSMS.Controllers.Admin
 {
-    public class OtherGLController : Controller
+    public class GeneralLedgerController : Controller
     {
+
         protected readonly ApplicationDbContext context;
-        public OtherGLController()
+        public GeneralLedgerController()
         {
             context = new ApplicationDbContext();
         }
 
-        // GET: OtherGL
+        // GET: GeneralLedger
         public ActionResult Index()
         {
             return View(context.OtherExpenses.ToList());
+
         }
     }
 }
