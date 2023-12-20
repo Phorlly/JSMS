@@ -306,6 +306,9 @@
   <data name="Gender" xml:space="preserve">
     <value>ភេទ</value>
   </data>
+  <data name="GeneralLedger" xml:space="preserve">
+    <value>កត់ត្រាទូទៅ</value>
+  </data>
   <data name="GeneralManager" xml:space="preserve">
     <value>អ្នកគ្រប់គ្រង</value>
   </data>

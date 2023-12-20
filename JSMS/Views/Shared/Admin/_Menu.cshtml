@@ -63,8 +63,16 @@
     });
     moduleItems.Add(new MenuItem
     {
-        Name = JSMS.Resources.Language.Accounting, 
+        Name = JSMS.Resources.Language.Accounting,
         Controller = "Accounting",
+        Icon = "fas fa-donate",
+        Action = "Index",
+        Role = new List<string> { "AdminOrHR" }
+    });
+    moduleItems.Add(new MenuItem
+    {
+        Name = JSMS.Resources.Language.GeneralLedger,
+        Controller = "GeneralLedger",
         Icon = "fas fa-donate",
         Action = "Index",
         Role = new List<string> { "AdminOrHR" }

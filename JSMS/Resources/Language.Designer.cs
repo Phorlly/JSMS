@@ -628,6 +628,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General Ledger.
+        /// </summary>
+        public static string GeneralLedger {
+            get {
+                return ResourceManager.GetString("GeneralLedger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General-Manager.
         /// </summary>
         public static string GeneralManager {
