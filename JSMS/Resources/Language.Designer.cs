@@ -124,11 +124,11 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apllicant.
+        ///   Looks up a localized string similar to Applicant.
         /// </summary>
-        public static string Apllicant {
+        public static string Applicant {
             get {
-                return ResourceManager.GetString("Apllicant", resourceCulture);
+                return ResourceManager.GetString("Applicant", resourceCulture);
             }
         }
         
@@ -237,6 +237,24 @@ namespace JSMS.Resources {
         public static string BehaviorManagement {
             get {
                 return ResourceManager.GetString("BehaviorManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calendar.
+        /// </summary>
+        public static string Calendar {
+            get {
+                return ResourceManager.GetString("Calendar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Language:.
+        /// </summary>
+        public static string ChangeLanguage {
+            get {
+                return ResourceManager.GetString("ChangeLanguage", resourceCulture);
             }
         }
         
@@ -421,6 +439,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dashboard​ Data Management​.
+        /// </summary>
+        public static string DashboardManagement {
+            get {
+                return ResourceManager.GetString("DashboardManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string Date {
@@ -480,6 +507,15 @@ namespace JSMS.Resources {
         public static string EndDate {
             get {
                 return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
             }
         }
         
@@ -826,6 +862,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Khmer.
+        /// </summary>
+        public static string Khmer {
+            get {
+                return ResourceManager.GetString("Khmer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to KHR (៛).
         /// </summary>
         public static string KHR {
@@ -912,6 +957,15 @@ namespace JSMS.Resources {
         public static string Monthly {
             get {
                 return ResourceManager.GetString("Monthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More info.
+        /// </summary>
+        public static string MoreInfo {
+            get {
+                return ResourceManager.GetString("MoreInfo", resourceCulture);
             }
         }
         
@@ -1074,6 +1128,15 @@ namespace JSMS.Resources {
         public static string Payment {
             get {
                 return ResourceManager.GetString("Payment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to People.
+        /// </summary>
+        public static string People {
+            get {
+                return ResourceManager.GetString("People", resourceCulture);
             }
         }
         

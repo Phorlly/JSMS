@@ -138,8 +138,8 @@
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
-  <data name="Apllicant" xml:space="preserve">
-    <value>Apllicant</value>
+  <data name="Applicant" xml:space="preserve">
+    <value>Applicant</value>
   </data>
   <data name="ApplicantInfo" xml:space="preserve">
     <value>Applicant Infomations</value>
@@ -176,6 +176,12 @@
   </data>
   <data name="BehaviorManagement" xml:space="preserve">
     <value>Behavior​ Management</value>
+  </data>
+  <data name="Calendar" xml:space="preserve">
+    <value>Calendar</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>Change Language:</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change Password</value>
@@ -237,6 +243,9 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="DashboardManagement" xml:space="preserve">
+    <value>Dashboard​ Data Management​</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -257,6 +266,9 @@
   </data>
   <data name="EndDate" xml:space="preserve">
     <value>End Date</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
   </data>
   <data name="ExchangRate" xml:space="preserve">
     <value>Exchang Rate</value>
@@ -372,6 +384,9 @@
   <data name="JoiningDate" xml:space="preserve">
     <value>Joining Date</value>
   </data>
+  <data name="Khmer" xml:space="preserve">
+    <value>Khmer</value>
+  </data>
   <data name="KHR" xml:space="preserve">
     <value>KHR (៛)</value>
   </data>
@@ -401,6 +416,9 @@
   </data>
   <data name="Monthly" xml:space="preserve">
     <value>Find by Month</value>
+  </data>
+  <data name="MoreInfo" xml:space="preserve">
+    <value>More info</value>
   </data>
   <data name="Morning" xml:space="preserve">
     <value>Morning</value>
@@ -455,6 +473,9 @@
   </data>
   <data name="Payment" xml:space="preserve">
     <value>Payment​ Method</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>People</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Telephone line 1</value>

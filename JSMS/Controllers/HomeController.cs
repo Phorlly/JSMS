@@ -29,12 +29,14 @@ namespace JSMS.Controllers.Admin
 
         public ActionResult Index()
         {
-            int staff, client, user;
+            int applicant, staff, client, user;
 
+            applicant = context.Applicants.Count();
             staff = context.Staffs.Count();
             client = context.Clients.Count();
-            user = context.Users.Count(); 
+            user = context.Users.Count();
 
+            ViewBag.Applicant = applicant;
             ViewBag.Staff = staff;
             ViewBag.Client = client;
             ViewBag.User = user;

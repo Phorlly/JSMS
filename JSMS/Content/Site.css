@@ -133,3 +133,10 @@ span {
     left: 0;
     right: 0;
 }
+
+.w-h {
+    min-height: 250px;
+    height: 250px;
+    max-height: 250px;
+    max-width: 100%;
+}

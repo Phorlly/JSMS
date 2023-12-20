@@ -17,27 +17,29 @@
 
 <!-- Right navbar links -->
 <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-        @if (Request.Cookies["Languages"].Value == "km")
-        {
-            <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "en"})" role="button">
-                <img src="~/Images/us.png" style=" width: 17px;"> English
-            </a>
-        }
-        else
-        {
-            <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "km"})" role="button">
-                <img src="~/Images/kh.png" style=" width: 17px;">
-                <span style="font-family:Hanuman">ភាសាខ្មែរ</span>
-            </a>
-        }
+    <!-- Assuming this is part of your HTML form or layout -->
+    <li class="nav-item mx-3">
+        <label for="language" ​ class="form-label">@JSMS.Resources.Language.ChangeLanguage</label>
+        <select class="form-select-sm" onchange="changeLanguage(this)">
+
+            @if (Request.Cookies["Languages"].Value == "km")
+            {
+                <option value="km">@JSMS.Resources.Language.Khmer</option>
+                <option value="en">@JSMS.Resources.Language.English</option>
+            }
+            else
+            {
+                <option value="en">@JSMS.Resources.Language.English</option>
+                <option value="km">@JSMS.Resources.Language.Khmer</option>
+            }
+        </select>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
             <i class="fas fa-expand-arrows-alt"></i>
         </a>
     </li>
-    <li class="nav-item user-menu ">
+    <li class="nav-item user-menu mr-4">
         <a href="#" class="nav-link">
             <img src="~/Images/avatar5.png" class="user-image img-circle elevation-2" alt="User Image">
             <span class="text-bold mr-4" id="log-by" data-logby="@User.Identity.GetUserName()">@User.Identity.GetUserName()</span>
@@ -50,4 +52,9 @@
     jQuery(document).ready(() => {
         //console.log({ UserName: $("#log-by").data("logby") });
     });
+
+    const changeLanguage = (selectElement) =>{
+        var selectedLanguage = selectElement.value;
+        window.location.href = "@Url.Action("Change", "Language")?translator=" + selectedLanguage;
+       }
 </script>

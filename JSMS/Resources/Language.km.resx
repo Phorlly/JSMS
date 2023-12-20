@@ -138,7 +138,7 @@
   <data name="Amount" xml:space="preserve">
     <value>ចំនួន</value>
   </data>
-  <data name="Apllicant" xml:space="preserve">
+  <data name="Applicant" xml:space="preserve">
     <value>អ្នកដាក់ពាក្យ</value>
   </data>
   <data name="ApplicantInfo" xml:space="preserve">
@@ -176,6 +176,12 @@
   </data>
   <data name="BehaviorManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងអំពីអាកិរិយាមាយាទ</value>
+  </data>
+  <data name="Calendar" xml:space="preserve">
+    <value>ប្រតិទិន</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>ប្ដូរភាសា៖</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>ប្ដូរពាក្យសម្ងាត់</value>
@@ -237,6 +243,9 @@
   <data name="Dashboard" xml:space="preserve">
     <value>ផ្ទាំងគ្រប់គ្រង</value>
   </data>
+  <data name="DashboardManagement" xml:space="preserve">
+    <value>ការគ្រប់គ្រងផ្ទាំងគ្រប់គ្រងទិន្នន័យ</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>ថ្ងៃខែឆ្នាំ</value>
   </data>
@@ -257,6 +266,9 @@
   </data>
   <data name="EndDate" xml:space="preserve">
     <value>ថ្ងៃខែចុងក្រោយ</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>ភាសាអង់គ្លេស</value>
   </data>
   <data name="ExchangRate" xml:space="preserve">
     <value>អត្រាប្តូរប្រាក់</value>
@@ -372,6 +384,9 @@
   <data name="JoiningDate" xml:space="preserve">
     <value>ថ្ងៃខែចូលធ្វើការងារ</value>
   </data>
+  <data name="Khmer" xml:space="preserve">
+    <value>ភាសាខ្មែរ</value>
+  </data>
   <data name="KHR" xml:space="preserve">
     <value>ខ្មែររៀល​  (៛)</value>
   </data>
@@ -401,6 +416,9 @@
   </data>
   <data name="Monthly" xml:space="preserve">
     <value>ស្វែងរកតាមរយៈខែ</value>
+  </data>
+  <data name="MoreInfo" xml:space="preserve">
+    <value>ព័ត៌មាន​បន្ថែម</value>
   </data>
   <data name="Morning" xml:space="preserve">
     <value>ថ្ងៃ</value>
@@ -455,6 +473,9 @@
   </data>
   <data name="Payment" xml:space="preserve">
     <value>វិធីសាស្ត្រទូរទាត់ប្រាក់</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>នាក់</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>លេខទូរសព្ទខ្សែទីមួយ</value>

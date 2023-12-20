@@ -55,35 +55,35 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             try
             {
-                var response = (from Applicant in context.Applicants
-                                join CProvince in context.Provinces on Applicant.CProvince equals CProvince.Id
-                                join CDistrict in context.Districts on Applicant.CDistrict equals CDistrict.Id
-                                join CCommune in context.Communes on Applicant.CCommune equals CCommune.Id
-                                join CVillage in context.Villages on Applicant.CVillage equals CVillage.Id
-                                join BProvince in context.Provinces on Applicant.BProvince equals BProvince.Id
-                                join BDistrict in context.Districts on Applicant.BDistrict equals BDistrict.Id
-                                join BCommune in context.Communes on Applicant.BCommune equals BCommune.Id
-                                join BVillage in context.Villages on Applicant.BVillage equals BVillage.Id
+                var response = await (from Applicant in context.Applicants
+                                      join CProvince in context.Provinces on Applicant.CProvince equals CProvince.Id
+                                      join CDistrict in context.Districts on Applicant.CDistrict equals CDistrict.Id
+                                      join CCommune in context.Communes on Applicant.CCommune equals CCommune.Id
+                                      join CVillage in context.Villages on Applicant.CVillage equals CVillage.Id
+                                      join BProvince in context.Provinces on Applicant.BProvince equals BProvince.Id
+                                      join BDistrict in context.Districts on Applicant.BDistrict equals BDistrict.Id
+                                      join BCommune in context.Communes on Applicant.BCommune equals BCommune.Id
+                                      join BVillage in context.Villages on Applicant.BVillage equals BVillage.Id
 
-                                where Applicant.IsActive.Equals(true)
-                                select new
-                                {
-                                    Applicant,
-                                    CProvince,
-                                    CDistrict,
-                                    CCommune,
-                                    CVillage,
-                                    BProvince,
-                                    BDistrict,
-                                    BCommune,
-                                    BVillage,
-                                }).OrderByDescending(c => c.Applicant.Id).ToList();
-       
-                if (response == null)
+                                      where Applicant.IsActive.Equals(true)
+                                      select new
+                                      {
+                                          Applicant,
+                                          CProvince,
+                                          CDistrict,
+                                          CCommune,
+                                          CVillage,
+                                          BProvince,
+                                          BDistrict,
+                                          BCommune,
+                                          BVillage,
+                                      }).OrderByDescending(c => c.Applicant.Id).ToListAsync();
+
+                if (response == null || !response.Any())
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
                 }
@@ -202,7 +202,7 @@ namespace JSMS.Controllers.Api
             try
             {
                 var response = await context.Applicants.FindAsync(id);
-                if(response == null)
+                if (response == null)
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
                 }
@@ -243,7 +243,7 @@ namespace JSMS.Controllers.Api
                 if (response != null)
                 {
                     context.Entry(response).State = EntityState.Modified;
-                   await context.SaveChangesAsync();
+                    await context.SaveChangesAsync();
                 }
 
                 return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });

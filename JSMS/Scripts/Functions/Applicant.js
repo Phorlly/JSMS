@@ -220,8 +220,6 @@ addNew.click(() => {
     modalApplicant.modal("show");
 });
 
-
-
 //Hide or show button action
 tabApplicant.click(() => {
     addNew.show();
@@ -233,6 +231,7 @@ tabApplicant.click(() => {
     titleApplicant.show();
     titleBehavior.hide();
     titleGuarantor.hide();
+    location.reload();
 });
 
 tabBehavior.click(() => {

@@ -214,3 +214,4 @@ const loadingGif = () => {
         $("#loading-gif").removeClass("show");
     });
 }
+
