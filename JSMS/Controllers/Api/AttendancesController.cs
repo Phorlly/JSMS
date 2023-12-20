@@ -94,7 +94,7 @@ namespace JSMS.Controllers.Api
                               DbFunctions.TruncateTime(a.CheckIn) == DbFunctions.TruncateTime(request.CheckIn));
                 if (isExist != null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​ 📛" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​" }));
                 }
 
                 //Insert default data
@@ -110,7 +110,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
             }
             catch (Exception ex)
             {
@@ -132,7 +132,7 @@ namespace JSMS.Controllers.Api
                               m.CheckIn.HasValue && DbFunctions.TruncateTime(m.CheckIn) == currentDate);
                 if (isExist != null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​ 📛" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​" }));
                 }
 
                 //Insert default data
@@ -152,7 +152,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "សូមអរគុណ សម្រាប់ការកត់ត្រាចូល 😍" });
+                return Ok(new { message = "សូមអរគុណ សម្រាប់ការកត់ត្រាចូល" });
 
             }
             catch (Exception ex)
@@ -170,7 +170,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Attendances.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 //The same data
@@ -192,7 +192,7 @@ namespace JSMS.Controllers.Api
                         await context.SaveChangesAsync();
                     }
 
-                    return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                    return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
                 }
 
                 //Different data but not exist in database
@@ -217,11 +217,11 @@ namespace JSMS.Controllers.Api
                         await context.SaveChangesAsync();
                     }
 
-                    return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                    return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
                 }
                 else
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ថ្ងៃចូលបានកត់ត្រារួចហើយ 📛" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ថ្ងៃចូលបានកត់ត្រារួចហើយ" }));
                 }
 
             }
@@ -250,7 +250,7 @@ namespace JSMS.Controllers.Api
                     // Check if there's already a check-out for the existing check-in
                     if (isExist.CheckOut.HasValue)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះបានកត់ត្រាចេញរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​ 📛" }));
+                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះបានកត់ត្រាចេញរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​" }));
                     }
 
                     // Update the existing check-in record with the check-out time
@@ -274,10 +274,10 @@ namespace JSMS.Controllers.Api
                 else
                 {
                     // No existing check-in found for the day
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះមិនទាន់បានកត់ត្រាចូលនៅឡើយទេ? សម្រាប់នៅថ្ងៃនេះ​​ 📛" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះមិនទាន់បានកត់ត្រាចូលនៅឡើយទេ? សម្រាប់នៅថ្ងៃនេះ​​" }));
                 }
 
-                return Ok(new { message = "សូមអរគុណ សម្រាប់ការកត់ត្រាចេញ 😍" });
+                return Ok(new { message = "សូមអរគុណ សម្រាប់ការកត់ត្រាចេញ" });
             }
             catch (Exception ex)
             {
@@ -295,7 +295,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Attendances.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 else
                 {
@@ -304,7 +304,7 @@ namespace JSMS.Controllers.Api
                     context.Attendances.Remove(response); //==> Delete From database
                     context.SaveChanges();
                 }
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" }); //savechange == reload data
+                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" }); //savechange == reload data
             }
             catch (Exception ex)
             {

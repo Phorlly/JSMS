@@ -282,6 +282,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>នាមត្រកូល</value>
   </data>
+  <data name="Forget" xml:space="preserve">
+    <value>ភ្លេច</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>ឈ្មោះពេញ</value>
   </data>
@@ -464,6 +467,9 @@
   </data>
   <data name="Phone2" xml:space="preserve">
     <value>លេខទូរសព្ទខ្សែទីពីរ (ស្រេចចិត្ត)</value>
+  </data>
+  <data name="PleaseLogin" xml:space="preserve">
+    <value>សូមបញ្ចូលពត៌មានរបស់អ្នក</value>
   </data>
   <data name="POB" xml:space="preserve">
     <value>ទីកន្លែងកំណើត</value>
@@ -671,5 +677,8 @@
   </data>
   <data name="Village" xml:space="preserve">
     <value>ភូមិ</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>ជីងឡុង សូមជម្រាបសួរ</value>
   </data>
 </root>

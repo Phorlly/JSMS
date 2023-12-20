@@ -10,99 +10,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="~/Images/logoHRMS.png">
     <title>LOGIN</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
-    <style>
-        h1,
-        span {
-            font-display: inherit;
-            font-family: 'Khmer OS Moul', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/animate.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/hamburgers.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/Select2.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/util.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/main.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/font-awesome.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
 
-        p,
-        label, a, input {
-            font-family: 'Khmer OS Battambang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /*font-size: large;*/
-        }
-    </style>
+    <script src="~/Scripts/Libraries/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/Libraries/popper.js"></script>
+    <script src="~/Scripts/Libraries/select2.min.js"></script>
+    <script src="~/Scripts/Libraries/main.js"></script>
+    <script src="~/Scripts/Libraries/tilt.jquery.min.js"></script>
 
 </head>
 
+<style>
+    body{
+        overflow:hidden;
+    }
+    h1,
+    span {
+        font-display: inherit;
+        font-family: 'Khmer OS Moul', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    p,
+    label, a, input {
+        font-family: 'Khmer OS Battambang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /*font-size: large;*/
+    }
+</style>
+
 <body>
-    <div style="height: 100vh; " class="d-flex justify-content-center align-items-center">
+    <div class="limiter">
 
-        <section>
-            <div class="form-control d-flex  shadow-lg p-5 mb-5 bg-body-tertiary rounded-4  ">
+        <div class="container-login100">
+            <div class="wrap-login100 ">
+                <div class="login100-pic " id="js-tilt" data-tilt>
+                    <img src="~/Images/logoHRMS.png" alt="IMG">
+                </div>
 
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new
-                {
-                    role = "form"
-                }))
-                {
-                    @Html.AntiForgeryToken()
+                <form class="login100-form validate-form">
+                    <label class="login100-form-title"> @JSMS.Resources.Language.Welcome
+                        <br />
+                        <p>@JSMS.Resources.Language.PleaseLogin</p>
+                    </label>
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                    <div class="bg-body-tertiary">
-                        <div class="mb-3 text-center">
-                            <h1 class=" text-primary text-uppercase pb-2">@JSMS.Resources.Language.LoginInto</h1>
-                            <p>@JSMS.Resources.Language.LoginWith</p>
-                        </div>
-
-                        <div class="form-group mb-4">
-                            <label>@JSMS.Resources.Language.Username</label>
-                            <input type="text" name="UserName" class="form-control" placeholder="@JSMS.Resources.Language.Input">
-                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group mb-4">
-                            <label>@JSMS.Resources.Language.Password</label>
-                            <input type="password" name="Password" class="form-control" placeholder="@JSMS.Resources.Language.Input">
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="mb-3">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            <label>@JSMS.Resources.Language.RememberMe</label>
-                        </div>
-
-                        <div class="footer">
-                            <button type="submit" class="btn btn-primary w-100 mb-2">
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>@JSMS.Resources.Language.Login</span>
-                            </button>
-
-                            <div class="text-center">
-                                <a href="@Url.Action("Register","Account")">@JSMS.Resources.Language.NoAccount</a>
-                            </div>
-                            <div class="text-center mt-2">
-                                @if (Request.Cookies["Languages"].Value == "km")
-                                {
-                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "en"})"
-                                       role="button">
-                                        <img src="~/Images/us.png" style=" width: 17px;"> English
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "km"})"
-                                       role="button">
-                                        <img src="~/Images/kh.png" style=" width: 17px;">
-                                        <span style="font-family:Hanuman">ភាសាខ្មែរ</span>
-                                    </a>
-                                }
-                            </div>
-                        </div>
-
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="UserName" placeholder="Email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
                     </div>
-                }
-            </div>
-        </section>
 
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" name="Password" placeholder="Password">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        <label>@JSMS.Resources.Language.RememberMe</label>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            @JSMS.Resources.Language.Login
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-12">
+                        <span class="txt1">
+                            @JSMS.Resources.Language.Forget
+                        </span>
+                        <a class="txt2" href="#">
+                            Username / Password?
+                        </a>
+                    </div>
+
+                    <div class="text-center p-t-60">
+                        <a class="txt2" href="@Url.Action("Register", "Account")">
+                            @JSMS.Resources.Language.CreateNewAccount
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="text-center mt-2">
+                        @if (Request.Cookies["Languages"].Value == "km")
+                        {
+                            <a class="nav-link" href="@Url.Action("Change", "Language", new { translator = "en" })"
+                               role="button">
+                                <img src="~/Images/us.png" style=" width: 17px;"> English
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="@Url.Action("Change", "Language", new { translator = "km" })"
+                               role="button"> 
+                                <img src="~/Images/kh.png" style=" width: 17px;">
+                                <span style="font-family:Hanuman">ភាសាខ្មែរ</span>
+                            </a>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+        }
     </div>
+
+
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
         <script>
+            $('#js-tilt').tilt({
+                scale: 1.1
+            })
 
+//< !--=============================================================================================== -->
         </script>
     }
 </body>
