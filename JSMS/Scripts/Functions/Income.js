@@ -404,7 +404,7 @@ const removeIncome = (id) => {
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
                 title: "បានបោះបង់",
-                text: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",
+                text: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -451,7 +451,7 @@ const validateIncome = () => {
     let isValid = true;
     if (incomeType.val() === "-1") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -464,7 +464,7 @@ const validateIncome = () => {
         incomeType.css("border-color", "#cccccc");
         if (client.val() === "-1") {
             Swal.fire({
-                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -477,7 +477,7 @@ const validateIncome = () => {
             client.css("border-color", "#cccccc");
             if (unitPrice.val() === "") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -490,7 +490,7 @@ const validateIncome = () => {
                 unitPrice.css("border-color", "#cccccc");
                 if (dateIncome.val() === "") {
                     Swal.fire({
-                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -503,7 +503,7 @@ const validateIncome = () => {
                     dateIncome.css("border-color", "#cccccc");
                     if (exchangeRate.val() === "") {
                         Swal.fire({
-                            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
@@ -516,7 +516,7 @@ const validateIncome = () => {
                         exchangeRate.css("border-color", "#cccccc");
                         if (payment.val() === "-1") {
                             Swal.fire({
-                                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
@@ -529,7 +529,7 @@ const validateIncome = () => {
                             payment.css("border-color", "#cccccc");
                             if (invoice.val() === "") {
                                 Swal.fire({
-                                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                     icon: "warning",
                                     showConfirmButton: false,
                                     customClass: { title: 'custom-swal-title' },

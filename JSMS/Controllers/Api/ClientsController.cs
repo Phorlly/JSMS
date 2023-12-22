@@ -47,21 +47,21 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             try
             {
-                var response = (from Province in context.Provinces
-                                join Client in context.Clients on Province.Id equals Client.Province
-                                join District in context.Districts on Client.District equals District.Id
-                                join Commune in context.Communes on Client.Commune equals Commune.Id
-                                join Village in context.Villages on Client.Village equals Village.Id
-                                where Client.IsActive == true && Client.IsClient == true
-                                select new { Client, Province, District, Commune, Village })
-                                .OrderByDescending(c => c.Client.Id).ToList();
+                var response = await (from Province in context.Provinces
+                                      join Client in context.Clients on Province.Id equals Client.Province
+                                      join District in context.Districts on Client.District equals District.Id
+                                      join Commune in context.Communes on Client.Commune equals Commune.Id
+                                      join Village in context.Villages on Client.Village equals Village.Id
+                                      where Client.IsActive == true && Client.IsClient == true
+                                      select new { Client, Province, District, Commune, Village })
+                                .OrderByDescending(c => c.Client.Id).ToListAsync();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -74,21 +74,21 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-by-id/{id}")]
-        public IHttpActionResult GetById(int id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             try
             {
-                var response = (from Province in context.Provinces
-                                join Client in context.Clients on Province.Id equals Client.Province
-                                join District in context.Districts on Client.District equals District.Id
-                                join Commune in context.Communes on Client.Commune equals Commune.Id
-                                join Village in context.Villages on Client.Village equals Village.Id
-                                where Client.IsActive == true && Client.IsClient == true
-                                select new { Client, Province, District, Commune, Village })
-                               .FirstOrDefault(c => c.Client.Id.Equals(id));
+                var response = await (from Province in context.Provinces
+                                      join Client in context.Clients on Province.Id equals Client.Province
+                                      join District in context.Districts on Client.District equals District.Id
+                                      join Commune in context.Communes on Client.Commune equals Commune.Id
+                                      join Village in context.Villages on Client.Village equals Village.Id
+                                      where Client.IsActive == true && Client.IsClient == true
+                                      select new { Client, Province, District, Commune, Village })
+                                      .FirstAsync(c => c.Client.Id.Equals(id));
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -145,7 +145,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
             }
             catch (Exception ex)
             {
@@ -163,7 +163,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Clients.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 var fileName = FormHelper.SaveFile("Image", "Client", "~/AppData/Images", "../AppData/Images");
@@ -201,7 +201,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
             }
             catch (Exception ex)
             {
@@ -218,7 +218,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Clients.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 else
                 {
@@ -229,7 +229,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
             }
             catch (Exception ex)
             {

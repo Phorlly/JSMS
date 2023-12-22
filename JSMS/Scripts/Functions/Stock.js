@@ -65,12 +65,12 @@ const getAll = () => {
             {
                 //title: "Stock In",
                 data: null,
-                render: row => row.Stock.Status === 1 ? `<span class="text-warning fw-bolder">${row.Stock.Quantity}</span>` : 0
+                render: row => row.Stock.Status === 1 ? `<span class="text-warning fw-bolder">ចំនួន ${row.Stock.Quantity}</span>` : 0
             },
             {
                 //title: "Stock Out",
                 data: null,
-                render: row => row.Stock.Status === 2 ? `<span class="text-danger fw-bolder">-${row.Stock.Quantity}</span>` : 0
+                render: row => row.Stock.Status === 2 ? `<span class="text-danger fw-bolder">ចំនួន​ -${row.Stock.Quantity}</span>` : 0
             },
             {
                 //title: "Date In/Out",
@@ -157,8 +157,8 @@ const getStockReport = () => {
             $('#stock-summary tbody').empty();
             $.each(response, (index, row) => {
                 let date = moment(row.Created).format('DD/MMM/YY');
-                let stockIn = row.Status === 1 ? `<b class="text-warning fst-italic fw-bolder">${row.Quantity} </b>` : 0;
-                let stockOut = row.Status === 2 ? `<b class="text-danger fst-italic fw-bolder">-${row.Stock.Quantity}</b>` : 0;
+                let stockIn = row.Status === 1 ? `<b class="text-warning fst-italic fw-bolder">ចំនួន​ ${row.Quantity} </b>` : 0;
+                let stockOut = row.Status === 2 ? `<b class="text-danger fst-italic fw-bolder">ចំនួន​ -${row.Stock.Quantity}</b>` : 0;
 
                 var newRow = `<tr>
                                     <td>${index + 1}</td>
@@ -387,7 +387,7 @@ const removeStock = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",
+                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -421,7 +421,7 @@ const validateStock = () => {
     let isValid = true;
     if (productType.val() === "-1") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -434,7 +434,7 @@ const validateStock = () => {
         productType.css("border-color", "#cccccc");
         if (stockIO.val() === "-1") {
             Swal.fire({
-                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -447,7 +447,7 @@ const validateStock = () => {
             stockIO.css("border-color", "#cccccc");
             if (quantity.val() === "") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -460,7 +460,7 @@ const validateStock = () => {
                 quantity.css("border-color", "#cccccc");
                 if (dateIO.val() === "") {
                     Swal.fire({
-                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },

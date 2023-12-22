@@ -17,22 +17,20 @@
 
 <!-- Right navbar links -->
 <ul class="navbar-nav ml-auto">
-    <!-- Assuming this is part of your HTML form or layout -->
-    <li class="nav-item mx-3">
-        <label for="language" ​ class="form-label">@JSMS.Resources.Language.ChangeLanguage</label>
-        <select class="form-select-sm" onchange="changeLanguage(this)">
-
-            @if (Request.Cookies["Languages"].Value == "km")
-            {
-                <option value="km">@JSMS.Resources.Language.Khmer</option>
-                <option value="en">@JSMS.Resources.Language.English</option>
-            }
-            else
-            {
-                <option value="en">@JSMS.Resources.Language.English</option>
-                <option value="km">@JSMS.Resources.Language.Khmer</option>
-            }
-        </select>
+    <li class="nav-item mt-2 mx-1">
+        @JSMS.Resources.Language.ChangeLanguage
+    </li>
+    <li class="nav-item ">
+        <a id="km-link" class="nav-link rounded" href="@Url.Action("Change","Language",new {translator = "km"})" role="button">
+            <img src="~/Images/kh.png" width="25">
+            <span>@JSMS.Resources.Language.Khmer</span>
+        </a>
+    </li>
+    <li class="nav-item mr-4">
+        <a id="en-link" class="nav-link rounded" href="@Url.Action("Change","Language",new {translator = "en"})" role="button">
+            <img src="~/Images/us.png" width="25">
+            <span>@JSMS.Resources.Language.English</span>
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -49,12 +47,38 @@
 <script src="~/Scripts/Libraries/bootstrap.min.js"></script>
 <script src="~/Scripts/Libraries/jquery-3.7.1.min.js"></script>
 <script>
-    jQuery(document).ready(() => {
-        //console.log({ UserName: $("#log-by").data("logby") });
+    //console.log({ UserName: $("#log-by").data("logby") });
+    // const to set active class based on language stored in the cookie
+    const setActiveClass = () => {
+        var currentLanguage = getCookie('Languages');
+
+        if (currentLanguage === 'km') {
+            $('#km-link').addClass('bg-info');
+        } else if (currentLanguage === 'en') {
+            $('#en-link').addClass('bg-info');
+        }
+    }
+
+    // Get cookie value by name
+    const getCookie = (name) => {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    // Set initial active class on page load
+    setActiveClass();
+
+    // Click event for Khmer link
+    $('#km-link').click(() => {
+        $('#en-link').removeClass('bg-info');
+        $(this).addClass('bg-info');
     });
 
-    const changeLanguage = (selectElement) =>{
-        var selectedLanguage = selectElement.value;
-        window.location.href = "@Url.Action("Change", "Language")?translator=" + selectedLanguage;
-       }
+    // Click event for English link
+    $('#en-link').click(() => {
+        $('#km-link').removeClass('bg-info');
+        $(this).addClass('bg-info');
+    });
+
 </script>

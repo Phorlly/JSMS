@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace JSMS.Controllers.Api
@@ -66,7 +67,7 @@ namespace JSMS.Controllers.Api
                                   .ToList();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -92,7 +93,7 @@ namespace JSMS.Controllers.Api
 
                 if (totalWorkedDays == 0 || staff == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -106,7 +107,7 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-stock")]
-        public IHttpActionResult GetStockReport(string monthYear, int? product = null, int? stock = null)
+        public async Task<IHttpActionResult> GetStockReport(string monthYear, int? product = null, int? stock = null)
         {
             try
             {
@@ -118,26 +119,26 @@ namespace JSMS.Controllers.Api
                 var startOfMonth = new DateTime(date.Year, date.Month, 1);
                 var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
 
-                var response = (from Product in context.Products
-                                join Transaction in context.StockTransactions on Product.Id equals Transaction.Product
-                                //join Stock in context.Stocks on Product.Id equals Stock.Product
+                var response = await (from Product in context.Products
+                                      join Transaction in context.StockTransactions on Product.Id equals Transaction.Product
+                                      //join Stock in context.Stocks on Product.Id equals Stock.Product
 
-                                where (Product.IsActive.Equals(true) && Transaction.IsActive.Equals(true)) &&
-                                      (Transaction.Date >= startOfMonth && Transaction.Date <= endOfMonth)
-                                select new
-                                {
-                                    Product.Name,
-                                    Transaction.Status,
-                                    Transaction.Quantity,
-                                    Transaction.Date,
-                                    Noted = Transaction.Noted == null ? Product.Noted : Transaction.Noted,
-                                    Stock = Transaction,
-                                }).Where(record => (product == null || record.Stock.Product == product) &&
-                                                   (stock == null || record.Stock.Status == stock)).ToList();
+                                      where (Product.IsActive.Equals(true) && Transaction.IsActive.Equals(true)) &&
+                                            (Transaction.Date >= startOfMonth && Transaction.Date <= endOfMonth)
+                                      select new
+                                      {
+                                          Product.Name,
+                                          Transaction.Status,
+                                          Transaction.Quantity,
+                                          Transaction.Date,
+                                          Noted = Transaction.Noted == null ? Product.Noted : Transaction.Noted,
+                                          Stock = Transaction,
+                                      }).Where(record => (product == null || record.Stock.Product == product) &&
+                                                         (stock == null || record.Stock.Status == stock)).ToListAsync();
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -152,26 +153,26 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-remain-stock")]
-        public IHttpActionResult GetRemainStockReport()
+        public async Task<IHttpActionResult> GetRemainStockReport()
         {
             try
             {
-                var response = (from Product in context.Products
-                                join Stock in context.Stocks on Product.Id equals Stock.Product
+                var response = await (from Product in context.Products
+                                      join Stock in context.Stocks on Product.Id equals Stock.Product
 
-                                where Product.IsActive.Equals(true)
-                                select new
-                                {
-                                    Product.Name,
-                                    Product.Image,
-                                    Stock.Total,
-                                    Product.Noted,
-                                    Product.Created
-                                }).ToList();
+                                      where Product.IsActive.Equals(true)
+                                      select new
+                                      {
+                                          Product.Name,
+                                          Product.Image,
+                                          Stock.Total,
+                                          Product.Noted,
+                                          Product.Created
+                                      }).ToListAsync();
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);

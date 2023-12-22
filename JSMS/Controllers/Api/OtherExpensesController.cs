@@ -54,7 +54,7 @@ namespace JSMS.Controllers.Api
         [Route("get/{id}")]
         public IHttpActionResult Get(int Id)
         {
-            var res = _context.OtherExpenses.SingleOrDefault(c => c.Id == Id);
+            var res = _context.OtherExpenses.SingleAsync(c => c.Id == Id);
 
             if (res == null)
             {
@@ -124,7 +124,7 @@ namespace JSMS.Controllers.Api
                     var currentTotalCost = _context.OtherExpenses.Sum(t => t.Cost);
 
                     // Check if the expense exceeds the total income
-                    if (post.Cost > currentTotalCost)
+                    if (currentTotalCost > post.Cost)
                     {
                         return BadRequest("Expense cannot exceed total income.");
                     }
@@ -150,10 +150,7 @@ namespace JSMS.Controllers.Api
 
                 // Update the Total field in the Transaction table
                 var total = _context.OtherExpenses.Sum(t => t.Cost);
-                var transaction = new OtherExpense
-                {
-                    Total = (double)total
-                };
+                post.Total = (double)total;
 
                 // Save changes to the database
                 _context.SaveChanges();

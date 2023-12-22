@@ -34,20 +34,21 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             try
             {
-                var response = (from Client in context.OnlineClients
-                                join Province in context.States on Client.Province equals Province.Id
-                                join Country in context.Countries on Client.Country equals Country.Id
+                var response = await (from Client in context.OnlineClients
+                                      join Province in context.States on Client.Province equals Province.Id
+                                      join Country in context.Countries on Client.Country equals Country.Id
 
-                                where Client.IsActive.Equals(true)
-                                select new { Client, Province, Country }).OrderByDescending(c => c.Client.Id).ToList();
+                                      where Client.IsActive.Equals(true)
+                                      select new { Client, Province, Country })
+                                .OrderByDescending(c => c.Client.Id).ToListAsync();
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -60,20 +61,21 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-by-id/{id}")]
-        public IHttpActionResult GetById(int id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             try
             {
-                var response = (from Client in context.OnlineClients
-                                join Country in context.Countries on Client.Country equals Country.Id
-                                join Province in context.States on Client.Province equals Province.Id
+                var response = await (from Client in context.OnlineClients
+                                      join Country in context.Countries on Client.Country equals Country.Id
+                                      join Province in context.States on Client.Province equals Province.Id
 
-                                where Client.IsActive.Equals(true)
-                                select new { Client, Province, Country }).SingleOrDefault(c => c.Client.Id.Equals(id));
+                                      where Client.IsActive.Equals(true)
+                                      select new { Client, Province, Country })
+                                .SingleAsync(c => c.Client.Id.Equals(id));
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -108,7 +110,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
             }
             catch (Exception ex)
             {
@@ -125,7 +127,7 @@ namespace JSMS.Controllers.Api
                 var response = context.OnlineClients.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 //Assign value
@@ -150,7 +152,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
             }
             catch (Exception ex)
             {
@@ -167,7 +169,7 @@ namespace JSMS.Controllers.Api
                 var response = context.OnlineClients.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 else
                 {
@@ -177,7 +179,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
             }
             catch (Exception ex)
             {

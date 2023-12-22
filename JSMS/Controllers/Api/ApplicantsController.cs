@@ -85,7 +85,7 @@ namespace JSMS.Controllers.Api
 
                 if (response == null || !response.Any())
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -98,37 +98,37 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-by-id/{id}")]
-        public IHttpActionResult GetById(int id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             try
             {
-                var response = (from Applicant in context.Applicants
-                                join CProvince in context.Provinces on Applicant.CProvince equals CProvince.Id
-                                join CDistrict in context.Districts on Applicant.CDistrict equals CDistrict.Id
-                                join CCommune in context.Communes on Applicant.CCommune equals CCommune.Id
-                                join CVillage in context.Villages on Applicant.CVillage equals CVillage.Id
-                                join BProvince in context.Provinces on Applicant.BProvince equals BProvince.Id
-                                join BDistrict in context.Districts on Applicant.BDistrict equals BDistrict.Id
-                                join BCommune in context.Communes on Applicant.BCommune equals BCommune.Id
-                                join BVillage in context.Villages on Applicant.BVillage equals BVillage.Id
+                var response = await (from Applicant in context.Applicants
+                                      join CProvince in context.Provinces on Applicant.CProvince equals CProvince.Id
+                                      join CDistrict in context.Districts on Applicant.CDistrict equals CDistrict.Id
+                                      join CCommune in context.Communes on Applicant.CCommune equals CCommune.Id
+                                      join CVillage in context.Villages on Applicant.CVillage equals CVillage.Id
+                                      join BProvince in context.Provinces on Applicant.BProvince equals BProvince.Id
+                                      join BDistrict in context.Districts on Applicant.BDistrict equals BDistrict.Id
+                                      join BCommune in context.Communes on Applicant.BCommune equals BCommune.Id
+                                      join BVillage in context.Villages on Applicant.BVillage equals BVillage.Id
 
-                                where Applicant.IsActive.Equals(true)
-                                select new
-                                {
-                                    Applicant,
-                                    CProvince,
-                                    CDistrict,
-                                    CCommune,
-                                    CVillage,
-                                    BProvince,
-                                    BDistrict,
-                                    BCommune,
-                                    BVillage,
-                                }).SingleOrDefault(c => c.Applicant.Id.Equals(id));
+                                      where Applicant.IsActive.Equals(true)
+                                      select new
+                                      {
+                                          Applicant,
+                                          CProvince,
+                                          CDistrict,
+                                          CCommune,
+                                          CVillage,
+                                          BProvince,
+                                          BDistrict,
+                                          BCommune,
+                                          BVillage,
+                                      }).SingleAsync(c => c.Applicant.Id.Equals(id));
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -187,7 +187,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
             }
             catch (Exception ex)
             {
@@ -204,7 +204,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Applicants.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 var fileName = FormHelper.SaveFile("Image", "Applicant", "~/AppData/Images", "../AppData/Images");
@@ -246,7 +246,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
             }
             catch (Exception ex)
             {
@@ -263,7 +263,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Applicants.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 else
                 {
@@ -274,7 +274,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
             }
             catch (Exception ex)
             {

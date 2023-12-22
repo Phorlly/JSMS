@@ -123,12 +123,12 @@ namespace JSMS.Controllers.Api
                 var exist = await userManager.FindByNameAsync(request.UserName);
                 if (exist != null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ឈ្មោះអ្នកប្រាស់បានចុះឈ្មោះរួចហើយ​ 😏" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ឈ្មោះអ្នកប្រាស់បានចុះឈ្មោះរួចហើយ​" }));
                 }
 
                 if (request.Password != request.ConfirmPassword)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ពាក្យសម្ងាត់ដូចគ្នាទេ 🙄" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ពាក្យសម្ងាត់ដូចគ្នាទេ" }));
                 }
                 else
                 {
@@ -171,7 +171,7 @@ namespace JSMS.Controllers.Api
                 {
                     if (request.NewPassword != request.ConfirmPassword)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ពាក្យសម្ងាត់ដូចគ្នាទេ 🙄" }));
+                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ពាក្យសម្ងាត់ដូចគ្នាទេ" }));
                     }
 
                     // Check if the old password is correct
@@ -179,7 +179,7 @@ namespace JSMS.Controllers.Api
 
                     if (!isOldPasswordCorrect)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ពាក្យសម្ងាត់ចាស់មិនត្រឹមត្រូវទេ 🙄" }));
+                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ពាក្យសម្ងាត់ចាស់មិនត្រឹមត្រូវទេ" }));
                     }
 
                     var result = await userManager.ChangePasswordAsync(response.Id, request.OldPassword, request.NewPassword);

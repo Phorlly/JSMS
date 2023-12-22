@@ -32,19 +32,19 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             try
             {
-                var response = (from Product in context.Products
-                                join Stock in context.StockTransactions on Product.Id equals Stock.Product
+                var response = await (from Product in context.Products
+                                      join Stock in context.StockTransactions on Product.Id equals Stock.Product
 
-                                where Product.IsActive.Equals(true) && Stock.IsActive.Equals(true)
-                                select new { Product, Stock }).OrderByDescending(c => c.Stock.Id).ToList();
+                                      where Product.IsActive.Equals(true) && Stock.IsActive.Equals(true)
+                                      select new { Product, Stock }).OrderByDescending(c => c.Stock.Id).ToListAsync();
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -57,20 +57,20 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-by-id/{id}")]
-        public IHttpActionResult GetById(int id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             try
             {
-                var response = (from Product in context.Products
-                                join Stock in context.StockTransactions on Product.Id equals Stock.Product
-                                join Quantity in context.Stocks on Product.Id equals Quantity.Product
+                var response = await (from Product in context.Products
+                                      join Stock in context.StockTransactions on Product.Id equals Stock.Product
+                                      join Quantity in context.Stocks on Product.Id equals Quantity.Product
 
-                                where Product.IsActive.Equals(true) && Stock.IsActive.Equals(true)
-                                select new { Product, Stock, Quantity }).SingleOrDefault(c => c.Stock.Id.Equals(id));
+                                      where Product.IsActive.Equals(true) && Stock.IsActive.Equals(true)
+                                      select new { Product, Stock, Quantity }).SingleOrDefaultAsync(c => c.Stock.Id.Equals(id));
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -120,13 +120,13 @@ namespace JSMS.Controllers.Api
                 {
                     if (stockExist == null)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "Not Found Product 😯" }));
+                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                     }
 
                     //Ajust stock
                     if (stockExist != null && stockExist.Total < request.Quantity)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "Stock lower than request 😯" }));
+                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "Stock lower than request" }));
                     }
                     else
                     {
@@ -138,7 +138,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
             }
             catch (Exception ex)
             {
@@ -169,7 +169,7 @@ namespace JSMS.Controllers.Api
                 {
                     if (response == null || stockExist == null)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                     }
 
                     stockExist.Total += request.Quantity;
@@ -184,18 +184,17 @@ namespace JSMS.Controllers.Api
                 {
                     if (response == null || stockExist == null)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                     }
 
                     //Ajust stock
                     if (stockExist != null && stockExist.Total < request.Quantity)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ចំនួនទំនិញដែលនៅក្នុងស្តុកគឺមិនគ្រប់គ្រាន់ទេ 😯" }));
+                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ចំនួនទំនិញដែលនៅក្នុងស្តុកគឺមិនគ្រប់គ្រាន់ទេ" }));
                     }
                     else
                     {
                         stockExist.Total -= request.Quantity;
-
                         context.Entry(stockExist).State = EntityState.Modified;
                         context.Entry(response).State = EntityState.Modified;
                     }
@@ -203,7 +202,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
             }
             catch (Exception ex)
             {
@@ -221,7 +220,7 @@ namespace JSMS.Controllers.Api
                 var response = context.StockTransactions.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 else
                 {
@@ -231,7 +230,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
             }
             catch (Exception ex)
             {

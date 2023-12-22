@@ -32,19 +32,19 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             try
             {
-                var response = (from Applicant in context.Applicants
-                                join Recruitment in context.Recruitments on Applicant.Id equals Recruitment.Applicant
-                                join ShortList in context.ShortLists on Recruitment.Id equals ShortList.Recruitment
-                                where ShortList.IsActive == true
-                                select new { ShortList, Applicant })
-                                .OrderByDescending(c => c.ShortList.Id).ToList();
+                var response = await (from Applicant in context.Applicants
+                                      join Recruitment in context.Recruitments on Applicant.Id equals Recruitment.Applicant
+                                      join ShortList in context.ShortLists on Recruitment.Id equals ShortList.Recruitment
+                                      where ShortList.IsActive == true
+                                      select new { ShortList, Applicant })
+                                .OrderByDescending(c => c.ShortList.Id).ToListAsync();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -57,19 +57,19 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-by-id/{id}")]
-        public IHttpActionResult GetById(int id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             try
             {
-                var response = (from Applicant in context.Applicants
-                                join Recruitment in context.Recruitments on Applicant.Id equals Recruitment.Applicant
-                                join ShortList in context.ShortLists on Recruitment.Id equals ShortList.Recruitment
-                                where ShortList.IsActive == true
-                                select new { ShortList, Applicant })
-                                .FirstOrDefault(c => c.ShortList.Id.Equals(id));
+                var response = await (from Applicant in context.Applicants
+                                      join Recruitment in context.Recruitments on Applicant.Id equals Recruitment.Applicant
+                                      join ShortList in context.ShortLists on Recruitment.Id equals ShortList.Recruitment
+                                      where ShortList.IsActive == true
+                                      select new { ShortList, Applicant })
+                                .FirstAsync(c => c.ShortList.Id.Equals(id));
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -97,7 +97,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@ namespace JSMS.Controllers.Api
                 var response = context.ShortLists.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 response.Status = 1;
                 response.UpdatedAt = DateTime.Now;
@@ -133,7 +133,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
             }
             catch (Exception ex)
             {
@@ -150,7 +150,7 @@ namespace JSMS.Controllers.Api
                 var response = context.ShortLists.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 else
                 {
@@ -160,7 +160,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
             }
             catch (Exception ex)
             {

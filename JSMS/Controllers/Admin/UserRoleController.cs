@@ -24,7 +24,7 @@ namespace JSMS.Controllers.Admin
         // GET: UserRole
         public ActionResult Index()
         {
-            return View(context.Roles.ToList());
+            return View(context.Roles.OrderBy(c => c.Name).ToList());
         }
     }
 }

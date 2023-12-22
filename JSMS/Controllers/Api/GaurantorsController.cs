@@ -53,11 +53,11 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             try
             {
-                var response = (from CProvince in context.Provinces
+                var response = await(from CProvince in context.Provinces
                                 join Gaurantor in context.Gaurantors on CProvince.Id equals Gaurantor.CProvince
                                 join CDistrict in context.Districts on Gaurantor.CDistrict equals CDistrict.Id
                                 join CCommune in context.Communes on Gaurantor.CCommune equals CCommune.Id
@@ -69,10 +69,10 @@ namespace JSMS.Controllers.Api
                                 join BVillage in context.Villages on Gaurantor.BVillage equals BVillage.Id
                                 where Gaurantor.IsActive == true
                                 select new { Gaurantor, CProvince, CDistrict, CCommune, CVillage, BProvince, BDistrict, BCommune, BVillage })
-                                .OrderByDescending(c => c.Gaurantor.Id).ToList();
+                                .OrderByDescending(c => c.Gaurantor.Id).ToListAsync();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -85,11 +85,11 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-by-id/{id}")]
-        public IHttpActionResult GetById(int id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             try
             {
-                var response = (from CProvince in context.Provinces
+                var response = await(from CProvince in context.Provinces
                                 join Gaurantor in context.Gaurantors on CProvince.Id equals Gaurantor.CProvince
                                 join CDistrict in context.Districts on Gaurantor.CDistrict equals CDistrict.Id
                                 join CCommune in context.Communes on Gaurantor.CCommune equals CCommune.Id
@@ -101,10 +101,10 @@ namespace JSMS.Controllers.Api
                                 join BVillage in context.Villages on Gaurantor.BVillage equals BVillage.Id
                                 where Gaurantor.IsActive == true
                                 select new { Gaurantor, CProvince, CDistrict, CCommune, CVillage, BProvince, BDistrict, BCommune, BVillage })
-                                .SingleOrDefault(c => c.Gaurantor.Id.Equals(id));
+                                .SingleAsync(c => c.Gaurantor.Id.Equals(id));
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -163,7 +163,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
             }
             catch (Exception ex)
             {
@@ -181,7 +181,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Gaurantors.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 var fileName = FormHelper.SaveFile("Image", "Gaurantor", "~/AppData/Images", "../AppData/Images");
@@ -223,7 +223,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
             }
             catch (Exception ex)
             {
@@ -240,7 +240,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Gaurantors.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 else
                 {
@@ -251,7 +251,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
             }
             catch (Exception ex)
             {

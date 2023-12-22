@@ -353,7 +353,6 @@
     <Compile Include="AppStart\RouteConfig.cs" />
     <Compile Include="AppStart\Startup.Auth.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
-    <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AccountingController.cs" />
     <Compile Include="Controllers\Admin\ApplicantController.cs" />
@@ -495,6 +494,7 @@
     <Content Include="Scripts\Functions\Dashboard.js" />
     <Content Include="Scripts\Functions\ExpenseSalary.js" />
     <Content Include="Scripts\Functions\IncomeSalary.js" />
+    <Content Include="Scripts\Functions\OtherGL.js" />
     <Content Include="Scripts\Functions\Product.js" />
     <Content Include="Scripts\Functions\Stock.js" />
     <Content Include="Scripts\Libraries\bootstrap-rating.min.js" />
@@ -930,6 +930,9 @@
     <Content Include="Theme\Theme\plugins\bs-stepper\css\bs-stepper.min.css.map" />
     <Content Include="Theme\Theme\plugins\bs-stepper\js\bs-stepper.js.map" />
     <Content Include="Theme\Theme\plugins\bs-stepper\js\bs-stepper.min.js.map" />
+    <Content Include="Views\GeneralLedger\_OtherExpense.cshtml" />
+    <Content Include="Views\GeneralLedger\_Total.cshtml" />
+    <Content Include="Views\GeneralLedger\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\OfficialWebsite\Blog.cshtml" />
@@ -1198,7 +1201,6 @@
     <Folder Include="Theme\plugins\tempusdominus-bootstrap-4\js\" />
     <Folder Include="Theme\plugins\toastr\" />
     <Folder Include="Theme\plugins\uplot\" />
-    <Folder Include="Views\GeneralLedger\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

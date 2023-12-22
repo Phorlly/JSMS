@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using JSMS.Models;
 using JSMS.Helpers;
 using JSMS.Models.Admin;
+using System.Data.Entity;
 
 namespace JSMS.Controllers
 {
@@ -19,14 +20,14 @@ namespace JSMS.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        protected readonly ApplicationDbContext context; 
+        protected readonly ApplicationDbContext context;
 
         public AccountController()
         {
             context = new ApplicationDbContext();
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -38,9 +39,9 @@ namespace JSMS.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -70,32 +71,26 @@ namespace JSMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return Json(new { success = false, message = "Invalid model." });
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            //var data = new LogAction { LogBy = model.UserName, OnDate = DateTime.Now };
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
 
             switch (result)
             {
                 case SignInStatus.Success:
-                    //context.LogActions.Add(data);
-                    //context.SaveChanges();
-                    return RedirectToLocal(returnUrl);
+                    return Json(new { success = true, message = "ចូលបានជោគជ័យ" });
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    return Json(new { success = false, message = "គណនីត្រូវបានបិទ" });
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return Json(new { success = false, message = "ទាមទារការផ្ទៀងផ្ទាត់" });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return Json(new { success = false, message = "ការប៉ុនប៉ងចូលមិនត្រឹមត្រូវ" });
             }
         }
 
@@ -128,7 +123,7 @@ namespace JSMS.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,11 +150,27 @@ namespace JSMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, string returnUrl)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            // Check if the username is already taken
+            if (UserManager.FindByName(model.UserName) != null)
+            {
+                return Json(new { success = false, message = "ឈ្មោះ​នេះ​ត្រូវ​បាន​គេ​ប្រើប្រាស់​រួចរាល់​ហើយ" });
+            }
+            // Check if the password meets the minimum length requirement
+            if (model.Password.Length < 8)
+            {
+                return Json(new { success = false, message = "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ 8 តួអក្សរ" });
+            }
+            // Check if the password and confirm password match
+            if (model.Password != model.ConfirmPassword)
+            {
+                return Json(new { success = false, message = "ពាក្យ​សម្ងាត់​និង​ការ​បញ្ជាក់​ពាក្យ​សម្ងាត់​មិន​ត្រូវ​គ្នា​" });
+            }
+            // Continue with the registration process
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = EmailGenerator.GenerateEmail() };
+                var user = new ApplicationUser { UserName = model.UserName.ToLower(), Email = EmailGenerator.GenerateEmail() };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -167,7 +178,7 @@ namespace JSMS.Controllers
                     await this.UserManager.AddToRoleAsync(user.Id, Roles.Accounting.ToString());
 
                     //Sign In into System
-                    await this.SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -175,13 +186,20 @@ namespace JSMS.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToLocal(returnUrl);
+                    return Json(new { success = true, message = "ការចុះឈ្មោះទទួលបានជោគជ័យ" });
                 }
-                AddErrors(result);
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.ToString());
+                        return Json(new { success = false, message = error.ToString() });
+                    }
+                }
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return Json(new { success = false, message = "ទិន្នន័យចុះឈ្មោះមិនត្រឹមត្រូវ" });
         }
 
         //

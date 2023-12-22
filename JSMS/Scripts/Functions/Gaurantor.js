@@ -438,7 +438,7 @@ const removeGuarantor = (id) => {
                 }) : console.log(xhr.responseText),
         }) : param.dismiss === Swal.DismissReason.cancel &&
         Swal.fire({
-            title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",
+            title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
             icon: "error",
             showConfirmButton: false,
             timer: 1500,
@@ -495,7 +495,7 @@ const validateGuarantor = () => {
     let isValid = true;
     if (gBirthName.val() === "") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -508,7 +508,7 @@ const validateGuarantor = () => {
         gBirthName.css("border-color", "#cccccc");
         if (gNational.val() === "") {
             Swal.fire({
-                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -521,7 +521,7 @@ const validateGuarantor = () => {
             gNational.css("border-color", "#cccccc");
             if (gNationality.val() === "") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -534,7 +534,7 @@ const validateGuarantor = () => {
                 gNationality.css("border-color", "#cccccc");
                 if (gEducation.val() === "-1") {
                     Swal.fire({
-                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -547,7 +547,7 @@ const validateGuarantor = () => {
                     gEducation.css("border-color", "#cccccc");
                     if (gPhone1.val() === "") {
                         Swal.fire({
-                            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
@@ -560,7 +560,7 @@ const validateGuarantor = () => {
                         gPhone1.css("border-color", "#cccccc");
                         if (gDOB.val() === "") {
                             Swal.fire({
-                                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
@@ -586,123 +586,89 @@ gBProvince.change(() => {
     let provinceId = gBProvince.val();
     gBDis.show();
 
-    //   console.log({ BProvince: provinceId });
+    provinceId ? $.ajax({
+        url: "/home/bDistrict",
+        type: "GET",
+        data: { BProvince: provinceId },
+        dataType: "JSON",
+        success: (response) => {
+            gBDistrict.empty();
+            gBCommune.empty();
+            gBVillage.empty();
+            gBDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gBCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gBVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 
-    if (provinceId !== null) {
-        gBDistrict.empty();
-        gBCommune.empty();
-        gBVillage.empty();
-        gBDistrict.append($("<option>").val("").html("Please wait ..."));
-
-        $.ajax({
-            url: "/home/bDistrict",
-            type: "GET",
-            data: { BProvince: provinceId },
-            dataType: "JSON",
-            success: (response) => {
-                // console.log(response);
-                gBDistrict.empty(); // Clear the please wait
+            $.each(response, (inex, row) => {
                 gBDistrict.append(
-                    $("<option>").val("-1").text("---Please Select District---")
+                    $("<option>")
+                        .val(row.Id)
+                        .text(row.NameKh + " / " + row.Name)
                 );
-                gBCommune.append(
-                    $("<option>").val("-1").text("---Please Select Commune---")
-                );
-                gBVillage.append(
-                    $("<option>").val("-1").text("---Please Select Village---")
-                );
-
-                $.each(response, (inex, row) => {
-                    gBDistrict.append(
-                        $("<option>")
-                            .val(row.Id)
-                            .text(row.NameKh + " / " + row.Name)
-                    );
-                });
-            },
-            error: (hasError) => {
-                console.log(hasError);
-            },
-        });
-    }
+            });
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : gBProvince.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 });
 
 //Change value
 gBDistrict.change(() => {
     let districtId = gBDistrict.val();
     gBCom.show();
-    //   console.log({ BDistrict: districtId });
 
-    if (districtId !== null) {
-        gBCommune.empty();
-        gBVillage.empty();
-        gBCommune.append($("<option></option>").val("").html("Please wait ..."));
+    districtId ? $.ajax({
+        url: "/home/bCommune",
+        type: "GET",
+        data: { BDistrict: districtId },
+        dataType: "JSON",
+        success: (response) => {
+            gBCommune.empty();
+            gBVillage.empty();
+            gBCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gBVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 
-        $.ajax({
-            url: "/home/bCommune",
-            type: "GET",
-            data: { BDistrict: districtId },
-            dataType: "JSON",
-            success: (response) => {
-                // console.log(response);
-                gBCommune.empty(); // Clear the please wait
+            $.each(response, (inex, row) => {
                 gBCommune.append(
-                    $("<option>").val("-1").text("---Please Select Commune---")
+                    $("<option>")
+                        .val(row.Id)
+                        .text(row.NameKh + " / " + row.Name)
                 );
-                gBVillage.append(
-                    $("<option>").val("-1").text("---Please Select Village---")
-                );
-
-                $.each(response, (inex, row) => {
-                    gBCommune.append(
-                        $("<option>")
-                            .val(row.Id)
-                            .text(row.NameKh + " / " + row.Name)
-                    );
-                });
-            },
-            error: (hasError) => {
-                console.log(hasError);
-            },
-        });
-    }
+            });
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : gBDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 });
 
 //Change value
 gBCommune.change(() => {
     let communeId = gBCommune.val();
     gBVil.show();
-    //   console.log({ BCommune: communeId });
 
-    if (communeId !== null) {
-        gBVillage.empty();
-        gBVillage.append($("<option>").val("").html("Please wait ..."));
+    communeId ? $.ajax({
+        url: "/home/bVillage",
+        type: "GET",
+        data: { BCommune: communeId },
+        dataType: "JSON",
+        success: (response) => {
+            gBVillage.empty();
+            gBVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 
-        $.ajax({
-            url: "/home/bVillage",
-            type: "GET",
-            data: { BCommune: communeId },
-            dataType: "JSON",
-            success: (response) => {
-                // console.log(response);
-                gBVillage.empty(); // Clear the please wait
+            $.each(response, (inex, row) => {
                 gBVillage.append(
-                    $("<option>").val("-1").text("---Please Select Village---")
+                    $("<option>")
+                        .val(row.Id)
+                        .html(row.NameKh + " / " + row.Name)
                 );
-
-                $.each(response, (inex, row) => {
-                    gBVillage.append(
-                        $("<option>")
-                            .val(row.Id)
-                            .html(row.NameKh + " / " + row.Name)
-                    );
-                });
-            },
-            error: (hasError) => {
-                console.log(hasError);
-            },
-        });
-    }
+            });
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : gBCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 });
 
 //==================Current Address=====================//
@@ -711,86 +677,61 @@ gCProvince.change(() => {
     let provinceId = gCProvince.val();
     gCDis.show();
 
-    //   console.log({ CProvince: provinceId });
+    provinceId ? $.ajax({
+        url: "/home/cDistrict",
+        type: "GET",
+        data: { CProvince: provinceId },
+        dataType: "JSON",
+        success: (response) => {
+            gCDistrict.empty();
+            gCCommune.empty();
+            gCVillage.empty();
+            gCDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gCCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gCVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 
-    if (provinceId !== null) {
-        gCDistrict.empty();
-        gCCommune.empty();
-        gCVillage.empty();
-        gCDistrict.append($("<option>").val("").html("Please wait ..."));
-
-        $.ajax({
-            url: "/home/cDistrict",
-            type: "GET",
-            data: { CProvince: provinceId },
-            dataType: "JSON",
-            success: (response) => {
-                // console.log(response);
-                gCDistrict.empty(); // Clear the please wait
+            $.each(response, (inex, row) => {
                 gCDistrict.append(
-                    $("<option>").val("-1").text("---Please Select District---")
+                    $("<option>")
+                        .val(row.Id)
+                        .text(row.NameKh + " / " + row.Name)
                 );
-                gCCommune.append(
-                    $("<option>").val("-1").text("---Please Select Commune---")
-                );
-                gCVillage.append(
-                    $("<option>").val("-1").text("---Please Select Village---")
-                );
-
-                $.each(response, (inex, row) => {
-                    gCDistrict.append(
-                        $("<option>")
-                            .val(row.Id)
-                            .text(row.NameKh + " / " + row.Name)
-                    );
-                });
-            },
-            error: (hasError) => {
-                console.log(hasError);
-            },
-        });
-    }
+            });
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : gCProvince.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 });
 
 //Change value
 gCDistrict.change(() => {
     let districtId = gCDistrict.val();
     gCCom.show();
-    //   console.log({ CDistrict: districtId });
 
-    if (districtId !== null) {
-        gCCommune.empty();
-        gCVillage.empty();
-        gCCommune.append($("<option></option>").val("").html("Please wait ..."));
+    districtId ? $.ajax({
+        url: "/home/cCommune",
+        type: "GET",
+        data: { CDistrict: districtId },
+        dataType: "JSON",
+        success: (response) => {
+            gCCommune.empty();
+            gCVillage.empty();
+            gCCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gCVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 
-        $.ajax({
-            url: "/home/cCommune",
-            type: "GET",
-            data: { CDistrict: districtId },
-            dataType: "JSON",
-            success: (response) => {
-                // console.log(response);
-                gCCommune.empty(); // Clear the please wait
+            $.each(response, (inex, row) => {
                 gCCommune.append(
-                    $("<option>").val("-1").text("---Please Select Commune---")
+                    $("<option>")
+                        .val(row.Id)
+                        .text(row.NameKh + " / " + row.Name)
                 );
-                gCVillage.append(
-                    $("<option>").val("-1").text("---Please Select Village---")
-                );
-
-                $.each(response, (inex, row) => {
-                    gCCommune.append(
-                        $("<option>")
-                            .val(row.Id)
-                            .text(row.NameKh + " / " + row.Name)
-                    );
-                });
-            },
-            error: (hasError) => {
-                console.log(hasError);
-            },
-        });
-    }
+            });
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : gCDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 });
 
 //Change value
@@ -799,33 +740,25 @@ gCCommune.change(() => {
     gCVil.show();
     //   console.log({ CCommune: communeId });
 
-    if (communeId !== null) {
-        gCVillage.empty();
-        gCVillage.append($("<option>").val("").html("Please wait ..."));
+    communeId ? $.ajax({
+        url: "/home/cVillage",
+        type: "GET",
+        data: { CCommune: communeId },
+        dataType: "JSON",
+        success: (response) => {
+            gCVillage.empty();
+            gCVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 
-        $.ajax({
-            url: "/home/cVillage",
-            type: "GET",
-            data: { CCommune: communeId },
-            dataType: "JSON",
-            success: (response) => {
-                // console.log(response);
-                gCVillage.empty(); // Clear the please wait
+            $.each(response, (inex, row) => {
                 gCVillage.append(
-                    $("<option>").val("-1").text("---Please Select Village---")
+                    $("<option>")
+                        .val(row.Id)
+                        .html(row.NameKh + " / " + row.Name)
                 );
-
-                $.each(response, (inex, row) => {
-                    gCVillage.append(
-                        $("<option>")
-                            .val(row.Id)
-                            .html(row.NameKh + " / " + row.Name)
-                    );
-                });
-            },
-            error: (hasError) => {
-                console.log(hasError);
-            },
-        });
-    }
+            });
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : gCCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 });

@@ -297,7 +297,7 @@ const remove = (id) => {
 
                 }) : param.dismiss === Swal.DismissReason.cancel &&
                 Swal.fire({
-                    title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",
+                    title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
                     icon: "error",
                     showConfirmButton: false,
                     timer: 1500,
@@ -336,7 +336,7 @@ const validate = () => {
     let isValid = true;
     if (username.val() === "") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -349,7 +349,7 @@ const validate = () => {
         username.css("border-color", "#cccccc");
         if (password.val() === "") {
             Swal.fire({
-                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -362,7 +362,7 @@ const validate = () => {
             password.css("border-color", "#cccccc");
             if (confirmPassword.val() === "") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -375,7 +375,7 @@ const validate = () => {
                 confirmPassword.css("border-color", "#cccccc");
                 if (role.val() === "-1") {
                     Swal.fire({
-                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -397,7 +397,7 @@ const validateUpdate = () => {
     let isValid = true;
     if (username.val() === "") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -412,7 +412,7 @@ const validateUpdate = () => {
 
             if (oldPassword.val() === "") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -425,7 +425,7 @@ const validateUpdate = () => {
                 oldPassword.css("border-color", "#cccccc");
                 if (newPassword.val() === "") {
                     Swal.fire({
-                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -438,7 +438,7 @@ const validateUpdate = () => {
                     newPassword.css("border-color", "#cccccc");
                     if (confirmNewPassword.val() === "") {
                         Swal.fire({
-                            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
@@ -451,7 +451,7 @@ const validateUpdate = () => {
                         confirmNewPassword.css("border-color", "#cccccc");
                         if (role.val() === "-1") {
                             Swal.fire({
-                                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
@@ -469,7 +469,7 @@ const validateUpdate = () => {
         } else {
             if (role.val() === "-1") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },

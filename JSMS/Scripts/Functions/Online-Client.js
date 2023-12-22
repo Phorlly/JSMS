@@ -209,7 +209,7 @@ const validateClient = () => {
     let isValid = true;
     if (registerName.val() === "") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -222,7 +222,7 @@ const validateClient = () => {
         registerName.css("border-color", "#cccccc");
         if (company.val() === "") {
             Swal.fire({
-                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -235,7 +235,7 @@ const validateClient = () => {
             company.css("border-color", "#cccccc");
             if (gender.val() === "-1") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -248,7 +248,7 @@ const validateClient = () => {
                 gender.css("border-color", "#cccccc");
                 if (cPhone1.val() === "") {
                     Swal.fire({
-                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -261,7 +261,7 @@ const validateClient = () => {
                     cPhone1.css("border-color", "#cccccc");
                     if (county.val() === "-1") {
                         Swal.fire({
-                            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
@@ -274,7 +274,7 @@ const validateClient = () => {
                         county.css("border-color", "#cccccc");
                         if (stateCity.val() === "-1") {
                             Swal.fire({
-                                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },

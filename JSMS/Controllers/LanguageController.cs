@@ -18,15 +18,14 @@ namespace JSMS.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Change(String translator) 
+        public ActionResult Change(String translator)
         {
             if (!String.IsNullOrEmpty(translator))
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(translator);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(translator);
             }
-            var cookie = new HttpCookie("Languages");
-            cookie.Value = translator;
+            var cookie = new HttpCookie("Languages") { Value = translator };
             Response.Cookies.Add(cookie);
 
             return Redirect(Request.UrlReferrer.PathAndQuery);

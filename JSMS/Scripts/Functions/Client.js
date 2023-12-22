@@ -395,7 +395,7 @@ const remove = (id) => {
                 }) : console.log(xhr.responseText),
         }) : param.dismiss === Swal.DismissReason.cancel &&
         Swal.fire({
-            title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",
+            title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
             icon: "error",
             showConfirmButton: false,
             timer: 1500,
@@ -443,7 +443,7 @@ const validate = () => {
     let isValid = true;
     if (ownername.val() === "") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -456,7 +456,7 @@ const validate = () => {
         ownername.css("border-color", "#cccccc");
         if (company.val() === "") {
             Swal.fire({
-                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -469,7 +469,7 @@ const validate = () => {
             company.css("border-color", "#cccccc");
             if (vattin.val() === "-1") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -482,7 +482,7 @@ const validate = () => {
                 vattin.css("border-color", "#cccccc");
                 if (phone1.val() === "") {
                     Swal.fire({
-                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -495,7 +495,7 @@ const validate = () => {
                     phone1.css("border-color", "#cccccc");
                     if (position.val() === "-1") {
                         Swal.fire({
-                            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
@@ -508,7 +508,7 @@ const validate = () => {
                         position.css("border-color", "#cccccc");
                         if (dob.val() === "") {
                             Swal.fire({
-                                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
@@ -533,123 +533,89 @@ province.change(() => {
     let provinceId = province.val();
     dis.show();
 
-    //console.log({ CProvince: provinceId });
+    provinceId ? $.ajax({
+        url: "/home/cDistrict",
+        type: "GET",
+        data: { CProvince: provinceId },
+        dataType: "JSON",
+        success: (response) => {
+            district.empty();
+            commune.empty();
+            village.empty();
+            district.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            commune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            village.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 
-    if (provinceId !== null) {
-        district.empty();
-        commune.empty();
-        village.empty();
-        district.append($("<option>").val("").html("Please wait ..."));
-
-        $.ajax({
-            url: "/home/cDistrict",
-            type: "GET",
-            data: { CProvince: provinceId },
-            dataType: "JSON",
-            success: (response) => {
-                //console.log(response);
-                district.empty(); // Clear the please wait
+            $.each(response, (inex, row) => {
                 district.append(
-                    $("<option>").val(-1).text("---Please Select District---")
+                    $("<option>")
+                        .val(row.Id)
+                        .text(row.NameKh + " / " + row.Name)
                 );
-                commune.append(
-                    $("<option>").val(-1).text("---Please Select Commune---")
-                );
-                village.append(
-                    $("<option>").val(-1).text("---Please Select Village---")
-                );
-
-                $.each(response, (inex, row) => {
-                    district.append(
-                        $("<option>")
-                            .val(row.Id)
-                            .text(row.NameKh + " / " + row.Name)
-                    );
-                });
-            },
-            error: (hasError) => {
-                console.log(hasError);
-            },
-        });
-    }
+            });
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : province.append($("<option>"));
 });
 
 //Change value
 district.change(() => {
     let districtId = district.val();
     com.show();
-    //console.log({ CDistrict: districtId });
 
-    if (districtId !== null) {
-        commune.empty();
-        village.empty();
-        commune.append($("<option></option>").val("").html("Please wait ..."));
+    districtId ? $.ajax({
+        url: "/home/cCommune",
+        type: "GET",
+        data: { CDistrict: districtId },
+        dataType: "JSON",
+        success: (response) => {
+            commune.empty();
+            village.empty();
+            commune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            village.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 
-        $.ajax({
-            url: "/home/cCommune",
-            type: "GET",
-            data: { CDistrict: districtId },
-            dataType: "JSON",
-            success: (response) => {
-                //console.log(response);
-                commune.empty(); // Clear the please wait
+            $.each(response, (inex, row) => {
                 commune.append(
-                    $("<option>").val(-1).text("---Please Select Commune---")
+                    $("<option>")
+                        .val(row.Id)
+                        .text(row.NameKh + " / " + row.Name)
                 );
-                village.append(
-                    $("<option>").val(-1).text("---Please Select Village---")
-                );
+            });
 
-                $.each(response, (inex, row) => {
-                    commune.append(
-                        $("<option>")
-                            .val(row.Id)
-                            .text(row.NameKh + " / " + row.Name)
-                    );
-                });
-
-            },
-            error: (hasError) => {
-                console.log(hasError);
-            },
-        });
-    }
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : district.append($("<option></option>"));
 });
 
 //Change value
 commune.change(() => {
     let communeId = commune.val();
     vil.show();
-    //console.log({ CCommune: communeId });
 
-    if (communeId !== null) {
-        village.empty();
-        village.append($("<option>").val("").html("Please wait ..."));
+    communeId ? $.ajax({
+        url: "/home/cVillage",
+        type: "GET",
+        data: { CCommune: communeId },
+        dataType: "JSON",
+        success: (response) => {
+            village.empty();
+            village.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
 
-        $.ajax({
-            url: "/home/cVillage",
-            type: "GET",
-            data: { CCommune: communeId },
-            dataType: "JSON",
-            success: (response) => {
-                //console.log(response);
-                village.empty(); // Clear the please wait
+            $.each(response, (inex, row) => {
                 village.append(
-                    $("<option>").val(-1).text("---Please Select Village---")
+                    $("<option>")
+                        .val(row.Id)
+                        .html(row.NameKh + " / " + row.Name)
                 );
+            });
 
-                $.each(response, (inex, row) => {
-                    village.append(
-                        $("<option>")
-                            .val(row.Id)
-                            .html(row.NameKh + " / " + row.Name)
-                    );
-                });
-
-            },
-            error: (hasError) => {
-                console.log(hasError);
-            },
-        });
-    }
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : commune.append($("<option>").val(""));
 });

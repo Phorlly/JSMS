@@ -41,18 +41,18 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             try
             {
-                var response = (from Applicant in context.Applicants
-                                join Behavior in context.Behaviors on Applicant.Id equals Behavior.Applicant
-                                where Behavior.IsActive == true
-                                select new { Behavior, Applicant })
-                                .OrderByDescending(c => c.Behavior.Id).ToList();
+                var response = await (from Applicant in context.Applicants
+                                      join Behavior in context.Behaviors on Applicant.Id equals Behavior.Applicant
+                                      where Behavior.IsActive == true
+                                      select new { Behavior, Applicant })
+                                      .OrderByDescending(c => c.Behavior.Id).ToListAsync();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -65,18 +65,18 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-by-id/{id}")]
-        public IHttpActionResult GetById(int id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             try
             {
-                var response = (from Applicant in context.Applicants
-                                join Behavior in context.Behaviors on Applicant.Id equals Behavior.Applicant
-                                where Behavior.IsActive == true
-                                select new { Behavior, Applicant })
-                               .FirstOrDefault(c => c.Behavior.Id.Equals(id));
+                var response = await (from Applicant in context.Applicants
+                                      join Behavior in context.Behaviors on Applicant.Id equals Behavior.Applicant
+                                      where Behavior.IsActive == true
+                                      select new { Behavior, Applicant })
+                                     .FirstAsync(c => c.Behavior.Id.Equals(id));
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -114,7 +114,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new {  message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
             }
             catch (Exception ex)
             {
@@ -128,10 +128,10 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var response =await context.Behaviors.FindAsync(id);
+                var response = await context.Behaviors.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 var fileName = FormHelper.SaveFile("Attachment", "Behavior", "~/AppData/Files", "../AppData/Files");
@@ -158,7 +158,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
             }
             catch (Exception ex)
             {
@@ -176,7 +176,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Behaviors.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 else
                 {
@@ -187,7 +187,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
             }
             catch (Exception ex)
             {

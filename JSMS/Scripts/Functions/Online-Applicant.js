@@ -288,7 +288,7 @@ const validate = () => {
     let isValid = true;
     if (nameIn.val() === "") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -301,7 +301,7 @@ const validate = () => {
         nameIn.css("border-color", "#cccccc");
         if (nickName.val() === "") {
             Swal.fire({
-                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -314,7 +314,7 @@ const validate = () => {
             nickName.css("border-color", "#cccccc");
             if (sex.val() === "-1") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -327,7 +327,7 @@ const validate = () => {
                 sex.css("border-color", "#cccccc");
                 if (national.val() === "") {
                     Swal.fire({
-                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -340,7 +340,7 @@ const validate = () => {
                     national.css("border-color", "#cccccc");
                     if (nationality.val() === "") {
                         Swal.fire({
-                            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
@@ -353,7 +353,7 @@ const validate = () => {
                         nationality.css("border-color", "#cccccc");
                         if (phone1.val() === "") {
                             Swal.fire({
-                                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
@@ -366,7 +366,7 @@ const validate = () => {
                             phone1.css("border-color", "#cccccc");
                             if (education.val() === "-1") {
                                 Swal.fire({
-                                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                     icon: "warning",
                                     showConfirmButton: false,
                                     customClass: { title: 'custom-swal-title' },
@@ -379,7 +379,7 @@ const validate = () => {
                                 education.css("border-color", "#cccccc");
                                 if (pob.val() === "-1") {
                                     Swal.fire({
-                                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                         icon: "warning",
                                         showConfirmButton: false,
                                         customClass: { title: 'custom-swal-title' },
@@ -392,7 +392,7 @@ const validate = () => {
                                     pob.css("border-color", "#cccccc");
                                     if (dob.val() === "") {
                                         Swal.fire({
-                                            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                             icon: "warning",
                                             showConfirmButton: false,
                                             customClass: { title: 'custom-swal-title' },
@@ -405,7 +405,7 @@ const validate = () => {
                                         dob.css("border-color", "#cccccc");
                                         if (address.val() === "-1") {
                                             Swal.fire({
-                                                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                                 icon: "warning",
                                                 showConfirmButton: false,
                                                 customClass: { title: 'custom-swal-title' },
@@ -418,7 +418,7 @@ const validate = () => {
                                             address.css("border-color", "#cccccc");
                                             if (attachment.val() === "") {
                                                 Swal.fire({
-                                                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                                                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                                                     icon: "warning",
                                                     showConfirmButton: false,
                                                     customClass: { title: 'custom-swal-title' },

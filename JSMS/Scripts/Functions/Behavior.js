@@ -317,7 +317,7 @@ const removeBehavior = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",
+                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -350,7 +350,7 @@ const validateBehavior = () => {
     let isValid = true;
     if (applicantId.val() === "-1") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -363,7 +363,7 @@ const validateBehavior = () => {
         applicantId.css("border-color", "#cccccc");
         if (confirmBy.val() === "") {
             Swal.fire({
-                title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -376,7 +376,7 @@ const validateBehavior = () => {
             confirmBy.css("border-color", "#cccccc");
             if (currentDate.val() === "") {
                 Swal.fire({
-                    title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -389,7 +389,7 @@ const validateBehavior = () => {
                 currentDate.css("border-color", "#cccccc");
                 if (currentDate.val() === "") {
                     Swal.fire({
-                        title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },

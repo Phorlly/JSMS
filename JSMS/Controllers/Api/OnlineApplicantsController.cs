@@ -47,20 +47,21 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             try
-            { 
-                var response = (from Applicant in context.OnlineApplicants
-                                join Province in context.Provinces on Applicant.POB equals Province.Id
-                                join Address in context.Provinces on Applicant.Address equals Address.Id
+            {
+                var response = await (from Applicant in context.OnlineApplicants
+                                      join Province in context.Provinces on Applicant.POB equals Province.Id
+                                      join Address in context.Provinces on Applicant.Address equals Address.Id
 
-                                where Applicant.IsActive.Equals(true)
-                                select new { Applicant, Province, Address }).OrderByDescending(c => c.Applicant.Id).ToList();
+                                      where Applicant.IsActive.Equals(true)
+                                      select new { Applicant, Province, Address })
+                                .OrderByDescending(c => c.Applicant.Id).ToListAsync();
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -73,20 +74,21 @@ namespace JSMS.Controllers.Api
 
         [HttpGet]
         [Route("get-by-id/{id}")]
-        public IHttpActionResult GetById(int id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             try
             {
-                var response = (from Applicant in context.OnlineApplicants
-                                join Province in context.Provinces on Applicant.POB equals Province.Id
-                                join Address in context.Provinces on Applicant.Address equals Address.Id
+                var response = await (from Applicant in context.OnlineApplicants
+                                      join Province in context.Provinces on Applicant.POB equals Province.Id
+                                      join Address in context.Provinces on Applicant.Address equals Address.Id
 
-                                where Applicant.IsActive.Equals(true)
-                                select new { Applicant, Province, Address }).SingleOrDefault(c => c.Applicant.Id.Equals(id));
+                                      where Applicant.IsActive.Equals(true)
+                                      select new { Applicant, Province, Address })
+                                      .SingleAsync(c => c.Applicant.Id.Equals(id));
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" })); 
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 return Ok(response);
@@ -139,7 +141,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
             }
             catch (Exception ex)
             {
@@ -156,7 +158,7 @@ namespace JSMS.Controllers.Api
                 var response = context.OnlineApplicants.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
 
                 var fileName = FormHelper.SaveFile("Attachment", "Applicant", "~/AppData/Files", "../AppData/Files");
@@ -185,7 +187,7 @@ namespace JSMS.Controllers.Api
                 response.POB = int.Parse(pob);
                 response.Address = int.Parse(address);
                 response.Noted = noted;
-  
+
                 //Update
                 if (response != null)
                 {
@@ -193,7 +195,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
             }
             catch (Exception ex)
             {
@@ -210,7 +212,7 @@ namespace JSMS.Controllers.Api
                 var response = context.OnlineApplicants.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ 😯" }));
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
                 }
                 else
                 {
@@ -221,7 +223,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ 😍" });
+                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
             }
             catch (Exception ex)
             {

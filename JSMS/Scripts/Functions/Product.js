@@ -207,8 +207,6 @@ const productImage = (input) => {
     }
 };
 
-
-
 //Hide show
 tabProduct.click(() => {
     addProduct.show();
@@ -423,7 +421,7 @@ const remove = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល 🥰",
+                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -455,7 +453,7 @@ const validate = () => {
     let isValid = true;
     if (productName.val() === "") {
         Swal.fire({
-            title: "នៅត្រង់កន្លែងនេះមិនអាចគ្មានទិន្នន័យបានទេ 😲",
+            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
