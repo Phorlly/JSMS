@@ -67,16 +67,16 @@ const getAll = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "N.O",
+                //title: "N.O",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-                title: "Invoice Code",
+                //title: "Invoice Code",
                 data:"InvoiceID"
             },
             {
-                title: "Date",
+                //title: "Date",
                 data: "Date",
                 render: function (data, type, row) {
                     // Format the date using moment.js
@@ -85,7 +85,7 @@ const getAll = () => {
             },
 
             {
-                title: "Cost($)",
+                //title: "Cost($)",
                 data: "Cost",
                 render: (data, type, row) => {
                     // Set the color based on the value
@@ -97,22 +97,22 @@ const getAll = () => {
                 },
             },
             {
-                title: "ExpenseType",
+                //title: "ExpenseType",
                 data: "ExpenseType",
                 render: function (data, type, row) {
                     return mapExpenseType(data);
                 },
             },
             {
-                title: "Payment Type",
+                //title: "Payment Type",
                 data:"PaymentType"
             },
             {
-                title: "Note",
+                //title: "Note",
                 data:"Note"
             },
             {
-                title: "Action",
+                //title: "Action",
                 data: "Id",
                 render: (row) => {
                     return `<div> 

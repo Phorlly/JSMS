@@ -43,29 +43,66 @@
     }
 
     p,
-    label, a, input {
+    label, a, input,h2 {
         font-family: 'Khmer OS Battambang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         /*font-size: large;*/
     }
+    #login{
+        margin-bottom:10px;
+    }
+    #txt2:hover {
+        text-decoration: none;
+        color: #57b846;
+    }
+    #btnlogin {
+        font-family: 'Khmer OS Battambang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+        color: #fff;
+        text-transform: uppercase;
+        width: 100%;
+        height: 50px;
+        border-radius: 25px;
+        background: #57b846;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 25px;
+        -webkit-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        transition: all 0.4s;
+    }
+        #btnlogin:hover {
+            background: #333333;
+        }
 </style>
 
 <body>
     <div class="limiter">
-
         <div class="container-login100">
+            @*<h1>hi</h1>*@
             <div class="wrap-login100 ">
                 <div class="login100-pic " id="js-tilt" data-tilt>
                     <img src="~/Images/logoHRMS.png" alt="IMG">
                 </div>
 
-                <form class="login100-form validate-form">
-                    <label class="login100-form-title"> @JSMS.Resources.Language.Welcome
-                        <br />
-                        <p>@JSMS.Resources.Language.PleaseLogin</p>
-                    </label>
+                <form class="login100-form validate-form" action="/Account/Login" method="post" role="form">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <h2 class="text-center" id="login">
+                        @JSMS.Resources.Language.Welcome
+                    </h2>
+
+                    <p class="text-center" id="login">@JSMS.Resources.Language.PleaseLogin</p>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="UserName" placeholder="Email">
+                        <input class="input100" type="text" name="UserName" placeholder="@JSMS.Resources.Language.Email">
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -73,7 +110,8 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="Password" placeholder="Password">
+                        <input class="input100" type="password" name="Password" placeholder="@JSMS.Resources.Language.Password">
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -86,27 +124,24 @@
                     </div>
 
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">
+                        <button id="btnlogin">
                             @JSMS.Resources.Language.Login
                         </button>
                     </div>
 
                     <div class="text-center p-t-12">
-                        <span class="txt1">
-                            @JSMS.Resources.Language.Forget
-                        </span>
-                        <a class="txt2" href="#">
-                            Username / Password?
+                        <a id="txt2" href="#">
+                            @JSMS.Resources.Language.Forget @JSMS.Resources.Language.Username / @JSMS.Resources.Language.Password
                         </a>
                     </div>
 
-                    <div class="text-center p-t-60">
-                        <a class="txt2" href="@Url.Action("Register", "Account")">
+                    <div class="text-center p-t-20">
+                        <a id="txt2" href="@Url.Action("Register", "Account")">
                             @JSMS.Resources.Language.CreateNewAccount
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>
-                    <div class="text-center mt-2">
+                    <div class="text-center mt-2 p-t-20">
                         @if (Request.Cookies["Languages"].Value == "km")
                         {
                             <a class="nav-link" href="@Url.Action("Change", "Language", new { translator = "en" })"
@@ -117,7 +152,7 @@
                         else
                         {
                             <a class="nav-link" href="@Url.Action("Change", "Language", new { translator = "km" })"
-                               role="button"> 
+                               role="button">
                                 <img src="~/Images/kh.png" style=" width: 17px;">
                                 <span style="font-family:Hanuman">ភាសាខ្មែរ</span>
                             </a>

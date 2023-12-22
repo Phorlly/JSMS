@@ -934,6 +934,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More Infor.
+        /// </summary>
+        public static string MoreInfo {
+            get {
+                return ResourceManager.GetString("MoreInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Morning.
         /// </summary>
         public static string Morning {
@@ -1015,6 +1024,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not Studied.
         /// </summary>
         public static string NotStudied {
@@ -1069,6 +1087,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actitvity Type.
+        /// </summary>
+        public static string OtherGLType {
+            get {
+                return ResourceManager.GetString("OtherGLType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string Owner {
@@ -1101,6 +1128,15 @@ namespace JSMS.Resources {
         public static string Payment {
             get {
                 return ResourceManager.GetString("Payment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment Type.
+        /// </summary>
+        public static string PaymentType {
+            get {
+                return ResourceManager.GetString("PaymentType", resourceCulture);
             }
         }
         
@@ -1290,6 +1326,15 @@ namespace JSMS.Resources {
         public static string RegisterOnlineManagement {
             get {
                 return ResourceManager.GetString("RegisterOnlineManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration.
+        /// </summary>
+        public static string Registration {
+            get {
+                return ResourceManager.GetString("Registration", resourceCulture);
             }
         }
         

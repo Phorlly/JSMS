@@ -2925,6 +2925,7 @@
     <Content Include="Theme\plugins\summernote\summernote.min.js.map" />
     <Content Include="Theme\plugins\toastr\toastr.js.map" />
     <Content Include="Theme\login\hamburgers.min.css" />
+    <Content Include="Views\GeneralLedger\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\OfficialWebsite\Blog.cshtml" />
@@ -2944,7 +2945,6 @@
     <Folder Include="AppData\Files\" />
     <Folder Include="AppData\Images\" />
     <Folder Include="CustomFolder\" />
-    <Folder Include="Views\GeneralLedger\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

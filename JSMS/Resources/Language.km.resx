@@ -235,10 +235,10 @@
     <value>អាសយដ្ឋានបច្ចុប្បន្ន</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
-    <value>ផ្ទាំងគ្រប់គ្រង</value>
+    <value>ផ្ទាំងគ្រប់គ្រងពត៌មានសង្ខប</value>
   </data>
   <data name="Date" xml:space="preserve">
-    <value>ថ្ងៃខែឆ្នាំ</value>
+    <value>កាលបរិច្ឆេទ</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>បរិយាយ</value>
@@ -408,6 +408,9 @@
   <data name="Monthly" xml:space="preserve">
     <value>ស្វែងរកតាមរយៈខែ</value>
   </data>
+  <data name="MoreInfo" xml:space="preserve">
+    <value>មើលបន្ថែម</value>
+  </data>
   <data name="Morning" xml:space="preserve">
     <value>ថ្ងៃ</value>
   </data>
@@ -435,6 +438,9 @@
   <data name="NoAccount" xml:space="preserve">
     <value>មិនទាន់មានគណនីសម្រាប់ចូលប្រើមែនទេ?</value>
   </data>
+  <data name="Note" xml:space="preserve">
+    <value>កត់សម្គាល់</value>
+  </data>
   <data name="NotStudied" xml:space="preserve">
     <value>មិនបានសិក្សា</value>
   </data>
@@ -450,6 +456,9 @@
   <data name="Other" xml:space="preserve">
     <value>ផ្សេងៗ</value>
   </data>
+  <data name="OtherGLType" xml:space="preserve">
+    <value>ប្រភេទប្រតិបត្តិការ</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>ម្ចាស់ភាគហ៊ុន</value>
   </data>
@@ -461,6 +470,9 @@
   </data>
   <data name="Payment" xml:space="preserve">
     <value>វិធីសាស្ត្រទូរទាត់ប្រាក់</value>
+  </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>ប្រភេទបង់ប្រាក់</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>លេខទូរសព្ទខ្សែទីមួយ</value>
@@ -524,6 +536,9 @@
   </data>
   <data name="RegisterOnlineManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងការចុះឈ្មោះតាមអ៊ីនធឺណិត</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>ចុះឈ្មោះ</value>
   </data>
   <data name="RemainStock" xml:space="preserve">
     <value>ទំនិញនៅសល់</value>
