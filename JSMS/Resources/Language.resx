@@ -294,6 +294,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
+  <data name="Forget" xml:space="preserve">
+    <value>Forget</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>Fullname</value>
   </data>
@@ -450,8 +453,14 @@
   <data name="NoAccount" xml:space="preserve">
     <value>No Account for Login?</value>
   </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
   <data name="NotStudied" xml:space="preserve">
     <value>Not Studied</value>
+  </data>
+  <data name="Null" xml:space="preserve">
+    <value />
   </data>
   <data name="OldPassword" xml:space="preserve">
     <value>Old password</value>
@@ -464,6 +473,9 @@
   </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
+  </data>
+  <data name="OtherGLType" xml:space="preserve">
+    <value>Actitvity Type</value>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
@@ -485,6 +497,9 @@
   </data>
   <data name="Phone2" xml:space="preserve">
     <value>Telephone line 2 (Optional)</value>
+  </data>
+  <data name="PleaseLogin" xml:space="preserve">
+    <value>Please Login into your account</value>
   </data>
   <data name="POB" xml:space="preserve">
     <value>Place of Birth</value>
@@ -539,6 +554,9 @@
   </data>
   <data name="RegisterOnlineManagement" xml:space="preserve">
     <value>Register Online Management</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Registration</value>
   </data>
   <data name="RemainStock" xml:space="preserve">
     <value>Remain-Stock</value>
@@ -692,5 +710,8 @@
   </data>
   <data name="Village" xml:space="preserve">
     <value>Village</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to Jinglong</value>
   </data>
 </root>

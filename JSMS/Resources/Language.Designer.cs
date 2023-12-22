@@ -592,6 +592,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forget.
+        /// </summary>
+        public static string Forget {
+            get {
+                return ResourceManager.GetString("Forget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fullname.
         /// </summary>
         public static string FullName {
@@ -979,6 +988,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More Infor.
+        /// </summary>
+        public static string MoreInfo {
+            get {
+                return ResourceManager.GetString("MoreInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Morning.
         /// </summary>
         public static string Morning {
@@ -1060,11 +1078,29 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not Studied.
         /// </summary>
         public static string NotStudied {
             get {
                 return ResourceManager.GetString("NotStudied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Null {
+            get {
+                return ResourceManager.GetString("Null", resourceCulture);
             }
         }
         
@@ -1105,6 +1141,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actitvity Type.
+        /// </summary>
+        public static string OtherGLType {
+            get {
+                return ResourceManager.GetString("OtherGLType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string Owner {
@@ -1141,15 +1186,6 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to People.
-        /// </summary>
-        public static string People {
-            get {
-                return ResourceManager.GetString("People", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Telephone line 1.
         /// </summary>
         public static string Phone {
@@ -1164,6 +1200,15 @@ namespace JSMS.Resources {
         public static string Phone2 {
             get {
                 return ResourceManager.GetString("Phone2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Login into your account.
+        /// </summary>
+        public static string PleaseLogin {
+            get {
+                return ResourceManager.GetString("PleaseLogin", resourceCulture);
             }
         }
         
@@ -1326,6 +1371,15 @@ namespace JSMS.Resources {
         public static string RegisterOnlineManagement {
             get {
                 return ResourceManager.GetString("RegisterOnlineManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration.
+        /// </summary>
+        public static string Registration {
+            get {
+                return ResourceManager.GetString("Registration", resourceCulture);
             }
         }
         
@@ -1785,6 +1839,15 @@ namespace JSMS.Resources {
         public static string Village {
             get {
                 return ResourceManager.GetString("Village", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to Jinglong.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }

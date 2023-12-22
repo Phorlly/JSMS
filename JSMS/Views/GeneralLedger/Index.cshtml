@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <h1 class="m-0 text-uppercase">@JSMS.Resources.Language.GeneralLedger</h1>
+                <h1 class="m-0 text-uppercase" style="font-family:'Khmer OS Battambang'">@JSMS.Resources.Language.GeneralLedger</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -45,16 +45,18 @@
                 <div class="row">
                     <div class="col-md-12">
                         <table id="tblOtherGL" class="table table-striped table-hover" role="grid">
-                            @*<thead>
-                                    <tr>
-                                        <th>@JSMS.Resources.Language.Id</th>    
-                                        <th>@JSMS.Resources.Language.FullName</th>
-                                        <th>@JSMS.Resources.Language.Code</th>
-                                        <th>@JSMS.Resources.Language.Gender</th>
-                                        <th>@JSMS.Resources.Language.ShiftType</th>
-                                        <th>@JSMS.Resources.Language.Profile</th>
-                                    </tr>
-                                </thead>*@
+                            <thead>
+                                <tr>
+                                    <th>@JSMS.Resources.Language.Id</th>
+                                    <th>@JSMS.Resources.Language.Invoice</th>
+                                    <th>@JSMS.Resources.Language.Date</th>
+                                    <th>@JSMS.Resources.Language.Cost</th>
+                                    <th>@JSMS.Resources.Language.OtherGLType</th>
+                                    <th>@JSMS.Resources.Language.PaymentType</th>
+                                    <th>@JSMS.Resources.Language.Note</th>
+                                    <th>@JSMS.Resources.Language.Actions</th>
+                                </tr>
+                            </thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -64,7 +66,6 @@
     </div>
 </div>
 @Html.Partial("_OtherExpense")
-@*@Html.Partial("_OtherIncome")*@
 @Html.Partial("_Total")
 
 @section scripts {
