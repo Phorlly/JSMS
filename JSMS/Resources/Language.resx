@@ -330,6 +330,9 @@
   <data name="Home" xml:space="preserve">
     <value>Home Page</value>
   </data>
+  <data name="HR" xml:space="preserve">
+    <value>HR Management</value>
+  </data>
   <data name="Id" xml:space="preserve">
     <value>No.</value>
   </data>
@@ -570,6 +573,9 @@
   <data name="RememberUP" xml:space="preserve">
     <value>Please remember your Username and Password</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
+  </data>
   <data name="ReportManagement" xml:space="preserve">
     <value>Report Management</value>
   </data>
@@ -596,6 +602,9 @@
   </data>
   <data name="SelectDate" xml:space="preserve">
     <value>Please select date</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Setting</value>
   </data>
   <data name="ShiftType" xml:space="preserve">
     <value>Shift Type</value>

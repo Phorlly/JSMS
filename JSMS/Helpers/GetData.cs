@@ -53,10 +53,10 @@ namespace JSMS.Helpers
         {
             end = end.AddDays(1);
             int totalDaysInMonth = (int)(end - start).TotalDays;
-            var attendanceData = GetAttendanceData(start, end, staff);
+            var attendanceData = GetAttendanceData(start, end, staff).Count();
 
             // Count the number of absent days where CheckIn is null
-            int absentCount = totalDaysInMonth - attendanceData.Count(a => a.CheckIn != null);
+            int absentCount = totalDaysInMonth - attendanceData;
 
             return absentCount;
         }

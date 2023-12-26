@@ -23,7 +23,6 @@
                         <h5 class="my-3">@JSMS.Resources.Language.Applicant</h5>
                         <h4>@ViewBag.Applicant <span><span>@JSMS.Resources.Language.People</span></span></h4>
 
-                        <p>Staff Registrations</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
@@ -45,7 +44,10 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">
+                        @JSMS.Resources.Language.MoreInfo
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
             </div>
             <!-- ./col -->
@@ -53,14 +55,16 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>@ViewBag.Client</h3>
-
-                        <p>Client Registrations</p>
+                        <h5 class="my-3">@JSMS.Resources.Language.Client</h5>
+                        <h4>@ViewBag.Client <span>@JSMS.Resources.Language.People</span></h4>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">
+                        @JSMS.Resources.Language.MoreInfo
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
             </div>
             <!-- ./col -->
@@ -68,40 +72,59 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>@ViewBag.User</h3>
-
-                        <p>User Registrations</p>
+                        <h5 class="my-3">@JSMS.Resources.Language.User</h5>
+                        <h4>@ViewBag.User <span>@JSMS.Resources.Language.People</span></h4>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">
+                        @JSMS.Resources.Language.MoreInfo
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
             </div>
             <!-- ./col -->
 
         </div>
 
-                        <p>Unique Visitors</p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+
+                        <h6 class="text-sm-center pt-3">
+                            <i class="far fa-calendar-alt"></i>
+                            @JSMS.Resources.Language.Calendar
+                            &copy;<span id="display-date"></span>
+                            &reg;<span id="display-date-time" onload="showTime()"></span>
+                        </h6>
+
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
+                    <div class="card-body">
+                        <!--The calendar -->
+                        <div id="calendar" class="w-h"></div>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <!-- ./col -->
+            <div class="col-md-6">
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h6 class="text-sm-center pt-3">
+                            <i class="fas fa-shopping-cart"></i>
+                            @JSMS.Resources.Language.RemainStock
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="pie-chart" class="w-h"></canvas>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-        #calendar th,
-        #calendar td {
-            border: 1px solid #ddd;
-            padding: 5px;
-            text-align: center;
-        }
-    </style>
 </section>
 @section scripts {
     @Scripts.Render("~/Scripts/Functions/Dashboard.js")

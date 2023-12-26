@@ -20,16 +20,23 @@ textarea {
 }*/
 
 td, select, a, span, input, textarea, li, label,
-option {
-    font-family: Battambang,'Segoe UI', sans-serif;
+option, h1, h2, h3, h4, h5, h6, th {
+    font-family: 'Khmer OS Battambang','Segoe UI', sans-serif;
     font-weight: bold;
     /*font-size: 16px;*/
 }
 
-h1, h2, h3, h4, h5, h6, th {
-    font-family: 'Khmer OS Moul','Segoe UI', sans-serif;
+#calendar table {
+    border-collapse: collapse;
+    width: 100%;
 }
 
+#calendar th,
+#calendar td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+}
 .modal-title {
     margin: 0 auto;
 }
@@ -42,7 +49,7 @@ span {
 .custom-swal-title {
     color: blue;
     font-size: 12px;
-    font-family: 'Kh Battambang','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Khmer OS Battambang','Segoe UI', sans-serif;
 }
 
 /* Styles for normal view */

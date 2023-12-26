@@ -330,6 +330,9 @@
   <data name="Home" xml:space="preserve">
     <value>ទំព័រដើម</value>
   </data>
+  <data name="HR" xml:space="preserve">
+    <value>ផ្នែកធនធានមនុស្ស</value>
+  </data>
   <data name="Id" xml:space="preserve">
     <value>ល.រ</value>
   </data>
@@ -486,6 +489,9 @@
   <data name="Payment" xml:space="preserve">
     <value>វិធីសាស្ត្រទូរទាត់ប្រាក់</value>
   </data>
+  <data name="People" xml:space="preserve">
+    <value>នាក់</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>លេខទូរសព្ទខ្សែទីមួយ</value>
   </data>
@@ -564,6 +570,9 @@
   <data name="RememberUP" xml:space="preserve">
     <value>សូមចងចាំនូវឈ្មោះអ្នកប្រើប្រាស់ និងពាក្យសម្ងាត់ផង</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>របាយការណ៍</value>
+  </data>
   <data name="ReportManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងរបាយការណ៍</value>
   </data>
@@ -590,6 +599,9 @@
   </data>
   <data name="SelectDate" xml:space="preserve">
     <value>សូមជ្រើសរើសថ្ងៃខែ</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>ការកំណត់</value>
   </data>
   <data name="ShiftType" xml:space="preserve">
     <value>ប្រភេទវេន</value>

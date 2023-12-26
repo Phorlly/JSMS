@@ -11,6 +11,7 @@
     <link rel="icon" href="~/Images/logoHRMS.png">
     <title>LOGIN</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
     <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <style>
         h1,
@@ -25,81 +26,143 @@
             /*font-size: large;*/
         }
     </style>
-
+</head>
 <body>
     <div style="height: 100vh; " class="d-flex justify-content-center align-items-center">
 
         <section>
             <div class="form-control d-flex  shadow-lg p-5 mb-5 bg-body-tertiary rounded-4  ">
 
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new
-                {
-                    role = "form"
-                }))
-                {
+                <form id="form-sign-in" method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                     <p class="text-center" id="login">@JSMS.Resources.Language.PleaseLogin</p>
 
-                        <div class="form-group mb-4">
-                            <label>@JSMS.Resources.Language.Username</label>
-                            <input type="text" name="UserName" class="form-control" placeholder="@JSMS.Resources.Language.Input">
-                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group mb-4">
-                            <label>@JSMS.Resources.Language.Password</label>
-                            <input type="password" name="Password" class="form-control" placeholder="@JSMS.Resources.Language.Input">
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="mb-3">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            <label>@JSMS.Resources.Language.RememberMe</label>
-                        </div>
-
-                        <div class="footer">
-                            <button type="submit" class="btn btn-primary w-100 mb-2">
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>@JSMS.Resources.Language.Login</span>
-                            </button>
-
-                            <div class="text-center">
-                                <a href="@Url.Action("Register","Account")">@JSMS.Resources.Language.NoAccount</a>
-                            </div>
-                            <div class="text-center mt-2">
-                                @if (Request.Cookies["Languages"].Value == "km")
-                                {
-                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "en"})"
-                                       role="button">
-                                        <img src="~/Images/us.png" style=" width: 17px;"> English
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "km"})"
-                                       role="button">
-                                        <img src="~/Images/kh.png" style=" width: 17px;">
-                                        <span style="font-family:Hanuman">ភាសាខ្មែរ</span>
-                                    </a>
-                                }
-                            </div>
-                        </div>
-
+                    <div class="form-group mb-4">
+                        <label>@JSMS.Resources.Language.Username</label>
+                        <input type="text" name="UserName" class="form-control" placeholder="@JSMS.Resources.Language.Input">
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                     </div>
-                }
+
+                    <div class="form-group mb-4">
+                        <label>@JSMS.Resources.Language.Password</label>
+                        <input type="password" name="Password" class="form-control" placeholder="@JSMS.Resources.Language.Input">
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        <label>@JSMS.Resources.Language.RememberMe</label>
+                    </div>
+
+                    <div class="footer">
+                        <button id="sign-in" type="button" class="btn btn-primary w-100 mb-2">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>@JSMS.Resources.Language.Login</span>
+                        </button>
+
+                        <div class="text-center">
+                            <a href="@Url.Action("Register","Account")">@JSMS.Resources.Language.NoAccount</a>
+                        </div>
+                        <div class="text-center mt-2">
+                            @if (Request.Cookies["Languages"].Value == "km")
+                            {
+                                <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "en"})"
+                                   role="button">
+                                    <img src="~/Images/us.png" style=" width: 17px;"> English
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "km"})"
+                                   role="button">
+                                    <img src="~/Images/kh.png" style=" width: 17px;">
+                                    <span style="font-family:Hanuman">ភាសាខ្មែរ</span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </form>
             </div>
         </section>
-
     </div>
+    <script src="~/Scripts/Libraries/bootstrap.min.js"></script>
+    <script src="~/Scripts/Libraries/jquery-3.7.1.min.js"></script>
+    <script src="~/Theme/plugins/sweetalert2/sweetalert2.all.min.js"></script>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
-        <script>
-
-//< !--=============================================================================================== -->
-        </script>
     }
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            customClass: { title: 'custom-swal-title' },
+            timer: 3000
+        });
+
+        $("#sign-in").click(() => {
+            let isValid = validate();
+            isValid ? $.ajax({
+                url: "/Account/Login",
+                type: "POST",
+                data: $('#form-sign-in').serialize(),
+                success: (response) => {
+                    if (response.success) {
+                        Swal.fire({
+                            title: response.message,
+                            icon: "success",
+                            showConfirmButton: false,
+                            customClass: { title: 'custom-swal-title' },
+                            timer: 1500
+                        });
+
+                        // Successful login, redirect to the specified URL
+                        window.location.href = "/admin/dashboard";
+                    } else {
+                        // Show an alert or handle the error message as needed
+                        Toast.fire({
+                            title: response.message,
+                            icon: "error",
+                        });
+                    }
+                },
+                error: (xhr) => console.log(xhr.responseText),
+            }) : false;
+        });
+
+        const validate = () => {
+            let isValid = true;
+            let password = $('#password');
+            let username = $('#username');
+            if (username.val() === "") {
+                Toast.fire({
+                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    icon: "warning",
+                });
+                username.css("border-color", "red");
+                username.focus();
+                isValid = false;
+            } else {
+                username.css("border-color", "#cccccc");
+                if (password.val() === "") {
+                    Toast.fire({
+                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                        icon: "warning",
+                    });
+                    password.css("border-color", "red");
+                    password.focus();
+                    isValid = false;
+                } else {
+                    password.css("border-color", "#cccccc");
+                }
+            }
+
+            return isValid;
+        };
+    </script>
+
 </body>
 
 </html>

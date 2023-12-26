@@ -53,9 +53,10 @@ const getAll = () => {
             dataSrc: "",
             method: "GET",
         },
-        // responsive: true,
-        // autoWidth: false,
+         responsive: true,
+         autoWidth: false,
         //scrollX: true,
+        destroy: true,
         dom: "Bfrtip",
         buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
         language: {
@@ -104,11 +105,11 @@ const getAll = () => {
                 },
             },
             {
-                title: "Payment Type",
+                //title: "Payment Type",
                 data:"PaymentType"
             },
             {
-                title: "Note",
+                //title: "Note",
                 data:"Note"
             },
             {

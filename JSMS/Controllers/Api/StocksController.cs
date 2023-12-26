@@ -226,7 +226,7 @@ namespace JSMS.Controllers.Api
                 {
                     response.IsActive = false;
                     response.Deleted = DateTime.Now;
-                    //context.StockTransactions.Remove(response);
+                    context.StockTransactions.Remove(response);
                     await context.SaveChangesAsync();
                 }
 
