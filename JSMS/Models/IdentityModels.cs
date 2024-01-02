@@ -1,14 +1,13 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.Owin;
+using JSMS.Models.User;
+using JSMS.Models.Admin;
+using System.Data.Entity;
+using JSMS.Controllers.Api;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using JSMS.Controllers.Api;
-using JSMS.Models.Admin;
-using JSMS.Models.User;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace JSMS.Models
 {

@@ -48,8 +48,8 @@
         SubMenuItems = new List<SubMenuItem> {
             new SubMenuItem { Name = JSMS.Resources.Language.Stock, Controller = "Stock",Icon = "fas fa-chart-line",Action = "Index",
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
-            //new SubMenuItem { Name = JSMS.Resources.Language.GeneralLedger,Controller = "GeneralLedger",Icon = "fas fa-donate",Action = "Index",
-            //                  Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
+            new SubMenuItem { Name = JSMS.Resources.Language.Invoice,Controller = "Invoice",Icon = "fas fa-donate",Action = "Index",
+                              Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
             //new SubMenuItem { Name = JSMS.Resources.Language.Transaction,Controller = "Transaction",Icon = "fas fa-id-card",Action = "Index",
             //                  Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
         }

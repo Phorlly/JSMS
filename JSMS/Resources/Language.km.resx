@@ -141,7 +141,7 @@
   <data name="Amount" xml:space="preserve">
     <value>ចំនួន</value>
   </data>
-  <data name="Applicant" xml:space="preserve">
+  <data name="Apllicant" xml:space="preserve">
     <value>អ្នកដាក់ពាក្យ</value>
   </data>
   <data name="ApplicantInfo" xml:space="preserve">
@@ -185,6 +185,15 @@
   </data>
   <data name="BehaviorManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងអំពីអាកិរិយាមាយាទ</value>
+  </data>
+  <data name="Calculate" xml:space="preserve">
+    <value>គណនា</value>
+  </data>
+  <data name="Cambodia" xml:space="preserve">
+    <value>ព្រះរាជាណាចក្រកម្ពុជា</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>ប្ដូរ​ភាសា</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>ប្ដូរពាក្យសម្ងាត់</value>
@@ -250,10 +259,7 @@
     <value>អាសយដ្ឋានបច្ចុប្បន្ន</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
-    <value>ផ្ទាំងគ្រប់គ្រងពត៌មានសង្ខេប</value>
-  </data>
-  <data name="DashboardManagement" xml:space="preserve">
-    <value>ការគ្រប់គ្រងផ្ទាំងគ្រប់គ្រងទិន្នន័យ</value>
+    <value>ផ្ទាំងគ្រប់គ្រងពត៌មានសង្ខប</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>កាលបរិច្ឆេទ</value>
@@ -341,9 +347,6 @@
   </data>
   <data name="Home" xml:space="preserve">
     <value>ទំព័រដើម</value>
-  </data>
-  <data name="HR" xml:space="preserve">
-    <value>ផ្នែកធនធានមនុស្ស</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>ល.រ</value>
@@ -451,7 +454,7 @@
     <value>ស្វែងរកតាមរយៈខែ</value>
   </data>
   <data name="MoreInfo" xml:space="preserve">
-    <value>ព័ត៌មាន​បន្ថែម</value>
+    <value>មើលបន្ថែម</value>
   </data>
   <data name="Morning" xml:space="preserve">
     <value>ថ្ងៃ</value>
@@ -516,8 +519,8 @@
   <data name="Payment" xml:space="preserve">
     <value>វិធីសាស្ត្រទូរទាត់ប្រាក់</value>
   </data>
-  <data name="People" xml:space="preserve">
-    <value>នាក់</value>
+  <data name="PaymentType" xml:space="preserve">
+    <value>ប្រភេទបង់ប្រាក់</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>លេខទូរសព្ទខ្សែទីមួយ</value>
@@ -597,9 +600,6 @@
   <data name="RememberUP" xml:space="preserve">
     <value>សូមចងចាំនូវឈ្មោះអ្នកប្រើប្រាស់ និងពាក្យសម្ងាត់ផង</value>
   </data>
-  <data name="Report" xml:space="preserve">
-    <value>របាយការណ៍</value>
-  </data>
   <data name="ReportManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងរបាយការណ៍</value>
   </data>
@@ -626,9 +626,6 @@
   </data>
   <data name="SelectDate" xml:space="preserve">
     <value>សូមជ្រើសរើសថ្ងៃខែ</value>
-  </data>
-  <data name="Setting" xml:space="preserve">
-    <value>ការកំណត់</value>
   </data>
   <data name="ShiftType" xml:space="preserve">
     <value>ប្រភេទវេន</value>

@@ -1,14 +1,12 @@
-﻿using JSMS.Models.Admin;
-using JSMS.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Web;
+using System.Linq;
+using JSMS.Models.User;
+using JSMS.Models.Admin;
+using System.Collections.Generic;
 
 namespace JSMS.Helpers
 {
-
-
     public class DataMappers
     {
         public IEnumerable<Applicant> Applicants { get; set; }

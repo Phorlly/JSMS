@@ -141,8 +141,8 @@
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
-  <data name="Applicant" xml:space="preserve">
-    <value>Applicant</value>
+  <data name="Apllicant" xml:space="preserve">
+    <value>Apllicant</value>
   </data>
   <data name="ApplicantInfo" xml:space="preserve">
     <value>Applicant Infomations</value>
@@ -185,6 +185,15 @@
   </data>
   <data name="BehaviorManagement" xml:space="preserve">
     <value>Behavior​ Management</value>
+  </data>
+  <data name="Calculate" xml:space="preserve">
+    <value>Calculate</value>
+  </data>
+  <data name="Cambodia" xml:space="preserve">
+    <value>Cambodia</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>Change​ Language</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change Password</value>
@@ -251,9 +260,6 @@
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
-  </data>
-  <data name="DashboardManagement" xml:space="preserve">
-    <value>Dashboard​ Data Management​</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
@@ -341,9 +347,6 @@
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home Page</value>
-  </data>
-  <data name="HR" xml:space="preserve">
-    <value>HR Management</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>No.</value>
@@ -451,7 +454,7 @@
     <value>Find by Month</value>
   </data>
   <data name="MoreInfo" xml:space="preserve">
-    <value>More info</value>
+    <value>More Infor</value>
   </data>
   <data name="Morning" xml:space="preserve">
     <value>Morning</value>
@@ -519,8 +522,8 @@
   <data name="Payment" xml:space="preserve">
     <value>Payment​ Method</value>
   </data>
-  <data name="People" xml:space="preserve">
-    <value>People</value>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Payment Type</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Telephone line 1</value>
@@ -600,9 +603,6 @@
   <data name="RememberUP" xml:space="preserve">
     <value>Please remember your Username and Password</value>
   </data>
-  <data name="Report" xml:space="preserve">
-    <value>Report</value>
-  </data>
   <data name="ReportManagement" xml:space="preserve">
     <value>Report Management</value>
   </data>
@@ -629,9 +629,6 @@
   </data>
   <data name="SelectDate" xml:space="preserve">
     <value>Please select date</value>
-  </data>
-  <data name="Setting" xml:space="preserve">
-    <value>Setting</value>
   </data>
   <data name="ShiftType" xml:space="preserve">
     <value>Shift Type</value>
