@@ -1,5 +1,10 @@
-﻿<!-- Modal -->
-<div class="modal fade bg-danger" id="totalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+﻿<style>
+    h5 button {
+        font-family: 'Khmer OS Battambang'
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="totalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,9 +13,11 @@
             </div>
             <div class="modal-body">
                 <div class="card text-center">
-                    <div class="card-header text-success fs-3">Total</div>
+                    <div class="card-header text-success fs-3">
+                        <h5>@JSMS.Resources.Language.Cost</h5>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Your balance :</h5>
+                        <h5 class="card-title" >@JSMS.Resources.Language.Cost@JSMS.Resources.Language.Your :</h5>
                         <h1 class="card-text" id="totalValue"></h1>
                     </div>
                     <div class="card-footer text-muted">
@@ -19,10 +26,11 @@
                 </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="modal-footer" style=" font-family: 'Khmer OS Battambang'">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">@JSMS.Resources.Language.Close</button>
                 @*<button type="button" class="btn btn-primary">Save changes</button>*@
             </div>
         </div>
     </div>
 </div>
+

@@ -52,7 +52,9 @@ namespace JSMS.Models
         public DbSet<StockTransaction> StockTransactions { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<OtherExpense> OtherExpenses { get; set; }
-      
+
+        public  DbSet<Invoice> Invoices { get; set; }
+
 
         //User blog
         public DbSet<OnlineApplicant> OnlineApplicants { get; set; }

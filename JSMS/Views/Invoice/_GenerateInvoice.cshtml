@@ -1,0 +1,164 @@
+﻿<link href="~/Theme/Invoice/style.css" rel="stylesheet" />
+
+
+<!-- Modal -->
+<div class="modal fade" id="generateInvoiceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="invoice-wrapper print-main" id="print-area">
+                    <div class="invoice">
+                        <div class="invoice-container">
+                            <div class="invoice-head">
+                                <div class="invoice-head-top-right text-center">
+                                    <h4>@JSMS.Resources.Language.Cambodia</h4>
+                                    <h4>@JSMS.Resources.Language.NRK</h4>
+                                    <br>
+
+                                </div>
+
+                                <div class="invoice-head-top">
+                                    <div class="invoice-head-top-left text-start">
+                                        <img src="~/Images/logoHRMS.png" style="width:100px" />
+                                    </div>
+                                   
+                                </div>
+                                <div class="invoice-head-middle">
+                                    <div class="invoice-head-middle-left text-start">
+                                        <p>
+                                            <span class="text-bold">
+                                                @JSMS.Resources.Language.CompanyName
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="invoice-head-middle-right text-end">
+                                        <p>
+                                            @JSMS.Resources.Language.Invoice :
+                                            <span class="text-bold" id="Ginvoice-number"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="invoice-head-bottom">
+                                    <div class="invoice-head-bottom-left">
+                                        <ul>
+                                            <li class='text-bold' id="li">@JSMS.Resources.Language.BankAccount</li>
+                                            <li>ACLEDA: 3467-02-227356-1-1 </li>
+                                            <li>ABA: 000 842 665. You Ann </li>
+                                        </ul>
+                                    </div>
+                                    <div class="invoice-head-bottom-right">
+                                        <ul class="text-end">
+                                            <li class='text-bold' id="li">@JSMS.Resources.Language.Contact:</li>
+                                            <li>097 928 8999 / 012 783 538</li>
+                                            <li>Jinglongsecurity.com</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div>
+                                <div class="text-center mb-3">
+                                    @JSMS.Resources.Language.CountFrom <span id="Gstart-date"></span>
+                                    @JSMS.Resources.Language.Until​​​ <span id="Gend-date"></span>
+                                </div>
+                            </div>
+                            <div class="client text-center">
+                                <h4>@JSMS.Resources.Language.Standing <span id="GclientId"></span></h4><br>
+                            </div>
+                            <div class="overflow-view">
+                                <div class="invoice-body">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td class="text-bold">N.O</td>
+                                                <td class="text-bold">@JSMS.Resources.Language.Description</td>
+                                                <td class="text-bold">@JSMS.Resources.Language.Quantity</td>
+                                                <td class="text-bold">@JSMS.Resources.Language.UnitPrice</td>
+                                                <td class="text-bold">@JSMS.Resources.Language.Total</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td id="Gdescription"></td>
+                                                <td id="Gquantity"></td>
+                                                <td id="Gunit-price"></td>
+                                                <td class="text-end" id="Gamount"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="text-end"></td>
+                                            </tr>
+
+                                            <!-- <tr>
+                                    <td colspan="4">10</td>
+                                    <td>$500.00</td>
+                                </tr> -->
+                                        </tbody>
+                                    </table>
+                                    <div class="invoice-body-bottom" style="font-family: 'Khmer OS Battambang';">
+                                        <div class="invoice-body-info-item border-bottom">
+                                            <div class="info-item-td text-end text-bold">@JSMS.Resources.Language.SubTotal $:</div>
+                                            <div class="info-item-td text-end" id="Gsub-total"></div>
+                                        </div>
+                                        <div class="invoice-body-info-item border-bottom">
+                                            <div class="info-item-td text-end text-bold">@JSMS.Resources.Language.Tax (10%):</div>
+                                            <div class="info-item-td text-end" id="Gtax"></div>
+                                        </div>
+                                        <div class="invoice-body-info-item">
+                                            <div class="info-item-td text-end text-bold">@JSMS.Resources.Language.Total $:</div>
+                                            <div class="info-item-td text-end" id="Gtotal"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <br />
+                            <div class="signature">
+                                <h5>@JSMS.Resources.Language.Date: ................../......................./...........</h5>
+                                <br>
+                                <h3 id="signature">@JSMS.Resources.Language.CompanyName</h3>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" id="btnPrint">Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+    $("#btnPrint").on("click", function () {
+        // Create a new window and get its document object
+        var printWindow = window.open('', '_blank');
+        var printDocument = printWindow.document;
+
+        // Include the external CSS file using Url.Content()
+        printDocument.write('<link href="' + '@Url.Content("~/Theme/Invoice/style.css")' + '" rel="stylesheet" />');
+
+        // Include the HTML content you want to print
+        printDocument.write('<html><head><title>Print Document</title></head><body>');
+        printDocument.write(document.getElementById('print-area').innerHTML);
+        printDocument.write('</body></html>');
+
+        // Close the document and trigger the print
+        printDocument.close();
+        printWindow.print();
+    });
+    });
+</script>

@@ -7,10 +7,12 @@ using System.Web;
 
 namespace JSMS.Helpers
 {
+
+
     public class DataMappers
     {
         public IEnumerable<Applicant> Applicants { get; set; }
-        public IEnumerable<Gaurantor> Gaurantors { get; set; } 
+        public IEnumerable<Gaurantor> Gaurantors { get; set; }
     }
     public class ApplicantRecruitment
     {
@@ -18,29 +20,36 @@ namespace JSMS.Helpers
         public Applicant Applicant { get; set; }
     }
 
-    public class ShortListApplicant 
+    public class ShortListApplicant
     {
-        public ShortList ShortList { get; set; } 
+        public ShortList ShortList { get; set; }
         public Applicant Applicant { get; set; }
     }
 
-    public class ShortListClientMapper 
+    public class ShortListClientMapper
     {
-        public List<ShortListApplicant> ShortLists { get; set; } 
+        public List<ShortListApplicant> ShortLists { get; set; }
         public List<Client> Clients { get; set; }
     }
 
-    public class StaffList  
+    public class StaffList
     {
         public Staff Staff { get; set; }
         public Applicant Applicant { get; set; }
     }
 
-    public class ApplicantProvince 
+    public class ApplicantProvince
     {
         public IEnumerable<Applicant> Applicants { get; set; }
-        public IEnumerable<Province> Provinces { get; set; } 
+        public IEnumerable<Province> Provinces { get; set; }
     }
+
+    public class InvoiceClient
+    {
+        public IEnumerable<Client> Clients { get; set; }
+        public IEnumerable<Invoice> Invoices { get; set; }
+    }
+       
 
     public class StaffClient
     {

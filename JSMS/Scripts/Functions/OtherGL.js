@@ -73,7 +73,7 @@ const getAll = () => {
             },
             {
                 //title: "Invoice Code",
-                data:"InvoiceID"
+                data: "InvoiceID"
             },
             {
                 //title: "Date",
@@ -105,21 +105,21 @@ const getAll = () => {
             },
             {
                 //title: "Payment Type",
-                data:"PaymentType"
+                data: "PaymentType"
             },
             {
                 //title: "Note",
-                data:"Note"
+                data: "Note"
             },
             {
                 //title: "Action",
                 data: "Id",
                 render: (row) => {
                     return `<div> 
-                    <button onclick= "editExpense('${row}')" class= 'btn btn-warning btn-sm' >
+                    <button onclick="editExpense('${row}')" class='btn btn-warning btn-sm' >
                         <span class='fas fa-edit'></span>
                     </button>
-                    <button onclick= "removeExpense('${row}')" class= 'btn btn-danger btn-sm' >
+                    <button onclick="removeExpense('${row}')" class='btn btn-danger btn-sm'  >
                         <span class='fas fa-trash-alt'></span>
                     </button>
                   </div>`;
@@ -164,18 +164,18 @@ const getAll = () => {
 
 // Function to get the total from the API
 const getTotalFromAPI = () => {
-        $.ajax({
-            url: "/api/hr/otherexpense/getTotal", // Replace with your actual API endpoint
-            method: "GET",
+    $.ajax({
+        url: "/api/hr/otherexpense/getTotal", // Replace with your actual API endpoint
+        method: "GET",
 
-            success: function (data) {
-                // Update the content of the card with the received total
-                $("#totalValue").text("$ " + (data !== null ? data : "00.00"));
-            },
-            error: function (error) {
-                console.error("Error fetching total:", error);
-            }
-        });
+        success: function (data) {
+            // Update the content of the card with the received total
+            $("#totalValue").text("$ " + (data !== null ? data : "00.00"));
+        },
+        error: function (error) {
+            console.error("Error fetching total:", error);
+        }
+    });
 };
 
 //show text from select option
@@ -212,7 +212,7 @@ const ExpenseType = (value) => {
 };
 
 // Get the selected value from the activityExpense
-activityExpense.on('change', function () {   
+activityExpense.on('change', function () {
     // Get the selected value from the activityExpense dropdown
     let selectedValue = activityExpense.val();
 
@@ -250,7 +250,7 @@ expenseSave.click(() => {
 
     let response = ValidateExpense();
     let data = {
-        Date: dateExpense.val(),    
+        Date: dateExpense.val(),
         Status: activityExpense.val(),
         InvoiceID: expenseInvoice.val(),
         ExpenseType: expenseType.val(),
@@ -279,7 +279,7 @@ expenseSave.click(() => {
                     customClass: { title: 'custom-swal-title' },
                     timer: 1500,
                 });
-            },  
+            },
             400: (xhr) => {
                 if (xhr.responseJSON) {
                     if (xhr.responseJSON.Message === "InvoiceID already exists.") {
@@ -318,10 +318,11 @@ expenseSave.click(() => {
                     console.log(xhr.responseText);
             },
         },
-    }) : false; 
+    }) : false;
 })
 
 const editExpense = (id) => {
+   
     getTotalFromAPI();
 
     $.ajax({
@@ -340,7 +341,7 @@ const editExpense = (id) => {
                 dataId.val(response.Id);
                 dateExpense.val(formatDate(response.Date));
                 activityExpense.val(response.Status);
-                expenseInvoice.val(response.InvoiceID); 
+                expenseInvoice.val(response.InvoiceID);
                 expenseType.val(response.ExpenseType);
                 costExpense.val("");
                 paymentType.val(response.PaymentType);
@@ -433,13 +434,14 @@ updateExpense.click(() => {
                     console.log(xhr.responseText);
             },
         },
-    }) : false; 
+    }) : false;
 });
 
 const removeExpense = (id) => {
+    alert(id);
     Swal.fire({
-        title: "ខ្ញុំខ្លាំង",
-        text: "ទេ! ខ្ញុំខ្លាំងជាង",
+        title: "តើអ្នកប្រាកដដែលឬទេ?",
+        text: "ទិន្នន័យដែលលុបមិនអាចទាញមកវិញបានទេ",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "យល់ព្រម",
@@ -488,7 +490,7 @@ const removeExpense = (id) => {
     }).catch((err) => console.log(err.message));
 };
 
-const clearGL= () => {
+const clearGL = () => {
     dateExpense.val("");
     expenseInvoice.val("");
     expenseType.val("0");
@@ -500,8 +502,7 @@ const clearGL= () => {
 
 const ValidateExpense = () => {
     let isValid = true;
-    if (dateExpense.val() === "")
-    {
+    if (dateExpense.val() === "") {
         Swal.fire({
             title: "សូមជ្រើសរើសកាលបរិច្ឆេទ",
             icon: "warning",
@@ -513,8 +514,7 @@ const ValidateExpense = () => {
         dateExpense.focus();
         isValid = false;
     }
-    else
-    {
+    else {
         dateExpense.css("border-color", "#cccccc");
         if (activityExpense.val() === "0") {
             Swal.fire({
@@ -527,7 +527,7 @@ const ValidateExpense = () => {
             activityExpense.css("border-color", "red");
             activityExpense.focus();
             isValid = false;
-        } 
+        }
         else {
             activityExpense.css("border-color", "#cccccc");
             if (expenseInvoice.val() === "") {
@@ -586,7 +586,7 @@ const ValidateExpense = () => {
                         }
                         else {
                             paymentType.css("border-color", "#cccccc");
-                            if (expenseType .val() === "24") {
+                            if (expenseType.val() === "24") {
                                 Swal.fire({
                                     title: "សូមជ្រើសរើសប្រតិបត្តិការសិន",
                                     icon: "warning",
@@ -600,11 +600,11 @@ const ValidateExpense = () => {
                             }
                         }
                     }
-                } 
-            } 
-        } 
-        
-    } 
+                }
+            }
+        }
+
+    }
 
     return isValid;
 };

@@ -8,18 +8,23 @@ using System.Web.Mvc;
 
 namespace JSMS.Controllers.Admin
 {
-    public class AccountingController : Controller
+    public class InvoiceController : Controller
     {
         protected readonly ApplicationDbContext context;
-        public AccountingController()
+
+        public InvoiceController()
         {
             context = new ApplicationDbContext();
         }
-
-        // GET: Accounting
+        // GET: Invoice
         public ActionResult Index()
         {
-            return View(context.Staffs.Where(c => c.IsActive.Equals(true)).OrderBy(x => x.Code).ToList());
+            var response = new InvoiceClient
+            {
+                Clients = context.Clients.ToList(),
+                Invoices = context.Invoices.ToList(),
+            };
+            return View(response);
         }
     }
 }

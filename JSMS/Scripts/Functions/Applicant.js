@@ -220,8 +220,6 @@ addNew.click(() => {
     modalApplicant.modal("show");
 });
 
-
-
 //Hide or show button action
 tabApplicant.click(() => {
     addNew.show();
