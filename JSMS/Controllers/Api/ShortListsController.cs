@@ -8,7 +8,7 @@ using System.Web.Http;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/short-lists")]
-    public class ShortListsController : BaseApiController
+    public class ShortListsController : ApiBaseController
     {
 
         [HttpGet]

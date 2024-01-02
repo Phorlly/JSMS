@@ -8,7 +8,7 @@ using System.Web.Http;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/products")]
-    public class ProductsController : BaseApiController
+    public class ProductsController : ApiBaseController
     {
         protected string name = RequestForm("Name");
         protected string createdBy = RequestForm("CreatedBy");

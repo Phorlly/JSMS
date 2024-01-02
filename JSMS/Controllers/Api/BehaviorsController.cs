@@ -15,7 +15,7 @@ using System.Web.Http;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/behaviors")]
-    public class BehaviorsController : BaseApiController
+    public class BehaviorsController : ApiBaseController
     {
         //Behavior
         protected string confirmBy = RequestForm("ConfirmBy");

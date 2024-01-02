@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/online-applicants")]
-    public class OnlineApplicantsController : BaseApiController
+    public class OnlineApplicantsController : ApiBaseController
     {
         protected string name = RequestForm("Name");
         protected string nickName = RequestForm("NickName");

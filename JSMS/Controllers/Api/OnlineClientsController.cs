@@ -10,7 +10,7 @@ namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/online-clients")]
 
-    public class OnlineClientsController : BaseApiController
+    public class OnlineClientsController : ApiBaseController
     {
 
         [HttpGet]

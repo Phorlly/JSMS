@@ -14,7 +14,7 @@ using System.Web.Services.Description;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/attendances")]
-    public class AttendancesController : BaseApiController
+    public class AttendancesController : ApiBaseController
     {
         [HttpGet]
         [Route("get")]

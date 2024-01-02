@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/users")]
-    public class UserRolesController : BaseApiController
+    public class UserRolesController : ApiBaseController
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;

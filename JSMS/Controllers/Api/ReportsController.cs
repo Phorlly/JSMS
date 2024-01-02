@@ -11,7 +11,7 @@ using System.Web.Http;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/reports")]
-    public class ReportsController : BaseApiController
+    public class ReportsController : ApiBaseController
     {
         private readonly GetAttendanceReport getAttendance;
 

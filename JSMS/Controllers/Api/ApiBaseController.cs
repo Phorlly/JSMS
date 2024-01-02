@@ -8,10 +8,10 @@ using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
-    public class BaseApiController : ApiController
+    public class ApiBaseController : ApiController
     {
         public readonly ApplicationDbContext context;
-        public BaseApiController()
+        public ApiBaseController()
         {
             context = new ApplicationDbContext();
         }
@@ -65,7 +65,7 @@ namespace JSMS.Controllers.Api
             {
                 // Generate a unique filename
                 var extension = Path.GetExtension(fileBase.FileName);
-                var format = formatName.ToUpper() + "-" + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                var format = formatName.ToUpper() + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + extension;
                 var path = Path.Combine(HttpContext.Current.Server.MapPath(uploadToPath), format);
 
                 // Save the new file

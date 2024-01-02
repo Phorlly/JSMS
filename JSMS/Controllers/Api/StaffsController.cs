@@ -10,7 +10,7 @@ using System.Web.Http;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/staffs")]
-    public class StaffsController : BaseApiController
+    public class StaffsController : ApiBaseController
     {
    
         [HttpGet]

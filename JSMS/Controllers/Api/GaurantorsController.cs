@@ -8,7 +8,7 @@ using System.Web.Http;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/gaurantors")]
-    public class GaurantorsController : BaseApiController
+    public class GaurantorsController : ApiBaseController
     {
         protected string name = RequestForm("Name");
         protected string nickName = RequestForm("NickName");

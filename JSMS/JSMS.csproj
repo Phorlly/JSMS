@@ -379,7 +379,7 @@
     <Compile Include="Controllers\Api\RecruitmentsController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\Api\OnlineApplicantsController.cs" />
-    <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Api\ApiBaseController.cs" />
     <Compile Include="Controllers\Api\ShortListsController.cs" />
     <Compile Include="Controllers\Api\StaffsController.cs" />
     <Compile Include="Controllers\Api\StocksController.cs" />
