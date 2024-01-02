@@ -359,6 +359,7 @@
     <Compile Include="Controllers\Admin\AttendanceController.cs" />
     <Compile Include="Controllers\Admin\ClientController.cs" />
     <Compile Include="Controllers\Admin\GeneralLedgerController.cs" />
+    <Compile Include="Controllers\Admin\InvoiceController.cs" />
     <Compile Include="Controllers\Admin\StockController.cs" />
     <Compile Include="Controllers\Admin\RecruitmentController.cs" />
     <Compile Include="Controllers\Admin\ReportController.cs" />
@@ -373,6 +374,7 @@
     <Compile Include="Controllers\Api\ClientsController.cs" />
     <Compile Include="Controllers\Api\GaurantorsController.cs" />
     <Compile Include="Controllers\Api\IncomesController.cs" />
+    <Compile Include="Controllers\Api\InvoiceController.cs" />
     <Compile Include="Controllers\Api\OnlineClientsController.cs" />
     <Compile Include="Controllers\Api\OtherExpensesController.cs" />
     <Compile Include="Controllers\Api\ProductsController.cs" />
@@ -406,6 +408,7 @@
     <Compile Include="Models\Admin\Behavior.cs" />
     <Compile Include="Models\Admin\Client.cs" />
     <Compile Include="Models\Admin\Gaurantor.cs" />
+    <Compile Include="Models\Admin\Invoice.cs" />
     <Compile Include="Models\Admin\Leave.cs" />
     <Compile Include="Models\Admin\LogAction.cs" />
     <Compile Include="Models\Admin\MenuItem.cs" />
@@ -535,6 +538,7 @@
     <Content Include="Scripts\Functions\Dashboard.js" />
     <Content Include="Scripts\Functions\ExpenseSalary.js" />
     <Content Include="Scripts\Functions\IncomeSalary.js" />
+    <Content Include="Scripts\Functions\Invoice.js" />
     <Content Include="Scripts\Functions\OtherGL.js" />
     <Content Include="Scripts\Functions\Product.js" />
     <Content Include="Scripts\Functions\Stock.js" />
@@ -602,6 +606,7 @@
     </None>
     <None Include="Scripts\Libraries\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Libraries\flatpickr.js" />
+    <Content Include="Theme\Invoice\style.css" />
     <Content Include="Theme\login\font-awesome.min.css" />
     <Content Include="Scripts\Libraries\jquery-3.2.1.min.js" />
     <Content Include="Scripts\Libraries\jquery-3.4.1.js" />
@@ -3119,6 +3124,11 @@
     <Content Include="Theme\plugins\toastr\toastr.js.map" />
     <Content Include="Theme\login\hamburgers.min.css" />
     <Content Include="Views\GeneralLedger\Index.cshtml" />
+    <Content Include="Views\GeneralLedger\_OtherExpense.cshtml" />
+    <Content Include="Views\GeneralLedger\_Total.cshtml" />
+    <Content Include="Views\Invoice\_Invoice.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\Invoice\_GenerateInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\OfficialWebsite\Blog.cshtml" />

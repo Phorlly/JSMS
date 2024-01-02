@@ -30,13 +30,12 @@
                                     <span>@JSMS.Resources.Language.Salary</span>​
                                 </a>
                             </li>
-                            @*<li class="nav-item">
-                                    <a class="nav-link " id="tab-accounting" href="#table-accounting"
-                                       data-toggle="tab">
-                                        <i class="fas fa-user-friends"></i>
-                                        <span>@JSMS.Resources.Language.Summary</span>
-                                    </a>
-                                </li>*@
+                            <li class="nav-item">
+                                <a class="nav-link " id="tab-accounting" href="#invoice" data-toggle="tab">
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>@JSMS.Resources.Language.Summary</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
@@ -125,18 +124,20 @@
                         </div>
 
                     </div>
-                    @*<div class="tab-pane " id="table-accounting">
+
+                    
+                    <div class="tab-pane " id="invoice">
                             <div class="col-md-12">
-                                @Html.Partial("_Accounting")
+                                @Html.Partial("_Invoice")
                             </div>
-                        </div>*@
+                        </div>
                 </div>
                 <!-- /.tab-content -->
             </div>
         </div>
     </div>
 </div>
-
+    
 @section scripts {
     @Scripts.Render("~/Scripts/Functions/Accounting.js")
 }

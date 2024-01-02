@@ -285,9 +285,59 @@ iframe {
     padding: 0 30px 0 68px;
 }
 
+#btnlogin {
+    font-family: 'Khmer OS Battambang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    background: #57b846;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
 
-/*------------------------------------------------------------------
-[ Focus ]*/
+    #btnlogin:hover {
+        background: #333333;
+    }
+
+body {
+    overflow: hidden;
+}
+
+h1,
+span {
+    font-display: inherit;
+    font-family: 'Khmer OS Moul', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+p,
+label, a, input, h2 {
+    font-family: 'Khmer OS Battambang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*font-size: large;*/
+}
+
+#login {
+    margin-bottom: 10px;
+}
+
+#txt2:hover {
+    text-decoration: none;
+    color: #57b846;
+}
+/*[ Focus ]*/
 .focus-input100 {
     display: block;
     position: absolute;
@@ -299,6 +349,25 @@ iframe {
     height: 100%;
     box-shadow: 0px 0px 0px 0px;
     color: rgba(87,184,70, 0.8);
+}
+
+.input100:focus + .focus-input100 {
+    -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+    animation: anim-shadow 0.5s ease-in-out forwards;
+}
+/*------------------------------------------------------------------
+[ Focus ]*/
+.focus-input100 {
+  display: block;
+  position: absolute;
+  border-radius: 25px;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 0px 0px;
+  color: rgba(87,184,70, 0.8);
 }
 
 .input100:focus + .focus-input100 {

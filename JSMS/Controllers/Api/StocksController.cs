@@ -1,9 +1,9 @@
-﻿using JSMS.Models.Admin;
-using System;
-using System.Data.Entity;
+﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Http;
+using JSMS.Models.Admin;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace JSMS.Controllers.Api
 {

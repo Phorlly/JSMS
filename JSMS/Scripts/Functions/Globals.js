@@ -206,6 +206,22 @@ const formatDate = (val) => {
     return val ? dateFormated : "";
 };
 
+const formatDateDayFirst = (val) => {
+    let date = new Date(val);
+
+    // Array of month names to use in the format
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    let dateFormatted = ("0" + date.getDate()).slice(-2) + "/" +
+        monthNames[date.getMonth()] + "/" +
+        date.getFullYear();
+
+    return val ? dateFormatted : "";
+};
+
 //Loading gif
 const loadingGif = () => {
     $(document).ajaxStart(() => {

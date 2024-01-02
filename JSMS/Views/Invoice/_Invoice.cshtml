@@ -1,0 +1,111 @@
+﻿
+
+<!-- Modal -->
+<div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'Khmer OS Battambang'">@JSMS.Resources.Language.GenerateInvoice</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <input type="hidden" id="data-id">
+
+            <div class="modal-body">
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="start-date">@JSMS.Resources.Language.StartDate</label>
+                            <input type="text" onfocus="(this.type='date')" class="form-control" id="start-date" placeholder="@JSMS.Resources.Language.Select@JSMS.Resources.Language.StartDate">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="end-date">@JSMS.Resources.Language.EndDate</label>
+                            <input type="text" onfocus="(this.type='date')" class="form-control" id="end-date" placeholder="@JSMS.Resources.Language.Select@JSMS.Resources.Language.EndDate">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="invoice-number">@JSMS.Resources.Language.InvoiceNumber</label>
+                            <input type="text" class="form-control" id="invoice-number" placeholder="@JSMS.Resources.Language.Select@JSMS.Resources.Language.InvoiceDay">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="clientId">@JSMS.Resources.Language.Client</label>
+                            <select id="clientId" class="form-select">
+                                <option value="0">@JSMS.Resources.Language.Select</option>
+                                @foreach (var response in Model.Clients)
+                                {
+                                    <option value="@response.Id">@response.Company</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="description">@JSMS.Resources.Language.Description</label>
+                            <input class="form-control" id="description" type="text" placeholder="@JSMS.Resources.Language.Input@JSMS.Resources.Language.Description" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="quantity">@JSMS.Resources.Language.Quantity</label>
+                            <input class="form-control" id="quantity" type="text" placeholder="@JSMS.Resources.Language.Input@JSMS.Resources.Language.Quantity" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="unit-price">@JSMS.Resources.Language.UnitPrice</label>
+                            <input class="form-control" id="unit-price" type="text" placeholder="@JSMS.Resources.Language.Input@JSMS.Resources.Language.UnitPrice" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="tax">@JSMS.Resources.Language.Tax (%)</label>
+                            <input class="form-control" id="tax" type="text" placeholder="@JSMS.Resources.Language.Tax" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="amount">@JSMS.Resources.Language.Amount</label>
+                            <input class="form-control" id="amount" type="text" placeholder="@JSMS.Resources.Language.Calculate @JSMS.Resources.Language.Auto" disabled />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="total">@JSMS.Resources.Language.Total</label>
+                            <input class="form-control" id="total" type="text" placeholder="@JSMS.Resources.Language.Calculate @JSMS.Resources.Language.Total @JSMS.Resources.Language.Auto" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group ">
+                        <div class="col-md-12">
+                            <label>@JSMS.Resources.Language.Note</label>
+                            <input type="text" class="form-control" id="note" name="name" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveInvoice">Save changes</button>
+                <button type="button" class="btn btn-success" id="update-invoice">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

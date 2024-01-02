@@ -74,7 +74,7 @@ const getAll = () => {
             },
             {
                 //title: "Invoice Code",
-                data:"InvoiceID"
+                data: "InvoiceID"
             },
             {
                 //title: "Date",
@@ -106,21 +106,21 @@ const getAll = () => {
             },
             {
                 //title: "Payment Type",
-                data:"PaymentType"
+                data: "PaymentType"
             },
             {
                 //title: "Note",
-                data:"Note"
+                data: "Note"
             },
             {
                 //title: "Action",
                 data: "Id",
                 render: (row) => {
                     return `<div> 
-                    <button onclick= "editExpense('${row}')" class= 'btn btn-warning btn-sm' >
+                    <button onclick="editExpense('${row}')" class='btn btn-warning btn-sm' >
                         <span class='fas fa-edit'></span>
                     </button>
-                    <button onclick= "removeExpense('${row}')" class= 'btn btn-danger btn-sm' >
+                    <button onclick="removeExpense('${row}')" class='btn btn-danger btn-sm'  >
                         <span class='fas fa-trash-alt'></span>
                     </button>
                   </div>`;
@@ -323,6 +323,7 @@ expenseSave.click(() => {
 })
 
 const editExpense = (id) => {
+   
     getTotalFromAPI();
 
     $.ajax({
@@ -438,9 +439,10 @@ updateExpense.click(() => {
 });
 
 const removeExpense = (id) => {
+    alert(id);
     Swal.fire({
-        title: "ខ្ញុំខ្លាំង",
-        text: "ទេ! ខ្ញុំខ្លាំងជាង",
+        title: "តើអ្នកប្រាកដដែលឬទេ?",
+        text: "ទិន្នន័យដែលលុបមិនអាចទាញមកវិញបានទេ",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "យល់ព្រម",
