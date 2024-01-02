@@ -1,49 +1,30 @@
-﻿using JSMS.Helpers;
-using JSMS.Models;
-using JSMS.Models.Admin;
+﻿using JSMS.Models.Admin;
 using JSMS.Models.User;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/online-applicants")]
-    public class OnlineApplicantsController : ApiController
+    public class OnlineApplicantsController : BaseApiController
     {
-        protected readonly ApplicationDbContext context;
-        protected string name = FormHelper.Form("Name");
-        protected string nickName = FormHelper.Form("NickName");
-        protected string national = FormHelper.Form("National");
-        protected string nationality = FormHelper.Form("Nationality");
-        protected string sex = FormHelper.Form("Sex");
-        protected string dob = FormHelper.Form("DOB");
-        protected string education = FormHelper.Form("Education");
-        protected string phone1 = FormHelper.Form("Phone1");
-        protected string phone2 = FormHelper.Form("Phone2");
-        protected string position = FormHelper.Form("Position");
-        protected string pob = FormHelper.Form("POB");
-        protected string noted = FormHelper.Form("Noted");
-        protected string address = FormHelper.Form("Address");
-        protected string status = FormHelper.Form("Status");
-
-        public OnlineApplicantsController()
-        {
-            context = new ApplicationDbContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        protected string name = RequestForm("Name");
+        protected string nickName = RequestForm("NickName");
+        protected string national = RequestForm("National");
+        protected string nationality = RequestForm("Nationality");
+        protected string sex = RequestForm("Sex");
+        protected string dob = RequestForm("DOB");
+        protected string education = RequestForm("Education");
+        protected string phone1 = RequestForm("Phone1");
+        protected string phone2 = RequestForm("Phone2");
+        protected string position = RequestForm("Position");
+        protected string pob = RequestForm("POB");
+        protected string noted = RequestForm("Noted");
+        protected string address = RequestForm("Address");
+        protected string status = RequestForm("Status");
 
         [HttpGet]
         [Route("get")]
@@ -61,14 +42,14 @@ namespace JSMS.Controllers.Api
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -88,14 +69,14 @@ namespace JSMS.Controllers.Api
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -105,7 +86,7 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var fileName = FormHelper.SaveFile("Attachment", "Applicant", "~/AppData/Files", "../AppData/Files");
+                var fileName = RequestFile("Attachment", "Applicant", "~/AppData/Files", "../AppData/Files");
                 //var exist = context.OnlineApplicants.FirstOrDefault(c => c.Name.Equals(name));
                 //if (exist != null)
                 //{
@@ -141,11 +122,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
+                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ​..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -158,13 +139,13 @@ namespace JSMS.Controllers.Api
                 var response = context.OnlineApplicants.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
-                var fileName = FormHelper.SaveFile("Attachment", "Applicant", "~/AppData/Files", "../AppData/Files");
+                var fileName = RequestFile("Attachment", "Applicant", "~/AppData/Files", "../AppData/Files");
                 if (fileName != null)
                 {
-                    FormHelper.DeleteFile(response.Attachment, "~/AppData/Images");
+                    DeleteFile(response.Attachment, "~/AppData/Images");
                     response.Attachment = fileName;
                 }
 
@@ -195,11 +176,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
+                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ​..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -212,40 +193,23 @@ namespace JSMS.Controllers.Api
                 var response = context.OnlineApplicants.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
                 else
                 {
                     response.IsActive = false;
                     response.DeletedAt = DateTime.Now;
-                    //FormHelper.DeleteFile(response.Attachment, "~/AppData/Images");
+                    //DeleteFile(response.Attachment, "~/AppData/Images");
                     //context.OnlineApplicants.Remove(response);
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
+                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់ហើយ​..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
-
-
-        //private string ApplicantCode(string keyWord) 
-        //{
-        //    var existCode = context.OnlineApplicants.Max(c => c.Code);
-        //    if (existCode != null)
-        //    {
-        //        int number = int.Parse(existCode.Split('-')[1]) + 1;
-        //        string newCode = $"{keyWord.ToUpper()}-{number.ToString("D5")}";
-
-        //        return newCode;
-        //    }
-        //    else
-        //    {
-        //        return $"{keyWord.ToUpper()}-00001";
-        //    }
-        //}
     }
 }

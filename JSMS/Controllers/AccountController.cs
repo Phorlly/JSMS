@@ -78,7 +78,7 @@ namespace JSMS.Controllers
                 return Json(new { success = false, message = "Invalid model." });
             }
 
-            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName.ToLower(), model.Password, model.RememberMe, shouldLockout: false);
 
             switch (result)
             {
@@ -153,7 +153,7 @@ namespace JSMS.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             // Check if the username is already taken
-            if (UserManager.FindByName(model.UserName) != null)
+            if (UserManager.FindByName(model.UserName.ToLower()) != null)
             {
                 return Json(new { success = false, message = "ឈ្មោះ​នេះ​ត្រូវ​បាន​គេ​ប្រើប្រាស់​រួចរាល់​ហើយ" });
             }

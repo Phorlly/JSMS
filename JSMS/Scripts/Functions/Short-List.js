@@ -70,7 +70,7 @@ const getAll = () => {
             {
                 //title: "Rating",
                 data: null,
-                render: (row) => `${row.ShortList.Rating} 🖤`,
+                render: (row) => `${row.ShortList.Rating} <i class="far fa-star"></i>`,
             },
             {
                 //title: "Date",

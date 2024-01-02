@@ -1,35 +1,18 @@
 ﻿using JSMS.Models.Admin;
-using JSMS.Models;
 using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using System.Data.Entity;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/staffs")]
-    public class StaffsController : ApiController
+    public class StaffsController : BaseApiController
     {
-        protected readonly ApplicationDbContext context;
-        public StaffsController()
-        {
-            context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-
+   
         [HttpGet]
         [Route("get")]
         public async Task<IHttpActionResult> Get()
@@ -43,18 +26,18 @@ namespace JSMS.Controllers.Api
                                       join Client in context.Clients on Staff.Client equals Client.Id
                                       where Staff.IsActive == true
                                       select new { Staff, Applicant, Client, ShortList })
-                                //.OrderByDescending(c => c.Staff.Id).ToList();
-                                .OrderBy(c => c.Staff.Code).ToListAsync();
+                                    //.OrderByDescending(c => c.Staff.Id).ToList();
+                                    .OrderBy(c => c.Staff.Code).ToListAsync();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -74,14 +57,14 @@ namespace JSMS.Controllers.Api
                                 .FirstAsync(c => c.Staff.Id.Equals(id));
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -108,11 +91,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
+                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -125,7 +108,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Staffs.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 //The same data
@@ -150,7 +133,7 @@ namespace JSMS.Controllers.Api
                         context.SaveChanges();
                     }
 
-                    return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
+                    return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
                 }
 
                 //Difference data
@@ -176,16 +159,16 @@ namespace JSMS.Controllers.Api
                         await context.SaveChangesAsync();
                     }
 
-                    return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
+                    return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
                 }
                 else
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "លេខកូដនេះកំពុងប្រើហើយ​​" }));
+                    return ExistData("លេខកូដនេះកំពុងប្រើហើយ​..!​");
                 }
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
 
         }
@@ -199,7 +182,7 @@ namespace JSMS.Controllers.Api
                 var response = context.Staffs.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
                 else
                 {
@@ -209,11 +192,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
+                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
     }

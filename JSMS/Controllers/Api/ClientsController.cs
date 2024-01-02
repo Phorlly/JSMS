@@ -1,49 +1,29 @@
-﻿using JSMS.Helpers;
-using JSMS.Models;
-using JSMS.Models.Admin;
+﻿using JSMS.Models.Admin;
 using System;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/clients")]
-    public class ClientsController : ApiController
+    public class ClientsController : BaseApiController
     {
-        protected readonly ApplicationDbContext context;
-        protected string ownerName = FormHelper.Form("Name");
-        protected string company = FormHelper.Form("Company");
-        protected string vattin = FormHelper.Form("VATTIN");
-        protected string gender = FormHelper.Form("Gender");
-        protected string dob = FormHelper.Form("DOB");
-        protected string position = FormHelper.Form("Position");
-        protected string phone1 = FormHelper.Form("Phone1");
-        protected string phone2 = FormHelper.Form("Phone2");
-        protected string province = FormHelper.Form("Province");
-        protected string district = FormHelper.Form("District");
-        protected string commune = FormHelper.Form("Commune");
-        protected string village = FormHelper.Form("Village");
-        protected string createdBy = FormHelper.Form("CreatedBy");
-        protected string noted = FormHelper.Form("Noted");
-
-        public ClientsController()
-        {
-            context = new ApplicationDbContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        protected string ownerName = RequestForm("Name");
+        protected string company = RequestForm("Company");
+        protected string vattin = RequestForm("VATTIN");
+        protected string gender = RequestForm("Gender");
+        protected string dob = RequestForm("DOB");
+        protected string position = RequestForm("Position");
+        protected string phone1 = RequestForm("Phone1");
+        protected string phone2 = RequestForm("Phone2");
+        protected string province = RequestForm("Province");
+        protected string district = RequestForm("District");
+        protected string commune = RequestForm("Commune");
+        protected string village = RequestForm("Village");
+        protected string createdBy = RequestForm("CreatedBy");
+        protected string noted = RequestForm("Noted");
 
         [HttpGet]
         [Route("get")]
@@ -61,14 +41,14 @@ namespace JSMS.Controllers.Api
                                 .OrderByDescending(c => c.Client.Id).ToListAsync();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -88,14 +68,14 @@ namespace JSMS.Controllers.Api
                                       .FirstAsync(c => c.Client.Id.Equals(id));
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -105,7 +85,7 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var fileName = FormHelper.SaveFile("Image", "Client", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "Client", "~/AppData/Images", "../AppData/Images");
                 //var exist = context.Clients.FirstOrDefault(c => c.Company.Equals(company) ||
                 //                                                c.GDTREG.Equals(gdtreg) ||
                 //                                                c.VATTIN.Equals(vattin));
@@ -145,11 +125,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
+                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
 
         }
@@ -163,13 +143,13 @@ namespace JSMS.Controllers.Api
                 var response = await context.Clients.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
-                var fileName = FormHelper.SaveFile("Image", "Client", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "Client", "~/AppData/Images", "../AppData/Images");
                 if (fileName != null)
                 {
-                    FormHelper.DeleteFile(response.Image, "~/AppData/Images");
+                    DeleteFile(response.Image, "~/AppData/Images");
                     response.Image = fileName;
                 }
 
@@ -201,11 +181,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
+                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -218,22 +198,22 @@ namespace JSMS.Controllers.Api
                 var response = await context.Clients.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
                 else
                 {
                     response.IsActive = false;
                     response.DeletedAt = DateTime.Now;
-                    //FormHelper.DeleteFile(response.Image, "~/AppData/Images");
+                    //DeleteFile(response.Image, "~/AppData/Images");
                     //context.Clients.Remove(response);
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
+                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
     }

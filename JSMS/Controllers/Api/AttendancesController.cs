@@ -14,24 +14,8 @@ using System.Web.Services.Description;
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/attendances")]
-    public class AttendancesController : ApiController
+    public class AttendancesController : BaseApiController
     {
-        protected readonly ApplicationDbContext context;
-
-        public AttendancesController()
-        {
-            context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         [HttpGet]
         [Route("get")]
         public IHttpActionResult GetAttendance()
@@ -49,13 +33,13 @@ namespace JSMS.Controllers.Api
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -72,13 +56,13 @@ namespace JSMS.Controllers.Api
                                       .FirstAsync(c => c.Attendance.Id == id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
                 else { return Ok(response); }
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -94,7 +78,7 @@ namespace JSMS.Controllers.Api
                               DbFunctions.TruncateTime(a.CheckIn) == DbFunctions.TruncateTime(request.CheckIn));
                 if (isExist != null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​" }));
+                    return ExistData("បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​..!");
                 }
 
                 //Insert default data
@@ -110,11 +94,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
+                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -132,7 +116,7 @@ namespace JSMS.Controllers.Api
                               m.CheckIn.HasValue && DbFunctions.TruncateTime(m.CheckIn) == currentDate);
                 if (isExist != null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​" }));
+                    return ExistData("បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​..!");
                 }
 
                 //Insert default data
@@ -152,12 +136,12 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "សូមអរគុណ សម្រាប់ការកត់ត្រាចូល" });
+                return Success("សូមអរគុណ សម្រាប់ការកត់ត្រាចូល..!");
 
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -170,7 +154,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Attendances.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 response.Status = 1;
@@ -189,11 +173,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
+                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -216,7 +200,7 @@ namespace JSMS.Controllers.Api
                     // Check if there's already a check-out for the existing check-in
                     if (isExist.CheckOut.HasValue)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះបានកត់ត្រាចេញរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​" }));
+                        return ExistData("បុគ្គលិកមួយនេះបានកត់ត្រាចេញរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​..!");
                     }
 
                     // Update the existing check-in record with the check-out time
@@ -240,14 +224,14 @@ namespace JSMS.Controllers.Api
                 else
                 {
                     // No existing check-in found for the day
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "បុគ្គលិកមួយនេះមិនទាន់បានកត់ត្រាចូលនៅឡើយទេ? សម្រាប់នៅថ្ងៃនេះ​​" }));
+                    return ExistData("បុគ្គលិកមួយនេះមិនទាន់បានកត់ត្រាចូលនៅឡើយទេ? សម្រាប់នៅថ្ងៃនេះ​​");
                 }
 
-                return Ok(new { message = "សូមអរគុណ សម្រាប់ការកត់ត្រាចេញ" });
+                return Success("សូមអរគុណ សម្រាប់ការកត់ត្រាចេញ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -261,7 +245,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Attendances.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
                 else
                 {
@@ -270,11 +254,11 @@ namespace JSMS.Controllers.Api
                     context.Attendances.Remove(response); //==> Delete From database
                     context.SaveChanges();
                 }
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
+                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 

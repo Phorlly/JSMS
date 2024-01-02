@@ -1,55 +1,34 @@
 ﻿using JSMS.Models.Admin;
-using JSMS.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web;
-using JSMS.Helpers;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/gaurantors")]
-    public class GaurantorsController : ApiController
+    public class GaurantorsController : BaseApiController
     {
-        protected readonly ApplicationDbContext context;
-        protected string name = FormHelper.Form("Name");
-        protected string nickName = FormHelper.Form("NickName");
-        protected string national = FormHelper.Form("National");
-        protected string nationality = FormHelper.Form("Nationality");
-        protected string gender = FormHelper.Form("Gender");
-        protected string dob = FormHelper.Form("DOB");
-        protected string education = FormHelper.Form("Education");
-        protected string phone1 = FormHelper.Form("Phone1");
-        protected string phone2 = FormHelper.Form("Phone2");
-        protected string province = FormHelper.Form("Province");
-        protected string district = FormHelper.Form("District");
-        protected string commune = FormHelper.Form("Commune");
-        protected string village = FormHelper.Form("Village");
-        protected string createdBy = FormHelper.Form("CreatedBy");
-        protected string bProvince = FormHelper.Form("BProvince");
-        protected string bDistrict = FormHelper.Form("BDistrict");
-        protected string bCommune = FormHelper.Form("BCommune");
-        protected string bVillage = FormHelper.Form("BVillage");
-        protected string noted = FormHelper.Form("Noted");
-
-        public GaurantorsController()
-        {
-            context = new ApplicationDbContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        protected string name = RequestForm("Name");
+        protected string nickName = RequestForm("NickName");
+        protected string national = RequestForm("National");
+        protected string nationality = RequestForm("Nationality");
+        protected string gender = RequestForm("Gender");
+        protected string dob = RequestForm("DOB");
+        protected string education = RequestForm("Education");
+        protected string phone1 = RequestForm("Phone1");
+        protected string phone2 = RequestForm("Phone2");
+        protected string province = RequestForm("Province");
+        protected string district = RequestForm("District");
+        protected string commune = RequestForm("Commune");
+        protected string village = RequestForm("Village");
+        protected string createdBy = RequestForm("CreatedBy");
+        protected string bProvince = RequestForm("BProvince");
+        protected string bDistrict = RequestForm("BDistrict");
+        protected string bCommune = RequestForm("BCommune");
+        protected string bVillage = RequestForm("BVillage");
+        protected string noted = RequestForm("Noted");
 
         [HttpGet]
         [Route("get")]
@@ -72,14 +51,14 @@ namespace JSMS.Controllers.Api
                                 .OrderByDescending(c => c.Gaurantor.Id).ToListAsync();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -104,14 +83,14 @@ namespace JSMS.Controllers.Api
                                 .SingleAsync(c => c.Gaurantor.Id.Equals(id));
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -121,7 +100,7 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var fileName = FormHelper.SaveFile("Image", "Gaurantor", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "Gaurantor", "~/AppData/Images", "../AppData/Images");
                 //var exist = context.Gaurantors.FirstOrDefault(c => c.Name.Equals(name));
                 //if (exist != null)
                 //{
@@ -163,11 +142,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
+                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
 
         }
@@ -181,13 +160,13 @@ namespace JSMS.Controllers.Api
                 var response = await context.Gaurantors.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
-                var fileName = FormHelper.SaveFile("Image", "Gaurantor", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "Gaurantor", "~/AppData/Images", "../AppData/Images");
                 if (fileName != null)
                 {
-                    FormHelper.DeleteFile(response.Image, "~/AppData/Images");
+                    DeleteFile(response.Image, "~/AppData/Images");
                     response.Image = fileName;
                 }
 
@@ -223,11 +202,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
+                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -240,39 +219,23 @@ namespace JSMS.Controllers.Api
                 var response = await context.Gaurantors.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
                 else
                 {
                     response.IsActive = false;
                     response.DeletedAt = DateTime.Now;
-                    //FormHelper.DeleteFile(response.Image, "~/AppData/Images");
+                    //DeleteFile(response.Image, "~/AppData/Images");
                     //context.Gaurantors.Remove(response);
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
+                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់ហើយ..!​");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
-
-        //private string GuarantorCode(string keyWord)
-        //{
-        //    var existCode = context.Gaurantors.Max(c => c.Code);
-        //    if (existCode != null)
-        //    {
-        //        int number = int.Parse(existCode.Split('-')[1]) + 1;
-        //        string newCode = $"{keyWord.ToUpper()}-{number.ToString("D5")}";
-
-        //        return newCode;
-        //    }
-        //    else
-        //    {
-        //        return $"{keyWord.ToUpper()}-00001";
-        //    }
-        //}
     }
 }

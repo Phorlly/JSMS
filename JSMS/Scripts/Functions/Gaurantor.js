@@ -309,9 +309,9 @@ const editGuarantor = (id) => {
             gCCommuneId.val(response.CCommune.Id);
             gCVillageId.val(response.CVillage.Id);
 
-            gBDis.hide();
-            gBCom.hide();
-            gBVil.hide();
+            gCDis.hide();
+            gCCom.hide();
+            gCVil.hide();
             modalGaurantor.modal("show");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?

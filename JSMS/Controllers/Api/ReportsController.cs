@@ -1,31 +1,22 @@
-﻿using ImageResizer.Plugins.Basic;
-using JSMS.Helpers;
-using JSMS.Models;
+﻿using JSMS.Helpers;
 using JSMS.Models.Admin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/reports")]
-    public class ReportsController : ApiController
+    public class ReportsController : BaseApiController
     {
-        protected readonly ApplicationDbContext context;
         private readonly GetAttendanceReport getAttendance;
 
         public ReportsController()
         {
-            context = new ApplicationDbContext();
             getAttendance = new GetAttendanceReport();
         }
 
@@ -67,15 +58,14 @@ namespace JSMS.Controllers.Api
                                   .ToList();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                var message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message }));
+                return ServerError(ex);
             }
         }
 
@@ -93,15 +83,14 @@ namespace JSMS.Controllers.Api
 
                 if (totalWorkedDays == 0 || staff == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                var message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message }));
+                return ServerError(ex);
             }
         }
 
@@ -138,15 +127,14 @@ namespace JSMS.Controllers.Api
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                var message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message }));
+                return ServerError(ex);
             }
         }
 
@@ -172,15 +160,14 @@ namespace JSMS.Controllers.Api
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                var message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message }));
+                return ServerError(ex);
             }
         }
 

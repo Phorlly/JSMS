@@ -1,38 +1,18 @@
-﻿using JSMS.Helpers;
-using JSMS.Models.Admin;
-using JSMS.Models;
+﻿using JSMS.Models.Admin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/products")]
-    public class ProductsController : ApiController
+    public class ProductsController : BaseApiController
     {
-        protected readonly ApplicationDbContext context;
-        protected string name = FormHelper.Form("Name");
-        protected string createdBy = FormHelper.Form("CreatedBy");
-        protected string noted = FormHelper.Form("Noted");
-
-        public ProductsController()
-        {
-            context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        protected string name = RequestForm("Name");
+        protected string createdBy = RequestForm("CreatedBy");
+        protected string noted = RequestForm("Noted");
 
         [HttpGet]
         [Route("get")]
@@ -43,14 +23,14 @@ namespace JSMS.Controllers.Api
                 var response = await context.Products.OrderByDescending(c => c.Id).ToListAsync();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -63,14 +43,14 @@ namespace JSMS.Controllers.Api
                 var response = await context.Products.FirstAsync(c => c.Id.Equals(id));
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -80,7 +60,7 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var fileName = FormHelper.SaveFile("Image", "Product", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "Product", "~/AppData/Images", "../AppData/Images");
                 var request = new Product()
                 {
                     Name = name,
@@ -98,11 +78,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
+                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -115,13 +95,13 @@ namespace JSMS.Controllers.Api
                 var response = await context.Products.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
-                var fileName = FormHelper.SaveFile("Image", "Product", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "Product", "~/AppData/Images", "../AppData/Images");
                 if (fileName != null)
                 {
-                    FormHelper.DeleteFile(response.Image, "~/AppData/Images");
+                    DeleteFile(response.Image, "~/AppData/Images");
                     response.Image = fileName;
                 }
 
@@ -139,11 +119,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
+                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
 
         }
@@ -157,22 +137,22 @@ namespace JSMS.Controllers.Api
                 var response = await context.Products.FindAsync(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
                 else
                 {
                     response.IsActive = false;
                     response.Deleted = DateTime.Now;
-                    //FormHelper.DeleteFile(response.Image, "~/AppData/Images");
+                    //DeleteFile(response.Image, "~/AppData/Images");
                     //context.Products.Remove(response);
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
+                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់ហើយ..!​");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
     }

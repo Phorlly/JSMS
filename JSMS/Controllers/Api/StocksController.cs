@@ -1,35 +1,16 @@
-﻿using JSMS.Models;
-using JSMS.Models.Admin;
+﻿using JSMS.Models.Admin;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/stocks")]
-    public class StocksController : ApiController
+    public class StocksController : BaseApiController
     {
-        protected readonly ApplicationDbContext context;
-
-        public StocksController()
-        {
-            context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
+ 
         [HttpGet]
         [Route("get")]
         public async Task<IHttpActionResult> Get()
@@ -44,14 +25,14 @@ namespace JSMS.Controllers.Api
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -70,14 +51,14 @@ namespace JSMS.Controllers.Api
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -120,13 +101,13 @@ namespace JSMS.Controllers.Api
                 {
                     if (stockExist == null)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                        return NoDataFound();
                     }
 
                     //Ajust stock
                     if (stockExist != null && stockExist.Total < request.Quantity)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "Stock lower than request" }));
+                        return ExistData("ចំនួនទំនិញដែលនៅក្នុងស្តុកគឺមិនគ្រប់គ្រាន់ទេ..!");
                     }
                     else
                     {
@@ -138,11 +119,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ" });
+                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -169,7 +150,7 @@ namespace JSMS.Controllers.Api
                 {
                     if (response == null || stockExist == null)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                        return NoDataFound();
                     }
 
                     stockExist.Total += request.Quantity;
@@ -184,13 +165,13 @@ namespace JSMS.Controllers.Api
                 {
                     if (response == null || stockExist == null)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                        return NoDataFound();
                     }
 
                     //Ajust stock
                     if (stockExist != null && stockExist.Total < request.Quantity)
                     {
-                        return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ចំនួនទំនិញដែលនៅក្នុងស្តុកគឺមិនគ្រប់គ្រាន់ទេ" }));
+                        return ExistData("ចំនួនទំនិញដែលនៅក្នុងស្តុកគឺមិនគ្រប់គ្រាន់ទេ..!"); ;
                     }
                     else
                     {
@@ -202,11 +183,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានកែប្រែរួចរាល់" });
+                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
 
         }
@@ -220,7 +201,7 @@ namespace JSMS.Controllers.Api
                 var response = context.StockTransactions.Find(id);
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
                 else
                 {
@@ -230,11 +211,11 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Ok(new { message = "ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​" });
+                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ហើយ..!");
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 

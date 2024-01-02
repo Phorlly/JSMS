@@ -360,7 +360,6 @@
     <Compile Include="Controllers\Admin\ClientController.cs" />
     <Compile Include="Controllers\Admin\GeneralLedgerController.cs" />
     <Compile Include="Controllers\Admin\StockController.cs" />
-    <Compile Include="Controllers\Api\ExpendController.cs" />
     <Compile Include="Controllers\Admin\RecruitmentController.cs" />
     <Compile Include="Controllers\Admin\ReportController.cs" />
     <Compile Include="Controllers\Admin\RequestOnlineController.cs" />
@@ -380,6 +379,7 @@
     <Compile Include="Controllers\Api\RecruitmentsController.cs" />
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\Api\OnlineApplicantsController.cs" />
+    <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\ShortListsController.cs" />
     <Compile Include="Controllers\Api\StaffsController.cs" />
     <Compile Include="Controllers\Api\StocksController.cs" />

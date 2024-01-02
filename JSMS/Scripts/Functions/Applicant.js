@@ -626,6 +626,7 @@ bProvince.change(() => {
 //Change value
 bDistrict.change(() => {
     let districtId = bDistrict.val();
+    bCom.show();
     districtId ? $.ajax({
         url: "/home/bCommune",
         type: "GET",
