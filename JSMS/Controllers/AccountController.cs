@@ -1,17 +1,12 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Web;
+using JSMS.Models;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
+using JSMS.Helpers;
 using System.Web.Mvc;
+using System.Threading.Tasks;
+using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using JSMS.Models;
-using JSMS.Helpers;
-using JSMS.Models.Admin;
-using System.Data.Entity;
 
 namespace JSMS.Controllers
 {

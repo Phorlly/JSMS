@@ -10,7 +10,7 @@
     {
         Name = JSMS.Resources.Language.HR,
         Icon = "fas fa-user",
-        Role = new List<string> { "AdminOrHR", "Accounting", "Customer" },
+        Role = new List<string> { "AdminOrHR" },
         SubMenuItems = new List<SubMenuItem> {
             new SubMenuItem { Name = JSMS.Resources.Language.Applicant, Controller = "Applicant",Icon = "fas fa-user-friends",Action = "Index",
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
@@ -62,8 +62,8 @@
         SubMenuItems = new List<SubMenuItem> {
             new SubMenuItem { Name = JSMS.Resources.Language.User, Controller = "UserRole",Icon = "fas fa-user",Action = "Index",
                               Role = new List<string> { "AdminOrHR"}},
-            //new SubMenuItem { Name = JSMS.Resources.Language.GeneralLedger,Controller = "GeneralLedger",Icon = "fas fa-donate",Action = "Index",
-            //                  Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
+            new SubMenuItem { Name = JSMS.Resources.Language.RegisterOnline,Controller = "RequestOnline",Icon = "fas fa-users",Action = "Index",
+                              Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
             //new SubMenuItem { Name = JSMS.Resources.Language.Transaction,Controller = "Transaction",Icon = "fas fa-id-card",Action = "Index",
             //                  Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
         }

@@ -1,10 +1,10 @@
-﻿using JSMS.Models.Admin;
-using JSMS.Models.User;
-using System;
-using System.Data.Entity;
+﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Http;
+using JSMS.Models.User;
+using JSMS.Models.Admin;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace JSMS.Controllers.Api
 {
@@ -168,6 +168,35 @@ namespace JSMS.Controllers.Api
                 response.POB = int.Parse(pob);
                 response.Address = int.Parse(address);
                 response.Noted = noted;
+
+                //Update
+                if (response != null)
+                {
+                    context.Entry(response).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+                }
+
+                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ​..!");
+            }
+            catch (Exception ex)
+            {
+                return ServerError(ex);
+            }
+        }
+
+        [HttpPut]
+        [Route("put-status-by-id/{id}")]
+        public async Task<IHttpActionResult> PutStatusById(int id, OnlineApplicant req)
+        {
+            try
+            {
+                var response = context.OnlineApplicants.Find(id);
+                if (response == null)
+                {
+                    return NoDataFound();
+                }
+
+                response.Status = req.Status;
 
                 //Update
                 if (response != null)

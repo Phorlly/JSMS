@@ -442,6 +442,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Language.km1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.km.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\IRepository.cs" />
     <Compile Include="Services\Repository.cs" />
     <Compile Include="Startup.cs" />
@@ -3161,7 +3166,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Language.km.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Language.km.Designer.cs</LastGenOutput>
+      <LastGenOutput>Language.km1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Language.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

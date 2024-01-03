@@ -5,58 +5,41 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using JSMS.Models.Admin;
-using Antlr.Runtime.Tree;
-using System.Collections.Generic;
-using System.Web.Services.Description;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/invoice")]
-    public class InvoiceController : ApiController
+    public class InvoiceController : ApiBaseController
     {
-        protected readonly ApplicationDbContext context;
-
-        public InvoiceController()
-        {
-            context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         [HttpGet]
         [Route("get")]
         public IHttpActionResult Get()
         {
-                try {
-                    var response = (from Client in context.Clients
-                                    join Invoice in context.Invoices on Client.Id equals Invoice.ClientId
+            try
+            {
+                var response = (from Client in context.Clients
+                                join Invoice in context.Invoices on Client.Id equals Invoice.ClientId
 
-                                    select new { Invoice, Client }).OrderByDescending(c => c.Invoice.Id).ToList();
+                                select new { Invoice, Client }).OrderByDescending(c => c.Invoice.Id).ToList();
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
+                    return NoDataFound();
                 }
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return ServerError(ex);
             }
         }
 
         [HttpGet]
         [Route("get/{id}")]
-        public IHttpActionResult  GetById(int id)
+        public IHttpActionResult GetById(int id)
         {
-            try {
+            try
+            {
                 var response = (from Client in context.Clients
                                 join Invoice in context.Invoices on Client.Id equals Invoice.ClientId
 
@@ -64,26 +47,29 @@ namespace JSMS.Controllers.Api
 
                 if (response == null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទន្នន័យទេ" }));
-                } return Ok(response);
+                    return NoDataFound();
+                }
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
         [HttpPost]
         [Route("post")]
-        public IHttpActionResult Post( Invoice post)
+        public IHttpActionResult Post(Invoice post)
         {
             try
             {
-                if(context.Invoices.Any(e => e.InvoiceNumber == post.InvoiceNumber)) {
+                if (context.Invoices.Any(e => e.InvoiceNumber == post.InvoiceNumber))
+                {
 
-                    return BadRequest("Invoice Number already exists.");
+                    return ExistData("លេខវិក័យប័ត្រមានរួចហើយ..!");
                 }
-                
+
 
                 // Calculate Amount
                 post.Amount = post.Qty * post.UnitPrice;
@@ -105,11 +91,11 @@ namespace JSMS.Controllers.Api
                 context.Invoices.Add(post);
                 context.SaveChanges();
 
-                return Ok(post);
+               return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return ServerError(ex);
             }
         }
 
@@ -126,9 +112,9 @@ namespace JSMS.Controllers.Api
 
                 if (sameInvoice != null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "Invoice Number already exists." }));
-
+                    return ExistData("លេខវិក័យប័ត្រមានរួចហើយ..!");
                 }
+
                 existing.StartDate = update.StartDate;
                 existing.EndDate = update.EndDate;
                 existing.InvoiceNumber = update.InvoiceNumber;
@@ -150,12 +136,13 @@ namespace JSMS.Controllers.Api
                 existing.Total = existing.Amount + existing.Tax;
 
                 context.SaveChanges();
-                return Ok(existing);
+
+                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
 
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return ServerError(ex);
             }
         }
 
@@ -172,16 +159,16 @@ namespace JSMS.Controllers.Api
                     context.Invoices.Remove(InDb);
                     context.SaveChanges();
 
-                    return Ok("Record deleted successfully");
+                    return Success("បានលុបកំណត់ត្រាដោយជោគជ័យ..!");
                 }
 
                 // If InDb is null, it means the record was not found, but it's not treated as an error.
 
-                return BadRequest("Record not found");
+                return NoDataFound();
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return ServerError(ex);
             }
         }
     }

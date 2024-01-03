@@ -63,8 +63,8 @@ const getAll = () => {
             dataSrc: "",
             method: "GET",
         },
-         responsive: true,
-         autoWidth: false,
+        responsive: true,
+        autoWidth: false,
         scrollX: true,
         dom: "Bfrtip",
         buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
@@ -82,14 +82,14 @@ const getAll = () => {
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
             {
-               
+
                 data: "Invoice.InvoiceNumber"
             },
             {
-                data:"Invoice.Description"
+                data: "Invoice.Description"
             },
             {
-                
+
                 data: "Invoice.StartDate",
                 render: function (data, type, row) {
                     // Format the date using moment.js
@@ -97,19 +97,19 @@ const getAll = () => {
                 },
             },
             {
-                
+
                 data: "Client.Name"
             },
             {
-                
-                data:"Invoice.Total"
+
+                data: "Invoice.Total"
             },
             {
-                
+
                 data: "Invoice.Note"
             },
             {
-                
+
                 data: "Invoice.Id",
                 render: (row) => {
                     return `<div> 
@@ -163,52 +163,50 @@ const getAll = () => {
 };
 
 function generateInvoice(id) {
-    invoiceModal.modal("show");
+
     $.ajax({
         url: "/api/hr/invoice/get/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                console.log(response);
-                updateBtn.show();
-                saveBtn.hide();
+        success: (response) => {
+            console.log(response);
+            updateBtn.show();
+            saveBtn.hide();
+            invoiceModal.modal("show");
 
-                dataId.val(response.Invoice.Id);
-                GstartDate.text(formatDateDayFirst(response.Invoice.StartDate));
-                GendDate.text(formatDateDayFirst(response.Invoice.EndDate));
-                GinvoiceNumber.text(response.Invoice.InvoiceNumber);
-                GclientId.text(response.Client.Company);
-                Gdescripe.text(response.Invoice.Description);
-                Gqty.text(response.Invoice.Qty);
-                GunitPrice.text(response.Invoice.UnitPrice);
-                GsubTotal.text(response.Invoice.Amount); //subtotal
-                Gamount.text(response.Invoice.Amount); //subtotal
-                Gtax.text(response.Invoice.Tax);
-                Gtotal.text(response.Invoice.Total);
-                
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            dataId.val(response.Invoice.Id);
+            GstartDate.text(convertToKhmerDate(response.Invoice.StartDate));
+            GendDate.text(convertToKhmerDate(response.Invoice.EndDate));
+            GinvoiceNumber.text(response.Invoice.InvoiceNumber);
+            GclientId.text(response.Client.Company);
+            Gdescripe.text(response.Invoice.Description);
+            Gqty.text(response.Invoice.Qty);
+            GunitPrice.text(response.Invoice.UnitPrice);
+            GsubTotal.text(response.Invoice.Amount); //subtotal
+            Gamount.text(response.Invoice.Amount); //subtotal
+            Gtax.text(response.Invoice.Tax);
+            Gtotal.text(response.Invoice.Total);
+
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
-}   
+}
 
 function calculateAmount() {
     // Get the values of quantity and unit price
     var quantity = parseFloat(document.getElementById('quantity').value) || 0;
     var unit = parseFloat(document.getElementById('unit-price').value) || 0;
     var taxPercentage = parseFloat(document.getElementById('tax').value) || 0;
-    
+
     // Calculate the amount
     var AmountCalculated = quantity * unit;
 
@@ -254,42 +252,29 @@ saveBtn.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
-        statusCode: {
-            200: (response) => {
-                dataId.val(response.Id);
-                tableInvoice.ajax.reload();
-                clear();
-                modalInvoice.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                (xhr.responseJSON.Message === "InvoiceID already exists.")
-                {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Invoice code already exists. Please use a different Invoice code",
-                    });
-                } console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "មានបញ្ហាកើតឡើងសូមពិនិត្យម្ដងទៀត") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        success: (response) => {
+            dataId.val(response.Id);
+            tableInvoice.ajax.reload();
+            clear();
+            modalInvoice.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 })
 
@@ -299,37 +284,34 @@ const edit = (id) => {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                console.log(response);
-                updateBtn.show();
-                saveBtn.hide();
+        success: (response) => {
+            console.log(response);
+            updateBtn.show();
+            saveBtn.hide();
 
-                dataId.val(response.Invoice.Id);
-                startDate.val(formatDate(response.Invoice.StartDate));
-                endDate.val(formatDate(response.Invoice.EndDate));
-                invoiceNumber.val(response.Invoice.InvoiceNumber);
-                clientId.val(response.Invoice.ClientId);
-                descripe.val(response.Invoice.Description);
-                qty.val(response.Invoice.Qty);
-                unitPrice.val(response.Invoice.UnitPrice);
-                tax.val(response.Invoice.Tax);
-                amount.val(response.Invoice.Amount);
-                total.val(response.Invoice.Total);
-                note.val(response.Invoice.Note);
-                modalInvoice.modal("show");
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            dataId.val(response.Invoice.Id);
+            startDate.val(formatDate(response.Invoice.StartDate));
+            endDate.val(formatDate(response.Invoice.EndDate));
+            invoiceNumber.val(response.Invoice.InvoiceNumber);
+            clientId.val(response.Invoice.ClientId);
+            descripe.val(response.Invoice.Description);
+            qty.val(response.Invoice.Qty);
+            unitPrice.val(response.Invoice.UnitPrice);
+            tax.val(response.Invoice.Tax);
+            amount.val(response.Invoice.Amount);
+            total.val(response.Invoice.Total);
+            note.val(response.Invoice.Note);
+            modalInvoice.modal("show");
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -356,48 +338,34 @@ updateBtn.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
-        statusCode: {
-            200: (response) => {
-                dataId.val(response.Id);
-                tableInvoice.ajax.reload();
-                clear();
-                modalInvoice.modal("hide");
+        success: (response) => {
+            dataId.val(response.Id);
+            tableInvoice.ajax.reload();
+            clear();
+            modalInvoice.modal("hide");
 
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                (xhr.responseJSON.Message === "InvoiceID already exists.")
-                {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Invoice code already exists. Please use a different Invoice code",
-                    });
-                } 
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
 const remove = (id) => {
-    alert(id);
     Swal.fire({
         title: "តើអ្នកប្រាកដដែលឬទេ?",
         text: "ទិន្នន័យដែលលុបមិនអាចទាញមកវិញបានទេ",
@@ -411,33 +379,25 @@ const remove = (id) => {
             $.ajax({
                 method: "DELETE",
                 url: "/api/hr/invoice/delete/" + id,
-                statusCode: {
-                    200: (response) => {
-                        tableInvoice.ajax.reload();
-                        Swal.fire({
-                            title: response.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
-                        });
-                    },
-                    400: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    404: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    500: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
+                success: (response) => {
+                    tableInvoice.ajax.reload();
+                    Swal.fire({
+                        title: response.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    });
                 },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        //position: "top-end",
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
                 title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថិភាព",
@@ -514,7 +474,7 @@ const Validate = () => {
                         timer: 1500,
                     });
                     clientId.css("border-color", "red");
-                    clientId    .focus();
+                    clientId.focus();
                     isValid = false;
                 }
                 else {
@@ -558,7 +518,7 @@ const Validate = () => {
                                 unitPrice.css("border-color", "red");
                                 unitPrice.focus();
                                 isValid = false;
-                            } 
+                            }
                         }
                     }
                 }

@@ -107,12 +107,9 @@ const formatStatus = (id) => {
 
     let matchedItem = data.find((item) => item.id === id);
 
-    return matchedItem.id === 0
-        ? `<span class="btn btn-danger btn-sm" style="cursor: default;font-weight: bold;">${matchedItem.name}</span>`
-        : matchedItem.id === 1
-            ? `<span class="btn btn-warning btn-sm" style="cursor: default;font-weight: bold;">${matchedItem.name}</span>`
-            : matchedItem.id === 2
-                ? `<span class="btn btn-success btn-sm" style="cursor: default;font-weight: bold;">${matchedItem.name}</span>`
+    return matchedItem.id === 0 ? `<span class="btn btn-danger btn-sm">${matchedItem.name}</span>`
+        : matchedItem.id === 1 ? `<span class="btn btn-warning btn-sm">${matchedItem.name}</span>`
+            : matchedItem.id === 2 ? `<span class="btn btn-success btn-sm">${matchedItem.name}</span>`
                 : "";
 };
 
@@ -230,4 +227,61 @@ const loadingGif = () => {
         $("#loading-gif").removeClass("show");
     });
 }
+
+
+//Calculate age
+const calculateAge = (birthdate) => {
+    // Parse the birthdate string to a Date object
+    let birthDate = new Date(birthdate);
+
+    // Get the current date
+    let currentDate = new Date();
+
+    // Calculate the difference in years
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+
+    // Adjust age if the birthday hasn't occurred yet this year
+    if (currentDate.getMonth() < birthDate.getMonth() ||
+        (currentDate.getMonth() === birthDate.getMonth() &&
+            currentDate.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    return age + "​ ឆ្នាំ";
+}
+
+//Convert date to khmer
+const convertToKhmerDate = (dateString) => {
+    let date = new Date(dateString);
+
+    // Map Western Arabic numerals to Khmer numerals
+    let khmerNumeralsMap = {
+        '0': '០',
+        '1': '១',
+        '2': '២',
+        '3': '៣',
+        '4': '៤',
+        '5': '៥',
+        '6': '៦',
+        '7': '៧',
+        '8': '៨',
+        '9': '៩',
+    };
+
+    // Map English month names to Khmer month names
+    let khmerMonthNames = [
+        'មករា', 'កុម្ភៈ', 'មិនា', 'មេសា', 'ឧសភា', 'មិថុនា',
+        'កក្តដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'
+    ];
+
+    // Convert Western Arabic numerals to Khmer numerals
+    let khmerDay = date.getDate().toString().split('').map(digit => khmerNumeralsMap[digit]).join('');
+    let khmerMonth = khmerMonthNames[date.getMonth()];
+    let khmerYear = date.getFullYear().toString().split('').map(digit => khmerNumeralsMap[digit]).join('');
+
+    let khmerDate = `ថ្ងៃទី​${khmerDay} ខែ${khmerMonth} ឆ្នាំ${khmerYear}`;
+
+    return khmerDate;
+}
+
 

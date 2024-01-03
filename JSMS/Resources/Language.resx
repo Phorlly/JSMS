@@ -129,11 +129,17 @@
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
+  <data name="Activity" xml:space="preserve">
+    <value>Activity</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Add New</value>
   </data>
+  <data name="Age" xml:space="preserve">
+    <value>Age</value>
+  </data>
   <data name="AlreadyAccount" xml:space="preserve">
-    <value>Already Account for Login?</value>
+    <value>I already have an account?</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
@@ -168,6 +174,12 @@
   <data name="AttendanceManagement" xml:space="preserve">
     <value>Attendance Management</value>
   </data>
+  <data name="Auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="BankAccount" xml:space="preserve">
+    <value>Bank Account :</value>
+  </data>
   <data name="Behavior" xml:space="preserve">
     <value>Behavior</value>
   </data>
@@ -177,11 +189,17 @@
   <data name="BehaviorManagement" xml:space="preserve">
     <value>Behavior​ Management</value>
   </data>
+  <data name="Calculate" xml:space="preserve">
+    <value>Calculate</value>
+  </data>
   <data name="Calendar" xml:space="preserve">
     <value>Calendar</value>
   </data>
+  <data name="Cambodia" xml:space="preserve">
+    <value>Cambodia</value>
+  </data>
   <data name="ChangeLanguage" xml:space="preserve">
-    <value>Change Language:</value>
+    <value> Change Language</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change Password</value>
@@ -213,6 +231,9 @@
   <data name="Company" xml:space="preserve">
     <value>Company</value>
   </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Jinglong Security Co.,Ltd</value>
+  </data>
   <data name="Confirmed" xml:space="preserve">
     <value>Confirmed By</value>
   </data>
@@ -224,6 +245,9 @@
   </data>
   <data name="Cost" xml:space="preserve">
     <value>Total Price</value>
+  </data>
+  <data name="CountFrom" xml:space="preserve">
+    <value>Count From</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Create New Account</value>
@@ -242,9 +266,6 @@
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
-  </data>
-  <data name="DashboardManagement" xml:space="preserve">
-    <value>Dashboard​ Data Management​</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
@@ -315,6 +336,9 @@
   <data name="GeneralManager" xml:space="preserve">
     <value>General-Manager</value>
   </data>
+  <data name="GenerateInvoice" xml:space="preserve">
+    <value>Generate New Invoice</value>
+  </data>
   <data name="Guarantor" xml:space="preserve">
     <value>Guarantor</value>
   </data>
@@ -331,7 +355,7 @@
     <value>Home Page</value>
   </data>
   <data name="HR" xml:space="preserve">
-    <value>HR Management</value>
+    <value>Human Resource</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>No.</value>
@@ -390,6 +414,18 @@
   <data name="Invoice" xml:space="preserve">
     <value>Invoice​ Number</value>
   </data>
+  <data name="InvoiceDay" xml:space="preserve">
+    <value>Invoice Shared Date</value>
+  </data>
+  <data name="InvoiceKh" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Invoice Number</value>
+  </data>
+  <data name="InvoicePage" xml:space="preserve">
+    <value>Invoice Generate Page</value>
+  </data>
   <data name="JoiningDate" xml:space="preserve">
     <value>Joining Date</value>
   </data>
@@ -427,7 +463,7 @@
     <value>Find by Month</value>
   </data>
   <data name="MoreInfo" xml:space="preserve">
-    <value>More info</value>
+    <value>More Infor</value>
   </data>
   <data name="Morning" xml:space="preserve">
     <value>Morning</value>
@@ -462,6 +498,9 @@
   <data name="NotStudied" xml:space="preserve">
     <value>Not Studied</value>
   </data>
+  <data name="NRK" xml:space="preserve">
+    <value>National Religion King</value>
+  </data>
   <data name="Null" xml:space="preserve">
     <value />
   </data>
@@ -492,6 +531,9 @@
   <data name="Payment" xml:space="preserve">
     <value>Payment​ Method</value>
   </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Payment Type</value>
+  </data>
   <data name="People" xml:space="preserve">
     <value>People</value>
   </data>
@@ -515,6 +557,9 @@
   </data>
   <data name="PrimarySchool" xml:space="preserve">
     <value>Primary School</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
   </data>
   <data name="ProcductManagement" xml:space="preserve">
     <value>Procduct Management</value>
@@ -630,6 +675,9 @@
   <data name="StaffManagement" xml:space="preserve">
     <value>Staff Management</value>
   </data>
+  <data name="Standing" xml:space="preserve">
+    <value>Standing at :</value>
+  </data>
   <data name="StartDate" xml:space="preserve">
     <value>Start Date</value>
   </data>
@@ -653,6 +701,9 @@
   </data>
   <data name="StockType" xml:space="preserve">
     <value>Stock Type</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
   </data>
   <data name="Summary" xml:space="preserve">
     <value>Report </value>
@@ -686,6 +737,9 @@
   </data>
   <data name="University" xml:space="preserve">
     <value>University</value>
+  </data>
+  <data name="Until" xml:space="preserve">
+    <value>Until </value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Update</value>
@@ -722,5 +776,8 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to Jinglong</value>
+  </data>
+  <data name="Your" xml:space="preserve">
+    <value>Your</value>
   </data>
 </root>

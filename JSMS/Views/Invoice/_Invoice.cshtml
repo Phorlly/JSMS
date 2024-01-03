@@ -1,11 +1,11 @@
 ﻿
 
 <!-- Modal -->
-<div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="invoiceModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'Khmer OS Battambang'">@JSMS.Resources.Language.GenerateInvoice</h5>
+                <h4 class="modal-title">@JSMS.Resources.Language.GenerateInvoice</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -96,15 +96,25 @@
                     <div class="form-group ">
                         <div class="col-md-12">
                             <label>@JSMS.Resources.Language.Note</label>
-                            <input type="text" class="form-control" id="note" name="name" value="" />
+                            <textarea type="text" class="form-control" id="note" placeholder="@JSMS.Resources.Language.Input"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveInvoice">Save changes</button>
-                <button type="button" class="btn btn-success" id="update-invoice">Update</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                    <i class=" fas fa-times-circle"></i>
+                    <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                </button>
+                <button type="button" class="btn btn-success" id="update-invoice">
+                    <i class=" fas fas fa-redo-alt"></i>
+                    <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="saveInvoice">
+                    <i class=" fas fa-save"></i>
+                    <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
+                </button>
+
             </div>
         </div>
     </div>

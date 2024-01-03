@@ -164,9 +164,15 @@
 @Html.Partial("_Applicant")
 @Html.Partial("_Behavior")
 @Html.Partial("_Gaurantor")
+<script>
+    let male = "@JSMS.Resources.Language.Male";
+    let female = "@JSMS.Resources.Language.Female";
+</script>
 
 @section scripts {
     @Scripts.Render("~/Scripts/Functions/Applicant.js")
     @Scripts.Render("~/Scripts/Functions/Behavior.js")
     @Scripts.Render("~/Scripts/Functions/Gaurantor.js")
 }
+
+

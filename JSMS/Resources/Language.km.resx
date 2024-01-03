@@ -129,11 +129,17 @@
   <data name="Actions" xml:space="preserve">
     <value>សកម្មភាព</value>
   </data>
+  <data name="Activity" xml:space="preserve">
+    <value>ប្រតិបត្តិការ</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>បន្ថែមថ្មី</value>
   </data>
+  <data name="Age" xml:space="preserve">
+    <value>អាយុ</value>
+  </data>
   <data name="AlreadyAccount" xml:space="preserve">
-    <value>តើអ្នកមានគណនីសម្រាប់ចូលប្រើហើយឬនៅ?</value>
+    <value>ខ្ញុំ​មាន​គណនី​មួយ​រួចហើយ?</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>ចំនួន</value>
@@ -168,6 +174,12 @@
   <data name="AttendanceManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងបញ្ជីវត្តមាន</value>
   </data>
+  <data name="Auto" xml:space="preserve">
+    <value>ស្វ័យប្រវត្តិ</value>
+  </data>
+  <data name="BankAccount" xml:space="preserve">
+    <value>គណនីធនាគារ​ ៖</value>
+  </data>
   <data name="Behavior" xml:space="preserve">
     <value>បញ្ជាក់អាកប្បមាយាទ</value>
   </data>
@@ -177,11 +189,17 @@
   <data name="BehaviorManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងអំពីអាកិរិយាមាយាទ</value>
   </data>
+  <data name="Calculate" xml:space="preserve">
+    <value>គណនា</value>
+  </data>
   <data name="Calendar" xml:space="preserve">
     <value>ប្រតិទិន</value>
   </data>
+  <data name="Cambodia" xml:space="preserve">
+    <value>ព្រះរាជាណាចក្រកម្ពុជា</value>
+  </data>
   <data name="ChangeLanguage" xml:space="preserve">
-    <value>ប្ដូរភាសា៖</value>
+    <value>ប្ដូរ​ភាសា</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>ប្ដូរពាក្យសម្ងាត់</value>
@@ -213,6 +231,9 @@
   <data name="Company" xml:space="preserve">
     <value>ក្រុមហ៊ុន</value>
   </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>ជីងឡុង ស៊ីឃ្យូរីធី ខូអិលធីឌី</value>
+  </data>
   <data name="Confirmed" xml:space="preserve">
     <value>បញ្ជាក់ដោយ</value>
   </data>
@@ -224,6 +245,9 @@
   </data>
   <data name="Cost" xml:space="preserve">
     <value>តម្លៃសរុប</value>
+  </data>
+  <data name="CountFrom" xml:space="preserve">
+    <value>គិតចាប់ពីថ្ងៃទី</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>បង្កើតគណនី</value>
@@ -242,9 +266,6 @@
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>ផ្ទាំងគ្រប់គ្រងពត៌មានសង្ខេប</value>
-  </data>
-  <data name="DashboardManagement" xml:space="preserve">
-    <value>ការគ្រប់គ្រងផ្ទាំងគ្រប់គ្រងទិន្នន័យ</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>កាលបរិច្ឆេទ</value>
@@ -314,6 +335,9 @@
   </data>
   <data name="GeneralManager" xml:space="preserve">
     <value>អ្នកគ្រប់គ្រង</value>
+  </data>
+  <data name="GenerateInvoice" xml:space="preserve">
+    <value>បង្កើតវិក័យប័ត្រថ្មី</value>
   </data>
   <data name="Guarantor" xml:space="preserve">
     <value>អ្នកធានា</value>
@@ -390,6 +414,18 @@
   <data name="Invoice" xml:space="preserve">
     <value>លេខវិក័យបត្រ</value>
   </data>
+  <data name="InvoiceDay" xml:space="preserve">
+    <value>កាលបរិច្ឆេទចេញវិក័យប័ត្រ</value>
+  </data>
+  <data name="InvoiceKh" xml:space="preserve">
+    <value>វិក្កយប័ត្រ</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>លេខវិកយប័ត្រ</value>
+  </data>
+  <data name="InvoicePage" xml:space="preserve">
+    <value>ទំព័រវិក័យប័ត្រ</value>
+  </data>
   <data name="JoiningDate" xml:space="preserve">
     <value>ថ្ងៃខែចូលធ្វើការងារ</value>
   </data>
@@ -427,7 +463,7 @@
     <value>ស្វែងរកតាមរយៈខែ</value>
   </data>
   <data name="MoreInfo" xml:space="preserve">
-    <value>ព័ត៌មាន​បន្ថែម</value>
+    <value>មើលបន្ថែម</value>
   </data>
   <data name="Morning" xml:space="preserve">
     <value>ថ្ងៃ</value>
@@ -462,6 +498,9 @@
   <data name="NotStudied" xml:space="preserve">
     <value>មិនបានសិក្សា</value>
   </data>
+  <data name="NRK" xml:space="preserve">
+    <value>ជាតិ សាសនា ព្រះមហក្សត្រ</value>
+  </data>
   <data name="OldPassword" xml:space="preserve">
     <value>ពាក្យសម្ងាត់ចាស់</value>
   </data>
@@ -489,6 +528,9 @@
   <data name="Payment" xml:space="preserve">
     <value>វិធីសាស្ត្រទូរទាត់ប្រាក់</value>
   </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>ប្រភេទបង់ប្រាក់</value>
+  </data>
   <data name="People" xml:space="preserve">
     <value>នាក់</value>
   </data>
@@ -512,6 +554,9 @@
   </data>
   <data name="PrimarySchool" xml:space="preserve">
     <value>បឋមសិក្សា</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>បោះពុម្ព</value>
   </data>
   <data name="ProcductManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រង​ទំនិញ</value>
@@ -571,7 +616,7 @@
     <value>សូមចងចាំនូវឈ្មោះអ្នកប្រើប្រាស់ និងពាក្យសម្ងាត់ផង</value>
   </data>
   <data name="Report" xml:space="preserve">
-    <value>របាយការណ៍</value>
+    <value>រាយការណ៍</value>
   </data>
   <data name="ReportManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងរបាយការណ៍</value>
@@ -595,13 +640,13 @@
     <value>អនុវិទ្យាល័យ</value>
   </data>
   <data name="Select" xml:space="preserve">
-    <value>សូមជ្រើសរើសជម្រើសមួយ</value>
+    <value>សូមជ្រើសរើសជម្រើស</value>
   </data>
   <data name="SelectDate" xml:space="preserve">
     <value>សូមជ្រើសរើសថ្ងៃខែ</value>
   </data>
   <data name="Setting" xml:space="preserve">
-    <value>ការកំណត់</value>
+    <value>ការកំណត់ផ្សេងៗ</value>
   </data>
   <data name="ShiftType" xml:space="preserve">
     <value>ប្រភេទវេន</value>
@@ -627,6 +672,9 @@
   <data name="StaffManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងបុគ្គលិក</value>
   </data>
+  <data name="Standing" xml:space="preserve">
+    <value>ប្រចាំការនៅ៖</value>
+  </data>
   <data name="StartDate" xml:space="preserve">
     <value>ថ្ងៃខែចាប់ផ្ដើម</value>
   </data>
@@ -651,8 +699,11 @@
   <data name="StockType" xml:space="preserve">
     <value>ប្រភេទស្តុក</value>
   </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>សរុបរង</value>
+  </data>
   <data name="Summary" xml:space="preserve">
-    <value>របាយការណ៍</value>
+    <value>ទិន្នន័យសង្ខេប</value>
   </data>
   <data name="Tax" xml:space="preserve">
     <value>ពន្ធអាករ</value>
@@ -683,6 +734,9 @@
   </data>
   <data name="University" xml:space="preserve">
     <value>សាកលវិទ្យាល័យ</value>
+  </data>
+  <data name="Until" xml:space="preserve">
+    <value>ដល់ថ្ងៃទី</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>កែប្រជាថ្មី</value>
@@ -719,5 +773,8 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>ជីងឡុង សូមជម្រាបសួរ</value>
+  </data>
+  <data name="Your" xml:space="preserve">
+    <value>របស់អ្នក</value>
   </data>
 </root>

@@ -108,7 +108,7 @@ const getApplicant = () => {
             {
                 //title: "Gender",
                 data: "Applicant.Gender",
-                render: (row) => row === true ? "ប្រុស" : "ស្រី",
+                render: (row) => row === true ? male : female,
             },
             {
                 //title: "Profile",
@@ -124,7 +124,7 @@ const getApplicant = () => {
             {
                 //title: "DOB",
                 data: "Applicant.DOB",
-                render: row => row ? moment(row).format("DD/MMM/YYYY") : ""
+                render: row => row ? calculateAge(row) : ""
             },
             {
                 //title: "Nationality",

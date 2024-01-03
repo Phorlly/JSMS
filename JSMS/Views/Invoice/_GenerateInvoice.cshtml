@@ -9,7 +9,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="invoice-wrapper print-main" id="print-area">
+                <div class="container-fluid print-main" id="print-area">
                     <div class="invoice">
                         <div class="invoice-container">
                             <div class="invoice-head">
@@ -24,7 +24,7 @@
                                     <div class="invoice-head-top-left text-start">
                                         <img src="~/Images/logoHRMS.png" style="width:100px" />
                                     </div>
-                                   
+
                                 </div>
                                 <div class="invoice-head-middle">
                                     <div class="invoice-head-middle-left text-start">
@@ -98,9 +98,9 @@
                                             </tr>
 
                                             <!-- <tr>
-                                    <td colspan="4">10</td>
-                                    <td>$500.00</td>
-                                </tr> -->
+                                                <td colspan="4">10</td>
+                                                <td>$500.00</td>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                     <div class="invoice-body-bottom" style="font-family: 'Khmer OS Battambang';">
@@ -126,7 +126,7 @@
                                 <br>
                                 <h3 id="signature">@JSMS.Resources.Language.CompanyName</h3>
                             </div>
-                        
+
                         </div>
                     </div>
                 </div>
@@ -134,16 +134,22 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-warning" id="btnPrint">Print</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                    <i class=" fas fa-times-circle"></i>
+                    <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                </button>
+                <button type="button" class="btn btn-success" id="btnPrint">
+                    <i class=" fas fas fa-print"></i>
+                    <span class="text-uppercase">@JSMS.Resources.Language.Print</span>
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-    $("#btnPrint").on("click", function () {
+
+    $("#btnPrint").click(  () =>{
         // Create a new window and get its document object
         var printWindow = window.open('', '_blank');
         var printDocument = printWindow.document;
@@ -160,5 +166,5 @@
         printDocument.close();
         printWindow.print();
     });
-    });
+
 </script>

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Collections.Generic;
 
 namespace JSMS
 {
@@ -80,10 +80,17 @@ namespace JSMS
               url: "admin/stock-info",
               defaults: new { controller = "Stock", action = "Index" });
             routes.MapRoute(
-              name: "Accounting Management",
+              name: "Request-Online Management",
               url: "admin/accounting-info",
               defaults: new { controller = "Accounting", action = "Index" });
-
+            routes.MapRoute(
+              name: "Accounting Management",
+              url: "admin/request-online-info",
+              defaults: new { controller = "RequestOnline", action = "Index" });
+            routes.MapRoute(
+              name: "Invoice Management",
+              url: "admin/invoice-info",
+              defaults: new { controller = "Invoice", action = "Index" });
             //default route
             //routes.MapRoute(
             //  name: "Default",

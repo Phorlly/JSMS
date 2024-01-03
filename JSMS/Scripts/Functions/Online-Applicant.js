@@ -203,17 +203,17 @@ applyNow.click(() => {
         processData: false,
         data: formData,
         success: (response) => {
-                setColor();
-                clear();
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
+            setColor();
+            clear();
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
+        },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
                 //position: "top-end",
@@ -236,12 +236,45 @@ const editApplicant = async (id) => {
                     <option value="2">Approved</option>
               </select> `,
         focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
         preConfirm: () => {
             return $("#status").val();
         }
     });
-    data ? Swal.fire(JSON.stringify(data)) : "";
-
+    data ? $.ajax({
+        url: `/api/hr/online-applicants/put-status-by-id/${id}`,
+        type: "PUT",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({ Status: data }),
+        success: (response) => {
+            applicant.ajax.reload();
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
+        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
+    }) : Swal.fire({
+        title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: { title: 'custom-swal-title' },
+    });
 };
 
 //Remove data by id

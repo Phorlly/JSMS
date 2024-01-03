@@ -140,11 +140,15 @@ const getBehavior = () => {
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 

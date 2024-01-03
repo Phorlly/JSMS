@@ -1,10 +1,9 @@
 ﻿@model JSMS.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
-
     Layout = null;
 
 }
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,105 +11,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="~/Images/logoHRMS.png">
-    <title>LOGUP</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <title>CREATE</title>
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/animate.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/hamburgers.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/Select2.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/util.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/main.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Theme/login/font-awesome.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
     <link href="~/Theme/plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    <style>
-        h1 {
-            font-display: inherit;
-            font-family: 'Khmer OS Moul', 'Segoe UI', sans-serif;
-        }
-
-        p, span,
-        label, a, input {
-            font-family: 'Khmer OS Battambang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /*font-size: large;*/
-        }
-    </style>
 </head>
 
 <body>
-    <!--New form-->
-    <div style="height: 100vh; " class="d-flex justify-content-center align-items-center ">
-        <form id="form-sign-up" method="post" enctype="multipart/form-data">
-            <section>
-                <div class="modal-lg form-control d-flex  shadow-lg p-5 mb-5 bg-body-tertiary rounded-4">
+    <div class="limiter">
+        <div class="container-login100">
+            @*<h1>hi</h1>*@
+            <div class="wrap-login100 ">
+                <div class="login100-pic " id="js-tilt" data-tilt>
+                    <img src="~/Images/logoHRMS.png" alt="IMG">
+                </div>
+
+                <form class="login100-form validate-form" id="form-sign-up" method="post" enctype="multipart/form-data" role="form">
                     @Html.AntiForgeryToken()
-                    <div class="bg-body-tertiary">
-                        <div class="mb-3 text-center">
-                            <h1 class="text-secondary text-uppercase">@JSMS.Resources.Language.CreateNewAccount</h1>
-                            <p class="fst-italic">@JSMS.Resources.Language.RememberUP</p>
-                        </div>
-                        <div>
-                            <div class="form-group mb-4">
-                                <label>@JSMS.Resources.Language.Username</label>
-                                <input type="text" id="username" class="form-control" name="UserName" placeholder="@JSMS.Resources.Language.Input">
-                            </div>
+                    <h2 class="text-center" id="login">
+                        @JSMS.Resources.Language.Welcome
+                    </h2>
 
-                            <div class="form-group mb-4">
-                                <label>@JSMS.Resources.Language.Password</label>
-                                <input type="password" id="password" class="form-control" name="Password" placeholder="@JSMS.Resources.Language.Input">
+                    <p class="text-center" id="login">@JSMS.Resources.Language.PleaseLogin</p>
 
-                            </div>
-                            <div class="form-group mb-4">
-                                <label>@JSMS.Resources.Language.ConfirmPassword</label>
-                                <input type="password" id="confirm-password" class="form-control" name="ConfirmPassword" placeholder="@JSMS.Resources.Language.Input">
-
-                            </div>
-
-                        </div>
-                        <div class="footer">
-                            <button type="button" id="sign-up" class="btn btn-secondary w-100 mb-2">
-                                <i class="fas fa-user-plus"></i>
-                                <span class="text-uppercase">@JSMS.Resources.Language.CreateAccount</span>
-                            </button>
-                            <div class="text-center">
-                                <a href="@Url.Action("Login","Account")">@JSMS.Resources.Language.AlreadyAccount</a>
-                            </div>
-                            <div class="text-center mt-2">
-                                @if (Request.Cookies["Languages"].Value == "km")
-                                {
-                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "en"})"
-                                       role="button">
-                                        <img src="~/Images/us.png" width="25">
-                                        <span>@JSMS.Resources.Language.English</span>
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a class="nav-link" href="@Url.Action("Change","Language",new {translator = "km"})"
-                                       role="button">
-                                        <img src="~/Images/kh.png" width="25">
-                                        <span>@JSMS.Resources.Language.Khmer</span>
-                                    </a>
-                                }
-                            </div>
-                        </div>
-
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" id="username" name="UserName" placeholder="@JSMS.Resources.Language.Email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
                     </div>
 
-                </div>
-            </section>
-        </form>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" id="password" name="Password" placeholder="@JSMS.Resources.Language.Password">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" id="confirm-password" name="ConfirmPassword" placeholder="@JSMS.Resources.Language.ConfirmPassword">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button id="btnlogin" type="button">
+                            @JSMS.Resources.Language.CreateAccount
+                        </button>
+                    </div>
+                    <div class="text-center p-t-20">
+                        <a id="txt2" href="@Url.Action("Login", "Account")">
+                            @JSMS.Resources.Language.AlreadyAccount
+                            <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="text-center mt-2 p-t-20">
+                        @if (Request.Cookies["Languages"].Value == "km")
+                        {
+                            <a class="nav-link" href="@Url.Action("Change", "Language", new { translator = "en" })"
+                               role="button">
+                                <img src="~/Images/us.png" style=" width: 17px;">
+                                English
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="@Url.Action("Change", "Language", new { translator = "km" })"
+                               role="button">
+                                <img class="mt-4" src="~/Images/kh.png" style=" width: 17px;">
+                                ភាសាខ្មែរ
+                            </a>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
     <script src="~/Scripts/Libraries/bootstrap.min.js"></script>
     <script src="~/Scripts/Libraries/jquery-3.7.1.min.js"></script>
     <script src="~/Theme/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/Libraries/popper.js"></script>
+    <script src="~/Scripts/Libraries/select2.min.js"></script>
+    <script src="~/Scripts/Libraries/main.js"></script>
+    <script src="~/Scripts/Libraries/tilt.jquery.min.js"></script>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
-    <script>
+<script>
+        $('#js-tilt').tilt({
+            scale: 1.1
+        })
+
+        //< !--=============================================================================================== -->
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
-            timer: 5000
+            timer: 3000
         });
 
-        $("#sign-up").click(() => {
+        $("#btnlogin").click(() => {
             let isValid = validate();
             isValid ? $.ajax({
                 url: "/Account/Register",
@@ -151,7 +167,7 @@
             let confirmPassword = $("#confirm-password");
             if (username.val() === "") {
                 Toast.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title: "សូមបញ្ចូល @JSMS.Resources.Language.Username",
                     icon: "warning",
                 });
                 username.css("border-color", "red");
@@ -161,7 +177,7 @@
                 username.css("border-color", "#cccccc");
                 if (password.val() === "") {
                     Toast.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                        title: "សូមបញ្ចូល @JSMS.Resources.Language.Password",
                         icon: "warning",
                     });
                     password.css("border-color", "red");
@@ -171,7 +187,7 @@
                     password.css("border-color", "#cccccc");
                     if (confirmPassword.val() === "") {
                         Toast.fire({
-                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                            title: "សូមបញ្ចូល @JSMS.Resources.Language.ConfirmPassword",
                             icon: "warning",
                         });
                         confirmPassword.css("border-color", "red");
@@ -185,7 +201,7 @@
 
             return isValid;
         };
-    </script>
+</script>
 </body>
 
 </html>

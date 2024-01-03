@@ -11,6 +11,7 @@
     --dark-color: #535b61;
     --white-color: #fff;
 }
+
 h5,h4, h3, span, p, #li, td {
     font-family: 'Khmer OS Battambang';
 }
@@ -76,8 +77,8 @@ body {
 
 .invoice-wrapper {
     min-height: 100vh;
-    background-color: rgba(0, 0, 0, 0.1);
-    padding-top: 20px;
+    background-color: rgba(, 0, 0, 0.1);
+    padding-top: 20px;0
     padding-bottom: 20px;
 }
 
