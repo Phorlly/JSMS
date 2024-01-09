@@ -11,32 +11,87 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto">
-                <a href="@Url.Action("Index", "Blog")" class="nav-item nav-link">Home</a>
-                <a href="@Url.Action("About", "Blog")" class="nav-item nav-link">About</a>
-                <a href="@Url.Action("Service", "Blog")" class="nav-item nav-link">Service</a>
-                <a href="@Url.Action("Contact", "Blog")" class="nav-item nav-link">Contact</a>
-                <a href="@Url.Action("Career", "Blog")" class="nav-item nav-link">Career</a>
-                @*<a href="@Url.Action("Index", "TestAtt")" class="nav-item nav-link">Attendance</a>*@
-                <a href="@Url.Action("CheckIn", "AttendanceBlog")" class="nav-item nav-link">Check In</a>
-                <a href="@Url.Action("CheckOut", "AttendanceBlog")" class="nav-item nav-link">Check Out</a>
+                <a href="@Url.Action("Index", "Blog")" class="nav-item nav-link rounded">
+                    <i class="fas fa-home"></i> @JSMS.Resources.Language.Home
+                </a>
+                <a href="@Url.Action("About", "Blog")" class="nav-item nav-link rounded">
+                    <i class="fas fa-info-circle"></i> @JSMS.Resources.Language.About
+                </a>
+                <a href="@Url.Action("Service", "Blog")" class="nav-item nav-link rounded">
+                    <i class="fas fa-sun"></i> @JSMS.Resources.Language.Service
+                </a>
+                <a href="@Url.Action("Contact", "Blog")" class="nav-item nav-link rounded">
+                    <i class="fas fa-phone-volume"></i> @JSMS.Resources.Language.Contact
+                </a>
+                <a href="@Url.Action("Career", "Blog")" class="nav-item nav-link rounded">
+                    <i class="fas fa-toolbox"></i> @JSMS.Resources.Language.Career
+                </a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle rounded" data-bs-toggle="dropdown">
+                        <i class="fas fa-calendar-alt"></i> @JSMS.Resources.Language.Attendance
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="@Url.Action("CheckIn", "AttendanceBlog")" class="nav-item nav-link rounded">
+                            <i class=" fas fa-caret-square-right"></i> @JSMS.Resources.Language.GoToWork
+                        </a>
+                        <a href="@Url.Action("CheckOut", "AttendanceBlog")" class="nav-item nav-link rounded">
+                            <i class=" fas fa-caret-square-left"></i> @JSMS.Resources.Language.OutOfWork
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle rounded" data-bs-toggle="dropdown">
+                        <i class="fas fa-random"></i> @JSMS.Resources.Language.ChangeLanguage
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="@Url.Action("Change","Language",new {translator = "km"})" class="nav-item nav-link rounded">
+                            <img src="~/Images/kh.png" width="25">
+                            <span>@JSMS.Resources.Language.Khmer</span>
+                        </a>
+                        <a href="@Url.Action("Change","Language",new {translator = "en"})" class="nav-item nav-link rounded">
+                            <img src="~/Images/us.png" width="25">
+                            <span>@JSMS.Resources.Language.English</span>
+                        </a>
+                    </div>
+                </div>
                 <!-- <a href="event.html" class="nav-item nav-link">Events</a> -->
                 <!-- <a href="menu.html" class="nav-item nav-link">Menu</a> -->
-                <!-- <div class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Career</a>
-        <div class="dropdown-menu bg-light">
-            <a href="book.html" class="dropdown-item">Booking</a>
-            <a href="blog.html" class="dropdown-item">Our Blog</a>
-            <a href="team.html" class="dropdown-item">Our Team</a>
-            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-            <a href="404.html" class="dropdown-item">404 Page</a>
-        </div>
-    </div> -->
+                @*<div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Career</a>
+            <div class="dropdown-menu bg-light">
+                <a href="book.html" class="dropdown-item">Booking</a>
+                <a href="blog.html" class="dropdown-item">Our Blog</a>
+                <a href="team.html" class="dropdown-item">Our Team</a>
+                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                <a href="404.html" class="dropdown-item">404 Page</a>
             </div>
-            <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex"
-                    data-bs-toggle="modal" data-bs-target="#searchModal">
-                <i class="fas fa-search"></i>
-            </button>
-            <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Book Now</a>
+        </div>*@
+            </div>
+            @*<button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex"
+                data-bs-toggle="modal" data-bs-target="#searchModal">
+            <i class="fas fa-search"></i>
+        </button>*@
         </div>
     </nav>
 </div>
+<script src="~/Scripts/Libraries/jquery-3.7.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Get the current URL
+        var currentUrl = window.location.pathname;
+
+        // Remove existing bg-warning class from all nav-links
+        $('.navbar-nav a.nav-link').removeClass('bg-warning');
+        // Remove existing bg-light class from all dropdown menu items
+        $('.dropdown-menu a.nav-link').removeClass('bg-warning');
+        $('.dropdown-toggle').removeClass('bg-warning');
+
+        // Add bg-light class to the dropdown toggle link if its href attribute matches the current URL
+        $('.dropdown-toggle[href="' + currentUrl + '"]').addClass('bg-warning');
+        // Add bg-light class to the dropdown menu item with a matching href attribute
+        $('.dropdown-menu a.nav-link[href="' + currentUrl + '"]').addClass('bg-warning');
+        // Add bg-warning class to the nav-link with a matching href attribute
+        $('.navbar-nav a.nav-link[href="' + currentUrl + '"]').addClass('bg-warning');
+    });
+</script>
