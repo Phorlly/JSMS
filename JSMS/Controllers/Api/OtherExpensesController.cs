@@ -124,7 +124,7 @@ namespace JSMS.Controllers.Api
                     var currentTotalCost = _context.OtherExpenses.Sum(t => t.Cost);
 
                     // Check if the expense exceeds the total income
-                    if (currentTotalCost > post.Cost)
+                    if (post.Cost > currentTotalCost)
                     {
                         return BadRequest("Expense cannot exceed total income.");
                     }

@@ -1,4 +1,4 @@
-﻿jQuery(document).ready(() => {
+﻿    jQuery(document).ready(() => {
     loadingGif();
     numberOnly("phone1");
     numberOnly("phone2");
