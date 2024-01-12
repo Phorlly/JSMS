@@ -13,13 +13,13 @@
 
         <div class="row g-5 align-items-center">
             <div class="col-md-12 text-center">
-                <h1 class="display-1 mb-4">Attendance Daily</h1>
-                <br><hr />
+                <h1 class="display-1 mb-4">@JSMS.Resources.Language.AttendanceDaily</h1>
+                <hr />
                 @if (Model != null)
                 {
                     <div class="col-md-12">
                         <select id="staff-check-in" class="form-select border-primary p-2" aria-label="Default select example" style="font-family: Hanuman, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-                            <option value="-1">---សូមជ្រើសរើសអត្តលេខបុគ្គលិកមួយ---</option>
+                            <option value="-1">---@JSMS.Resources.Language.SelectStaff---</option>
                             @foreach (var response in Model) //
                             {
                                 <option value="@response.Id">
@@ -37,7 +37,8 @@
                 <br />
                 <br>
                 <button id="add-check-in" type="button" class="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 me-4 animated bounceInLeft" data-bs-toggle="modal" data-bs-target="">
-                    Check In
+                    <i class="fas fa-sign-in-alt"></i> 
+                    <span>@JSMS.Resources.Language.GoToWork</span> 
                 </button>
             </div>
         </div>

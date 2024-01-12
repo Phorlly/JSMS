@@ -168,6 +168,9 @@
   <data name="Attendance" xml:space="preserve">
     <value>បញ្ជីវត្តមាន</value>
   </data>
+  <data name="AttendanceDaily" xml:space="preserve">
+    <value>វត្ត​មានបុគ្គលិកប្រចាំថ្ងៃ</value>
+  </data>
   <data name="AttendanceInfo" xml:space="preserve">
     <value>ព័ត៌មានអំពីវត្តមាន</value>
   </data>
@@ -198,6 +201,9 @@
   <data name="Cambodia" xml:space="preserve">
     <value>ព្រះរាជាណាចក្រកម្ពុជា</value>
   </data>
+  <data name="Career" xml:space="preserve">
+    <value>អាជីព</value>
+  </data>
   <data name="ChangeLanguage" xml:space="preserve">
     <value>ប្ដូរ​ភាសា</value>
   </data>
@@ -205,10 +211,10 @@
     <value>ប្ដូរពាក្យសម្ងាត់</value>
   </data>
   <data name="CheckIn" xml:space="preserve">
-    <value>ថ្ងៃខែឆ្នាំ និងម៉ោងចូល</value>
+    <value>កាលបរិច្ឆេទចូលធ្វើការងារ</value>
   </data>
   <data name="CheckOut" xml:space="preserve">
-    <value>ថ្ងៃខែឆ្នាំ​ និងម៉ោងចេញ</value>
+    <value>កាលបរិច្ឆេទចេញពីធ្វើការងារ</value>
   </data>
   <data name="Client" xml:space="preserve">
     <value>អតិថិជន</value>
@@ -324,9 +330,6 @@
   <data name="FullTime" xml:space="preserve">
     <value>ការងារ​ពេញ​ម៉ោង</value>
   </data>
-  <data name="GDTREG" xml:space="preserve">
-    <value>GDTREG</value>
-  </data>
   <data name="Gender" xml:space="preserve">
     <value>ភេទ</value>
   </data>
@@ -338,6 +341,9 @@
   </data>
   <data name="GenerateInvoice" xml:space="preserve">
     <value>បង្កើតវិក័យប័ត្រថ្មី</value>
+  </data>
+  <data name="GoToWork" xml:space="preserve">
+    <value>ចូល​ធ្វើការងារ</value>
   </data>
   <data name="Guarantor" xml:space="preserve">
     <value>អ្នកធានា</value>
@@ -516,6 +522,9 @@
   <data name="OtherGLType" xml:space="preserve">
     <value>ប្រភេទប្រតិបត្តិការ</value>
   </data>
+  <data name="OutOfWork" xml:space="preserve">
+    <value>ចេញពីធ្វើការងារ</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>ម្ចាស់ភាគហ៊ុន</value>
   </data>
@@ -644,6 +653,12 @@
   </data>
   <data name="SelectDate" xml:space="preserve">
     <value>សូមជ្រើសរើសថ្ងៃខែ</value>
+  </data>
+  <data name="SelectStaff" xml:space="preserve">
+    <value>សូមជ្រើសរើសអត្តលេខបុគ្គលិក</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>សេវាកម្មរបស់យើង</value>
   </data>
   <data name="Setting" xml:space="preserve">
     <value>ការកំណត់ផ្សេងៗ</value>
