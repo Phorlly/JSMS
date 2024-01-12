@@ -74,18 +74,13 @@ namespace JSMS.Controllers.Api
                 // Calculate Amount
                 post.Amount = post.Qty * post.UnitPrice;
 
-                //set tax == 0 
-                if (post.Tax == null)
-                {
-                    post.Tax = 0;
-                }
-                else
-                {
-                    post.Tax = post.Amount * post.Tax;
-                }
+                // Set tax default to 0%
+                post.Tax = post.Tax ?? 0;
+
+                var ValueTax = post.Amount * post.Tax / 100;
 
                 // Calculate Total
-                post.Total = post.Amount + post.Tax;
+                post.Total = post.Amount + ValueTax;
 
                 // Save to the database
                 context.Invoices.Add(post);
@@ -132,8 +127,10 @@ namespace JSMS.Controllers.Api
                 // Set tax default to 0%
                 existing.Tax = update.Tax ?? 0;
 
+                var ValueTax = existing.Amount * existing.Tax / 100;
+
                 // Calculate Total
-                existing.Total = existing.Amount + existing.Tax;
+                existing.Total = existing.Amount + ValueTax;
 
                 context.SaveChanges();
 

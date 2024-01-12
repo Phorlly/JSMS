@@ -290,7 +290,7 @@ expenseSave.click(() => {
                             text: "Invoice code already exists. Please use a different Invoice code",
                         });
                     } else if (xhr.responseJSON.Message === "Expense cannot exceed total income.") {
-                        Swal.fire({
+                        Swal.fire({ 
                             icon: "error",
                             title: "Oops...",
                             text: "Expense cannot exceed total income.",
@@ -334,8 +334,6 @@ const editExpense = (id) => {
         statusCode: {
             200: (response) => {
                 console.log(response);
-                //setColorStock();
-                clearGL();
                 updateExpense.show();
                 expenseSave.hide();
 
@@ -385,7 +383,6 @@ updateExpense.click(() => {
             200: (response) => {
                 dataId.val(response.Id);
                 tableGL.ajax.reload();
-                clearGL();
                 modalExpense.modal("hide");
 
                 Swal.fire({
@@ -439,7 +436,6 @@ updateExpense.click(() => {
 });
 
 const removeExpense = (id) => {
-    alert(id);
     Swal.fire({
         title: "តើអ្នកប្រាកដដែលឬទេ?",
         text: "ទិន្នន័យដែលលុបមិនអាចទាញមកវិញបានទេ",

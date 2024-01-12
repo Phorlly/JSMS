@@ -124,9 +124,12 @@ namespace JSMS.Controllers.Api
                     var currentTotalCost = _context.OtherExpenses.Sum(t => t.Cost);
 
                     // Check if the expense exceeds the total income
-                    if (post.Cost > currentTotalCost)
+                    if ( currentTotalCost < post.Cost)
                     {
                         return BadRequest("Expense cannot exceed total income.");
+                    } else if( currentTotalCost == null)
+                    {
+                        currentTotalCost = 0;
                     }
 
                     // Add expense transaction
@@ -150,7 +153,7 @@ namespace JSMS.Controllers.Api
 
                 // Update the Total field in the Transaction table
                 var total = _context.OtherExpenses.Sum(t => t.Cost);
-                post.Total = (double)total;
+                post.Total = (float)total;
 
                 // Save changes to the database
                 _context.SaveChanges();

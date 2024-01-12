@@ -47,6 +47,7 @@ AddNewBtn.click(() => {
     clear();
     modalInvoice.modal("show");
     updateInvoice.hide();
+    saveBtn.show();
 });
 
 refresh.click(() => {
@@ -255,8 +256,10 @@ saveBtn.click(() => {
         success: (response) => {
             dataId.val(response.Id);
             tableInvoice.ajax.reload();
+            
             clear();
             modalInvoice.modal("hide");
+
             Swal.fire({
                 //position: "top-end",
                 title: response.message,
