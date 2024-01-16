@@ -107,9 +107,13 @@ namespace JSMS.Controllers.Api
                     var currentTotalCost = await context.OtherExpenses.SumAsync(t => t.Cost);
 
                     // Check if the expense exceeds the total income
+                    if ( currentTotalCost < post.Cost)
                     if (currentTotalCost  > post.Cost)
                     {
                         return BadRequest("Expense cannot exceed total income.");
+                    } else if( currentTotalCost == null)
+                    {
+                        currentTotalCost = 0;
                     }
 
                     // Add expense transaction
@@ -132,6 +136,8 @@ namespace JSMS.Controllers.Api
                 }
 
                 // Update the Total field in the Transaction table
+                var total = _context.OtherExpenses.Sum(t => t.Cost);
+                post.Total = (float)total;
                 var total = await context.OtherExpenses.SumAsync(t => t.Cost);
                 post.Total = (decimal)total;
 
