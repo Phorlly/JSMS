@@ -14,6 +14,11 @@ namespace JSMS.Models.Admin
         public int Position { get; set; }
         public decimal? MainSalary { get; set; }
         public decimal? PremierSalary { get; set; } 
-        public DateTime? CurrentDate { get; set; }  
+        public DateTime? CurrentDate { get; set; }
+
+        public Staff()
+        {
+            PremierSalary = 15;
+        }
     }
 }

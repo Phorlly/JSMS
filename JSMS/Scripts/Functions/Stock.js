@@ -5,6 +5,7 @@
     byStock.change(() => getStockReport());
     getStockReport();
     datePicker("#date-in-out");
+    numberOnly("quantity");
     $("#show-stock").click(() => getAll());
 });
 
@@ -65,12 +66,12 @@ const getAll = () => {
             {
                 //title: "Stock In",
                 data: null,
-                render: row => row.Stock.Status === 1 ? `<span class="text-warning fw-bolder">ចំនួន ${row.Stock.Quantity}</span>` : 0
+                render: row => row.Stock.Status === 1 ? `<span class="text-warning fw-bolder">${lAmount}​ ${row.Stock.Quantity}</span>` : 0
             },
             {
                 //title: "Stock Out",
                 data: null,
-                render: row => row.Stock.Status === 2 ? `<span class="text-danger fw-bolder">ចំនួន​ -${row.Stock.Quantity}</span>` : 0
+                render: row => row.Stock.Status === 2 ? `<span class="text-danger fw-bolder">${lAmount}​ -${row.Stock.Quantity}</span>` : 0
             },
             {
                 //title: "Date In/Out",
@@ -107,36 +108,40 @@ const getAll = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីស្តុកទំនិញ",
+                title: lProductAvailable,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
 
             {
-                title: "បញ្ជីស្តុកទំនិញ",
+                title: lProductAvailable,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីស្តុកទំនិញ",
+                title: lProductAvailable,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីស្តុកទំនិញ",
+                title: lProductAvailable,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -157,8 +162,8 @@ const getStockReport = () => {
             $('#stock-summary tbody').empty();
             $.each(response, (index, row) => {
                 let date = moment(row.Created).format('DD/MMM/YY');
-                let stockIn = row.Status === 1 ? `<b class="text-warning fst-italic fw-bolder">ចំនួន​ ${row.Quantity} </b>` : 0;
-                let stockOut = row.Status === 2 ? `<b class="text-danger fst-italic fw-bolder">ចំនួន​ -${row.Stock.Quantity}</b>` : 0;
+                let stockIn = row.Status === 1 ? `<b class="text-warning fst-italic fw-bolder">${lAmount} ${row.Quantity} </b>` : 0;
+                let stockOut = row.Status === 2 ? `<b class="text-danger fst-italic fw-bolder">${lAmount}​ -${row.Stock.Quantity}</b>` : 0;
 
                 var newRow = `<tr>
                                     <td>${index + 1}</td>
@@ -186,24 +191,19 @@ const getStockReport = () => {
                 lengthChange: false,
                 buttons: [
                     {
-                        title: "របាយការណ៍ស្តុកទំនិញ",
+                        title: lReportStockAvailable,
                         extend: "excelHtml5",
                         text: "<i class='fa fa-file-excel'> </i> Excel",
                         className: "btn btn-success btn-sm mt-2",
                     },
                     {
-                        title: "របាយការណ៍ស្តុកទំនិញ",
+                        title: lReportStockAvailable,
                         extend: "print",
                         text: "<i class='fa fa-print'> </i> Print",
                         className: "btn btn-dark btn-sm mt-2",
                     },
                 ],
             });
-        },
-        400: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
@@ -245,7 +245,7 @@ saveStock.click(() => {
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
-
+            getAll();
             dataId.val(response.Id);
             tableStock.ajax.reload();
             clearStock();
@@ -289,7 +289,7 @@ const editStock = (id) => {
             productType.val(response.Product.Id);
             quantity.val(response.Stock.Quantity);
             sNoted.val(response.Stock.Noted);
-            dateIO.val(formatDate(response.Stock.Date));
+            dateIO.val(response ? formatDate(response.Stock.Date) : setCurrentDate("#date-in-out"));
             stockIO.val(response.Stock.Status === 1 ? 1 : 2)
 
             modalStock.modal("show");
@@ -354,12 +354,12 @@ updateStock.click(() => {
 //Delete data by id
 const removeStock = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value ?
@@ -387,7 +387,7 @@ const removeStock = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+                title: lTheSame,
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -405,14 +405,13 @@ const clearStock = () => {
     dataId.val("");
     quantity.val("");
     stockIO.val("-1");
-    dateIO.val("");
+    setCurrentDate("#date-in-out");
 };
 
 //Set color to border control
 const setColorStock = () => {
     productType.css("border-color", "#cccccc");
     stockIO.css("border-color", "#cccccc");
-    dateIO.css("border-color", "#cccccc");
     quantity.css("border-color", "#cccccc");
 };
 
@@ -421,7 +420,7 @@ const validateStock = () => {
     let isValid = true;
     if (productType.val() === "-1") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lSelect} ${lProduct}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -434,7 +433,7 @@ const validateStock = () => {
         productType.css("border-color", "#cccccc");
         if (stockIO.val() === "-1") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title: `${lSelect} ${lStockType}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -447,7 +446,7 @@ const validateStock = () => {
             stockIO.css("border-color", "#cccccc");
             if (quantity.val() === "") {
                 Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title: `${lInput} ${lQuantity}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -458,20 +457,7 @@ const validateStock = () => {
                 isValid = false;
             } else {
                 quantity.css("border-color", "#cccccc");
-                if (dateIO.val() === "") {
-                    Swal.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
-                        icon: "warning",
-                        showConfirmButton: false,
-                        customClass: { title: 'custom-swal-title' },
-                        timer: 1500,
-                    });
-                    dateIO.css("border-color", "red");
-                    dateIO.focus();
-                    isValid = false;
-                } else {
-                    dateIO.css("border-color", "#cccccc");
-                }
+
             }
         }
     }

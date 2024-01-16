@@ -1,9 +1,9 @@
-﻿    jQuery(document).ready(() => {
+﻿jQuery(document).ready(() => {
     loadingGif();
     numberOnly("phone1");
     numberOnly("phone2");
     addNew.show();
-    addBevior.hide();
+    addBehavior.hide();
     addGuanrantor.hide();
     dataApplicant.show();
     dataBehavior.hide();
@@ -66,13 +66,6 @@ let titleBehavior = $("#title-behavior");
 let cDis = $("#current-dis");
 let cCom = $("#current-com");
 let cVil = $("#current-vil");
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    customClass: { title: 'custom-swal-title' },
-    timer: 3000
-});
 
 //Get all data of applicant
 const getApplicant = () => {
@@ -108,7 +101,7 @@ const getApplicant = () => {
             {
                 //title: "Gender",
                 data: "Applicant.Gender",
-                render: (row) => row === true ? male : female,
+                render: (row) => row === true ? lMale : lFemale,
             },
             {
                 //title: "Profile",
@@ -124,7 +117,7 @@ const getApplicant = () => {
             {
                 //title: "DOB",
                 data: "Applicant.DOB",
-                render: row => row ? calculateAge(row) : ""
+                render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
             },
             {
                 //title: "Nationality",
@@ -159,12 +152,12 @@ const getApplicant = () => {
             },
             {
                 //title: "Actions",
-                data: "Applicant.Id",
+                data: null,
                 render: (row) => `<div> 
-                                      <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
+                                      <button onclick= "edit('${row.Applicant.Id}', '${row.Applicant.Id}')" class= 'btn btn-warning btn-sm' >
                                           <span class='fas fa-edit'></span>
                                       </button>
-                                      <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
+                                      <button onclick= "remove('${row.Applicant.Id}')" class= 'btn btn-danger btn-sm' >
                                           <span class='fas fa-trash-alt'></span>
                                       </button>
                                    </div>`,
@@ -172,25 +165,25 @@ const getApplicant = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីបេក្ខជនបានដាក់ពាក្យ",
+                title: lApplicantList,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបេក្ខជនបានដាក់ពាក្យ",
+                title: lApplicantList,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបេក្ខជនបានដាក់ពាក្យ",
+                title: lApplicantList,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបេក្ខជនបានដាក់ពាក្យ",
+                title: lApplicantList,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -229,7 +222,7 @@ addNew.click(() => {
 //Hide or show button action
 tabApplicant.click(() => {
     addNew.show();
-    addBevior.hide();
+    addBehavior.hide();
     addGuanrantor.hide();
     dataApplicant.show();
     dataBehavior.hide();
@@ -241,7 +234,7 @@ tabApplicant.click(() => {
 });
 
 tabBehavior.click(() => {
-    addBevior.show();
+    addBehavior.show();
     addNew.hide();
     addGuanrantor.hide();
     dataBehavior.show();
@@ -254,7 +247,7 @@ tabBehavior.click(() => {
 
 tabGuarntor.click(() => {
     addGuanrantor.show();
-    addBevior.hide();
+    addBehavior.hide();
     addNew.hide();
     dataGuarantor.show();
     dataBehavior.hide();
@@ -302,17 +295,23 @@ save.click(() => {
         processData: false,
         data: formData,
         success: (response) => {
+            getApplicant();
             dataId.val(response.Id);
             table.ajax.reload();
             clear();
             //modalApplicant.modal("hide");
-            Toast.fire({
+
+            Swal.fire({
                 title: response.message,
                 icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500
             });
+            
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-            Toast.fire({
+            Swal.fire({
                 title: xhr.responseJSON.message,
                 icon: "error",
             }) : console.log(xhr.responseText),
@@ -349,22 +348,22 @@ const edit = (id) => {
             bDistrictId.val(response.BDistrict.Id);
             bCommuneId.val(response.BCommune.Id);
             bVillageId.val(response.BVillage.Id);
-            bDis.hide();
-            bCom.hide();
-            bVil.hide();
+            //bDis.hide();
+            //bCom.hide();
+            //bVil.hide();
 
             cProvince.val(response.CProvince.Id);
             cDistrictId.val(response.CDistrict.Id);
             cCommuneId.val(response.CCommune.Id);
             cVillageId.val(response.CVillage.Id);
-            cDis.hide();
-            cCom.hide();
-            cVil.hide();
+            //cDis.hide();
+            //cCom.hide();
+            //cVil.hide();
 
             modalApplicant.modal("show");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-            Toast.fire({
+            Swal.fire({
                 title: xhr.responseJSON.message,
                 icon: "error",
             }) : console.log(xhr.responseText),
@@ -420,17 +419,17 @@ update.click(() => {
         data: formData,
         success: (response) => {
             table.ajax.reload();
-            modalApplicant.modal("hide");
             Swal.fire({
                 title: response.message,
                 icon: "success",
                 showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
+                //customClass: { title: 'custom-swal-title' },
                 timer: 1500
             });
+            modalApplicant.modal("hide");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-            Toast.fire({
+            Swal.fire({
                 title: xhr.responseJSON.message,
                 icon: "error",
             }) : console.log(xhr.responseText),
@@ -440,12 +439,12 @@ update.click(() => {
 //Delete data by id
 const remove = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value ? $.ajax({
@@ -462,14 +461,20 @@ const remove = (id) => {
                 });
             },
             error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-                Toast.fire({
+                Swal.fire({
                     title: xhr.responseJSON.message,
                     icon: "error",
+                    showConfirmButton: false,
+                    customClass: { title: 'custom-swal-title' },
+                    timer: 1500
                 }) : console.log(xhr.responseText),
         }) : param.dismiss === Swal.DismissReason.cancel &&
-        Toast.fire({
-            title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+        Swal.fire({
+            title: lTheSame,
             icon: "error",
+            showConfirmButton: false,
+            customClass: { title: 'custom-swal-title' },
+            timer: 1500
         });
     }).catch((err) => console.log(err.message));
 };
@@ -521,49 +526,64 @@ const setColor = () => {
 const validate = () => {
     let isValid = true;
     if (birthName.val() === "") {
-        Toast.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+        Swal.fire({
+            title: `${lInput} ${lFirstName}`,
             icon: "warning",
+            showConfirmButton: false,
+            customClass: { title: 'custom-swal-title' },
+            timer: 1000
         });
         birthName.css("border-color", "red");
         birthName.focus();
         isValid = false;
     } else {
         birthName.css("border-color", "#cccccc");
-        if (national.val() === "") {
-            Toast.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+        if (nickName.val() === "") {
+            Swal.fire({
+                title: `${lInput} ${lLastName}`,
                 icon: "warning",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1000
             });
-            national.css("border-color", "red");
-            national.focus();
+            nickName.css("border-color", "red");
+            nickName.focus();
             isValid = false;
         } else {
-            national.css("border-color", "#cccccc");
-            if (nationality.val() === "") {
-                Toast.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            nickName.css("border-color", "#cccccc");
+            if (national.val() === "") {
+                Swal.fire({
+                    title: `${lInput} ${lNational}`,
                     icon: "warning",
+                    showConfirmButton: false,
+                    customClass: { title: 'custom-swal-title' },
+                    timer: 1000
                 });
-                nationality.css("border-color", "red");
-                nationality.focus();
+                national.css("border-color", "red");
+                national.focus();
                 isValid = false;
             } else {
-                nationality.css("border-color", "#cccccc");
-                if (education.val() === "-1") {
-                    Toast.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យ",
+                national.css("border-color", "#cccccc");
+                if (nationality.val() === "") {
+                    Swal.fire({
+                        title: `${lInput} ${lNationality}`,
                         icon: "warning",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1000
                     });
-                    education.css("border-color", "red");
-                    education.focus();
+                    nationality.css("border-color", "red");
+                    nationality.focus();
                     isValid = false;
                 } else {
-                    education.css("border-color", "#cccccc");
+                    nationality.css("border-color", "#cccccc");
                     if (phone1.val() === "") {
-                        Toast.fire({
-                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                        Swal.fire({
+                            title: `${lInput} ${lPhone}`,
                             icon: "warning",
+                            showConfirmButton: false,
+                            customClass: { title: 'custom-swal-title' },
+                            timer: 1000
                         });
                         phone1.css("border-color", "red");
                         phone1.focus();
@@ -571,15 +591,60 @@ const validate = () => {
                     } else {
                         phone1.css("border-color", "#cccccc");
                         if (dob.val() === "") {
-                            Toast.fire({
-                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                            Swal.fire({
+                                title: `${lSelect} ${lDOB}`,
                                 icon: "warning",
+                                showConfirmButton: false,
+                                customClass: { title: 'custom-swal-title' },
+                                timer: 1000
                             });
                             dob.css("border-color", "red");
-                            dob.focus();
+                            //dob.focus();
                             isValid = false;
                         } else {
                             dob.css("border-color", "#cccccc");
+                            if (education.val() === "-1") {
+                                Swal.fire({
+                                    title: `${lSelect} ${lEducation}`,
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    customClass: { title: 'custom-swal-title' },
+                                    timer: 1000
+                                });
+                                education.css("border-color", "red");
+                                education.focus();
+                                isValid = false;
+                            } else {
+                                education.css("border-color", "#cccccc");
+                                if (bProvince.val() === "-1") {
+                                    Swal.fire({
+                                        title: `${lSelect} ${lProvince}`,
+                                        icon: "warning",
+                                        showConfirmButton: false,
+                                        customClass: { title: 'custom-swal-title' },
+                                        timer: 1000
+                                    });
+                                    bProvince.css("border-color", "red");
+                                    bProvince.focus();
+                                    isValid = false;
+                                } else {
+                                    bProvince.css("border-color", "#cccccc");
+                                    if (cProvince.val() === "-1") {
+                                        Swal.fire({
+                                            title: `${lSelect} ${lProvince}`,
+                                            icon: "warning",
+                                            showConfirmButton: false,
+                                            customClass: { title: 'custom-swal-title' },
+                                            timer: 1000
+                                        });
+                                        cProvince.css("border-color", "red");
+                                        cProvince.focus();
+                                        isValid = false;
+                                    } else {
+                                        cProvince.css("border-color", "#cccccc");
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -588,6 +653,7 @@ const validate = () => {
     }
     return isValid;
 };
+
 
 //==================Place of Birth=====================//
 //Change value
@@ -604,9 +670,9 @@ bProvince.change(() => {
             bDistrict.empty();
             bCommune.empty();
             bVillage.empty();
-            bDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            bCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            bVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            bDistrict.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
+            bCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            bVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 bDistrict.append(
@@ -619,7 +685,7 @@ bProvince.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : bProvince.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : bProvince.append($("<option>").val(-1).text(`---${lSelect} ${lProvince}---`));
 
 });
 
@@ -635,8 +701,8 @@ bDistrict.change(() => {
         success: (response) => {
             bCommune.empty();
             bVillage.empty();
-            bCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            bVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            bCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            bVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 bCommune.append(
@@ -649,7 +715,7 @@ bDistrict.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : bDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : bDistrict.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
 });
 
 //Change value
@@ -664,7 +730,7 @@ bCommune.change(() => {
         dataType: "JSON",
         success: (response) => {
             bVillage.empty();
-            bVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            bVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 bVillage.append(
@@ -677,7 +743,7 @@ bCommune.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : bCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : bCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
 });
 
 //==================Current Address=====================//
@@ -695,9 +761,9 @@ cProvince.change(() => {
             cDistrict.empty();
             cCommune.empty();
             cVillage.empty();
-            cDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            cCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            cVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            cDistrict.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
+            cCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            cVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 cDistrict.append(
@@ -710,7 +776,7 @@ cProvince.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : cProvince.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : cProvince.append($("<option>").val(-1).text(`---${lSelect} ${lProvince}---`));
 });
 
 //Change value
@@ -726,15 +792,15 @@ cDistrict.change(() => {
         success: (response) => {
             cCommune.empty();
             cVillage.empty();
-            cCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            cVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            cCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            cVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 cCommune.append($("<option>").val(row.Id).text(row.NameKh + " / " + row.Name));
             });
         },
         error: (hasError) => console.log(hasError),
-    }) : cDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : cDistrict.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
 });
 
 //Change value
@@ -749,7 +815,7 @@ cCommune.change(() => {
         dataType: "JSON",
         success: (response) => {
             cVillage.empty();
-            cVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            cVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
             $.each(response, (inex, row) => {
                 cVillage.append($("<option>").val(row.Id).html(row.NameKh + " / " + row.Name));
             });
@@ -757,5 +823,5 @@ cCommune.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : cCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : cCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
 });

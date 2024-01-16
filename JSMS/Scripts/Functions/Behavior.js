@@ -6,7 +6,7 @@
 
 //Declare variable for use global
 let behavior = [];
-let addBevior = $("#add-bevior");
+let addBehavior = $("#add-bevior");
 let behaviorId = $("#behavior-id");
 let updateBevior = $("#update-behavior");
 let saveBevior = $("#save-behavior");
@@ -53,7 +53,7 @@ const getBehavior = () => {
             {
                 //title: "Gender",
                 data: "Applicant.Gender",
-                render: (row) => row === true ? "ប្រុស" : "ស្រី",
+                render: (row) => row === true ? lMale : lFemale,
             },
             {
                 //title: "Profile",
@@ -116,25 +116,25 @@ const getBehavior = () => {
         ],
         buttons: [
             {
-                title: "លិខិត្តចញ្ជាក់អាកប្បកិរិយាមាយាទបស់អ្នកដាក់ពាក្យ",
+                title: lBehaviorList,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "លិខិត្តចញ្ជាក់អាកប្បកិរិយាមាយាទបស់អ្នកដាក់ពាក្យ",
+                title: lBehaviorList,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "លិខិត្តចញ្ជាក់អាកប្បកិរិយាមាយាទបស់អ្នកដាក់ពាក្យ",
+                title: lBehaviorList,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "លិខិត្តចញ្ជាក់អាកប្បកិរិយាមាយាទបស់អ្នកដាក់ពាក្យ",
+                title: lBehaviorList,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -153,7 +153,7 @@ const getBehavior = () => {
 };
 
 //Add new
-addBevior.click(() => {
+addBehavior.click(() => {
     clearBehavior();
     colorBehavior();
     modalBehavior.modal("show");
@@ -173,6 +173,7 @@ saveBevior.click(() => {
     formData.append("CreatedBy", createdBy);
     formData.append("Noted", bNoted.val());
 
+    
     isValid ? $.ajax({
         url: "/api/hr/behaviors/post",
         type: "POST",
@@ -180,6 +181,7 @@ saveBevior.click(() => {
         processData: false,
         data: formData,
         success: (response) => {
+            getBehavior();
             behaviorId.val(response.Id);
             behavior.ajax.reload();
             clearBehavior();
@@ -287,12 +289,12 @@ updateBevior.click(() => {
 //Delete data by id
 const removeBehavior = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value
@@ -321,7 +323,7 @@ const removeBehavior = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+                title: lTheSame,
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -335,7 +337,7 @@ const clearBehavior = () => {
     saveBevior.show();
     updateBevior.hide();
     bNoted.val("");
-    currentDate.val("");
+    setCurrentDate("#current-date");
     confirmBy.val("");
     attachment.val("");
     fileShow.html("");
@@ -354,7 +356,7 @@ const validateBehavior = () => {
     let isValid = true;
     if (applicantId.val() === "-1") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lSelect} ${lApplicant}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -367,7 +369,7 @@ const validateBehavior = () => {
         applicantId.css("border-color", "#cccccc");
         if (confirmBy.val() === "") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title: `${lInput} ${lConfirmed}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -378,34 +380,6 @@ const validateBehavior = () => {
             isValid = false;
         } else {
             confirmBy.css("border-color", "#cccccc");
-            if (currentDate.val() === "") {
-                Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
-                    icon: "warning",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-                currentDate.css("border-color", "red");
-                currentDate.focus();
-                isValid = false;
-            } else {
-                currentDate.css("border-color", "#cccccc");
-                if (currentDate.val() === "") {
-                    Swal.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
-                        icon: "warning",
-                        showConfirmButton: false,
-                        customClass: { title: 'custom-swal-title' },
-                        timer: 1500,
-                    });
-                    currentDate.css("border-color", "red");
-                    currentDate.focus();
-                    isValid = false;
-                } else {
-                    currentDate.css("border-color", "#cccccc");
-                }
-            }
         }
     }
     return isValid;

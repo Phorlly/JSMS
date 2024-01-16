@@ -46,7 +46,7 @@
                     <p class="text-center" id="login">@JSMS.Resources.Language.PleaseLogin</p>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" id="username" name="UserName" placeholder="@JSMS.Resources.Language.Email">
+                        <input class="input100" type="text" id="username" name="UserName" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Username">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -54,14 +54,14 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" id="password" name="Password" placeholder="@JSMS.Resources.Language.Password">
+                        <input class="input100" type="password" id="password" name="Password" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" id="confirm-password" name="ConfirmPassword" placeholder="@JSMS.Resources.Language.ConfirmPassword">
+                        <input class="input100" type="password" id="confirm-password" name="ConfirmPassword" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.ConfirmPassword">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -85,7 +85,7 @@
                             <a class="nav-link" href="@Url.Action("Change", "Language", new { translator = "en" })"
                                role="button">
                                 <img src="~/Images/us.png" style=" width: 17px;">
-                                English
+                                <span>@JSMS.Resources.Language.Khmer</span>
                             </a>
                         }
                         else
@@ -93,7 +93,7 @@
                             <a class="nav-link" href="@Url.Action("Change", "Language", new { translator = "km" })"
                                role="button">
                                 <img class="mt-4" src="~/Images/kh.png" style=" width: 17px;">
-                                ភាសាខ្មែរ
+                                <span>@JSMS.Resources.Language.English</span>
                             </a>
                         }
                     </div>
@@ -112,7 +112,7 @@
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
-<script>
+    <script>
         $('#js-tilt').tilt({
             scale: 1.1
         })
@@ -149,11 +149,13 @@
                         window.location.href = "/admin/log-in";
                     } else {
                         // Show an alert or handle the error message as needed
-                        Toast.fire({
+                        Swal.fire({
                             title: response.message,
                             icon: "error",
+                            showConfirmButton: false,
+                            customClass: { title: 'custom-swal-title' },
+                            timer: 1500
                         });
-                        console.log(response.message);
                     }
                 },
                 error: (xhr) => console.log(xhr.responseText),
@@ -167,7 +169,7 @@
             let confirmPassword = $("#confirm-password");
             if (username.val() === "") {
                 Toast.fire({
-                    title: "សូមបញ្ចូល @JSMS.Resources.Language.Username",
+                    title: "@JSMS.Resources.Language.Input @JSMS.Resources.Language.Username",
                     icon: "warning",
                 });
                 username.css("border-color", "red");
@@ -177,7 +179,7 @@
                 username.css("border-color", "#cccccc");
                 if (password.val() === "") {
                     Toast.fire({
-                        title: "សូមបញ្ចូល @JSMS.Resources.Language.Password",
+                        title: "@JSMS.Resources.Language.Input @JSMS.Resources.Language.Password",
                         icon: "warning",
                     });
                     password.css("border-color", "red");
@@ -187,7 +189,7 @@
                     password.css("border-color", "#cccccc");
                     if (confirmPassword.val() === "") {
                         Toast.fire({
-                            title: "សូមបញ្ចូល @JSMS.Resources.Language.ConfirmPassword",
+                            title: "@JSMS.Resources.Language.Input @JSMS.Resources.Language.ConfirmPassword",
                             icon: "warning",
                         });
                         confirmPassword.css("border-color", "red");
@@ -201,7 +203,6 @@
 
             return isValid;
         };
-</script>
+    </script>
 </body>
-
 </html>

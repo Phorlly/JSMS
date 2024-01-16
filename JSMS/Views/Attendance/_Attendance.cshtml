@@ -18,7 +18,7 @@
                                 <div class="form-group mb-4">
                                     <label for="staff">@JSMS.Resources.Language.Staff</label>
                                     <select id="staff" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.SelectStaff---</option>
                                         @foreach (var response in Model)
                                         {
                                             <option value="@response.Id"> @response.Code  </option>
@@ -30,7 +30,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-4">
                                     <label for="checkIn">@JSMS.Resources.Language.CheckIn</label>
-                                    <input type="datetime-local" class="form-control" id="check-in" placeholder="">
+                                    <input type="datetime-local" class="form-control" id="check-in" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.CheckIn">
 
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-4">
                                     <label for="check-out">@JSMS.Resources.Language.CheckOut</label>
-                                    <input type="datetime-local" class="form-control" id="check-out" placeholder="">
+                                    <input type="datetime-local" class="form-control" id="check-out" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.CheckOut">
 
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-4">
                                     <label for="noted">@JSMS.Resources.Language.Description</label>
-                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
 
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                             <i class=" fas fas fa-redo-alt"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
                         </button>
-                        <button type="button" class="btn btn-secondary" id="save">
+                        <button type="button" class="btn btn-info" id="save">
                             <i class=" fas fa-save"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
                         </button>

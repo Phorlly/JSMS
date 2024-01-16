@@ -13,18 +13,16 @@
 
         <div class="row g-5 align-items-center">
             <div class="col-md-12 text-center">
-                <h1 class="display-1 mb-4">@JSMS.Resources.Language.AttendanceDaily</h1>
+                <h1 class="display-1 mb-4">@JSMS.Resources.Language.CheckInDaily</h1>
                 <hr />
                 @if (Model != null)
                 {
                     <div class="col-md-12">
-                        <select id="staff-check-in" class="form-select border-primary p-2" aria-label="Default select example" style="font-family: Hanuman, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                        <select id="staff-check-in" class="form-select border-primary p-2">
                             <option value="-1">---@JSMS.Resources.Language.SelectStaff---</option>
-                            @foreach (var response in Model) //
+                            @foreach (var response in Model) 
                             {
-                                <option value="@response.Id">
-                                    @response.Code
-                                </option>
+                                <option value="@response.Id">@response.Code</option>
                             }
                         </select>
                     </div>

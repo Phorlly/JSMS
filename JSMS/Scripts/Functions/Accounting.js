@@ -39,8 +39,8 @@ const getSalaryReport = () => {
                                    <td>${row.Code}</td>
                                     <td>${row.Shift}</td>
                                     <td>${row.Location}</td>
-                                    <td>${row.TotalWorked} ដង</td>
-                                    <td>${row.TotalAbsent} ដង</td>
+                                    <td>${row.TotalWorked}${lPresentOrAbsent}</td>
+                                    <td>${row.TotalAbsent}${lPresentOrAbsent}</td>
                                     <td>${row.TotalPayment.toFixed(2)}<sup>$</sup></td>
                                     <td>
                                         <button onclick= "pushToGetPayroll('${row.Id}',
@@ -51,7 +51,7 @@ const getSalaryReport = () => {
                                                                            '${row.TotalWorked}',
                                                                            '${row.TotalAbsent}',
                                                                            '${row.TotalPayment}')" class= 'btn btn-dark btn-sm' >
-                                                 <span class='fas fa-file-export'></span> Push
+                                                 <span class='fas fa-file-export'></span>
                                         </button>
                                     </td>
                                </tr>`;
@@ -85,19 +85,19 @@ const updateData = () => {
         lengthChange: false,
         buttons: [
             {
-                title: "របាយការណ៍ប្រាក់ខែ",
+                title: lSalaryReport,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "របាយការណ៍ប្រាក់ខែ",
+                title: lSalaryReport,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "របាយការណ៍ប្រាក់ខែ",
+                title: lSalaryReport,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
@@ -131,11 +131,11 @@ const pushToGetPayroll = (id, name, code, shift, location, totalWorked, totalAbs
         code,
         shift,
         location,
-        totalWorked + '​ ដង',
-        totalAbsent + ' ដង',
+        totalWorked + lPresentOrAbsent,
+        totalAbsent + lPresentOrAbsent,
         totalPayment.toFixed(2) + '<sup>$</sup>' + "  " +
-        `<button class="remove-row-btn btn btn-danger btn-sm" data-id="${id}">
-            <span class='fas fa-trash-alt'></span> Remove
+        `<button class="remove-row-btn btn btn-danger btn-sm pl-3" data-id="${id}">
+            <span class='fas fa-trash-alt'></span> 
         </button>`,
     ];
 
@@ -148,7 +148,7 @@ const pushToGetPayroll = (id, name, code, shift, location, totalWorked, totalAbs
         // Find and remove the row based on the 'id' column
         let rowIndexToRemove = -1;
         dataTable.rows().every((index, element) => {
-            let rowData = dataTable.row(index).data();``
+            let rowData = dataTable.row(index).data(); ``
             if (rowData.id === rowIdToRemove) {
                 rowIndexToRemove = index;
                 return false; // Stop iterating once the row is found

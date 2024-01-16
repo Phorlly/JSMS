@@ -20,6 +20,6 @@ namespace JSMS.Models.Admin
         public string Name { get; set; }
         public string Icon { get; set; }
         public List<string> Role { get; set; }
-        public List<SubMenuItem> SubMenuItems { get; set; } 
+        public List<SubMenuItem> SubMenuItems { get; set; } = null;
     }
 }

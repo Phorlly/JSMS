@@ -8,7 +8,7 @@ let tableGL = [];
 let dataId = $("#data-id");
 let expenseSave = $("#save-expense");
 let modalExpense = $("#otherexpenseModal");
-let updateExpense = $("#update-expense");
+let updateExpense = $("#date-expense");
 let btnExpense = $("#add-new");
 let refresh = $("#refresh");
 let totalbtn = $("#total");
@@ -24,16 +24,16 @@ let paymentType = $("#payment-expense");
 
 btnExpense.click(() => {
     clearGL();
-    modalExpense.modal("show");
+    getTotalFromAPI();
     updateExpense.hide();
     expenseSave.show();
-    getTotalFromAPI();
-
     //hide select option 
     for (let i = 1; i <= 23; i++) {
         expenseType.find(`option[value="${i}"]`).hide();
     }
     expenseType.find('option[value="24"]').show();
+
+    modalExpense.modal("show");
 });
 
 refresh.click(() => {
@@ -324,7 +324,7 @@ expenseSave.click(() => {
 
 const editExpense = (id) => {
    
-    getTotalFromAPI();
+    //getTotalFromAPI();
 
     $.ajax({
         url: "/api/hr/otherexpense/get/" + id,
@@ -333,8 +333,7 @@ const editExpense = (id) => {
         dataType: "JSON",
         statusCode: {
             200: (response) => {
-                console.log(response);
-                //setColorStock();
+                //console.log(response);
                 clearGL();
                 updateExpense.show();
                 expenseSave.hide();
@@ -499,6 +498,8 @@ const clearGL = () => {
     activityExpense.val("0");
     paymentType.val("0");
     noteExpense.val("");
+    updateExpense.hide();
+    expenseSave.show();
 };
 
 const ValidateExpense = () => {

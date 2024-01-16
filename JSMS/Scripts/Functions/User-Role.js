@@ -73,6 +73,7 @@ const getAll = () => {
             {
                 //title: "Role Permission",
                 data: "Role",
+                render: row => row ? formatRole(row) : ""
             },
             {
                 //title: "Actions",
@@ -89,25 +90,25 @@ const getAll = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីអ្នកប្រើប្រាស់តាមតួនាទី",
+                title: lUserRole,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "បញ្ជីអ្នកប្រើប្រាស់តាមតួនាទី",
+                title: lUserRole,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីអ្នកប្រើប្រាស់តាមតួនាទី",
+                title: lUserRole,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីអ្នកប្រើប្រាស់តាមតួនាទី",
+                title: lUserRole,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -159,6 +160,7 @@ save.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         success: (response) => {
+            getAll();
             dataId.val(response.Id);
             table.ajax.reload();
             clear();
@@ -263,47 +265,45 @@ update.click(() => {
 //Delete data by id
 const remove = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
-    })
-        .then((param) => {
-            param.value ?
-                $.ajax({
-                    method: "DELETE",
-                    url: "/api/hr/users/delete-by-id/" + id,
-                    success: (response) => {
-                        table.ajax.reload();
-                        Swal.fire({
-                            title: response.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
-                        });
-                    },
-                    error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-                        Swal.fire({
-                            title: xhr.responseJSON.message,
-                            icon: "error",
-                            showConfirmButton: false,
-                            customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
-                        }) : console.log(xhr.responseText),
-
-                }) : param.dismiss === Swal.DismissReason.cancel &&
+    }).then((param) => {
+        param.value ? $.ajax({
+            method: "DELETE",
+            url: "/api/hr/users/delete-by-id/" + id,
+            success: (response) => {
+                table.ajax.reload();
                 Swal.fire({
-                    title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+                    title: response.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    customClass: { title: 'custom-swal-title' },
+                    timer: 1500,
+                });
+            },
+            error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                Swal.fire({
+                    title: xhr.responseJSON.message,
                     icon: "error",
                     showConfirmButton: false,
-                    timer: 1500,
                     customClass: { title: 'custom-swal-title' },
-                });
-        }).catch((err) => console.log(err.message));
+                    timer: 1500,
+                }) : console.log(xhr.responseText),
+
+        }) : param.dismiss === Swal.DismissReason.cancel &&
+        Swal.fire({
+            title: lTheSame,
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: { title: 'custom-swal-title' },
+        });
+    }).catch((err) => console.log(err.message));
 };
 
 //Clear control
@@ -336,7 +336,7 @@ const validate = () => {
     let isValid = true;
     if (username.val() === "") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lInput} ${lUsername}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -349,7 +349,7 @@ const validate = () => {
         username.css("border-color", "#cccccc");
         if (password.val() === "") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title: `${lInput} ${lPassword}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -362,7 +362,7 @@ const validate = () => {
             password.css("border-color", "#cccccc");
             if (confirmPassword.val() === "") {
                 Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title: `${lInput} ${lConfirmPassword}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -375,7 +375,7 @@ const validate = () => {
                 confirmPassword.css("border-color", "#cccccc");
                 if (role.val() === "-1") {
                     Swal.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                        title: `${lSelect} ${lRole}`,
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -397,7 +397,7 @@ const validateUpdate = () => {
     let isValid = true;
     if (username.val() === "") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lInput} ${lUsername}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -408,11 +408,11 @@ const validateUpdate = () => {
         isValid = false;
     } else {
         username.css("border-color", "#cccccc");
-        if (changePassword.val === "1") {
+        if (changePassword.val() === "1") {
 
             if (oldPassword.val() === "") {
                 Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title: `${lInput} ${lOldPassword}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -425,7 +425,7 @@ const validateUpdate = () => {
                 oldPassword.css("border-color", "#cccccc");
                 if (newPassword.val() === "") {
                     Swal.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                        title: `${lInput} ${lNewPassword}`,
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -438,7 +438,7 @@ const validateUpdate = () => {
                     newPassword.css("border-color", "#cccccc");
                     if (confirmNewPassword.val() === "") {
                         Swal.fire({
-                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                            title: `${lInput} ${lConfirmPassword}`,
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
@@ -451,7 +451,7 @@ const validateUpdate = () => {
                         confirmNewPassword.css("border-color", "#cccccc");
                         if (role.val() === "-1") {
                             Swal.fire({
-                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                                title: `${lInput} ${lProduct}`,
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
@@ -469,7 +469,7 @@ const validateUpdate = () => {
         } else {
             if (role.val() === "-1") {
                 Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title: `${lSelect} ${lRole}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },

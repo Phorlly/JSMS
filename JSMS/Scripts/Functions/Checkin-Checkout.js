@@ -76,7 +76,7 @@ const validate = () => {
     let isValid = true;
     if (staffCheckIn.val() === "-1") {
         Swal.fire({
-            title: "សូមជ្រើសរើសអត្តលេខបុគ្គលិកមួយមក​",
+            title: lStaff,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -89,7 +89,7 @@ const validate = () => {
         staffCheckIn.css("border-color", "#cccccc");
         if (staffCheckOut.val() === "-1") {
             Swal.fire({
-                title: "សូមជ្រើសរើសអត្តលេខបុគ្គលិកមួយមក​",
+                title: lStaff,
                 icon: "warning",
                 showConfirmButton: false,
                 allowHtml: true,

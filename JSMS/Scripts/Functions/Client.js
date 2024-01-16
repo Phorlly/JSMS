@@ -70,7 +70,7 @@ const getAll = () => {
             {
                 //title: "Gender",
                 data: "Client.Gender",
-                render: (row) => row === true ? "ប្រុស" : "ស្រី",
+                render: (row) => row === true ? lMale : lFemale,
             },
             {
                 //title: "Position",
@@ -139,35 +139,39 @@ const getAll = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីអតិថិជន",
+                title: lClientList,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "បញ្ជីអតិថិជន",
+                title: lClientList,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីអតិថិជន",
+                title: lClientList,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីអតិថិជន",
+                title: lClientList,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -224,6 +228,7 @@ save.click(() => {
         processData: false,
         data: formData,
         success: (response) => {
+            getAll();
             dataId.val(response.Id);
             table.ajax.reload();
             clear();
@@ -280,9 +285,9 @@ const edit = (id) => {
             communeId.val(response.Commune.Id);
             villageId.val(response.Village.Id);
 
-            dis.hide();
-            com.hide();
-            vil.hide();
+            //dis.hide();
+            //com.hide();
+            //vil.hide();
             modalClient.modal("show");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
@@ -362,12 +367,12 @@ update.click(() => {
 //Delete data by id
 const remove = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value ? $.ajax({
@@ -395,7 +400,7 @@ const remove = (id) => {
                 }) : console.log(xhr.responseText),
         }) : param.dismiss === Swal.DismissReason.cancel &&
         Swal.fire({
-            title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+            title: lTheSame,
             icon: "error",
             showConfirmButton: false,
             timer: 1500,
@@ -443,7 +448,7 @@ const validate = () => {
     let isValid = true;
     if (ownername.val() === "") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lInput} ${lOwnerName}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -456,7 +461,7 @@ const validate = () => {
         ownername.css("border-color", "#cccccc");
         if (company.val() === "") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title: `${lInput} ${lCompany}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -469,7 +474,7 @@ const validate = () => {
             company.css("border-color", "#cccccc");
             if (vattin.val() === "-1") {
                 Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title: `${lSelect} ${lVATTIN}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -480,45 +485,58 @@ const validate = () => {
                 isValid = false;
             } else {
                 vattin.css("border-color", "#cccccc");
-                if (phone1.val() === "") {
+                if (dob.val() === "") {
                     Swal.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                        title: `${lSelect} ${lDOB}`,
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
                         timer: 1500,
                     });
-                    phone1.css("border-color", "red");
-                    phone1.focus();
+                    dob.css("border-color", "red");
                     isValid = false;
                 } else {
-                    phone1.css("border-color", "#cccccc");
-                    if (position.val() === "-1") {
+                    dob.css("border-color", "#cccccc");
+                    if (phone1.val() === "") {
                         Swal.fire({
-                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                            title: `${lInput} ${lPhone}`,
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
                             timer: 1500,
                         });
-                        position.css("border-color", "red");
-                        position.focus();
+                        phone1.css("border-color", "red");
+                        phone1.focus();
                         isValid = false;
                     } else {
-                        position.css("border-color", "#cccccc");
-                        if (dob.val() === "") {
+                        phone1.css("border-color", "#cccccc");
+                        if (position.val() === "-1") {
                             Swal.fire({
-                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                                title: `${lSelect} ${lPosition}`,
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
                                 timer: 1500,
                             });
-                            dob.css("border-color", "red");
-                            dob.focus();
+                            position.css("border-color", "red");
+                            position.focus();
                             isValid = false;
                         } else {
-                            dob.css("border-color", "#cccccc");
+                            position.css("border-color", "#cccccc");
+                            if (province.val() === "-1") {
+                                Swal.fire({
+                                    title: `${lSelect} ${lProvince}`,
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    customClass: { title: 'custom-swal-title' },
+                                    timer: 1500,
+                                });
+                                province.css("border-color", "red");
+                                province.focus();
+                                isValid = false;
+                            } else {
+                                province.css("border-color", "#cccccc");
+                            }
                         }
                     }
                 }
@@ -542,9 +560,9 @@ province.change(() => {
             district.empty();
             commune.empty();
             village.empty();
-            district.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            commune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            village.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            district.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
+            commune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            village.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 district.append(
@@ -557,7 +575,7 @@ province.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : province.append($("<option>"));
+    }) : province.append($("<option>").val(-1).text(`---${lSelect} ${lProvince}---`));
 });
 
 //Change value
@@ -573,8 +591,8 @@ district.change(() => {
         success: (response) => {
             commune.empty();
             village.empty();
-            commune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            village.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            commune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            village.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 commune.append(
@@ -588,7 +606,7 @@ district.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : district.append($("<option></option>"));
+    }) : district.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 });
 
 //Change value
@@ -603,7 +621,7 @@ commune.change(() => {
         dataType: "JSON",
         success: (response) => {
             village.empty();
-            village.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            village.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 village.append(
@@ -617,5 +635,5 @@ commune.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : commune.append($("<option>").val(""));
+    }) : commune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
 });

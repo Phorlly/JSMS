@@ -4,14 +4,10 @@
     addStock.hide();
     titleProduct.show();
     titleStock.hide();
-    titleRemain.hide();
     titleRport.hide();
     showProduct.show();
     showStock.hide();
-    showRemain.hide();
-    //getRemainStockReport();
     showProduct.click(() => getProduct());
-    showRemain.click(() => getRemainStockReport());
 });
 
 //Declare variable
@@ -22,7 +18,6 @@ let addStock = $("#add-stock");
 let tabProduct = $("#tab-product");
 let tabStock = $("#tab-stock");
 let tabSummary = $("#tab-summary");
-let tabRemain = $("#tab-remain");
 let saveProduct = $("#save-product");
 let updateProduct = $("#update-product");
 let productId = $("#product-id");
@@ -34,10 +29,8 @@ let createdBy = $("#log-by").data("logby");
 let titleProduct = $("#title-product");
 let titleStock = $("#title-stock");
 let titleRport = $("#title-report");
-let titleRemain = $("#title-remain");
 let showProduct = $("#show-product");
 let showStock = $("#show-stock");
-let showRemain = $("#show-remain");
 
 //Get all data
 const getProduct = () => {
@@ -76,6 +69,10 @@ const getProduct = () => {
                     "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
             },
             {
+                //title: "Total",
+                data: "Total",
+            },
+            {
                 //title: "Description",
                 data: "Noted",
             },
@@ -105,26 +102,26 @@ const getProduct = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីមុខទំនិញដែលមាន",
+                title: lProductList,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
 
             {
-                title: "បញ្ជីមុខទំនិញដែលមាន",
+                title: lProductList,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីមុខទំនិញដែលមាន",
+                title: lProductList,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីមុខទំនិញដែលមាន",
+                title: lProductList,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -135,64 +132,6 @@ const getProduct = () => {
                 toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
                 console.log(xhr.responseText);
         },
-    });
-};
-
-//Get report stock
-const getRemainStockReport = () => {
-    $.ajax({
-        url: "/api/hr/reports/get-remain-stock",
-        type: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "JSON",
-        success: response => {
-            $('#remain-stock').DataTable().destroy();
-            $('#remain-stock tbody').empty();
-            $.each(response, (index, row) => {
-                let created = moment(row.Created).fromNow();
-                let image = row.Image ? `<img src="${row.Image}" class='rounded-circle' width='50px'/>` :
-                    "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>";
-                var newRow = `<tr>
-                                    <td>${index + 1}</td>
-                                    <td>${row.Name}</td>
-                                    <td>${image}</td>
-                                    <td>${row.Total}</td>
-                                    <td>${created}</td>
-                                    <td>${row.Noted}</td>
-                                  </tr>`;
-                $('#remain-stock tbody').append(newRow);
-            });
-
-            // Initialize DataTables
-            $('#remain-stock').DataTable({
-                dom: "Bfrtip",
-                buttons: ["excel", "pdf", "print"],
-                language: {
-                    paginate: {
-                        previous: "<i class='fas fa-chevron-left'>",
-                        next: "<i class='fas fa-chevron-right'>",
-                    },
-                },
-                drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
-                searching: false,
-                lengthChange: false,
-                buttons: [
-                    {
-                        title: "របាយការណ៍ទំនិញនៅសល់ក្នុងស្តុក",
-                        extend: "excelHtml5",
-                        text: "<i class='fa fa-file-excel'> </i> Excel",
-                        className: "btn btn-success btn-sm mt-2",
-                    },
-                    {
-                        title: "របាយការណ៍ទំនិញនៅសល់ក្នុងស្តុក",
-                        extend: "print",
-                        text: "<i class='fa fa-print'> </i> Print",
-                        className: "btn btn-dark btn-sm mt-2",
-                    },
-                ],
-            });
-        },
-        error: (xhr) => console.error(xhr),
     });
 };
 
@@ -213,11 +152,9 @@ tabProduct.click(() => {
     addStock.hide();
     titleProduct.show();
     titleStock.hide();
-    titleRemain.hide();
     titleRport.hide();
     showProduct.show();
     showStock.hide();
-    showRemain.hide();
 });
 
 tabStock.click(() => {
@@ -225,11 +162,9 @@ tabStock.click(() => {
     addStock.show();
     titleProduct.hide();
     titleStock.show();
-    titleRemain.hide();
     titleRport.hide();
     showProduct.hide();
     showStock.show();
-    showRemain.hide();
 });
 
 tabSummary.click(() => {
@@ -237,24 +172,11 @@ tabSummary.click(() => {
     addStock.hide();
     titleProduct.hide();
     titleStock.hide();
-    titleRemain.hide();
     titleRport.show();
     showProduct.hide();
     showStock.hide();
-    showRemain.hide();
 });
 
-tabRemain.click(() => {
-    addProduct.hide();
-    addStock.hide();
-    titleProduct.hide();
-    titleStock.hide();
-    titleRemain.show();
-    titleRport.hide();
-    showProduct.hide();
-    showStock.hide();
-    showRemain.show();
-});
 
 //Add new product
 addProduct.click(() => {
@@ -283,6 +205,7 @@ saveProduct.click(() => {
         processData: false,
         data: formData,
         success: (response) => {
+            getProduct();
             productId.val(response.Id);
             table.ajax.reload();
             clearProduct();
@@ -388,12 +311,12 @@ updateProduct.click(() => {
 //Delete data by id
 const remove = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value ?
@@ -421,7 +344,7 @@ const remove = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+                title: lTheSame,
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -453,7 +376,7 @@ const validate = () => {
     let isValid = true;
     if (productName.val() === "") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lInput} ${lProduct}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },

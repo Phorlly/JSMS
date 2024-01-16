@@ -48,7 +48,6 @@ namespace JSMS.Models
         public DbSet<AttendanceTest> AttendanceTests { get; set; }
         public DbSet<TestAtt> TestAtts { get; set; }
         public DbSet<Stock> Stocks { get; set; }
-        public DbSet<StockTransaction> StockTransactions { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<OtherExpense> OtherExpenses { get; set; }
 

@@ -1,45 +1,28 @@
-﻿using JSMS.Models;
+﻿
 using JSMS.Models.Admin;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Services.Description;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/otherexpense")]
-    public class OtherExpensesController : ApiController
+    public class OtherExpensesController : ApiBaseController
     {
-        protected readonly ApplicationDbContext _context;
-
-        public OtherExpensesController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         [HttpGet]
         [Route("get")]
-        public IHttpActionResult GetAll()
+        public async Task<IHttpActionResult> GetAll()
         {
-            var res = _context.OtherExpenses.ToList();
+            var res = await context.OtherExpenses.ToListAsync();
 
             if (res == null)
             {
-                return BadRequest("Dont have data yet");
+                return NoDataFound();
             }
             else
             {
@@ -52,13 +35,13 @@ namespace JSMS.Controllers.Api
         //GET api/ProductType/{id}
         [HttpGet]
         [Route("get/{id}")]
-        public IHttpActionResult Get(int Id)
+        public async Task<IHttpActionResult> Get(int Id)
         {
-            var res = _context.OtherExpenses.SingleAsync(c => c.Id == Id);
+            var res = await context.OtherExpenses.SingleAsync(c => c.Id == Id);
 
             if (res == null)
             {
-                return BadRequest("No Data");
+                return NoDataFound();
             }
             else
             {
@@ -69,13 +52,13 @@ namespace JSMS.Controllers.Api
 
         [Route("getTotal")]
         [HttpGet]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
 
             try
             {
                 // Get the sum of the Cost field from the OtherExpenses table
-                var totalCost = _context.OtherExpenses.Sum(t => t.Cost);
+                var totalCost = await context.OtherExpenses.SumAsync(t => t.Cost);
                 return Ok(totalCost);
             }
             catch (Exception ex)
@@ -87,12 +70,12 @@ namespace JSMS.Controllers.Api
 
         [HttpPost]
         [Route("post")]
-        public IHttpActionResult Post(OtherExpense post)
+        public async Task<IHttpActionResult> Post(OtherExpense post)
         {
             try
             {
                 // Check if InvoiceID already exists
-                if (_context.OtherExpenses.Any(e => e.InvoiceID == post.InvoiceID))
+                if (context.OtherExpenses.Any(e => e.InvoiceID == post.InvoiceID))
                 {
                     return BadRequest("InvoiceID already exists.");
                 }
@@ -116,15 +99,15 @@ namespace JSMS.Controllers.Api
                         PaymentType = post.PaymentType
                     };
 
-                    _context.OtherExpenses.Add(incomeTransaction);
+                    context.OtherExpenses.Add(incomeTransaction);
                 }
                 else if (post.Status == 2) // Expense
                 {
                     // Get the current total cost
-                    var currentTotalCost = _context.OtherExpenses.Sum(t => t.Cost);
+                    var currentTotalCost = await context.OtherExpenses.SumAsync(t => t.Cost);
 
                     // Check if the expense exceeds the total income
-                    if (post.Cost > currentTotalCost)
+                    if (currentTotalCost  > post.Cost)
                     {
                         return BadRequest("Expense cannot exceed total income.");
                     }
@@ -141,7 +124,7 @@ namespace JSMS.Controllers.Api
                         PaymentType = post.PaymentType
                     };
 
-                    _context.OtherExpenses.Add(expenseTransaction);
+                    context.OtherExpenses.Add(expenseTransaction);
                 }
                 else
                 {
@@ -149,11 +132,11 @@ namespace JSMS.Controllers.Api
                 }
 
                 // Update the Total field in the Transaction table
-                var total = _context.OtherExpenses.Sum(t => t.Cost);
-                post.Total = (double)total;
+                var total = await context.OtherExpenses.SumAsync(t => t.Cost);
+                post.Total = (decimal)total;
 
                 // Save changes to the database
-                _context.SaveChanges();
+               await context.SaveChangesAsync();
 
                 return Ok("Transaction added successfully!");
             }
@@ -170,7 +153,7 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var existingExpense = _context.OtherExpenses.Find(Id);
+                var existingExpense = context.OtherExpenses.Find(Id);
 
                 //greater than 0
                 if (update.Cost <= 0)
@@ -179,7 +162,7 @@ namespace JSMS.Controllers.Api
                 }
 
                 // Check if the InvoiceID already exists for a different expense
-                var existingWithSameInvoice = _context.OtherExpenses
+                var existingWithSameInvoice = context.OtherExpenses
                     .FirstOrDefault(e => e.InvoiceID == update.InvoiceID && e.Id != Id);
 
                 if (existingWithSameInvoice != null)
@@ -209,7 +192,7 @@ namespace JSMS.Controllers.Api
                 }
                 else if (update.Status == 2)
                 {
-                    var currentTotalCost = _context.OtherExpenses.Sum(t => t.Cost);
+                    var currentTotalCost = context.OtherExpenses.Sum(t => t.Cost);
 
                     // Check if the expense exceeds the total income
                     if (update.Cost > currentTotalCost)
@@ -232,8 +215,8 @@ namespace JSMS.Controllers.Api
                 }
 
                 // Save changes to the database
-                _context.Entry(existingExpense).State = EntityState.Modified;
-                _context.SaveChanges();
+                context.Entry(existingExpense).State = EntityState.Modified;
+                context.SaveChanges();
 
                 return Ok(existingExpense);
             }
@@ -250,12 +233,12 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var InDb = _context.OtherExpenses.SingleOrDefault(c => c.Id == id);
+                var InDb = context.OtherExpenses.SingleOrDefault(c => c.Id == id);
 
                 if (InDb != null)
                 {
-                    _context.OtherExpenses.Remove(InDb);
-                    _context.SaveChanges();
+                    context.OtherExpenses.Remove(InDb);
+                    context.SaveChanges();
 
                     return Ok("Record deleted successfully");
                 }

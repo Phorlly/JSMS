@@ -1,10 +1,11 @@
-﻿using System;
+﻿using JSMS.Models;
+using System;
 using System.IO;
 using System.Net;
-using System.Web;
-using JSMS.Models;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using JSMS.Resources;
 
 namespace JSMS.Controllers.Api
 {
@@ -25,6 +26,23 @@ namespace JSMS.Controllers.Api
             base.Dispose(disposing);
         }
 
+        public IHttpActionResult MessageWithCode(int statusCode, string responseMessage) 
+        {
+            switch ((HttpStatusCode)statusCode)
+            {
+                case HttpStatusCode.OK:
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, new { message = responseMessage }));
+
+                case HttpStatusCode.BadRequest:
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = responseMessage }));
+
+                default:
+                    // Handle other status codes
+                    return ResponseMessage(Request.CreateResponse((HttpStatusCode)statusCode, new { message = responseMessage }));
+            }
+        }
+
+
         public IHttpActionResult Success(string responseMessage)
         {
             return Ok(new { message = responseMessage });
@@ -37,7 +55,7 @@ namespace JSMS.Controllers.Api
 
         public IHttpActionResult NoDataFound()
         {
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = "រកមិនឃើញទិន្នន័យទេ​..!" }));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, new { message = Language.NotFound }));
         }
 
         public IHttpActionResult ServerError(Exception ex)
@@ -89,5 +107,6 @@ namespace JSMS.Controllers.Api
                 File.Delete(oldPath);
             }
         }
+
     }
 }

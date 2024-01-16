@@ -22,5 +22,10 @@ namespace JSMS.Models.Admin
         public string Phone1 { get; set; }
         public string Phone2 { get; set; }
         public string Image { get; set; }
+
+        public Client()
+        {
+            IsClient = true;
+        }
     }
 }

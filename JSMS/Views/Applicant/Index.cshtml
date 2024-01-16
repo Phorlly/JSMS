@@ -22,10 +22,10 @@
     <div class="col-12">
         <!-- Custom Tabs -->
         <div class="card">
-            <div class="card-header  pl-4">
+            <div class="card-header p-0 border-bottom-0">
                 <div class="row">
                     <div class="col-md-6">
-                        <ul class="nav nav-pills ml-auto p-2">
+                        <ul class="nav nav-tabs ml-auto p-2">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#table-applicant" id="tab-applicant" data-toggle="tab">
                                     <i class="fas fa-user-friends"></i>
@@ -161,13 +161,10 @@
     <!-- /.col -->
 </div>
 
+
 @Html.Partial("_Applicant")
 @Html.Partial("_Behavior")
 @Html.Partial("_Gaurantor")
-<script>
-    let male = "@JSMS.Resources.Language.Male";
-    let female = "@JSMS.Resources.Language.Female";
-</script>
 
 @section scripts {
     @Scripts.Render("~/Scripts/Functions/Applicant.js")

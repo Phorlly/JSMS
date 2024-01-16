@@ -15,6 +15,6 @@ namespace JSMS.Models.Admin
         public string Note { get; set; }
         public int Status { get; set; }
         public string PaymentType { get; set; }
-        public double Total { get; set; }
+        public decimal Total { get; set; }
     }
 }

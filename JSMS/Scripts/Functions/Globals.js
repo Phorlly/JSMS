@@ -84,12 +84,12 @@ const readFile = (attachment) => {
 //Format education
 const formatEducation = (id) => {
     let data = [
-        { id: 1, name: "មិនបានសិក្សា" },
-        { id: 2, name: "បឋមសិក្សា" },
-        { id: 3, name: "អនុវិទ្យាល័យ" },
-        { id: 4, name: "វិទ្យាល័យ" },
-        { id: 5, name: "សាកលវិទ្យាល័យ" },
-        { id: 6, name: "ផ្សេងៗ" },
+        { id: 1, name: lNotStudied },
+        { id: 2, name: lPrimarySchool },
+        { id: 3, name: lSecondarySchool },
+        { id: 4, name: lHighSchool },
+        { id: 5, name: lUniversity },
+        { id: 6, name: lOther },
     ];
 
     let matchedItem = data.find((item) => item.id === id);
@@ -154,10 +154,10 @@ const formatExpense = (id) => {
 //Format expense type
 const formatPosition = (id) => {
     let data = [
-        { id: 1, name: "ម្ចាស់ភាគហ៊ុន" },
-        { id: 2, name: "ថៅកែ" },
-        { id: 3, name: "អ្នកគ្រប់គ្រង" },
-        { id: 4, name: "ថលេខា" },
+        { id: 1, name: lOwner },
+        { id: 2, name: lViceManager },
+        { id: 3, name: lGeneralManager },
+        { id: 4, name: lAssistance },
     ];
 
     let item = data.find((item) => item.id === id);
@@ -285,3 +285,27 @@ const convertToKhmerDate = (dateString) => {
 }
 
 
+//set current date
+const setCurrentDate = (selector) => {
+    // Get the current date in the format YYYY-MM-DD
+    let currentDate = new Date().toISOString().split('T')[0];
+
+    // Set the current date as the default value for the input field
+    let setDate = $(selector).val(currentDate);
+
+    return setDate;
+}
+
+//Format expense type
+const formatRole = (id) => {
+    let data = [
+        { id: "AdminOrHR", name: admin },
+        { id: "Accounting", name: accounting },
+        { id: "User", name: user },
+        { id: "Customer", name: client },
+        { id: "Staff", name: staff },
+    ];
+
+    let item = data.find((item) => item.id === id);
+    return item.name;
+};

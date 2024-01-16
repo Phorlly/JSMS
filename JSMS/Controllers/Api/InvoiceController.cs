@@ -1,10 +1,8 @@
-﻿using System;
-using System.Net;
-using JSMS.Models;
+﻿using JSMS.Models.Admin;
+using JSMS.Resources;
+using System;
 using System.Linq;
-using System.Net.Http;
 using System.Web.Http;
-using JSMS.Models.Admin;
 
 namespace JSMS.Controllers.Api
 {
@@ -66,8 +64,7 @@ namespace JSMS.Controllers.Api
             {
                 if (context.Invoices.Any(e => e.InvoiceNumber == post.InvoiceNumber))
                 {
-
-                    return ExistData("លេខវិក័យប័ត្រមានរួចហើយ..!");
+                    return MessageWithCode(400, Language.ExistInvioce);
                 }
 
 
@@ -86,12 +83,13 @@ namespace JSMS.Controllers.Api
 
                 // Calculate Total
                 post.Total = post.Amount + post.Tax;
+                post.Note = post.Note == "" ? Language.Created : post.Note;
 
                 // Save to the database
                 context.Invoices.Add(post);
                 context.SaveChanges();
 
-               return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
+                return MessageWithCode(201, Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -112,7 +110,7 @@ namespace JSMS.Controllers.Api
 
                 if (sameInvoice != null)
                 {
-                    return ExistData("លេខវិក័យប័ត្រមានរួចហើយ..!");
+                    return MessageWithCode(400, Language.ExistInvioce);
                 }
 
                 existing.StartDate = update.StartDate;
@@ -124,7 +122,7 @@ namespace JSMS.Controllers.Api
                 existing.Total = update.Total;
                 existing.UnitPrice = update.UnitPrice;
                 existing.Tax = update.Tax;
-                existing.Note = update.Note;
+                existing.Note = update.Note == "" ? Language.Updated : update.Note;
 
                 // Calculate Amount
                 existing.Amount = existing.Qty * existing.UnitPrice;
@@ -137,7 +135,7 @@ namespace JSMS.Controllers.Api
 
                 context.SaveChanges();
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
+                return MessageWithCode(200, Language.DataUpdated);
 
             }
             catch (Exception ex)
@@ -159,7 +157,7 @@ namespace JSMS.Controllers.Api
                     context.Invoices.Remove(InDb);
                     context.SaveChanges();
 
-                    return Success("បានលុបកំណត់ត្រាដោយជោគជ័យ..!");
+                    return MessageWithCode(200, Language.DataDeleted);
                 }
 
                 // If InDb is null, it means the record was not found, but it's not treated as an error.

@@ -1,6 +1,7 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
     refresh.click(() => getAll());
+    datePicker("#on-date");
 });
 
 //Declare variable for use global
@@ -14,7 +15,6 @@ let refresh = $("#refresh");
 let applicant = $("#applicant");
 let gaurantor = $("#gaurantor");
 let onDate = $("#on-date");
-datePicker("#on-date");
 let noted = $("#noted");
 let createdBy = $("#log-by").data("logby");
 
@@ -52,7 +52,7 @@ const getAll = () => {
             {
                 //title: "Gender",
                 data: "Applicant.Gender",
-                render: row => row === true ? "ប្រុស" : "ស្រី",
+                render: row => row === true ? lMale : lFemale,
             },
             {
                 //title: "Profile",
@@ -68,7 +68,7 @@ const getAll = () => {
             {
                 //title: "Gender",
                 data: "Gaurantor.Gender",
-                render: row => row === true ? "ប្រុស" : "ស្រី",
+                render: row => row === true ? lMale : lFemale,
             },
             {
                 //title: "Profile",
@@ -110,35 +110,39 @@ const getAll = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីបេក្ខេជនដាក់ពាក្យត្រូវបានជ្រើសរើស",
+                title: lApplicantSelected,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបេក្ខេជនដាក់ពាក្យត្រូវបានជ្រើសរើស",
+                title: lApplicantSelected,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបេក្ខេជនដាក់ពាក្យត្រូវបានជ្រើសរើស",
+                title: lApplicantSelected,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបេក្ខេជនដាក់ពាក្យត្រូវបានជ្រើសរើស",
+                title: lApplicantSelected,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -162,7 +166,7 @@ save.click(() => {
         CreatedBy: createdBy,
         Noted: noted.val(),
     };
-
+    
     response ? $.ajax({
         url: "/api/hr/recruitments/post",
         type: "POST",
@@ -170,6 +174,7 @@ save.click(() => {
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
+            getAll();
             dataId.val(response.Id);
             table.ajax.reload();
             clear();
@@ -275,12 +280,12 @@ update.click(() => {
 //Delete data by id
 const remove = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value
@@ -309,7 +314,7 @@ const remove = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+                title: lTheSame,
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -324,7 +329,7 @@ const clear = () => {
     save.show();
     noted.val("");
     applicant.val(-1);
-    onDate.val("");
+    setCurrentDate("#on-date");
     gaurantor.val(-1);
 };
 
@@ -340,7 +345,7 @@ const validate = () => {
     let isValid = true;
     if (applicant.val() === "-1") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lSelect} ${lApplicant}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -351,9 +356,9 @@ const validate = () => {
         isValid = false;
     } else {
         applicant.css("border-color", "#cccccc");
-        if (gaurantor.val() === "") {
+        if (gaurantor.val() === "-1") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title: `${lSelect} ${lGuarantor}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -364,20 +369,6 @@ const validate = () => {
             isValid = false;
         } else {
             gaurantor.css("border-color", "#cccccc");
-            if (onDate.val() === "") {
-                Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
-                    icon: "warning",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-                onDate.css("border-color", "red");
-                onDate.focus();
-                isValid = false;
-            } else {
-                onDate.css("border-color", "#cccccc");
-            }
         }
     }
     return isValid;

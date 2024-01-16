@@ -1,0 +1,49 @@
+﻿<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 class="m-0">@JSMS.Resources.Language.UserInfo</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@JSMS.Resources.Language.Home</a></li>
+                    <li class="breadcrumb-item active">@JSMS.Resources.Language.UserProfile</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</section>
+
+<section>
+    <div class="row">
+        <div class="col-12 align-items-stretch">
+            <div class="card bg-light">
+                <div class="card-header text-center">
+                    <div class="float-sm-right mr-5">
+                        <button type="button" id="edit-profile" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Edit</span> 
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row my-5 mx-4">
+                        <div class="col-7 ">
+                            <h2 class="lead"><strong>@JSMS.Resources.Language.Username: </strong> @User.Identity.Name</h2>
+                            <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                                <li class="small">
+                                <span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                            </ul>
+                        </div>
+                        <div class="col-5 text-center">
+                            <img src="~/Images/avatar5.png" width="100" alt="" class="img-circle img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

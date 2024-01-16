@@ -1,10 +1,12 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
     refresh.click(() => getAll());
+    datePicker("#on-date");
 });
 
 //Declare variable for use global
 let table = [];
+var rating;
 let addNew = $("#add-new");
 let update = $("#update");
 let save = $("#save");
@@ -14,8 +16,6 @@ let refresh = $("#refresh");
 let recruitment = $("#recruitment");
 let interview = $("#interview-number");
 let onDate = $("#on-date");
-datePicker("#on-date");
-let rating = $("#rating");
 let noted = $("#noted");
 let createdBy = $("#log-by").data("logby");
 
@@ -54,7 +54,7 @@ const getAll = () => {
             {
                 //title: "Gender",
                 data: "Applicant.Gender",
-                render: (row) => row === true ? "ប្រុស" : "ស្រី",
+                render: (row) => row === true ? lMale : lFemale,
             },
             {
                 //title: "Profile",
@@ -70,7 +70,16 @@ const getAll = () => {
             {
                 //title: "Rating",
                 data: null,
-                render: (row) => `${row.ShortList.Rating} <i class="far fa-star"></i>`,
+                render: (row) => {
+                    let rating = row.ShortList.Rating;
+                    let filledStarIcon = '<i class="fas fa-star" style="color: #f8d101;"></i>';
+                    let unfilledStarIcon = '<i class="far fa-star" style="color: #ddd;"></i>';
+                    let starIcons = filledStarIcon.repeat(rating) + unfilledStarIcon.repeat(5 - rating);
+
+                    return `${starIcons}`;
+                }
+
+
             },
             {
                 //title: "Date",
@@ -106,25 +115,25 @@ const getAll = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីបេក្ខេជនដែលបានជាប់ក្នុងការហៅសម្ភាសន៍",
+                title: lApplicantShortList,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបេក្ខេជនដែលបានជាប់ក្នុងការហៅសម្ភាសន៍",
+                title: lApplicantShortList,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបេក្ខេជនដែលបានជាប់ក្នុងការហៅសម្ភាសន៍",
+                title: lApplicantShortList,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបេក្ខេជនដែលបានជាប់ក្នុងការហៅសម្ភាសន៍",
+                title: lApplicantShortList,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -141,6 +150,10 @@ const getAll = () => {
 //Reload data
 /*refresh.click(() => location.reload());*/
 
+$('.rating input').change((event) => {
+    rating = $(event.target).val();
+});
+
 //Add new
 addNew.click(() => {
     clear();
@@ -154,7 +167,7 @@ save.click(() => {
     let response = validate();
     let data = {
         Recruitment: recruitment.val(),
-        Rating: rating.val(),
+        Rating: rating,
         InterviewNo: interview.val(),
         CurrentDate: onDate.val(),
         CreatedBy: createdBy,
@@ -168,6 +181,7 @@ save.click(() => {
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
+            getAll();
             dataId.val(response.Id);
             table.ajax.reload();
             clear();
@@ -210,7 +224,8 @@ const edit = (id) => {
             dataId.val(response.ShortList.Id);
             recruitment.val(response.ShortList.Recruitment);
             interview.val(response.ShortList.InterviewNo);
-            rating.val(response.ShortList.Rating);
+            $('input[name="rating"][value="' + response.ShortList.Rating + '"]').prop('checked', true);
+            //rating.val(response.ShortList.Rating);
             noted.val(response.ShortList.Noted);
             onDate.val(formatDate(response.ShortList.CurrentDate));
 
@@ -233,7 +248,7 @@ update.click(() => {
     let response = validate();
     let data = {
         Recruitment: recruitment.val(),
-        Rating: rating.val(),
+        Rating: rating,
         InterviewNo: interview.val(),
         CurrentDate: onDate.val(),
         CreatedBy: createdBy,
@@ -275,12 +290,12 @@ update.click(() => {
 //Delete data by id
 const remove = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value
@@ -308,7 +323,7 @@ const remove = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+                title: lTheSame,
                 icon: "error",
                 showConfirmButton: false,
                 timer: 2000,
@@ -323,25 +338,25 @@ const clear = () => {
     save.show();
     noted.val("");
     recruitment.val(-1);
-    onDate.val("");
+    setCurrentDate("#on-date");
     interview.val("-1");
-    rating.val(-1);
+    $('.rating input[value="1"]').prop('checked', true);
 };
 
 //Set color to border control
 const setColor = () => {
     recruitment.css("border-color", "#cccccc");
     interview.css("border-color", "#cccccc");
-    rating.css("border-color", "#cccccc");
     onDate.css("border-color", "#cccccc");
 };
 
 //Check validation
 const validate = () => {
     let isValid = true;
+
     if (recruitment.val() === "-1") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lSelect} ${lApplicantPassRecruitment}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -352,9 +367,9 @@ const validate = () => {
         isValid = false;
     } else {
         recruitment.css("border-color", "#cccccc");
-        if (interview.val() === "") {
+        if (interview.val() === "-1") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title: `${lSelect} ${lCode}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -365,34 +380,6 @@ const validate = () => {
             isValid = false;
         } else {
             interview.css("border-color", "#cccccc");
-            if (onDate.val() === "") {
-                Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
-                    icon: "warning",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 2000,
-                });
-                onDate.css("border-color", "red");
-                onDate.focus();
-                isValid = false;
-            } else {
-                onDate.css("border-color", "#cccccc");
-                if (rating.val() === "-1") {
-                    Swal.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
-                        icon: "warning",
-                        showConfirmButton: false,
-                        customClass: { title: 'custom-swal-title' },
-                        timer: 2000,
-                    });
-                    rating.css("border-color", "red");
-                    rating.focus();
-                    isValid = false;
-                } else {
-                    rating.css("border-color", "#cccccc");
-                }
-            }
         }
     }
     return isValid;

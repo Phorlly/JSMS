@@ -1,6 +1,6 @@
 ﻿
 <div class="modal fade" id="modal-staff" data-bs-backdrop="static" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-uppercase">@JSMS.Resources.Language.StaffInfo</h4>
@@ -19,7 +19,7 @@
                                 <div class="form-group ">
                                     <label for="short-list">@JSMS.Resources.Language.ApplicantPassedShortList</label>
                                     <select id="short-list" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.ApplicantPassedShortList---</option>
                                         @foreach (var response in Model.ShortLists)
                                         {
                                             <option value="@response.ShortList.Id">@response.Applicant.Name @response.Applicant.NickName</option>
@@ -28,11 +28,11 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group ">
                                     <label for="client">@JSMS.Resources.Language.Location</label>
                                     <select id="client" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Location---</option>
                                         @foreach (var response in Model.Clients)
                                         {
                                             <option value="@response.Id">
@@ -43,14 +43,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group mb-3 ">
                                     <label for="code">@JSMS.Resources.Language.Code</label>
-                                    <input type="text" class="form-control" id="code" placeholder="@JSMS.Resources.Language.Input">
+                                    <input type="text" class="form-control" id="code" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Code">
 
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group ">
                                     <label for="shift">@JSMS.Resources.Language.ShiftType</label>
                                     <select id="shift" class="form-select">
@@ -59,26 +59,26 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group mb-3 ">
                                     <label for="main-salary">@JSMS.Resources.Language.Main</label>
-                                    <input type="text" class="form-control" id="main-salary" placeholder="@JSMS.Resources.Language.Input">
+                                    <input type="text" class="form-control" id="main-salary" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Main">
 
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group mb-3 ">
                                     <label for="on-date">@JSMS.Resources.Language.JoiningDate</label>
-                                    <input type="text" class="form-control" id="on-date" placeholder="@JSMS.Resources.Language.SelectDate">
+                                    <input type="text" class="form-control" id="on-date" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.JoiningDate">
 
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group ">
                                     <label for="position">@JSMS.Resources.Language.Type</label>
                                     <select id="position" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Type---</option>
                                         <option value="1">@JSMS.Resources.Language.FullTime</option>
                                         <option value="2">@JSMS.Resources.Language.PartTime</option>
                                         <option value="3">@JSMS.Resources.Language.Instead</option>
@@ -88,7 +88,7 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-3 ">
                                     <label for="noted">@JSMS.Resources.Language.Description</label>
-                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
 
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                             <i class=" fas fas fa-redo-alt"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
                         </button>
-                        <button type="button" class="btn btn-secondary" id="save">
+                        <button type="button" class="btn btn-info" id="save">
                             <i class=" fas fa-save"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
                         </button>

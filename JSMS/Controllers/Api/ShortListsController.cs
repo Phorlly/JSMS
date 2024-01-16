@@ -1,4 +1,5 @@
 ﻿using JSMS.Models.Admin;
+using JSMS.Resources;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -67,10 +68,11 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                request.IsActive = true;
-                request.UpdatedAt = DateTime.Now;
-                request.CreatedAt = DateTime.Now;
-                request.Status = 1;
+                var isExist = await context.ShortLists.FirstOrDefaultAsync(c => c.Recruitment == request.Recruitment);
+                if (isExist != null)
+                {
+                    return MessageWithCode(400, Language.ExistShorList);  
+                }
 
                 if (request != null)
                 {
@@ -78,7 +80,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
+                return Success(Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -97,10 +99,14 @@ namespace JSMS.Controllers.Api
                 {
                     return NoDataFound();
                 }
-                response.Status = 1;
+
+                var isExist = await context.ShortLists.FirstOrDefaultAsync(c => c.Recruitment == request.Recruitment && c.Id != id);
+                if (isExist != null)
+                {
+                    return MessageWithCode(400, Language.ExistShorList); 
+                }
+
                 response.UpdatedAt = DateTime.Now;
-                response.CreatedAt = response.CreatedAt;
-                response.IsActive = true;
                 response.Recruitment = request.Recruitment;
                 response.Rating = request.Rating;
                 response.InterviewNo = request.InterviewNo;
@@ -114,7 +120,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
+                return Success(Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -141,7 +147,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់ហើយ..!​");
+                return Success(Language.DataDeleted);
             }
             catch (Exception ex)
             {

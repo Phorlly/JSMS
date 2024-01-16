@@ -1,4 +1,5 @@
 ﻿using JSMS.Models.Admin;
+using JSMS.Resources;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -65,11 +66,8 @@ namespace JSMS.Controllers.Api
                 {
                     Name = name,
                     Image = fileName,
-                    Noted = noted == "" ? "សម្រាប់ឲ្យទៅបុគ្គលិក" : noted,
+                    Noted = noted == "" ? Language.Created : noted,
                     CreatedBy = createdBy,
-                    IsActive = true,
-                    Updated = DateTime.Now,
-                    Created = DateTime.Now,
                 };
 
                 if (request != null)
@@ -78,7 +76,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
+                return Success(Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -106,10 +104,8 @@ namespace JSMS.Controllers.Api
                 }
 
                 response.Updated = DateTime.Now;
-                response.Created = response.Created;
-                response.IsActive = true;
                 response.Name = name;
-                response.Noted = noted == "" ? "សម្រាប់ឲ្យទៅបុគ្គលិក" : noted;
+                response.Noted = noted == "" ? Language.Updated : noted;
                 response.CreatedBy = response.CreatedBy;
                 response.Image = response.Image;
 
@@ -119,7 +115,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
+                return Success(Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -148,7 +144,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់ហើយ..!​");
+                return Success(Language.DataDeleted);
             }
             catch (Exception ex)
             {

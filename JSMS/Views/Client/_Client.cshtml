@@ -18,15 +18,15 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="ownername">@JSMS.Resources.Language.FullName</label>
-                                            <input type="text" class="form-control" id="ownername" placeholder="@JSMS.Resources.Language.Input">
+                                            <label for="ownername">@JSMS.Resources.Language.OwnerName</label>
+                                            <input type="text" class="form-control" id="ownername" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.OwnerName">
 
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="company">@JSMS.Resources.Language.Company</label>
-                                            <input type="text" class="form-control" id="company" placeholder="@JSMS.Resources.Language.Input">
+                                            <input type="text" class="form-control" id="company" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Company">
 
                                         </div>
                                     </div>
@@ -36,7 +36,7 @@
                                         <div class="form-group mb-3">
                                             <label for="vattin">@JSMS.Resources.Language.VATTIN</label>
                                             <select class="form-select" id="vattin">
-                                                <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                                <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.VATTIN---</option>
                                                 <option value="1">L001-901901806</option>
                                                 <option value="2">L002-901901807</option>
                                                 <option value="3">L003-901901808</option>
@@ -45,10 +45,10 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 mt-2">
+                                    <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="dob">@JSMS.Resources.Language.DOB</label>
-                                            <input type="text" class="form-control" id="dob" placeholder="@JSMS.Resources.Language.SelectDate">
+                                            <input type="text" class="form-control" id="dob" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.DOB">
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                         <div class="form-group mb-3">
                                             <label for="phone1">@JSMS.Resources.Language.Phone</label>
                                             <input type="text" maxlength="15" class="form-control" id="phone1"
-                                                   placeholder="@JSMS.Resources.Language.Input">
+                                                   placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone">
 
                                         </div>
                                     </div>
@@ -65,7 +65,7 @@
                                         <div class="form-group mb-3">
                                             <label for="phone2">@JSMS.Resources.Language.Phone2</label>
                                             <input type="text" maxlength="15" class="form-control" id="phone2"
-                                                   placeholder="@JSMS.Resources.Language.Input">
+                                                   placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone2">
 
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                 <div class="form-group">
                                     <label for="position">@JSMS.Resources.Language.Position</label>
                                     <select class="form-select" id="position">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Position---</option>
                                         <option value="1">@JSMS.Resources.Language.Owner</option>
                                         <option value="2">@JSMS.Resources.Language.ViceManager</option>
                                         <option value="3">@JSMS.Resources.Language.GeneralManager</option>
@@ -115,7 +115,7 @@
                                 <div class="form-group">
                                     <label for="province">@JSMS.Resources.Language.Province</label>
                                     <select id="province" class="form-select" name="province">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Province---</option>
                                         @foreach (var province in Model)
                                         {
                                             <option value="@province.Id">@province.NameKh / @province.Name</option>
@@ -128,7 +128,7 @@
                                     <label for="district">@JSMS.Resources.Language.District</label>
                                     <input type="hidden" id="district-id" />
                                     <select id="district" class="form-select" name="district">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.District---</option>
                                     </select>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                     <label for="commune">@JSMS.Resources.Language.Commune</label>
                                     <input type="hidden" id="commune-id" />
                                     <select id="commune" class="form-select" name="commune">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Commune---</option>
                                     </select>
                                 </div>
                             </div>
@@ -148,14 +148,14 @@
                                     <label for="village">@JSMS.Resources.Language.Village</label>
                                     <input type="hidden" id="village-id" />
                                     <select id="village" class="form-select" name="village">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Village---</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-2">
                                 <div class="form-group mb-3">
                                     <label for="noted">@JSMS.Resources.Language.Description</label>
-                                    <textarea class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+                                    <textarea class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
 
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                             <i class=" fas fas fa-redo-alt"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
                         </button>
-                        <button type="button" class="btn btn-secondary" id="save">
+                        <button type="button" class="btn btn-info" id="save">
                             <i class=" fas fa-save"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
                         </button>

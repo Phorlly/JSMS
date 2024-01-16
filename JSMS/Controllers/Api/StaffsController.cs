@@ -1,4 +1,5 @@
 ﻿using JSMS.Models.Admin;
+using JSMS.Resources;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace JSMS.Controllers.Api
     [RoutePrefix("api/hr/staffs")]
     public class StaffsController : ApiBaseController
     {
-   
+
         [HttpGet]
         [Route("get")]
         public async Task<IHttpActionResult> Get()
@@ -74,16 +75,17 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var isExist = context.Staffs.FirstOrDefault(c => c.Code.Equals(request.Code));
+                var isExist = await context.Staffs.FirstOrDefaultAsync(c => c.Code.Equals(request.Code));
                 if (isExist != null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "លេខកូដនេះកំពុងប្រើហើយ​​" }));
+                    return MessageWithCode(400, Language.ExistCode);
                 }
 
-                request.IsActive = true;
-                request.UpdatedAt = DateTime.Now;
-                request.CreatedAt = DateTime.Now;
-                request.PremierSalary = 15;
+                var isPasses = await context.Staffs.FirstOrDefaultAsync(c => c.ShortList.Equals(request.ShortList));
+                if (isPasses != null)
+                {
+                    return MessageWithCode(400, Language.PassesAsStaff);
+                }
 
                 if (request != null)
                 {
@@ -91,7 +93,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
+                return Success(Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -111,60 +113,38 @@ namespace JSMS.Controllers.Api
                     return NoDataFound();
                 }
 
-                //The same data
-                if (response.Code == request.Code)
+                var isExist = await context.Staffs.FirstOrDefaultAsync(c => c.Code.Equals(request.Code) && c.Id != id);
+                if (isExist != null)
                 {
-                    response.Status = request.Status;
-                    response.UpdatedAt = DateTime.Now;
-                    response.CreatedAt = response.CreatedAt;
-                    response.IsActive = true;
-                    response.ShortList = request.ShortList;
-                    response.Position = request.Position;
-                    response.Client = request.Client;
-                    response.MainSalary = request.MainSalary;
-                    response.Code = request.Code;
-                    response.Noted = request.Noted;
-                    response.CreatedBy = response.CreatedBy;
-                    response.CurrentDate = request.CurrentDate;
-
-                    if (request != null && response != null)
-                    {
-                        context.Entry(response).State = EntityState.Modified;
-                        context.SaveChanges();
-                    }
-
-                    return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
+                    return MessageWithCode(400, Language.ExistCode);
                 }
 
-                //Difference data
-                var exist = context.Staffs.FirstOrDefault(c => c.Code.Equals(request.Code));
-                if (exist == null)
+                var isPasses = await context.Staffs.FirstOrDefaultAsync(c => c.ShortList.Equals(request.ShortList) && c.Id != id);
+                if (isPasses != null)
                 {
-                    response.Status = request.Status;
-                    response.UpdatedAt = DateTime.Now;
-                    response.CreatedAt = response.CreatedAt;
-                    response.IsActive = true;
-                    response.ShortList = request.ShortList;
-                    response.Position = request.Position;
-                    response.Client = request.Client;
-                    response.MainSalary = request.MainSalary;
-                    response.Code = request.Code;
-                    response.Noted = request.Noted;
-                    response.CreatedBy = response.CreatedBy;
-                    response.CurrentDate = request.CurrentDate;
-
-                    if (request != null && response != null)
-                    {
-                        context.Entry(response).State = EntityState.Modified;
-                        await context.SaveChangesAsync();
-                    }
-
-                    return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
+                    return MessageWithCode(400, Language.PassesAsStaff);
                 }
-                else
+
+                response.Status = request.Status;
+                response.UpdatedAt = DateTime.Now;
+                response.CreatedAt = response.CreatedAt;
+                response.IsActive = true;
+                response.ShortList = request.ShortList;
+                response.Position = request.Position;
+                response.Client = request.Client;
+                response.MainSalary = request.MainSalary;
+                response.Code = request.Code;
+                response.Noted = request.Noted;
+                response.CreatedBy = response.CreatedBy;
+                response.CurrentDate = request.CurrentDate;
+
+                if (request != null && response != null)
                 {
-                    return ExistData("លេខកូដនេះកំពុងប្រើហើយ​..!​");
+                    context.Entry(response).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
                 }
+
+                return Success(Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -192,7 +172,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ហើយ..!");
+                return Success(Language.DataDeleted);
             }
             catch (Exception ex)
             {

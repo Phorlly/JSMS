@@ -18,7 +18,7 @@
                                 <div class="form-group mb-3">
                                     <label for="applicant">@JSMS.Resources.Language.Applicant</label>
                                     <select id="applicant" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Applicant---</option>
                                         @foreach (var response in Model.Applicants)
                                         {
                                             <option value="@response.Id">@response.Name @response.NickName</option>
@@ -30,7 +30,7 @@
                                 <div class="form-group mb-3">
                                     <label for="gaurantor">@JSMS.Resources.Language.Guarantor</label>
                                     <select id="gaurantor" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Guarantor---</option>
                                         @foreach (var response in Model.Gaurantors)
                                         {
                                             <option value="@response.Id">@response.Name @response.NickName</option>
@@ -41,14 +41,14 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
                                     <label for="on-date">@JSMS.Resources.Language.Date</label>
-                                    <input type="text" class="form-control" id="on-date" placeholder="@JSMS.Resources.Language.SelectDate">
+                                    <input type="text" class="form-control" id="on-date" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.Date">
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
                                     <label for="noted">@JSMS.Resources.Language.Description</label>
-                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
 
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                             <i class=" fas fas fa-redo-alt"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
                         </button>
-                        <button type="button" class="btn btn-secondary" id="save">
+                        <button type="button" class="btn btn-info" id="save">
                             <i class=" fas fa-save"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
                         </button>

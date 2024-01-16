@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using JSMS.Resources;
 
 namespace JSMS.Controllers
 {
@@ -70,7 +71,7 @@ namespace JSMS.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { success = false, message = "Invalid model." });
+                return Json(new { success = false, message = Language.InvalidModel });
             }
 
             var result = await SignInManager.PasswordSignInAsync(model.UserName.ToLower(), model.Password, model.RememberMe, shouldLockout: false);
@@ -78,14 +79,14 @@ namespace JSMS.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return Json(new { success = true, message = "ចូលបានជោគជ័យ" });
+                    return Json(new { success = true, message = Language.LoginSuccess });
                 case SignInStatus.LockedOut:
-                    return Json(new { success = false, message = "គណនីត្រូវបានបិទ" });
+                    return Json(new { success = false, message = Language.AccountClosed });
                 case SignInStatus.RequiresVerification:
-                    return Json(new { success = false, message = "ទាមទារការផ្ទៀងផ្ទាត់" });
+                    return Json(new { success = false, message = Language.VerificationRequired });
                 case SignInStatus.Failure:
                 default:
-                    return Json(new { success = false, message = "ការប៉ុនប៉ងចូលមិនត្រឹមត្រូវ" });
+                    return Json(new { success = false, message = Language.InvalidLoginAttempt });
             }
         }
 
@@ -150,18 +151,21 @@ namespace JSMS.Controllers
             // Check if the username is already taken
             if (UserManager.FindByName(model.UserName.ToLower()) != null)
             {
-                return Json(new { success = false, message = "ឈ្មោះ​នេះ​ត្រូវ​បាន​គេ​ប្រើប្រាស់​រួចរាល់​ហើយ" });
+                return Json(new { success = false, message = Language.ExistUsername });
             }
+
             // Check if the password meets the minimum length requirement
             if (model.Password.Length < 8)
             {
-                return Json(new { success = false, message = "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ 8 តួអក្សរ" });
+                return Json(new { success = false, message = Language.PasswordMustBe8Char });
             }
+
             // Check if the password and confirm password match
             if (model.Password != model.ConfirmPassword)
             {
-                return Json(new { success = false, message = "ពាក្យ​សម្ងាត់​និង​ការ​បញ្ជាក់​ពាក្យ​សម្ងាត់​មិន​ត្រូវ​គ្នា​" });
+                return Json(new { success = false, message = Language.PasswordNotMatch });
             }
+
             // Continue with the registration process
             if (ModelState.IsValid)
             {
@@ -181,7 +185,7 @@ namespace JSMS.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return Json(new { success = true, message = "ការចុះឈ្មោះទទួលបានជោគជ័យ" });
+                    return Json(new { success = true, message = Language.DataCreated });
                 }
                 else
                 {
@@ -194,7 +198,7 @@ namespace JSMS.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return Json(new { success = false, message = "ទិន្នន័យចុះឈ្មោះមិនត្រឹមត្រូវ" });
+            return Json(new { success = false, message = Language.InvalidData });
         }
 
         //

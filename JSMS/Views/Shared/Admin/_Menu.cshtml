@@ -34,10 +34,10 @@
         SubMenuItems = new List<SubMenuItem> {
             new SubMenuItem { Name = JSMS.Resources.Language.Accounting, Controller = "Accounting",Icon = "fas fa-donate",Action = "Index",
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
-            new SubMenuItem { Name = JSMS.Resources.Language.GeneralLedger,Controller = "GeneralLedger",Icon = "fas fa-donate",Action = "Index",
+            new SubMenuItem { Name = JSMS.Resources.Language.GeneralLedger,Controller = "GeneralLedger",Icon = "fas fa-file-signature",Action = "Index",
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
-            new SubMenuItem { Name = JSMS.Resources.Language.Transaction,Controller = "Transaction",Icon = "fas fa-id-card",Action = "Index",
-                              Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
+            //new SubMenuItem { Name = JSMS.Resources.Language.Transaction,Controller = "Transaction",Icon = "fas fa-id-card",Action = "Index",
+            //                  Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
         }
     });
     moduleMainMenuItems.Add(new MainMenuItem
@@ -60,11 +60,11 @@
         Icon = "fas fa-sun",
         Role = new List<string> { "AdminOrHR", "Accounting", "Customer" },
         SubMenuItems = new List<SubMenuItem> {
-            new SubMenuItem { Name = JSMS.Resources.Language.User, Controller = "UserRole",Icon = "fas fa-user",Action = "Index",
+            new SubMenuItem { Name = JSMS.Resources.Language.User, Controller = "UserRole",Icon = "fas fa-users",Action = "Index",
                               Role = new List<string> { "AdminOrHR"}},
             new SubMenuItem { Name = JSMS.Resources.Language.RegisterOnline,Controller = "RequestOnline",Icon = "fas fa-users",Action = "Index",
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
-            //new SubMenuItem { Name = JSMS.Resources.Language.Transaction,Controller = "Transaction",Icon = "fas fa-id-card",Action = "Index",
+            //new SubMenuItem { Name = JSMS.Resources.Language.UserProfile,Controller = "UserRole",Icon = "fas fa-user",Action = "UserProfile",
             //                  Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
         }
     });
@@ -86,7 +86,7 @@
         {
             if (mainMenuItem.Role.Any(role => User.IsInRole(role)))
             {
-                <li class="nav-item" id="mainMenu_@(mainMenuItem.Name)">
+                <li class="nav-item has-treeview" id="mainMenu_@(mainMenuItem.Name)">
                     <a href="#" class="nav-link" id="mainMenuLink_@(mainMenuItem.Name)">
                         <i class="@mainMenuItem.Icon nav-icon"></i>
                         <p class="text-bold text-white">
@@ -95,15 +95,15 @@
                         </p>
                     </a>
 
-                    <ul class="nav-item nav-treeview">
+                    <ul class="nav nav-treeview">
                         @foreach (var subMenuItem in mainMenuItem.SubMenuItems)
                         {
                             if (subMenuItem.Role.Any(role => User.IsInRole(role)))
                             {
                                 <li class="nav-item" id="subMenu_@(subMenuItem.Name)">
                                     <a href="@Url.Action(subMenuItem.Action, subMenuItem.Controller)" class="nav-link" id="subMenuLink_@(subMenuItem.Name)">
-                                        <i class="@subMenuItem.Icon"></i>
-                                        <p class="mx-2 text-bold">@subMenuItem.Name</p>
+                                        <i class="@subMenuItem.Icon px-2"></i>
+                                        <p class="text-bold"> @subMenuItem.Name </p>
                                     </a>
                                 </li>
                             }
@@ -129,7 +129,7 @@
 
 <script>
     // JavaScript to handle dynamic active states based on current URL
-    document.addEventListener('DOMContentLoaded',  ()=> {
+    document.addEventListener('DOMContentLoaded',  () => {
         var currentUrl = window.location.href;
 
         @foreach (var mainMenuItem in moduleMainMenuItems)

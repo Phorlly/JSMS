@@ -1,4 +1,5 @@
 ﻿using JSMS.Models.Admin;
+using JSMS.Resources;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -36,18 +37,18 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var response = await(from CProvince in context.Provinces
-                                join Gaurantor in context.Gaurantors on CProvince.Id equals Gaurantor.CProvince
-                                join CDistrict in context.Districts on Gaurantor.CDistrict equals CDistrict.Id
-                                join CCommune in context.Communes on Gaurantor.CCommune equals CCommune.Id
-                                join CVillage in context.Villages on Gaurantor.CVillage equals CVillage.Id
+                var response = await (from CProvince in context.Provinces
+                                      join Gaurantor in context.Gaurantors on CProvince.Id equals Gaurantor.CProvince
+                                      join CDistrict in context.Districts on Gaurantor.CDistrict equals CDistrict.Id
+                                      join CCommune in context.Communes on Gaurantor.CCommune equals CCommune.Id
+                                      join CVillage in context.Villages on Gaurantor.CVillage equals CVillage.Id
 
-                                join BProvince in context.Provinces on Gaurantor.BProvince equals BProvince.Id
-                                join BDistrict in context.Districts on Gaurantor.BDistrict equals BDistrict.Id
-                                join BCommune in context.Communes on Gaurantor.BCommune equals BCommune.Id
-                                join BVillage in context.Villages on Gaurantor.BVillage equals BVillage.Id
-                                where Gaurantor.IsActive == true
-                                select new { Gaurantor, CProvince, CDistrict, CCommune, CVillage, BProvince, BDistrict, BCommune, BVillage })
+                                      join BProvince in context.Provinces on Gaurantor.BProvince equals BProvince.Id
+                                      join BDistrict in context.Districts on Gaurantor.BDistrict equals BDistrict.Id
+                                      join BCommune in context.Communes on Gaurantor.BCommune equals BCommune.Id
+                                      join BVillage in context.Villages on Gaurantor.BVillage equals BVillage.Id
+                                      where Gaurantor.IsActive == true
+                                      select new { Gaurantor, CProvince, CDistrict, CCommune, CVillage, BProvince, BDistrict, BCommune, BVillage })
                                 .OrderByDescending(c => c.Gaurantor.Id).ToListAsync();
                 if (response == null)
                 {
@@ -68,18 +69,18 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var response = await(from CProvince in context.Provinces
-                                join Gaurantor in context.Gaurantors on CProvince.Id equals Gaurantor.CProvince
-                                join CDistrict in context.Districts on Gaurantor.CDistrict equals CDistrict.Id
-                                join CCommune in context.Communes on Gaurantor.CCommune equals CCommune.Id
-                                join CVillage in context.Villages on Gaurantor.CVillage equals CVillage.Id
+                var response = await (from CProvince in context.Provinces
+                                      join Gaurantor in context.Gaurantors on CProvince.Id equals Gaurantor.CProvince
+                                      join CDistrict in context.Districts on Gaurantor.CDistrict equals CDistrict.Id
+                                      join CCommune in context.Communes on Gaurantor.CCommune equals CCommune.Id
+                                      join CVillage in context.Villages on Gaurantor.CVillage equals CVillage.Id
 
-                                join BProvince in context.Provinces on Gaurantor.BProvince equals BProvince.Id
-                                join BDistrict in context.Districts on Gaurantor.BDistrict equals BDistrict.Id
-                                join BCommune in context.Communes on Gaurantor.BCommune equals BCommune.Id
-                                join BVillage in context.Villages on Gaurantor.BVillage equals BVillage.Id
-                                where Gaurantor.IsActive == true
-                                select new { Gaurantor, CProvince, CDistrict, CCommune, CVillage, BProvince, BDistrict, BCommune, BVillage })
+                                      join BProvince in context.Provinces on Gaurantor.BProvince equals BProvince.Id
+                                      join BDistrict in context.Districts on Gaurantor.BDistrict equals BDistrict.Id
+                                      join BCommune in context.Communes on Gaurantor.BCommune equals BCommune.Id
+                                      join BVillage in context.Villages on Gaurantor.BVillage equals BVillage.Id
+                                      where Gaurantor.IsActive == true
+                                      select new { Gaurantor, CProvince, CDistrict, CCommune, CVillage, BProvince, BDistrict, BCommune, BVillage })
                                 .SingleAsync(c => c.Gaurantor.Id.Equals(id));
                 if (response == null)
                 {
@@ -101,12 +102,6 @@ namespace JSMS.Controllers.Api
             try
             {
                 var fileName = RequestFile("Image", "Gaurantor", "~/AppData/Images", "../AppData/Images");
-                //var exist = context.Gaurantors.FirstOrDefault(c => c.Name.Equals(name));
-                //if (exist != null)
-                //{
-                //    return BadRequest();
-                //}
-
                 //Assign value
                 var request = new Gaurantor()
                 {
@@ -121,15 +116,11 @@ namespace JSMS.Controllers.Api
                     Education = int.Parse(education),
                     Image = fileName,
                     DOB = DateTime.Parse(dob),
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    IsActive = true,
-                    Status = 1,
                     CProvince = int.Parse(province),
                     CDistrict = int.Parse(district),
                     CCommune = int.Parse(commune),
                     CVillage = int.Parse(village),
-                    Noted = noted,
+                    Noted = noted == "" ? Language.Created : noted,
                     BProvince = int.Parse(bProvince),
                     BDistrict = int.Parse(bDistrict),
                     BCommune = int.Parse(bCommune),
@@ -142,7 +133,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
+                return MessageWithCode(200, Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -182,15 +173,12 @@ namespace JSMS.Controllers.Api
                 response.Education = int.Parse(education);
                 response.Image = response.Image;
                 response.DOB = DateTime.Parse(dob);
-                response.CreatedAt = response.CreatedAt;
                 response.UpdatedAt = DateTime.Now;
-                response.IsActive = true;
-                response.Status = 1;
                 response.CProvince = int.Parse(province);
                 response.CDistrict = int.Parse(district);
                 response.CCommune = int.Parse(commune);
                 response.CVillage = int.Parse(village);
-                response.Noted = noted;
+                response.Noted = noted == "" ? Language.Updated : noted;
                 response.BProvince = int.Parse(bProvince);
                 response.BDistrict = int.Parse(bDistrict);
                 response.BCommune = int.Parse(bCommune);
@@ -202,7 +190,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
+                return MessageWithCode(200, Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -230,7 +218,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់ហើយ..!​");
+                return MessageWithCode(200, Language.DataDeleted);
             }
             catch (Exception ex)
             {

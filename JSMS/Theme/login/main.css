@@ -84,6 +84,7 @@ ul, li {
 input {
     outline: none;
     border: none;
+    font-family: 'Khmer OS Battambang','Segoe UI', sans-serif;
 }
 
 textarea {

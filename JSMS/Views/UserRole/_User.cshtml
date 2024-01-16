@@ -14,14 +14,14 @@
                     <div class="col-md-12">
                         <div class="form-group mb-4">
                             <label for="username">@JSMS.Resources.Language.Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="@JSMS.Resources.Language.Input">
+                            <input type="text" class="form-control" id="username" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Username">
 
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group mb-4">
                             <label for="phone">@JSMS.Resources.Language.Telephone</label>
-                            <input type="text" maxlength="15" class="form-control" id="phone" placeholder="@JSMS.Resources.Language.Input">
+                            <input type="text" maxlength="15" class="form-control" id="phone" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Telephone">
 
                         </div>
                     </div>
@@ -39,21 +39,21 @@
                         <div class="col-md-12">
                             <div class="form-group mb-4">
                                 <label for="old-password">@JSMS.Resources.Language.OldPassword</label> 
-                                <input type="password" class="form-control" id="old-password" placeholder="@JSMS.Resources.Language.Input">
+                                <input type="password" class="form-control" id="old-password" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.OldPassword">
 
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group mb-4">
                                 <label for="new-password">@JSMS.Resources.Language.NewPassword</label>
-                                <input type="password" class="form-control" id="new-password" placeholder="@JSMS.Resources.Language.Input">
+                                <input type="password" class="form-control" id="new-password" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.NewPassword">
 
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group mb-4">
                                 <label for="confirm-password">@JSMS.Resources.Language.ConfirmPassword</label>
-                                <input type="password" class="form-control" id="confirm-new-password" placeholder="@JSMS.Resources.Language.Input">
+                                <input type="password" class="form-control" id="confirm-new-password" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.ConfirmPassword">
 
                             </div>
                         </div>
@@ -62,14 +62,14 @@
                         <div class="col-md-12">
                             <div class="form-group mb-4">
                                 <label for="password">@JSMS.Resources.Language.Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="@JSMS.Resources.Language.Input">
+                                <input type="password" class="form-control" id="password" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Password">
 
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group mb-4">
                                 <label for="confirm-password">@JSMS.Resources.Language.ConfirmPassword</label>
-                                <input type="password" class="form-control" id="confirm-password" placeholder="@JSMS.Resources.Language.Input">
+                                <input type="password" class="form-control" id="confirm-password" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.ConfirmPassword">
 
                             </div>
                         </div>
@@ -79,11 +79,12 @@
                         <div class="form-group mb-2">
                             <label>@JSMS.Resources.Language.Role</label>
                             <select class="form-select" id="role">
-                                <option value="-1">---@JSMS.Resources.Language.Select---</option>
-                                @foreach (var response in Model)
-                                {
-                                    <option value="@response.Name">@response.Name</option>
-                                }
+                                <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Role---</option>
+                                <option value="AdminOrHR">@JSMS.Resources.Language.Admin</option>
+                                <option value="Accounting">@JSMS.Resources.Language.Accounting</option>
+                                <option value="Customer">@JSMS.Resources.Language.Client</option>
+                                <option value="Staff">@JSMS.Resources.Language.Staff</option>
+                                <option value="User">@JSMS.Resources.Language.User</option>
                             </select>
                         </div>
                     </div>
@@ -98,7 +99,7 @@
                         <i class=" fas fas fa-redo-alt"></i>
                         <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
                     </button>
-                    <button type="button" class="btn btn-secondary" id="save">
+                    <button type="button" class="btn btn-info" id="save">
                         <i class=" fas fa-save"></i>
                         <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
                     </button>

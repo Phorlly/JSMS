@@ -1,4 +1,5 @@
 ﻿using JSMS.Models.Admin;
+using JSMS.Resources;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace JSMS.Controllers.Api
                                       join Village in context.Villages on Client.Village equals Village.Id
                                       where Client.IsActive == true && Client.IsClient == true
                                       select new { Client, Province, District, Commune, Village })
-                                .OrderByDescending(c => c.Client.Id).ToListAsync();
+                                      .OrderByDescending(c => c.Client.Id).ToListAsync();
                 if (response == null)
                 {
                     return NoDataFound();
@@ -86,14 +87,6 @@ namespace JSMS.Controllers.Api
             try
             {
                 var fileName = RequestFile("Image", "Client", "~/AppData/Images", "../AppData/Images");
-                //var exist = context.Clients.FirstOrDefault(c => c.Company.Equals(company) ||
-                //                                                c.GDTREG.Equals(gdtreg) ||
-                //                                                c.VATTIN.Equals(vattin));
-                //if (exist != null)
-                //{
-                //    return BadRequest();
-                //}
-
                 //Assign value
                 var request = new Client()
                 {
@@ -107,16 +100,11 @@ namespace JSMS.Controllers.Api
                     Position = int.Parse(position),
                     Image = fileName,
                     DOB = DateTime.Parse(dob),
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    IsActive = true,
-                    IsClient = true,
-                    Status = 1,
                     Province = int.Parse(province),
                     District = int.Parse(district),
                     Commune = int.Parse(commune),
                     Village = int.Parse(village),
-                    Noted = noted
+                    Noted = noted == "" ? Language.Created: noted
                 };
 
                 if (request != null)
@@ -125,7 +113,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
+                return Success(Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -164,12 +152,8 @@ namespace JSMS.Controllers.Api
                 response.Position = int.Parse(position);
                 response.Image = response.Image;
                 response.DOB = DateTime.Parse(dob);
-                response.CreatedAt = response.CreatedAt;
                 response.UpdatedAt = DateTime.Now;
-                response.IsActive = true;
-                response.IsClient = true;
-                response.Status = 1;
-                response.Noted = noted;
+                response.Noted = noted == "" ? Language.Updated : noted;
                 response.Province = int.Parse(province);
                 response.District = int.Parse(district);
                 response.Commune = int.Parse(commune);
@@ -181,7 +165,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
+                return Success(Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -209,7 +193,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ហើយ..!");
+                return Success(Language.DataDeleted);
             }
             catch (Exception ex)
             {

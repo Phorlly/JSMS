@@ -367,13 +367,11 @@
     <Compile Include="Controllers\Admin\ShortListController.cs" />
     <Compile Include="Controllers\Admin\StaffController.cs" />
     <Compile Include="Controllers\Admin\TransactionController.cs" />
-    <Compile Include="Controllers\Api\AddressesController.cs" />
     <Compile Include="Controllers\Api\ApplicantsController.cs" />
     <Compile Include="Controllers\Api\AttendancesController.cs" />
     <Compile Include="Controllers\Api\BehaviorsController.cs" />
     <Compile Include="Controllers\Api\ClientsController.cs" />
     <Compile Include="Controllers\Api\GaurantorsController.cs" />
-    <Compile Include="Controllers\Api\IncomesController.cs" />
     <Compile Include="Controllers\Api\InvoiceController.cs" />
     <Compile Include="Controllers\Api\OnlineClientsController.cs" />
     <Compile Include="Controllers\Api\OtherExpensesController.cs" />
@@ -443,6 +441,11 @@
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Language.km1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.km.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Language.km2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.km.resx</DependentUpon>
@@ -3134,6 +3137,8 @@
     <Content Include="Views\Invoice\_Invoice.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Invoice\_GenerateInvoice.cshtml" />
+    <Content Include="Views\UserRole\UserProfile.cshtml" />
+    <Content Include="Views\Shared\Admin\_Language.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\OfficialWebsite\Blog.cshtml" />
@@ -3166,7 +3171,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Language.km.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Language.km1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Language.km2.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Language.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

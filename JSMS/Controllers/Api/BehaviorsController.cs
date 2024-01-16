@@ -1,16 +1,10 @@
-﻿using JSMS.Helpers;
-using JSMS.Models;
-using JSMS.Models.Admin;
+﻿using JSMS.Models.Admin;
+using JSMS.Resources;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-
 
 namespace JSMS.Controllers.Api
 {
@@ -61,7 +55,7 @@ namespace JSMS.Controllers.Api
                                      .FirstAsync(c => c.Behavior.Id.Equals(id));
                 if (response == null)
                 {
-                    return NoDataFound() ;
+                    return NoDataFound();
                 }
 
                 return Ok(response);
@@ -78,6 +72,12 @@ namespace JSMS.Controllers.Api
         {
             try
             {
+                var isExist = await context.Behaviors.FirstOrDefaultAsync(c => c.Applicant.ToString() == applicant);
+                if (isExist != null)
+                {
+                    return ExistData(Language.ExistApplicant);
+                }
+
                 var fileName = RequestFile("Attachment", "Behavior", "~/AppData/Files", "../AppData/Files");
                 var request = new Behavior()
                 {
@@ -86,11 +86,7 @@ namespace JSMS.Controllers.Api
                     CreatedBy = createdBy,
                     Attachment = fileName,
                     CurrentDate = DateTime.Parse(currentDate),
-                    Noted = noted,
-                    IsActive = true,
-                    UpdatedAt = DateTime.Now,
-                    CreatedAt = DateTime.Now,
-                    Status = 1,
+                    Noted = noted == "" ? Language.Confirmed : noted,
                 };
 
                 if (request != null)
@@ -99,7 +95,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់​ហើយ..!");
+                return MessageWithCode(201, Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -116,7 +112,16 @@ namespace JSMS.Controllers.Api
                 var response = await context.Behaviors.FindAsync(id);
                 if (response == null)
                 {
-                    return NoDataFound() ;
+                    return NoDataFound();
+                }
+
+                // Check if there is another record with the same Applicant
+                var isSameApplicant = await context.Behaviors
+                    .FirstOrDefaultAsync(c => c.Applicant.ToString() == applicant.ToString() && c.Id != id);
+
+                if (isSameApplicant != null)
+                {
+                    return ExistData(Language.ExistApplicant);
                 }
 
                 var fileName = RequestFile("Attachment", "Behavior", "~/AppData/Files", "../AppData/Files");
@@ -126,13 +131,10 @@ namespace JSMS.Controllers.Api
                     response.Attachment = fileName;
                 }
 
-                response.Status = 1;
                 response.UpdatedAt = DateTime.Now;
-                response.CreatedAt = response.CreatedAt;
-                response.IsActive = true;
                 response.ConfirmBy = confirmBy;
                 response.Applicant = int.Parse(applicant);
-                response.Noted = noted;
+                response.Noted = noted == "" ? Language.Confirmed : noted;
                 response.CreatedBy = response.CreatedBy;
                 response.CurrentDate = DateTime.Parse(currentDate);
                 response.Attachment = response.Attachment;
@@ -143,7 +145,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់​ហើយ..!");
+                return Success(Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -161,7 +163,7 @@ namespace JSMS.Controllers.Api
                 var response = await context.Behaviors.FindAsync(id);
                 if (response == null)
                 {
-                    return NoDataFound() ;
+                    return NoDataFound();
                 }
                 else
                 {
@@ -172,7 +174,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ហើយ..!");
+                return Success(Language.DataDeleted);
             }
             catch (Exception ex)
             {

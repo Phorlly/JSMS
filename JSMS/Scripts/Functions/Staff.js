@@ -1,6 +1,8 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
     refresh.click(() => getAll());
+    datePicker("#on-date");
+    numberOnly("main-salary");
 });
 
 //Declare variable for use global
@@ -14,7 +16,6 @@ let refresh = $("#refresh");
 let shortList = $("#short-list");
 let client = $("#client");
 let onDate = $("#on-date");
-datePicker("#on-date");
 let mainSalary = $("#main-salary");
 let position = $("#position");
 let noted = $("#noted");
@@ -60,12 +61,12 @@ const getAll = () => {
             {
                 //title: "Gender",
                 data: "Applicant.Gender",
-                render: (row) => row === true ? "ប្រុស" : "ស្រី",
+                render: (row) => row === true ? lMale : lFemale,
             },
             {
                 //title: "Shift",
                 data: "Staff.Status",
-                render: row => row === 0 ? "ថ្ងៃ" : "យប់"
+                render: row => row === 0 ? lMorning : lNight
             },
             {
                 //title: "Profile",
@@ -80,7 +81,7 @@ const getAll = () => {
             {
                 //title: "Type",
                 data: "Staff.Position",
-                render: row => row === 1 ? "ការងារ​ពេញ​ម៉ោង" : row == 2 ? "ក្រៅ​ម៉ោង" : "ជំនួសគេ"
+                render: row => row === 1 ? lFullTime : row == 2 ? lPartTime : lInstead
             },
             {
                 //title: "Main",
@@ -127,36 +128,39 @@ const getAll = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីបុគ្គលិកដែលមាន",
+                title: lStaffList,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
 
             {
-                title: "បញ្ជីបុគ្គលិកដែលមាន",
+                title: lStaffList,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបុគ្គលិកដែលមាន",
+                title: lStaffList,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីបុគ្គលិកដែលមាន",
+                title: lStaffList,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -181,7 +185,7 @@ save.click(() => {
         CurrentDate: onDate.val(),
         CreatedBy: createdBy,
         Noted: noted.val(),
-        Code: "X" + code.val(),
+        Code: code.val(),
         Status: shift.val()
     };
 
@@ -194,7 +198,7 @@ save.click(() => {
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
-
+            getAll();
             dataId.val(response.Id);
             table.ajax.reload();
             clear();
@@ -311,12 +315,12 @@ update.click(() => {
 //Delete data by id
 const remove = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value ?
@@ -344,7 +348,7 @@ const remove = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+                title: lTheSame,
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -359,11 +363,11 @@ const clear = () => {
     save.show();
     noted.val("");
     shortList.val("-1");
-    onDate.val("");
+    setCurrentDate("#on-date");
     mainSalary.val("");
     position.val("-1");
     client.val("-1");
-    code.val("");
+    code.val("X");
     shift.val("0");
 };
 
@@ -382,9 +386,7 @@ const validate = () => {
     let isValid = true;
     if (shortList.val() === "-1") {
         Swal.fire({
-            //toast: true,
-            //position: 'top-end',
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lSelect} ${lApplicantPassedShortList}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -397,7 +399,7 @@ const validate = () => {
         shortList.css("border-color", "#cccccc");
         if (client.val() === "-1") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title: `${lSelect} ${lLocation}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -408,9 +410,9 @@ const validate = () => {
             isValid = false;
         } else {
             client.css("border-color", "#cccccc");
-            if (code.val() === "") {
+            if (code.val() === "X") {
                 Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title: `${lInput} ${lCode}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -423,7 +425,7 @@ const validate = () => {
                 code.css("border-color", "#cccccc");
                 if (mainSalary.val() === "") {
                     Swal.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                        title: `${lInput} ${lMain}`,
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -434,33 +436,19 @@ const validate = () => {
                     isValid = false;
                 } else {
                     mainSalary.css("border-color", "#cccccc");
-                    if (onDate.val() === "") {
+                    if (position.val() === "-1") {
                         Swal.fire({
-                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                            title: `${lSelect} ${lPosition}`,
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
                             timer: 1500,
                         });
-                        onDate.css("border-color", "red");
-                        onDate.focus();
+                        position.css("border-color", "red");
+                        position.focus();
                         isValid = false;
                     } else {
-                        onDate.css("border-color", "#cccccc");
-                        if (position.val() === "-1") {
-                            Swal.fire({
-                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
-                                icon: "warning",
-                                showConfirmButton: false,
-                                customClass: { title: 'custom-swal-title' },
-                                timer: 1500,
-                            });
-                            position.css("border-color", "red");
-                            position.focus();
-                            isValid = false;
-                        } else {
-                            position.css("border-color", "#cccccc");
-                        }
+                        position.css("border-color", "#cccccc");
                     }
                 }
             }

@@ -20,38 +20,36 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <div class="row">
+                @*<div class="row">*@
 
-                    <div class="col-md-6">
-                        <ul class="nav nav-pills ml-auto p-2">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="tab-summary" href="#table-accounting-summary" data-toggle="tab">
-                                    <i class="fas fa-users"></i>
-                                    <span>@JSMS.Resources.Language.Salary</span>​
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " id="tab-accounting" href="#invoice" data-toggle="tab">
-                                    <i class="fas fa-user-friends"></i>
-                                    <span>@JSMS.Resources.Language.Summary</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    @*<div class="col-md-6">
+                            <ul class="nav nav-pills ml-auto p-2">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="tab-summary" href="#table-accounting-summary" data-toggle="tab">
+                                        <i class="fas fa-users"></i>
+                                        <span>@JSMS.Resources.Language.Salary</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="tab-accounting" href="#invoice" data-toggle="tab">
+                                        <i class="fas fa-user-friends"></i>
+                                        <span>@JSMS.Resources.Language.Summary</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>*@
 
-                    <div class="col-md-6 mt-2">
-                        <div class="float-sm-right mr-5">
-                            @*<button type="button" id="add-new" class="btn btn-primary btn-sm">
+                    <div class="float-sm-right mr-5">
+                        @*<button type="button" id="add-new" class="btn btn-primary btn-sm">
                                 <i class="fas fa-plus-circle"></i>
                                 <span class="text-uppercase">@JSMS.Resources.Language.Add</span>
                             </button>*@
-                            <button type="button" id="show-data" class="btn btn-success btn-sm">
-                                <i class="fas fa-sync-alt"></i>
-                                <span class="text-uppercase">@JSMS.Resources.Language.Refresh</span>
-                            </button>
-                        </div>
+                        <button type="button" id="show-data" class="btn btn-success btn-sm">
+                            <i class="fas fa-sync-alt"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Refresh</span>
+                        </button>
                     </div>
-                </div>
+                @*</div>*@
             </div>
             <div class="card-body">
                 <div class="tab-content">
@@ -60,20 +58,20 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="start-date">@JSMS.Resources.Language.StartDate</label>
-                                    <input type="text" id="start-date" class="form-control" placeholder="@JSMS.Resources.Language.SelectDate">
+                                    <input type="text" id="start-date" class="form-control" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.StartDate">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="end-date">@JSMS.Resources.Language.EndDate</label>
-                                    <input type="text" id="end-date" class="form-control" placeholder="@JSMS.Resources.Language.SelectDate">
+                                    <input type="text" id="end-date" class="form-control" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.EndDate">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="staff-id">@JSMS.Resources.Language.Code</label>
                                     <select id="staff-id" class="form-select">
-                                        <option value="null">@JSMS.Resources.Language.Select</option>
+                                        <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.Code</option>
                                         @foreach (var response in Model)
                                         {
                                             <option value="@response.Id">@response.Code</option>
@@ -85,9 +83,9 @@
                                 <div class="form-group">
                                     <label for="shift-type">@JSMS.Resources.Language.ShiftType</label>
                                     <select id="shift-type" class="form-select">
-                                        <option value="null">@JSMS.Resources.Language.Select</option>
-                                        <option value="0">ថ្ងៃ (Morning)</option>
-                                        <option value="1">យប់ (Night)</option>
+                                        <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.ShiftType</option>
+                                        <option value="0">@JSMS.Resources.Language.Morning</option>
+                                        <option value="1">@JSMS.Resources.Language.Night</option>
                                     </select>
                                 </div>
                             </div>
@@ -125,7 +123,7 @@
 
                     </div>
 
-                    
+
                     @*<div class="tab-pane " id="invoice">
                             <div class="col-md-12">
                                 @Html.Partial("_Invoice")
@@ -137,7 +135,7 @@
         </div>
     </div>
 </div>
-    
+
 @section scripts {
     @Scripts.Render("~/Scripts/Functions/Accounting.js")
 }

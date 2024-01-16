@@ -20,11 +20,10 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header p-0 border-bottom-0">
                 <div class="row">
-
                     <div class="col-md-6">
-                        <ul class="nav nav-pills ml-auto p-2">
+                        <ul class="nav nav-tabs ml-auto p-2">
                             <li class="nav-item">
                                 <a class="nav-link active" id="tab-attendance" href="#table-attendance"
                                     data-toggle="tab">
@@ -50,6 +49,10 @@
                             <button type="button" id="show-data" class="btn btn-success btn-sm">
                                 <i class="fas fa-sync-alt"></i>
                                 <span class="text-uppercase">@JSMS.Resources.Language.ShowData</span>
+                            </button>
+                            <button type="button" id="refesh-data" class="btn btn-success btn-sm">
+                                <i class="fas fa-sync-alt"></i>
+                                <span class="text-uppercase">@JSMS.Resources.Language.Refresh</span>
                             </button>
                         </div>
                     </div>
@@ -85,14 +88,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="month-year">@JSMS.Resources.Language.Monthly</label>
-                                    <input type="month" id="month-year" class="form-control">
+                                    <input type="month" id="month-year" class="form-control" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.Monthly">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="by-staff">@JSMS.Resources.Language.Code</label>
                                     <select id="by-staff" class="form-select">
-                                        <option value="null">@JSMS.Resources.Language.Select</option>
+                                        <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.Code</option>
                                         @foreach (var response in Model)
                                         {
                                             <option value="@response.Id">@response.Code</option>
@@ -104,7 +107,7 @@
                                 <div class="form-group">
                                     <label for="by-shift">@JSMS.Resources.Language.ShiftType</label>
                                     <select id="by-shift" class="form-select">
-                                        <option value="null">@JSMS.Resources.Language.Select</option>
+                                        <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.ShiftType</option>
                                         <option value="0">@JSMS.Resources.Language.Morning</option>
                                         <option value="1">@JSMS.Resources.Language.Night</option>
                                     </select>
@@ -113,7 +116,6 @@
                         </div>
                         
                         <div class="col-md-12 mt-3 print-section">
-              
                             <table id="attendance-summary" class="table table-group-divider text-nowrap">
                                 <thead>
                                     <tr>

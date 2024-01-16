@@ -4,13 +4,14 @@ using System.Web.Http;
 using JSMS.Models.Admin;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using JSMS.Resources;
 
 namespace JSMS.Controllers.Api
 {
     [RoutePrefix("api/hr/stocks")]
     public class StocksController : ApiBaseController
     {
- 
+
         [HttpGet]
         [Route("get")]
         public async Task<IHttpActionResult> Get()
@@ -18,7 +19,7 @@ namespace JSMS.Controllers.Api
             try
             {
                 var response = await (from Product in context.Products
-                                      join Stock in context.StockTransactions on Product.Id equals Stock.Product
+                                      join Stock in context.Stocks on Product.Id equals Stock.Product
 
                                       where Product.IsActive.Equals(true) && Stock.IsActive.Equals(true)
                                       select new { Product, Stock }).OrderByDescending(c => c.Stock.Id).ToListAsync();
@@ -43,11 +44,10 @@ namespace JSMS.Controllers.Api
             try
             {
                 var response = await (from Product in context.Products
-                                      join Stock in context.StockTransactions on Product.Id equals Stock.Product
-                                      join Quantity in context.Stocks on Product.Id equals Quantity.Product
+                                      join Stock in context.Stocks on Product.Id equals Stock.Product
 
                                       where Product.IsActive.Equals(true) && Stock.IsActive.Equals(true)
-                                      select new { Product, Stock, Quantity }).SingleOrDefaultAsync(c => c.Stock.Id.Equals(id));
+                                      select new { Product, Stock }).SingleOrDefaultAsync(c => c.Stock.Id.Equals(id));
 
                 if (response == null)
                 {
@@ -64,33 +64,33 @@ namespace JSMS.Controllers.Api
 
         [HttpPost]
         [Route("post")]
-        public async Task<IHttpActionResult> StockInOrOut(StockTransaction request)
+        public async Task<IHttpActionResult> StockInOrOut(Stock request)
         {
             try
             {
-                var stock = new Stock();
-                request.Created = DateTime.Now;
-                request.Updated = DateTime.Now;
-                request.IsActive = true;
-                request.Noted = request.Noted == "" ? "ដាក់ចូល ឬដកចេញ" : request.Noted;
+                request.Noted = request.Noted == "" ? Language.InOrOut : request.Noted;
                 request.CreatedBy = request.CreatedBy == "" ? "admin@system.com" : request.CreatedBy.ToString();
-                var stockExist = context.Stocks.SingleOrDefault(c => c.Product == request.Product);
+
+                var product = await context.Products.FindAsync(request.Product);
+                if (product == null)
+                {
+                    return NoDataFound();
+                }
+
                 //Stock-in
                 if (request.Status == 1)
                 {
-                    if (stockExist == null)
+                    if (product.Total <= 0)
                     {
-                        stock.Product = request.Product;
-                        stock.Total = request.Quantity;
-
-                        context.Stocks.Add(stock);
-                        context.StockTransactions.Add(request);
+                        product.Total = request.Quantity;
+                        context.Entry(product).State = EntityState.Modified;
+                        context.Stocks.Add(request);
                     }
                     else
                     {
-                        stockExist.Total += request.Quantity;
-                        context.Entry(stockExist).State = EntityState.Modified;
-                        context.StockTransactions.Add(request);
+                        product.Total += request.Quantity;
+                        context.Entry(product).State = EntityState.Modified;
+                        context.Stocks.Add(request);
                     }
 
                     await context.SaveChangesAsync();
@@ -99,27 +99,22 @@ namespace JSMS.Controllers.Api
                 //Stock-out
                 if (request.Status == 2)
                 {
-                    if (stockExist == null)
-                    {
-                        return NoDataFound();
-                    }
-
                     //Ajust stock
-                    if (stockExist != null && stockExist.Total < request.Quantity)
+                    if (product.Total < request.Quantity)
                     {
-                        return ExistData("ចំនួនទំនិញដែលនៅក្នុងស្តុកគឺមិនគ្រប់គ្រាន់ទេ..!");
+                        return ExistData(Language.NotEnough);
                     }
                     else
                     {
-                        stockExist.Total -= request.Quantity;
-                        context.Entry(stockExist).State = EntityState.Modified;
-                        context.StockTransactions.Add(request);
+                        product.Total -= request.Quantity;
+                        context.Entry(product).State = EntityState.Modified;
+                        context.Stocks.Add(request);
                     }
 
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
+                return Success(Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -129,67 +124,60 @@ namespace JSMS.Controllers.Api
 
         [HttpPut]
         [Route("put-by-id/{id}")]
-        public async Task<IHttpActionResult> PutById(StockTransaction request, int id)
+        public async Task<IHttpActionResult> PutById(Stock request, int id)
         {
             try
             {
-                var response = context.StockTransactions.Find(id);
-                var stockExist = context.Stocks.SingleOrDefault(c => c.Product == request.Product);
+                var response = await context.Stocks.FindAsync(id);
+                var product = await context.Products.FindAsync(request.Product);
                 response.Status = request.Status;
                 response.Updated = DateTime.Now;
-                response.CreatedBy = response.CreatedBy;
-                response.Created = response.Created;
                 response.Product = request.Product;
                 response.Quantity = request.Quantity;
-                response.Noted = request.Noted == "" ? "ដាក់ចូល ឬដកចេញ" : request.Noted;
+                response.Noted = request.Noted == "" ? Language.InOrOut : request.Noted;
                 response.Date = request.Date;
-                response.IsActive = true;
+
+                if (response == null || product == null)
+                {
+                    return NoDataFound();
+                }
 
                 //Stock-in
                 if (request.Status == 1)
                 {
-                    if (response == null || stockExist == null)
-                    {
-                        return NoDataFound();
-                    }
+                    product.Total += request.Quantity;
 
-                    stockExist.Total += request.Quantity;
-
-                    context.Entry(stockExist).State = EntityState.Modified;
-                    context.Entry(response).State = EntityState.Modified;
+                    context.Entry(product).State = EntityState.Modified;
+                    context.Stocks.Add(response);
+                    //context.Entry(response).State = EntityState.Modified;
                     await context.SaveChangesAsync();
                 }
 
                 //Stock-out
                 if (request.Status == 2)
                 {
-                    if (response == null || stockExist == null)
-                    {
-                        return NoDataFound();
-                    }
-
                     //Ajust stock
-                    if (stockExist != null && stockExist.Total < request.Quantity)
+                    if (response != null && product.Total < request.Quantity)
                     {
-                        return ExistData("ចំនួនទំនិញដែលនៅក្នុងស្តុកគឺមិនគ្រប់គ្រាន់ទេ..!"); ;
+                        return ExistData(Language.NotEnough);
                     }
                     else
                     {
-                        stockExist.Total -= request.Quantity;
-                        context.Entry(stockExist).State = EntityState.Modified;
-                        context.Entry(response).State = EntityState.Modified;
+                        product.Total -= request.Quantity;
+                        context.Entry(product).State = EntityState.Modified;
+                        context.Stocks.Add(response);
+                        //context.Entry(response).State = EntityState.Modified;
                     }
 
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!");
+                return Success(Language.DataUpdated);
             }
             catch (Exception ex)
             {
                 return ServerError(ex);
             }
-
         }
 
         [HttpDelete]
@@ -198,7 +186,8 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var response = context.StockTransactions.Find(id);
+                var response = await context.Stocks.FindAsync(id);
+                var product = await context.Products.FindAsync(response.Product);
                 if (response == null)
                 {
                     return NoDataFound();
@@ -207,11 +196,12 @@ namespace JSMS.Controllers.Api
                 {
                     response.IsActive = false;
                     response.Deleted = DateTime.Now;
-                    context.StockTransactions.Remove(response);
+                    //product.Total -= response.Quantity;
+                    //context.Stocks.Remove(response);
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​ហើយ..!");
+                return Success(Language.DataDeleted);
             }
             catch (Exception ex)
             {

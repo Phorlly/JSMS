@@ -91,7 +91,7 @@ const getGuarantor = () => {
             {
                 //title: "Gender",
                 data: "Gaurantor.Gender",
-                render: (row) => row === true ? "ប្រុស" : "ស្រី",
+                render: (row) => row === true ? lMale : lFemale,
             },
             {
                 //title: "Profile",
@@ -156,35 +156,39 @@ const getGuarantor = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីអ្នកធានា",
+                title: lGaurantorList,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "បញ្ជីអ្នកធានា",
+                title: lGaurantorList,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីអ្នកធានា",
+                title: lGaurantorList,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីអ្នកធានា",
+                title: lGaurantorList,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -242,6 +246,7 @@ saveGuarantor.click(() => {
         processData: false,
         data: formData,
         success: (response) => {
+            getGuarantor();
             guarantorId.val(response.Id);
             guarantor.ajax.reload();
             clearGuarantor();
@@ -300,18 +305,18 @@ const editGuarantor = (id) => {
             gBCommuneId.val(response.BCommune.Id);
             gBVillageId.val(response.BVillage.Id);
 
-            gBDis.hide();
-            gBCom.hide();
-            gBVil.hide();
+            //gBDis.hide();
+            //gBCom.hide();
+            //gBVil.hide();
 
             gCProvince.val(response.CProvince.Id);
             gCDistrictId.val(response.CDistrict.Id);
             gCCommuneId.val(response.CCommune.Id);
             gCVillageId.val(response.CVillage.Id);
 
-            gCDis.hide();
-            gCCom.hide();
-            gCVil.hide();
+            //gCDis.hide();
+            //gCCom.hide();
+            //gCVil.hide();
             modalGaurantor.modal("show");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
@@ -405,12 +410,12 @@ updateGuarantor.click(() => {
 //Delete data by id
 const removeGuarantor = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value ? $.ajax({
@@ -438,7 +443,7 @@ const removeGuarantor = (id) => {
                 }) : console.log(xhr.responseText),
         }) : param.dismiss === Swal.DismissReason.cancel &&
         Swal.fire({
-            title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+            title: lTheSame,
             icon: "error",
             showConfirmButton: false,
             timer: 1500,
@@ -495,63 +500,63 @@ const validateGuarantor = () => {
     let isValid = true;
     if (gBirthName.val() === "") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lInput} ${lFirstName}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
-            timer: 1500,
+            timer: 1000
         });
         gBirthName.css("border-color", "red");
         gBirthName.focus();
         isValid = false;
     } else {
         gBirthName.css("border-color", "#cccccc");
-        if (gNational.val() === "") {
+        if (gNickName.val() === "") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title: `${lInput} ${lLastName}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
-                timer: 1500,
+                timer: 1000
             });
-            gNational.css("border-color", "red");
-            gNational.focus();
+            gNickName.css("border-color", "red");
+            gNickName.focus();
             isValid = false;
         } else {
-            gNational.css("border-color", "#cccccc");
-            if (gNationality.val() === "") {
+            gNickName.css("border-color", "#cccccc");
+            if (gNational.val() === "") {
                 Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title: `${lInput} ${lNational}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
+                    timer: 1000
                 });
-                gNationality.css("border-color", "red");
-                gNationality.focus();
+                gNational.css("border-color", "red");
+                gNational.focus();
                 isValid = false;
             } else {
-                gNationality.css("border-color", "#cccccc");
-                if (gEducation.val() === "-1") {
+                gNational.css("border-color", "#cccccc");
+                if (gNationality.val() === "") {
                     Swal.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                        title: `${lInput} ${lNationality}`,
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
-                        timer: 1500,
+                        timer: 1000
                     });
-                    gEducation.css("border-color", "red");
-                    gEducation.focus();
+                    gNationality.css("border-color", "red");
+                    gNationality.focus();
                     isValid = false;
                 } else {
-                    gEducation.css("border-color", "#cccccc");
+                    gNationality.css("border-color", "#cccccc");
                     if (gPhone1.val() === "") {
                         Swal.fire({
-                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                            title: `${lInput} ${lPhone}`,
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
+                            timer: 1000
                         });
                         gPhone1.css("border-color", "red");
                         gPhone1.focus();
@@ -560,17 +565,59 @@ const validateGuarantor = () => {
                         gPhone1.css("border-color", "#cccccc");
                         if (gDOB.val() === "") {
                             Swal.fire({
-                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                                title: `${lSelect} ${lDOB}`,
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
-                                timer: 1500,
+                                timer: 1000
                             });
                             gDOB.css("border-color", "red");
-                            gDOB.focus();
+                            //dob.focus();
                             isValid = false;
                         } else {
                             gDOB.css("border-color", "#cccccc");
+                            if (gEducation.val() === "-1") {
+                                Swal.fire({
+                                    title: `${lSelect} ${lEducation}`,
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    customClass: { title: 'custom-swal-title' },
+                                    timer: 1000
+                                });
+                                gEducation.css("border-color", "red");
+                                gEducation.focus();
+                                isValid = false;
+                            } else {
+                                gEducation.css("border-color", "#cccccc");
+                                if (gBProvince.val() === "-1") {
+                                    Swal.fire({
+                                        title: `${lSelect} ${lProvince}`,
+                                        icon: "warning",
+                                        showConfirmButton: false,
+                                        customClass: { title: 'custom-swal-title' },
+                                        timer: 1000
+                                    });
+                                    gBProvince.css("border-color", "red");
+                                    gBProvince.focus();
+                                    isValid = false;
+                                } else {
+                                    gBProvince.css("border-color", "#cccccc");
+                                    if (gCProvince.val() === "-1") {
+                                        Swal.fire({
+                                            title: `${lSelect} ${lProvince}`,
+                                            icon: "warning",
+                                            showConfirmButton: false,
+                                            customClass: { title: 'custom-swal-title' },
+                                            timer: 1000
+                                        });
+                                        gCProvince.css("border-color", "red");
+                                        gCProvince.focus();
+                                        isValid = false;
+                                    } else {
+                                        gCProvince.css("border-color", "#cccccc");
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -579,6 +626,7 @@ const validateGuarantor = () => {
     }
     return isValid;
 };
+
 
 //==================Place of Birth=====================//
 //Change value
@@ -595,9 +643,9 @@ gBProvince.change(() => {
             gBDistrict.empty();
             gBCommune.empty();
             gBVillage.empty();
-            gBDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            gBCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            gBVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gBDistrict.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
+            gBCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            gBVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 gBDistrict.append(
@@ -610,7 +658,7 @@ gBProvince.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : gBProvince.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : gBProvince.append($("<option>").val(-1).text(`---${lSelect} ${lProvince}---`));
 });
 
 //Change value
@@ -626,8 +674,8 @@ gBDistrict.change(() => {
         success: (response) => {
             gBCommune.empty();
             gBVillage.empty();
-            gBCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            gBVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gBCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            gBVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 gBCommune.append(
@@ -640,7 +688,7 @@ gBDistrict.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : gBDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : gBDistrict.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
 });
 
 //Change value
@@ -655,7 +703,7 @@ gBCommune.change(() => {
         dataType: "JSON",
         success: (response) => {
             gBVillage.empty();
-            gBVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gBVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 gBVillage.append(
@@ -668,7 +716,7 @@ gBCommune.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : gBCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : gBCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
 });
 
 //==================Current Address=====================//
@@ -686,9 +734,9 @@ gCProvince.change(() => {
             gCDistrict.empty();
             gCCommune.empty();
             gCVillage.empty();
-            gCDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            gCCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            gCVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gCDistrict.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
+            gCCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            gCVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 gCDistrict.append(
@@ -701,7 +749,7 @@ gCProvince.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : gCProvince.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : gCProvince.append($("<option>").val(-1).text(`---${lSelect} ${lProvince}---`));
 });
 
 //Change value
@@ -717,8 +765,8 @@ gCDistrict.change(() => {
         success: (response) => {
             gCCommune.empty();
             gCVillage.empty();
-            gCCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
-            gCVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gCCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+            gCVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 gCCommune.append(
@@ -731,7 +779,7 @@ gCDistrict.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : gCDistrict.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : gCDistrict.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
 });
 
 //Change value
@@ -747,7 +795,7 @@ gCCommune.change(() => {
         dataType: "JSON",
         success: (response) => {
             gCVillage.empty();
-            gCVillage.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+            gCVillage.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 gCVillage.append(
@@ -760,5 +808,5 @@ gCCommune.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : gCCommune.append($("<option>").val(-1).text("---សូមជ្រើសរើសជម្រើសមួយ---"));
+    }) : gCCommune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
 });

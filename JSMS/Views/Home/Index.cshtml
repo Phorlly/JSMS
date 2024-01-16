@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-danger">
+                <div class="small-box bg-info">
                     <div class="inner">
                         <h5 class="my-3">@JSMS.Resources.Language.Applicant</h5>
                         <h4>@ViewBag.Applicant <span><span>@JSMS.Resources.Language.People</span></span></h4>
@@ -28,24 +28,7 @@
                     <div class="icon">
                         <i class="fas fa-user-plus"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
-                        @JSMS.Resources.Language.MoreInfo
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h5 class="my-3">@JSMS.Resources.Language.Staff</h5>
-                        <h4>@ViewBag.Staff <span><span>@JSMS.Resources.Language.People</span></span></h4>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="@Url.Action("Index","Applicant")" class="small-box-footer">
                         @JSMS.Resources.Language.MoreInfo
                         <i class="fas fa-arrow-circle-right"></i>
                     </a>
@@ -56,13 +39,13 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h5 class="my-3">@JSMS.Resources.Language.Client</h5>
-                        <h4>@ViewBag.Client <span>@JSMS.Resources.Language.People</span></h4>
+                        <h5 class="my-3">@JSMS.Resources.Language.Staff</h5>
+                        <h4>@ViewBag.Staff <span><span>@JSMS.Resources.Language.People</span></span></h4>
                     </div>
                     <div class="icon">
                         <i class="fas fa-user-plus"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="@Url.Action("Index","Staff")" class="small-box-footer">
                         @JSMS.Resources.Language.MoreInfo
                         <i class="fas fa-arrow-circle-right"></i>
                     </a>
@@ -72,6 +55,23 @@
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h5 class="my-3">@JSMS.Resources.Language.Client</h5>
+                        <h4>@ViewBag.Client <span>@JSMS.Resources.Language.People</span></h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <a href="@Url.Action("Index","Client")" class="small-box-footer">
+                        @JSMS.Resources.Language.MoreInfo
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
                     <div class="inner">
                         <h5 class="my-3">@JSMS.Resources.Language.User</h5>
                         <h4>@ViewBag.User <span>@JSMS.Resources.Language.People</span></h4>

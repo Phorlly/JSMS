@@ -18,7 +18,7 @@
                                 <div class="form-group mb-3">
                                     <label class="fw-normal" for="recruitment">@JSMS.Resources.Language.ApplicantPassRecruitment</label>
                                     <select id="recruitment" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.ApplicantPassRecruitment---</option>
                                         @foreach (var response in Model)
                                         {
                                             <option value="@response.Recruitment.Id">@response.Applicant.Name @response.Applicant.NickName </option>
@@ -31,7 +31,7 @@
                                 <div class="form-group mb-3">
                                     <label class="fw-normal" for="interview-number">@JSMS.Resources.Language.Code</label>
                                     <select id="interview-number" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Code---</option>
                                         <option value="1">JLS-001</option>
                                         <option value="2">JLS-002</option>
                                         <option value="3">JLS-003</option>
@@ -48,30 +48,35 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-9">
                                 <div class="form-group mb-3">
                                     <label class="fw-normal" for="on-date">@JSMS.Resources.Language.Date</label>
-                                    <input type="text" class="form-control" id="on-date" placeholder="@JSMS.Resources.Language.SelectDate">
+                                    <input type="text" class="form-control" id="on-date" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.Date">
 
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group mb-3">
+                            <div class="col-md-3">
+                                <div class="form-group rating-container">
                                     <label class="fw-normal" for="rating">@JSMS.Resources.Language.Rating</label>
-                                    <select id="rating" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
-                                        <option value="1">Star 1</option>
-                                        <option value="2">Star 2</option>
-                                        <option value="3">Star 3</option>
-                                        <option value="4">Star 4</option>
-                                        <option value="5">Star 5</option>
-                                    </select>
+                                    <div class="rating">
+                                        <input type="radio" id="star5" name="rating" value="5">
+                                        <label for="star5">☆</label>
+                                        <input type="radio" id="star4" name="rating" value="4">
+                                        <label for="star4">☆</label>
+                                        <input type="radio" id="star3" name="rating" value="3">
+                                        <label for="star3">☆</label>
+                                        <input type="radio" id="star2" name="rating" value="2">
+                                        <label for="star2">☆</label>
+                                        <input type="radio" id="star1" name="rating" value="1">
+                                        <label for="star1">☆</label>
+                                    </div>
                                 </div>
                             </div>
+                            
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
                                     <label class="fw-normal" for="noted">@JSMS.Resources.Language.Description</label>
-                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+                                    <textarea type="text" class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
 
                                 </div>
                             </div>
@@ -90,7 +95,7 @@
                             <i class=" fas fas fa-redo-alt"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
                         </button>
-                        <button type="button" class="btn btn-secondary" id="save">
+                        <button type="button" class="btn btn-info" id="save">
                             <i class=" fas fa-save"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
                         </button>

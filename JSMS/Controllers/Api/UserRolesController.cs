@@ -1,15 +1,14 @@
-﻿using System;
-using System.Net;
+﻿using JSMS.Helpers;
 using JSMS.Models;
-using System.Linq;
-using JSMS.Helpers;
-using System.Net.Http;
-using System.Web.Http;
 using JSMS.Models.Admin;
-using System.Data.Entity;
-using System.Threading.Tasks;
+using JSMS.Resources;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
@@ -119,12 +118,12 @@ namespace JSMS.Controllers.Api
                 var exist = await userManager.FindByNameAsync(request.UserName);
                 if (exist != null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ឈ្មោះអ្នកប្រាស់បានចុះឈ្មោះរួចហើយ​" }));
+                    return MessageWithCode(400, Language.ExistUsername);
                 }
 
                 if (request.Password != request.ConfirmPassword)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "ពាក្យសម្ងាត់ដូចគ្នាទេ" }));
+                    return  MessageWithCode(400, Language.PasswordNotMatch);
                 }
                 else
                 {
@@ -136,7 +135,7 @@ namespace JSMS.Controllers.Api
                     }
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់ហើយ..!​​");
+                return MessageWithCode(201, Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -159,6 +158,12 @@ namespace JSMS.Controllers.Api
                     return NoDataFound();
                 }
 
+                var isExist = await context.Users.SingleOrDefaultAsync(u => u.UserName == request.UserName && u.Id != id);
+                if(isExist != null)
+                {
+                    return MessageWithCode(400, Language.ExistUsername);
+                }
+
                 response.UserName = request.UserName;
                 response.PhoneNumber = request.Phone;
                 response.Email = response.Email;
@@ -167,7 +172,7 @@ namespace JSMS.Controllers.Api
                 {
                     if (request.NewPassword != request.ConfirmPassword)
                     {
-                        return ExistData("ពាក្យសម្ងាត់ដូចគ្នាទេ..!");
+                        return MessageWithCode(400, Language.PasswordNotMatch);
                     }
 
                     // Check if the old password is correct
@@ -175,7 +180,7 @@ namespace JSMS.Controllers.Api
 
                     if (!isOldPasswordCorrect)
                     {
-                        return ExistData("ពាក្យសម្ងាត់ចាស់មិនត្រឹមត្រូវទេ..!");
+                        return MessageWithCode(400, Language.OldPasswordInvalid);
                     }
 
                     var result = await userManager.ChangePasswordAsync(response.Id, request.OldPassword, request.NewPassword);
@@ -193,7 +198,7 @@ namespace JSMS.Controllers.Api
                 context.Entry(response).State = EntityState.Modified;
                 await context.SaveChangesAsync();
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ..!​");
+                return MessageWithCode(200, Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -217,7 +222,7 @@ namespace JSMS.Controllers.Api
                     await userManager.DeleteAsync(response);
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់ហើយ..!​");
+                return MessageWithCode(200, Language.DataDeleted);
             }
             catch (Exception ex)
             {

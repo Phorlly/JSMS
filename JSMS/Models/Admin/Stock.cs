@@ -5,14 +5,8 @@ using System.Web;
 
 namespace JSMS.Models.Admin
 {
-    public class Stock
-    {
-        public int Id { get; set; }
-        public int Product { get; set; }
-        public int Total { get; set; } 
-    }
 
-    public class StockTransaction
+    public class Stock 
     {
         public int Id { get; set; }
         public int Product { get; set; }
@@ -25,5 +19,12 @@ namespace JSMS.Models.Admin
         public DateTime? Created { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime? Deleted { get; set; }
+
+        public Stock()
+        {
+            Created = DateTime.Now;
+            Updated = DateTime.Now;
+            IsActive = true;
+        }
     }
 }

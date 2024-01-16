@@ -5,6 +5,7 @@
     byStaff.change(() => getReportAttendance());
     getReportAttendance();
     $("#title-attendance").show();
+    $("#refesh-data").hide();
     $("#tite-report").hide();
     showData.click(() => getAttendance());
 });
@@ -69,7 +70,7 @@ const getAttendance = () => {
             {
                 //title: "Shift",
                 data: "Staff.Status",
-                render: row => row === 0 ? "ថ្ងៃ" : "យប់",
+                render: row => row === 0 ? lMorning : lNight,
             },
             {
                 //title: "Location",
@@ -104,25 +105,25 @@ const getAttendance = () => {
         ],
         buttons: [
             {
-                title: "បញ្ជីវត្តមានរបស់បុគ្គលិក",
+                title: lAttendanceList,
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "បញ្ជីវត្តមានរបស់បុគ្គលិក",
+                title: lAttendanceList,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "បញ្ជីវត្តមានរបស់បុគ្គលិក",
+                title: lAttendanceList,
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "បញ្ជីវត្តមានរបស់បុគ្គលិក",
+                title: lAttendanceList,
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -142,14 +143,18 @@ tabAttendance.click(() => {
     showData.show();
     $("#title-attendance").show();
     $("#tite-report").hide();
+    $("#refesh-data").hide();
 });
+
 tabSummary.click(() => {
     addNew.hide();
     showData.hide();
     $("#title-attendance").hide();
     $("#tite-report").show();
+    $("#refesh-data").show();
 });
 
+$("#refesh-data").click(() => $('#attendance-summary').DataTable().destroy());
 
 //Get report attendance
 const getReportAttendance = () => {
@@ -186,6 +191,7 @@ const getReportAttendance = () => {
                 buttons: ["excel", "pdf", "print"],
                 responive: true,
                 autoWidth: false,
+                destroy: true,
                 language: {
                     paginate: {
                         previous: "<i class='fas fa-chevron-left'>",
@@ -254,44 +260,33 @@ save.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
-        statusCode: {
-            200: (response) => {
-                dataId.val(response.Id);
-                tblAttendance.ajax.reload();
+        success: (response) => {
+            getAttendance();
+            dataId.val(response.Id);
+            tblAttendance.ajax.reload();
 
-                clear();
-                //modalAtt.modal("hide");
+            clear();
+            //modalAtt.modal("hide");
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
+        },
+        error: (xhr) => {
+            xhr.responseJSON && xhr.responseJSON.message ?
                 Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
+                    title: xhr.responseJSON.message,
+                    icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
                     timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    Swal.fire({
-                        //position: "top-end",
-                        title: xhr.responseJSON.message,
-                        icon: "warning",
-                        showConfirmButton: false,
-                        customClass: { title: 'custom-swal-title' },
-                        timer: 1500,
-                    }) : console.log(xhr.responseText);
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+                }) : console.log(xhr.responseText);
         },
+
     }) : false;
 });
 
@@ -374,12 +369,12 @@ update.click(() => {
 //Delete data by id
 const remove = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែរឬទេ?",
-        text: "ថាចង់លុបទិន្នន័យមួយនេះចេញ !",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value
@@ -408,7 +403,7 @@ const remove = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថភាពដដែល",
+                title: lTheSame,
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -440,7 +435,7 @@ const validate = () => {
     let isValid = true;
     if (staff.val() === "-1") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: lSelectStaff,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
@@ -453,7 +448,7 @@ const validate = () => {
         staff.css("border-color", "#cccccc");
         if (checkIn.val() === "") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title:  `${lSelect} ${lCheckIn}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -466,7 +461,7 @@ const validate = () => {
             checkIn.css("border-color", "#cccccc");
             if (checkOut.val() === "") {
                 Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title:  `${lSelect} ${lCheckOut}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },

@@ -1,10 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Web.Http;
+﻿using JSMS.Models.Admin;
 using JSMS.Models.User;
-using JSMS.Models.Admin;
+using JSMS.Resources;
+using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace JSMS.Controllers.Api
 {
@@ -38,7 +39,7 @@ namespace JSMS.Controllers.Api
 
                                       where Applicant.IsActive.Equals(true)
                                       select new { Applicant, Province, Address })
-                                .OrderByDescending(c => c.Applicant.Id).ToListAsync();
+                                      .OrderByDescending(c => c.Applicant.Id).ToListAsync();
 
                 if (response == null)
                 {
@@ -87,12 +88,6 @@ namespace JSMS.Controllers.Api
             try
             {
                 var fileName = RequestFile("Attachment", "Applicant", "~/AppData/Files", "../AppData/Files");
-                //var exist = context.OnlineApplicants.FirstOrDefault(c => c.Name.Equals(name));
-                //if (exist != null)
-                //{
-                //    return BadRequest();
-                //}
-
                 //Assign value to OnlineApplicant
                 var request = new OnlineApplicant()
                 {
@@ -122,7 +117,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ​..!");
+                return MessageWithCode(201, Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -176,7 +171,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ​..!");
+                return MessageWithCode(200, Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -205,7 +200,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់ហើយ​..!");
+                return Success(Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -233,7 +228,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់ហើយ​..!");
+                return Success(Language.DataDeleted);
             }
             catch (Exception ex)
             {

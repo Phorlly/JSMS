@@ -1,15 +1,10 @@
-﻿using JSMS.Models;
-using JSMS.Models.Admin;
+﻿using JSMS.Models.Admin;
+using JSMS.Resources;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
-using System.Web.Services.Description;
 
 namespace JSMS.Controllers.Api
 {
@@ -68,7 +63,6 @@ namespace JSMS.Controllers.Api
 
         [HttpPost]
         [Route("post")]
-        [Obsolete]
         public async Task<IHttpActionResult> Post(Attendance request)
         {
             try
@@ -78,15 +72,11 @@ namespace JSMS.Controllers.Api
                               DbFunctions.TruncateTime(a.CheckIn) == DbFunctions.TruncateTime(request.CheckIn));
                 if (isExist != null)
                 {
-                    return ExistData("បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​..!");
+                    return ExistData(Language.AlreadyCheckIn);
                 }
 
                 //Insert default data
-                request.IsActive = true;
-                request.UpdatedAt = DateTime.Now;
-                request.CreatedAt = DateTime.Now;
-                request.Status = 1;
-                request.Noted = request.Noted == "" ? "Thank you for checking attendance!" : request.Noted;
+                request.Noted = request.Noted == "" ? Language.ThankYou : request.Noted;
 
                 if (request != null)
                 {
@@ -94,7 +84,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានរក្សាទុករួចរាល់ហើយ..!");
+                return Success(Language.DataCreated);
             }
             catch (Exception ex)
             {
@@ -116,15 +106,11 @@ namespace JSMS.Controllers.Api
                               m.CheckIn.HasValue && DbFunctions.TruncateTime(m.CheckIn) == currentDate);
                 if (isExist != null)
                 {
-                    return ExistData("បុគ្គលិកមួយនេះបានកត់ត្រាចូលរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​..!");
+                    return ExistData(Language.AlreadyCheckIn);
                 }
 
                 //Insert default data
-                request.IsActive = true;
-                request.UpdatedAt = DateTime.Now;
-                request.CreatedAt = DateTime.Now;
-                request.Status = 1;
-                request.Noted = "Thank you for checking attendance!";
+                request.Noted = request.Noted == "" ? Language.ThankYou : request.Noted;
                 request.Location = request.Location.ToString() == "" ? "Tramkak, Takeo" : request.Location;
                 request.CreatedBy = "admin@system.com";
                 request.CheckIn = DateTime.Now;
@@ -136,7 +122,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("សូមអរគុណ សម្រាប់ការកត់ត្រាចូល..!");
+                return Success(Language.ThankYouIn);
 
             }
             catch (Exception ex)
@@ -157,14 +143,11 @@ namespace JSMS.Controllers.Api
                     return NoDataFound();
                 }
 
-                response.Status = 1;
                 response.UpdatedAt = DateTime.Now;
-                response.CreatedAt = response.CreatedAt;
-                response.IsActive = true;
                 response.Staff = request.Staff;
                 response.CheckIn = request.CheckIn;
                 response.CheckOut = request.CheckOut;
-                response.Noted = request.Noted == "" ? "Thank you for checking attendance!" : request.Noted;
+                response.Noted = request.Noted == "" ? Language.ThankYou : request.Noted;
                 response.CreatedBy = response.CreatedBy;
 
                 if (response != null && request != null)
@@ -173,7 +156,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success("ទិន្នន័យត្រូវបានកែប្រែរួចរាល់..!");
+                return Success(Language.DataUpdated);
             }
             catch (Exception ex)
             {
@@ -200,7 +183,7 @@ namespace JSMS.Controllers.Api
                     // Check if there's already a check-out for the existing check-in
                     if (isExist.CheckOut.HasValue)
                     {
-                        return ExistData("បុគ្គលិកមួយនេះបានកត់ត្រាចេញរួចហើយ សម្រាប់នៅថ្ងៃនេះ​​..!");
+                        return ExistData(Language.AlreadyCheckIn);
                     }
 
                     // Update the existing check-in record with the check-out time
@@ -224,10 +207,10 @@ namespace JSMS.Controllers.Api
                 else
                 {
                     // No existing check-in found for the day
-                    return ExistData("បុគ្គលិកមួយនេះមិនទាន់បានកត់ត្រាចូលនៅឡើយទេ? សម្រាប់នៅថ្ងៃនេះ​​");
+                    return ExistData(Language.NotYetIn);
                 }
 
-                return Success("សូមអរគុណ សម្រាប់ការកត់ត្រាចេញ..!");
+                return Success(Language.ThankYouOut);
             }
             catch (Exception ex)
             {
@@ -254,7 +237,7 @@ namespace JSMS.Controllers.Api
                     context.Attendances.Remove(response); //==> Delete From database
                     context.SaveChanges();
                 }
-                return Success("ទិន្នន័យត្រូវបានលុបចេញរួចរាល់​");
+                return Success(Language.DataDeleted);
             }
             catch (Exception ex)
             {
@@ -275,28 +258,28 @@ namespace JSMS.Controllers.Api
                 {
                     if (checkInTime <= expectedCheckInMorning.Add(shiftTolerance))
                     {
-                        return "ធម្មតា";
+                        return Language.Normal;
                     }
                     else
                     {
-                        return "យឺត";
+                        return Language.Late;
                     }
                 }
                 else if (staff.Status == 1) // Night shift
                 {
                     if (checkInTime <= expectedCheckInNight.Add(shiftTolerance))
                     {
-                        return "ធម្មតា";
+                        return Language.Normal;
                     }
                     else
                     {
-                        return "យឺត";
+                        return Language.Late;
                     }
                 }
             }
 
             // If there is no check-in, consider it Early
-            return "ធម្មតា";
+            return Language.Normal;
         }
     }
 }

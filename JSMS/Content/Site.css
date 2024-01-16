@@ -22,7 +22,7 @@ textarea {
 td, select, a, span, input, textarea, li, label,
 option, h1, h2, h3, h4, h5, h6, th {
     font-family: 'Khmer OS Battambang','Segoe UI', sans-serif;
-    font-weight: bold;
+    /*font-weight: bold;*/
     /*font-size: 16px;*/
 }
 
@@ -147,3 +147,19 @@ span {
     max-height: 250px;
     max-width: 100%;
 }
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    font-size: 25px; /* Adjust the font size as needed */
+    display: inline-block; /* Make the rating stars appear on the same line */
+}
+
+    .rating input {
+        display: none;
+    }
+
+        .rating input:checked ~ label {
+            color: #f90;
+        }

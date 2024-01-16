@@ -17,56 +17,56 @@
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group mb-3">
+                                        <div class="form-group ">
                                             <label for="birth-name">@JSMS.Resources.Language.FirstName</label>
-                                            <input type="text" class="form-control" id="g-birth-name" placeholder="@JSMS.Resources.Language.Input">
+                                            <input type="text" class="form-control" id="g-birth-name" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.FirstName">
 
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group mb-3">
+                                        <div class="form-group ">
                                             <label for="nick-name">@JSMS.Resources.Language.LastName</label>
-                                            <input type="text" class="form-control" id="g-nick-name" placeholder="@JSMS.Resources.Language.Input">
+                                            <input type="text" class="form-control" id="g-nick-name" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.LastName">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group mb-3">
+                                        <div class="form-group ">
                                             <label for="national">@JSMS.Resources.Language.National</label>
-                                            <input type="text" class="form-control" id="g-national" placeholder="@JSMS.Resources.Language.Input">
+                                            <input type="text" class="form-control" id="g-national" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.National">
 
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group mb-3">
+                                        <div class="form-group ">
                                             <label for="nationality">@JSMS.Resources.Language.Nationality</label>
-                                            <input type="text" class="form-control" id="g-nationality" placeholder="@JSMS.Resources.Language.Input">
+                                            <input type="text" class="form-control" id="g-nationality" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Nationality">
 
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group mb-3">
+                                        <div class="form-group ">
                                             <label for="phone1">@JSMS.Resources.Language.Phone</label>
-                                            <input type="text" maxlength="15" class="form-control" id="g-phone1" placeholder="@JSMS.Resources.Language.Input">
+                                            <input type="text" maxlength="15" class="form-control" id="g-phone1" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone">
 
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group mb-3">
+                                        <div class="form-group ">
                                             <label for="phone2">@JSMS.Resources.Language.Phone2</label>
-                                            <input type="text" maxlength="15" class="form-control" id="g-phone2" placeholder="@JSMS.Resources.Language.Input">
+                                            <input type="text" maxlength="15" class="form-control" id="g-phone2" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone2">
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 pl-5">
+                            <div class="col-md-3 pl-5 mt-3">
                                 <div class="row">
                                     <div class="form-group">
-                                        <img class="center img-responsive img-thumbnail" style="width: 12rem; height: 10.5rem"
+                                        <img class="center img-responsive img-thumbnail" style="width: 12rem; height: 10rem"
                                              src="~/Images/blank-image.png" id="g-image" />
                                         <b class="btn-style-2 btn btn-dark">
                                             <i class="fa fa-upload pe-lg-3"></i> <span> @JSMS.Resources.Language.UploadImage</span>
@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="g-gender">@JSMS.Resources.Language.Gender</label>
                                     <select class="form-select" id="g-gender">
@@ -88,11 +88,17 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label for="dob">@JSMS.Resources.Language.DOB</label>
+                                    <input type="text" class="form-control" id="g-dob" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.DOB">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="g-education">@JSMS.Resources.Language.Education</label>
                                     <select class="form-select" id="g-education">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Education---</option>
                                         <option value="1">@JSMS.Resources.Language.NotStudied</option>
                                         <option value="2">@JSMS.Resources.Language.PrimarySchool</option>
                                         <option value="3">@JSMS.Resources.Language.SecondarySchool</option>
@@ -102,15 +108,12 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <label>@JSMS.Resources.Language.POB</label>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="g-birth-province">@JSMS.Resources.Language.Province</label>
                                     <select id="g-birth-province" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Province---</option>
                                         @foreach (var province in Model.Provinces)
                                         {
                                             <option value="@province.Id">@province.NameKh / @province.Name</option>
@@ -118,59 +121,40 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6" id="g-birth-dis">
+                            <div class="col-md-3" id="g-birth-dis">
                                 <div class="form-group">
                                     <label for="g-birth-district">@JSMS.Resources.Language.District</label>
                                     <input type="hidden" id="g-birth-dis-id" />
                                     <select id="g-birth-district" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.District---</option>
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6" id="g-birth-com">
+                            <div class="col-md-3" id="g-birth-com">
                                 <div class="form-group">
                                     <label for="g-birth-commune">@JSMS.Resources.Language.Commune</label>
                                     <input type="hidden" id="g-birth-com-id" />
                                     <select id="g-birth-commune" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Commune---</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 ">
+                            <div class="col-md-3">
                                 <div class="form-group" id="g-birth-vil">
                                     <label for="g-birth-village">@JSMS.Resources.Language.Village</label>
                                     <input type="hidden" id="g-birth-vil-id" />
                                     <select id="g-birth-village" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Village---</option>
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mt-2">
-                                <div class="form-group mb-3">
-                                    <label for="dob">@JSMS.Resources.Language.DOB</label>
-                                    <input type="text" class="form-control" id="g-dob" placeholder="@JSMS.Resources.Language.SelectDate">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-2">
-                                <div class="form-group mb-3">
-                                    <label for="g-noted">@JSMS.Resources.Language.Description</label>
-                                    <input class="form-control" id="g-noted" placeholder="@JSMS.Resources.Language.Input"/>
-                                    
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
                             <label>@JSMS.Resources.Language.CurrentAddress</label>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="g-current-province">@JSMS.Resources.Language.Province</label>
                                     <select id="g-current-province" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Province---</option>
                                         @foreach (var province in Model.Provinces)
                                         {
                                             <option value="@province.Id">@province.NameKh / @province.Name</option>
@@ -178,33 +162,37 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6" id="g-current-dis">
+                            <div class="col-md-3" id="g-current-dis">
                                 <div class="form-group">
                                     <label for="g-current-district">@JSMS.Resources.Language.District</label>
                                     <input type="hidden" id="g-current-dis-id" />
                                     <select id="g-current-district" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.District---</option>
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6" id="g-current-com">
+                            <div class="col-md-3" id="g-current-com">
                                 <div class="form-group">
                                     <label for="g-current-commune">@JSMS.Resources.Language.Commune</label>
                                     <input type="hidden" id="g-current-com-id" />
                                     <select id="g-current-commune" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Commune---</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 ">
+                            <div class="col-md-3 ">
                                 <div class="form-group" id="g-current-vil">
                                     <label for="g-current-village">@JSMS.Resources.Language.Village</label>
                                     <input type="hidden" id="g-current-vil-id" />
                                     <select id="g-current-village" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Village---</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="g-noted">@JSMS.Resources.Language.Description</label>
+                                    <textarea class="form-control" id="g-noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -221,7 +209,7 @@
                             <i class=" fas fas fa-redo-alt"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
                         </button>
-                        <button type="button" class="btn btn-secondary" id="save-guarantor">
+                        <button type="button" class="btn btn-info" id="save-guarantor">
                             <i class=" fas fa-save"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
                         </button>

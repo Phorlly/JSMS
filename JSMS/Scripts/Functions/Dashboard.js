@@ -18,7 +18,7 @@ jQuery(document).ready(() => {
 const createStockChart = () => {
     let ctx = document.getElementById('pie-chart').getContext('2d');
     $.ajax({
-        url: "/api/hr/reports/get-remain-stock",
+        url: "/api/hr/products/get",
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",

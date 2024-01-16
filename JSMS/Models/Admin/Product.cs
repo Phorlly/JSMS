@@ -10,11 +10,19 @@ namespace JSMS.Models.Admin
         public int Id { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
-        public bool IsActive { get; set; }
+        public int Total { get; set; }  
+        public bool IsActive { get; set; } 
         public string CreatedBy { get; set; }   
         public string Noted { get; set; }
         public DateTime? Created { get; set; } 
         public DateTime? Updated { get; set; }
-        public DateTime? Deleted { get; set; }   
+        public DateTime? Deleted { get; set; }
+
+        public Product()
+        {
+            IsActive = true;
+            Updated = DateTime.Now;
+            Created = DateTime.Now;
+        }
     }
 }

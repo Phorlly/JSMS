@@ -18,7 +18,7 @@
                                 <div class="form-group mb-3">
                                     <label for="applicant">@JSMS.Resources.Language.Applicant</label>
                                     <select id="applicant-id" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Applicant---</option>
                                         @foreach (var response in Model.Applicants)
                                         {
                                             <option value="@response.Id">@response.Name @response.NickName</option>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label  for="attachment">@JSMS.Resources.Language.Attachment</label>
+                                    <label for="attachment">@JSMS.Resources.Language.Attachment</label>
                                     <input type="file" id="attachment" accept=".doc, .docx, .pdf" class="form-control">
                                 </div>
                                 <div id="get-file"></div>
@@ -36,7 +36,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="confirm-by">@JSMS.Resources.Language.Confirmed</label>
-                                    <input type="text" class="form-control" id="confirm-by" placeholder="@JSMS.Resources.Language.Input">
+                                    <input type="text" class="form-control" id="confirm-by" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Confirmed">
 
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="current-date">@JSMS.Resources.Language.Date</label>
-                                    <input type="text" class="form-control  mb-3" id="current-date" placeholder="@JSMS.Resources.Language.SelectDate">
+                                    <input type="text" class="form-control  mb-3" id="current-date" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.Date">
 
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
                                     <label for="noted">@JSMS.Resources.Language.Description</label>
-                                    <textarea type="text" class="form-control" id="b-noted" placeholder="@JSMS.Resources.Language.Input"></textarea>
+                                    <textarea type="text" class="form-control" id="b-noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
 
                                 </div>
                             </div>
@@ -65,16 +65,17 @@
                             <i class=" fas fa-times-circle"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
                         </button>
-                        <button type="button" class="btn btn-success btn-sm" id="update-behavior">
+                        <button type="button" class="btn btn-success" id="update-behavior">
                             <i class=" fas fas fa-redo-alt"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
                         </button>
-                        <button type="button" class="btn btn-secondary btn-sm" id="save-behavior">
+                        <button type="button" class="btn btn-info" id="save-behavior">
                             <i class=" fas fa-save"></i>
                             <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
                         </button>
                     </section>
                 </div>
+
             </form>
         </div>
 
@@ -82,3 +83,4 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
