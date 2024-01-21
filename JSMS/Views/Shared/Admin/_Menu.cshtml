@@ -20,7 +20,7 @@
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
             new SubMenuItem { Name = JSMS.Resources.Language.Client,Controller = "Client",Icon = "fas fa-user-friends",Action = "Index",
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
-            new SubMenuItem { Name = JSMS.Resources.Language.Staff,Controller = "Staff",Icon = "fas fa-user-friends",Action = "Index",
+            new SubMenuItem { Name = JSMS.Resources.Language.Staff,Controller = "Staff",Icon = "fas fa-users",Action = "Index",
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
             new SubMenuItem { Name = JSMS.Resources.Language.Attendance,Controller = "Attendance",Icon = "fas fa-calendar-alt",Action = "Index",
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
@@ -46,12 +46,12 @@
         Icon = "fas fa-chart-line",
         Role = new List<string> { "AdminOrHR", "Accounting", "Customer" },
         SubMenuItems = new List<SubMenuItem> {
-            new SubMenuItem { Name = JSMS.Resources.Language.Stock, Controller = "Stock",Icon = "fas fa-chart-line",Action = "Index",
-                              Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
             new SubMenuItem { Name = JSMS.Resources.Language.Invoice,Controller = "Invoice",Icon = "fas fa-donate",Action = "Index",
-                              Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
-            //new SubMenuItem { Name = JSMS.Resources.Language.Transaction,Controller = "Transaction",Icon = "fas fa-id-card",Action = "Index",
-            //                  Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
+                              Role = new List<string> { "AdminOrHR", "Accounting" }},
+            new SubMenuItem { Name = JSMS.Resources.Language.Report+" "+JSMS.Resources.Language.Attendance,Controller = "Attendance",Icon = "fas fa-calculator",Action = "Report",
+                              Role = new List<string> { "AdminOrHR", "Accounting" }},
+            new SubMenuItem { Name = JSMS.Resources.Language.Report+" "+JSMS.Resources.Language.RemainStock,Controller = "Stock",Icon = "fas fa-layer-group",Action = "Report",
+                              Role = new List<string> { "AdminOrHR", "Accounting" }},
         }
     });
     moduleMainMenuItems.Add(new MainMenuItem
@@ -60,12 +60,14 @@
         Icon = "fas fa-sun",
         Role = new List<string> { "AdminOrHR", "Accounting", "Customer" },
         SubMenuItems = new List<SubMenuItem> {
-            new SubMenuItem { Name = JSMS.Resources.Language.User, Controller = "UserRole",Icon = "fas fa-users",Action = "Index",
-                              Role = new List<string> { "AdminOrHR"}},
-            new SubMenuItem { Name = JSMS.Resources.Language.RegisterOnline,Controller = "RequestOnline",Icon = "fas fa-users",Action = "Index",
-                              Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
-            //new SubMenuItem { Name = JSMS.Resources.Language.UserProfile,Controller = "UserRole",Icon = "fas fa-user",Action = "UserProfile",
+            //new SubMenuItem { Name = JSMS.Resources.Language.RegisterOnline,Controller = "RequestOnline",Icon = "fas fa-users",Action = "Index",
             //                  Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
+            new SubMenuItem { Name = JSMS.Resources.Language.Products,Controller = "Stock",Icon = "fas fa-shekel-sign",Action = "Product",
+                              Role = new List<string> { "AdminOrHR", "Accounting" }},
+            new SubMenuItem { Name = JSMS.Resources.Language.Stock, Controller = "Stock",Icon = "fas fa-chart-line",Action = "Index",
+                              Role = new List<string> { "AdminOrHR", "Accounting" }},
+            new SubMenuItem { Name = JSMS.Resources.Language.User, Controller = "UserRole",Icon = "fas fa-user-friends",Action = "Index",
+                              Role = new List<string> { "AdminOrHR"}},
         }
     });
 }

@@ -23,5 +23,12 @@ namespace JSMS.Controllers.Admin
         {
             return View(context.Staffs.Where(c => c.IsActive.Equals(true)).OrderBy(x => x.Code).ToList());
         }
+
+        // GET: Attendance
+        public ActionResult Report() 
+        {
+            return View(context.Staffs.Where(c => c.IsActive.Equals(true)).OrderBy(x => x.Code).ToList());
+        }
+
     }
 }

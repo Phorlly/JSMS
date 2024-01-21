@@ -11,7 +11,7 @@
 
 //Declare variable for use global
 let tableStock = [];
-let addStock2 = $("#add-stock");
+let addStock = $("#add-stock");
 let updateStock = $("#update-stock");
 let saveStock = $("#save-stock");
 let modalStock = $("#modal-stock");
@@ -26,6 +26,8 @@ let monthYear = formatMonthYear("#month-year");
 let byProduct = $("#by-product");
 let byStock = $("#by-stock");
 
+
+$("#refesh").click(() => location.reload());
 
 //Get all data
 const getAll = () => {
@@ -219,7 +221,7 @@ const getStockReport = () => {
 
 
 //Add new
-addStock2.click(() => {
+addStock.click(() => {
     clearStock();
     setColorStock();
     modalStock.modal("show");

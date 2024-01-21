@@ -4,9 +4,6 @@
     byShift.change(() => getReportAttendance());
     byStaff.change(() => getReportAttendance());
     getReportAttendance();
-    $("#title-attendance").show();
-    $("#refesh-data").hide();
-    $("#tite-report").hide();
     showData.click(() => getAttendance());
 });
 
@@ -16,7 +13,6 @@ let createdBy = $("#log-by").data("logby");
 let addNew = $("#add-new");
 let update = $("#update");
 let dataId = $("#data-id");
-let refresh = $("#refresh");
 let save = $("#save");
 let monthYear = formatMonthYear("#month-year");
 let byStaff = $("#by-staff");
@@ -137,24 +133,8 @@ const getAttendance = () => {
     });
 };
 
-//Hide show tab
-tabAttendance.click(() => {
-    addNew.show();
-    showData.show();
-    $("#title-attendance").show();
-    $("#tite-report").hide();
-    $("#refesh-data").hide();
-});
 
-tabSummary.click(() => {
-    addNew.hide();
-    showData.hide();
-    $("#title-attendance").hide();
-    $("#tite-report").show();
-    $("#refesh-data").show();
-});
-
-$("#refesh-data").click(() => $('#attendance-summary').DataTable().destroy());
+$("#refesh").click(() => location.reload());
 
 //Get report attendance
 const getReportAttendance = () => {

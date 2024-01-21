@@ -1,0 +1,89 @@
+﻿<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="m-0 text-uppercase" id="title-report">@JSMS.Resources.Language.Report @JSMS.Resources.Language.RemainStock</h2>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index","Home")">@JSMS.Resources.Language.Home</a>
+                    </li>
+                    <li class="breadcrumb-item">@JSMS.Resources.Language.RemainStock</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</div>
+<div id="loading-gif"></div>
+<div class="row">
+    <div class="col-12">
+        <!-- Custom Tabs -->
+        <div class="card">
+            <div class="card-header">
+                <div class="float-sm-right mr-5">
+                    <button type="button" id="refesh" class="btn btn-success btn-sm">
+                        <i class="fas fa-sync-alt"></i>
+                        <span class="text-uppercase">@JSMS.Resources.Language.Refresh</span>
+                    </button>
+                </div>
+
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="month-year">@JSMS.Resources.Language.Monthly</label>
+                            <input type="month" id="month-year" class="form-control" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Monthly">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="by-product">@JSMS.Resources.Language.Product</label>
+                            <select id="by-product" class="form-select">
+                                <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.Product</option>
+                                @foreach (var response in Model)
+                                {
+                                    <option value="@response.Id">@response.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="by-stock">@JSMS.Resources.Language.StockType</label>
+                            <select id="by-stock" class="form-select">
+                                <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.StockType</option>
+                                <option value="1">@JSMS.Resources.Language.StockIn</option>
+                                <option value="2">@JSMS.Resources.Language.StockOut</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <table id="stock-summary" class="table table-group-divider text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>@JSMS.Resources.Language.Id</th>
+                                    <th>@JSMS.Resources.Language.Product</th>
+                                    <th>@JSMS.Resources.Language.StockIn</th>
+                                    <th>@JSMS.Resources.Language.StockOut</th>
+                                    <th>@JSMS.Resources.Language.Date</th>
+                                    <th>@JSMS.Resources.Language.Description</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./card -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+@section scripts {
+    @Scripts.Render("~/Scripts/Functions/Stock.js")
+}

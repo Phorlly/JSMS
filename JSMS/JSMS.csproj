@@ -3139,6 +3139,9 @@
     <Content Include="Views\Invoice\_GenerateInvoice.cshtml" />
     <Content Include="Views\UserRole\UserProfile.cshtml" />
     <Content Include="Views\Shared\Admin\_Language.cshtml" />
+    <Content Include="Views\Attendance\Report.cshtml" />
+    <Content Include="Views\Stock\Product.cshtml" />
+    <Content Include="Views\Stock\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\OfficialWebsite\Blog.cshtml" />

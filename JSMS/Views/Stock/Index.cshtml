@@ -2,9 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <h1 class="m-0 text-uppercase" id="title-product">@JSMS.Resources.Language.ProcductManagement</h1>
                 <h1 class="m-0 text-uppercase" id="title-stock">@JSMS.Resources.Language.StockManagement</h1>
-                <h2 class="m-0 text-uppercase" id="title-report">@JSMS.Resources.Language.ReportManagement</h2>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -22,158 +20,45 @@
     <div class="col-12">
         <!-- Custom Tabs -->
         <div class="card">
-            <div class="card-header p-0 border-bottom-0">
-                <div class="row">
-                    <div class="col-md-6">
-                        <ul class="nav nav-tabs ml-auto p-2">
-                            <li class="nav-item">
-                                <a class="nav-link  active" id="tab-product" href="#table-product" data-toggle="tab">
-                                    <i class="fas fa-shekel-sign"></i>
-                                    <span>@JSMS.Resources.Language.Product</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="tab-stock" href="#table-stock" data-toggle="tab">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    <span>@JSMS.Resources.Language.Stock</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="tab-summary" href="#table-summary" data-toggle="tab">
-                                    <i class="fas fa-layer-group"></i>
-                                    <span>@JSMS.Resources.Language.Summary</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 mt-2">
-                        <div class="float-sm-right mr-5">
-                            <button type="button" id="add-product" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus-circle"></i>
-                                <span class="text-uppercase">@JSMS.Resources.Language.Add</span>
-                            </button>
-                            <button type="button" id="add-stock" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus-circle"></i>
-                                <span class="text-uppercase">@JSMS.Resources.Language.Add</span>
-                            </button>
-                            <button type="button" id="show-product" class="btn btn-success btn-sm">
-                                <i class="fas fa-sync-alt"></i>
-                                <span class="text-uppercase">@JSMS.Resources.Language.ShowData</span>
-                            </button>
-                            <button type="button" id="show-stock" class="btn btn-success btn-sm">
-                                <i class="fas fa-sync-alt"></i>
-                                <span class="text-uppercase">@JSMS.Resources.Language.ShowData</span>
-                            </button>
-                        </div>
-                    </div>
+            <div class="card-header">
+                <div class="float-sm-right mr-5">
+                    <button type="button" id="add-stock" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus-circle"></i>
+                        <span class="text-uppercase">@JSMS.Resources.Language.Add</span>
+                    </button>
+                    <button type="button" id="show-stock" class="btn btn-success btn-sm">
+                        <i class="fas fa-sync-alt"></i>
+                        <span class="text-uppercase">@JSMS.Resources.Language.ShowData</span>
+                    </button>
                 </div>
-
-            </div><!-- /.card-header -->
+            </div>
             <div class="card-body">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="table-product">
-                        <div class="col-md-12">
-                            <table id="product" class="table table-striped table-hover w-100" role="grid">
-                                <thead>
-                                    <tr>
-                                        <th>@JSMS.Resources.Language.Id</th>
-                                        <th>@JSMS.Resources.Language.Name</th>
-                                        <th>@JSMS.Resources.Language.Profile</th>
-                                        <th>@JSMS.Resources.Language.Total</th>
-                                        <th>@JSMS.Resources.Language.Description</th>
-                                        <th>@JSMS.Resources.Language.Created</th>
-                                        <th>@JSMS.Resources.Language.Updated</th>
-                                        <th>@JSMS.Resources.Language.Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="table-stock">
-                        <div class="col-md-12">
-                            <table id="stock" class="table table-striped table-hover w-100" role="grid">
-                                <thead>
-                                    <tr>
-                                        <th>@JSMS.Resources.Language.Id</th>
-                                        <th>@JSMS.Resources.Language.Product</th>
-                                        <th>@JSMS.Resources.Language.Profile</th>
-                                        <th>@JSMS.Resources.Language.StockIn</th>
-                                        <th>@JSMS.Resources.Language.StockOut</th>
-                                        <th>@JSMS.Resources.Language.Date</th>
-                                        <th>@JSMS.Resources.Language.Description</th>
-                                        <th>@JSMS.Resources.Language.Created</th>
-                                        <th>@JSMS.Resources.Language.Updated</th>
-                                        <th>@JSMS.Resources.Language.Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="table-summary">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="month-year">@JSMS.Resources.Language.Monthly</label>
-                                    <input type="month" id="month-year" class="form-control" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Monthly">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="by-product">@JSMS.Resources.Language.Product</label>
-                                    <select id="by-product" class="form-select">
-                                        <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.Product</option>
-                                        @foreach (var response in Model)
-                                        {
-                                            <option value="@response.Id">@response.Name</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="by-stock">@JSMS.Resources.Language.StockType</label>
-                                    <select id="by-stock" class="form-select">
-                                        <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.StockType</option>
-                                        <option value="1">@JSMS.Resources.Language.StockIn</option>
-                                        <option value="2">@JSMS.Resources.Language.StockOut</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 mt-3 print-section">
-
-                            <table id="stock-summary" class="table table-group-divider text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>@JSMS.Resources.Language.Id</th>
-                                        <th>@JSMS.Resources.Language.Product</th>
-                                        <th>@JSMS.Resources.Language.StockIn</th>
-                                        <th>@JSMS.Resources.Language.StockOut</th>
-                                        <th>@JSMS.Resources.Language.Date</th>
-                                        <th>@JSMS.Resources.Language.Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- /.tab-content -->
-            </div><!-- /.card-body -->
+                <table id="stock" class="table table-striped table-hover w-100" role="grid">
+                    <thead>
+                        <tr>
+                            <th>@JSMS.Resources.Language.Id</th>
+                            <th>@JSMS.Resources.Language.Product</th>
+                            <th>@JSMS.Resources.Language.Profile</th>
+                            <th>@JSMS.Resources.Language.StockIn</th>
+                            <th>@JSMS.Resources.Language.StockOut</th>
+                            <th>@JSMS.Resources.Language.Date</th>
+                            <th>@JSMS.Resources.Language.Description</th>
+                            <th>@JSMS.Resources.Language.Created</th>
+                            <th>@JSMS.Resources.Language.Updated</th>
+                            <th>@JSMS.Resources.Language.Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
         <!-- ./card -->
     </div>
     <!-- /.col -->
 </div>
 
-@Html.Partial("_Product")
 @Html.Partial("_Stock")
 
 @section scripts {
     @Scripts.Render("~/Scripts/Functions/Stock.js")
-    @Scripts.Render("~/Scripts/Functions/Product.js")
 }

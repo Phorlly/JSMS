@@ -91,6 +91,22 @@ namespace JSMS
               name: "Invoice Management",
               url: "admin/invoice-info",
               defaults: new { controller = "Invoice", action = "Index" });
+            routes.MapRoute(
+              name: "Attendance-Report Management",
+              url: "admin/attendance-report-info",
+              defaults: new { controller = "Attendance", action = "Report" });
+            routes.MapRoute(
+              name: "Product Management",
+              url: "admin/product-info",
+              defaults: new { controller = "Stock", action = "Product" });
+            routes.MapRoute(
+            name: "Remain-Stock Management",
+            url: "admin/remain-stock-info",
+            defaults: new { controller = "Stock", action = "Report" });
+            routes.MapRoute(
+           name: "General-Ledger Management",
+           url: "admin/general-ledger-info",
+           defaults: new { controller = "GeneralLedger", action = "Index" });
             //default route
             //routes.MapRoute(
             //  name: "Default",

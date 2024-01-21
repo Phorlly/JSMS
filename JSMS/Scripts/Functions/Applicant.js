@@ -117,7 +117,7 @@ const getApplicant = () => {
             {
                 //title: "DOB",
                 data: "Applicant.DOB",
-                render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
+                render: (row) => row ? moment(row).format("DD MMM YYYY") : "",
             },
             {
                 //title: "Nationality",

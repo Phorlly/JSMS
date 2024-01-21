@@ -1834,6 +1834,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product.
+        /// </summary>
+        public static string Products {
+            get {
+                return ResourceManager.GetString("Products", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile.
         /// </summary>
         public static string Profile {
@@ -1974,15 +1983,6 @@ namespace JSMS.Resources {
         public static string Report {
             get {
                 return ResourceManager.GetString("Report", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Report Management.
-        /// </summary>
-        public static string ReportManagement {
-            get {
-                return ResourceManager.GetString("ReportManagement", resourceCulture);
             }
         }
         
@@ -2550,6 +2550,15 @@ namespace JSMS.Resources {
         public static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to JingLong Security.
+        /// </summary>
+        public static string WelcomeTo {
+            get {
+                return ResourceManager.GetString("WelcomeTo", resourceCulture);
             }
         }
         

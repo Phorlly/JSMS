@@ -1,12 +1,5 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    addProduct.show();
-    addStock.hide();
-    titleProduct.show();
-    titleStock.hide();
-    titleRport.hide();
-    showProduct.show();
-    showStock.hide();
     showProduct.click(() => getProduct());
 });
 
@@ -14,10 +7,6 @@
 let table = [];
 let modalProduct = $("#modal-product");
 let addProduct = $("#add-product");
-let addStock = $("#add-stock");
-let tabProduct = $("#tab-product");
-let tabStock = $("#tab-stock");
-let tabSummary = $("#tab-summary");
 let saveProduct = $("#save-product");
 let updateProduct = $("#update-product");
 let productId = $("#product-id");
@@ -26,11 +15,7 @@ let noted = $("#noted");
 let image = $("#image");
 let imageFile = $("#image-file")
 let createdBy = $("#log-by").data("logby");
-let titleProduct = $("#title-product");
-let titleStock = $("#title-stock");
-let titleRport = $("#title-report");
 let showProduct = $("#show-product");
-let showStock = $("#show-stock");
 
 //Get all data
 const getProduct = () => {
@@ -145,37 +130,6 @@ const productImage = (input) => {
         reader.readAsDataURL(input.files[0]);
     }
 };
-
-//Hide show
-tabProduct.click(() => {
-    addProduct.show();
-    addStock.hide();
-    titleProduct.show();
-    titleStock.hide();
-    titleRport.hide();
-    showProduct.show();
-    showStock.hide();
-});
-
-tabStock.click(() => {
-    addProduct.hide();
-    addStock.show();
-    titleProduct.hide();
-    titleStock.show();
-    titleRport.hide();
-    showProduct.hide();
-    showStock.show();
-});
-
-tabSummary.click(() => {
-    addProduct.hide();
-    addStock.hide();
-    titleProduct.hide();
-    titleStock.hide();
-    titleRport.show();
-    showProduct.hide();
-    showStock.hide();
-});
 
 
 //Add new product

@@ -136,8 +136,6 @@ namespace JSMS.Controllers.Api
                 }
 
                 // Update the Total field in the Transaction table
-                var total = _context.OtherExpenses.Sum(t => t.Cost);
-                post.Total = (float)total;
                 var total = await context.OtherExpenses.SumAsync(t => t.Cost);
                 post.Total = (decimal)total;
 

@@ -708,6 +708,9 @@
   <data name="ProductList" xml:space="preserve">
     <value>List of available items</value>
   </data>
+  <data name="Products" xml:space="preserve">
+    <value>Product</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
@@ -755,9 +758,6 @@
   </data>
   <data name="Report" xml:space="preserve">
     <value>Report</value>
-  </data>
-  <data name="ReportManagement" xml:space="preserve">
-    <value>Report Management</value>
   </data>
   <data name="ReportStockAvailable" xml:space="preserve">
     <value>Report Stock Available</value>
@@ -947,6 +947,9 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to Jinglong</value>
+  </data>
+  <data name="WelcomeTo" xml:space="preserve">
+    <value>Welcome to JingLong Security</value>
   </data>
   <data name="Your" xml:space="preserve">
     <value>Your</value>

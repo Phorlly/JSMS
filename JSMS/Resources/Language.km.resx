@@ -708,6 +708,9 @@
   <data name="ProductList" xml:space="preserve">
     <value>បញ្ជីមុខទំនិញដែលមាន</value>
   </data>
+  <data name="Products" xml:space="preserve">
+    <value>មុខទំនិញ</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>រូបតំណាង</value>
   </data>
@@ -754,10 +757,7 @@
     <value>ចងចាំខ្ញុំ?</value>
   </data>
   <data name="Report" xml:space="preserve">
-    <value>រាយការណ៍</value>
-  </data>
-  <data name="ReportManagement" xml:space="preserve">
-    <value>ការគ្រប់គ្រងរបាយការណ៍</value>
+    <value>របាយការណ៍</value>
   </data>
   <data name="ReportStockAvailable" xml:space="preserve">
     <value>របាយការណ៍ស្តុកមុខទំនិញដែលមាន</value>
@@ -947,6 +947,9 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>ជីងឡុង សូមជម្រាបសួរ</value>
+  </data>
+  <data name="WelcomeTo" xml:space="preserve">
+    <value>សូមស្វាគមន៍មកកាន់ ក្រុមហ៊ុនសន្តិសុខ ជីងឡុង</value>
   </data>
   <data name="Your" xml:space="preserve">
     <value>របស់អ្នក</value>
