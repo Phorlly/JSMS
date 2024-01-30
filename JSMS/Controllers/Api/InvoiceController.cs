@@ -78,7 +78,6 @@ namespace JSMS.Controllers.Api
 
                 // Calculate Total
                 post.Total = post.Amount + ValueTax;
-                post.Total = post.Amount + post.Tax;
                 post.Note = post.Note == "" ? Language.Created : post.Note;
 
                 // Save to the database

@@ -1,8 +1,4 @@
 ﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/Admin/Layout.cshtml";
-}
 
 <div class="content-header">
     <div class="container-fluid">
@@ -28,16 +24,16 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-sm-right mr-5">
-                    @*<button type="button" id="total" class="btn btn-warning btn-sm " data-bs-toggle="modal" data-bs-target="#totalModal">
-                            <i class="fas fa-plus-circle text-dark"></i>
-                            <span id="total" class="text-uppercase text-dark">@JSMS.Resources.Language.Total</span>
-                        </button>*@
                     <button type="button" id="add-new" class="btn btn-primary btn-sm ">
                         <i class="fas fa-plus-circle"></i>
-                        <span class="text-uppercase">@JSMS.Resources.Language.Add@JSMS.Resources.Language.GenerateInvoice</span>
+                        <span class="text-uppercase">@JSMS.Resources.Language.Add</span>
                     </button>
-                    <button type="button" id="refresh" class="btn btn-success btn-sm">
+                    <button type="button" id="show-data" class="btn btn-success btn-sm">
                         <i class="fas fa-sync-alt"></i>
+                        <span class="text-uppercase">@JSMS.Resources.Language.ShowData</span>
+                    </button>
+                    <button type="button" id="refresh" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-redo-alt"></i>
                         <span class="text-uppercase">@JSMS.Resources.Language.Refresh</span>
                     </button>
                 </div>

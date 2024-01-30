@@ -1,6 +1,4 @@
-﻿
-
-<!-- Modal -->
+﻿<!-- Modal -->
 <div class="modal fade" id="invoiceModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -16,13 +14,13 @@
                     <div class="col-md-6">
                         <div class="form-group mb-4">
                             <label for="start-date">@JSMS.Resources.Language.StartDate</label>
-                            <input type="text" onfocus="(this.type='date')" class="form-control" id="start-date" placeholder="@JSMS.Resources.Language.Select@JSMS.Resources.Language.StartDate">
+                            <input type="text" class="form-control" id="start-date" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.StartDate">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group mb-4">
                             <label for="end-date">@JSMS.Resources.Language.EndDate</label>
-                            <input type="text" onfocus="(this.type='date')" class="form-control" id="end-date" placeholder="@JSMS.Resources.Language.Select@JSMS.Resources.Language.EndDate">
+                            <input type="text" class="form-control" id="end-date" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.EndDate">
                         </div>
                     </div>
                 </div>
@@ -31,14 +29,14 @@
                     <div class="col-md-6">
                         <div class="form-group mb-4">
                             <label for="invoice-number">@JSMS.Resources.Language.InvoiceNumber</label>
-                            <input type="text" class="form-control" id="invoice-number" placeholder="@JSMS.Resources.Language.Select@JSMS.Resources.Language.InvoiceDay">
+                            <input type="text" class="form-control" id="invoice-number" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.InvoiceNumber">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group mb-4">
                             <label for="clientId">@JSMS.Resources.Language.Client</label>
                             <select id="clientId" class="form-select">
-                                <option value="0">@JSMS.Resources.Language.Select</option>
+                                <option value="0">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Client---</option>
                                 @foreach (var response in Model.Clients)
                                 {
                                     <option value="@response.Id">@response.Company</option>
@@ -96,7 +94,7 @@
                     <div class="form-group ">
                         <div class="col-md-12">
                             <label>@JSMS.Resources.Language.Note</label>
-                            <textarea type="text" class="form-control" id="note" placeholder="@JSMS.Resources.Language.Input"></textarea>
+                            <textarea type="text" class="form-control" id="note" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Note"></textarea>
                         </div>
                     </div>
                 </div>

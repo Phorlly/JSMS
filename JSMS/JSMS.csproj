@@ -544,8 +544,6 @@
     <Content Include="lib\font-awesome\webfonts\fontawesome-webfont.svg" />
     <Content Include="Scripts\Functions\Accounting.js" />
     <Content Include="Scripts\Functions\Dashboard.js" />
-    <Content Include="Scripts\Functions\ExpenseSalary.js" />
-    <Content Include="Scripts\Functions\IncomeSalary.js" />
     <Content Include="Scripts\Functions\Invoice.js" />
     <Content Include="Scripts\Functions\OtherGL.js" />
     <Content Include="Scripts\Functions\Product.js" />
@@ -565,10 +563,8 @@
     <Content Include="Scripts\Functions\Behavior.js" />
     <Content Include="Scripts\Functions\Checkin-Checkout.js" />
     <Content Include="Scripts\Functions\Client.js" />
-    <Content Include="Scripts\Functions\Expense.js" />
     <Content Include="Scripts\Functions\Gaurantor.js" />
     <Content Include="Scripts\Functions\Globals.js" />
-    <Content Include="Scripts\Functions\Income.js" />
     <Content Include="Scripts\Functions\Online-Applicant.js" />
     <Content Include="Scripts\Functions\Online-Client.js" />
     <Content Include="Scripts\Functions\Recruitment.js" />

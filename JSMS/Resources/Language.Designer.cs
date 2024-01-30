@@ -106,15 +106,6 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activity.
-        /// </summary>
-        public static string Activity {
-            get {
-                return ResourceManager.GetString("Activity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add New.
         /// </summary>
         public static string Add {
@@ -574,6 +565,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cost must be greater than 0.
+        /// </summary>
+        public static string CostGreater {
+            get {
+                return ResourceManager.GetString("CostGreater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Count From.
         /// </summary>
         public static string CountFrom {
@@ -808,11 +808,47 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to General Expense.
+        ///   Looks up a localized string similar to Expense.
         /// </summary>
         public static string Expense {
             get {
                 return ResourceManager.GetString("Expense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expense cannot exceed total income.
+        /// </summary>
+        public static string ExpenseCannot {
+            get {
+                return ResourceManager.GetString("ExpenseCannot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cost of materials and supplies.
+        /// </summary>
+        public static string ExpenseCostMateial {
+            get {
+                return ResourceManager.GetString("ExpenseCostMateial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insurance costs.
+        /// </summary>
+        public static string ExpenseInsurence {
+            get {
+                return ResourceManager.GetString("ExpenseInsurence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maintenance and repair fees.
+        /// </summary>
+        public static string ExpenseMaintenance {
+            get {
+                return ResourceManager.GetString("ExpenseMaintenance", resourceCulture);
             }
         }
         
@@ -826,7 +862,34 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expense on Salary.
+        ///   Looks up a localized string similar to Marketing and Advertising Costs.
+        /// </summary>
+        public static string ExpenseMarkrting {
+            get {
+                return ResourceManager.GetString("ExpenseMarkrting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material costs.
+        /// </summary>
+        public static string ExpenseMaterial {
+            get {
+                return ResourceManager.GetString("ExpenseMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location rental costs.
+        /// </summary>
+        public static string ExpenseRent {
+            get {
+                return ResourceManager.GetString("ExpenseRent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salary and wages of employees.
         /// </summary>
         public static string ExpenseSalary {
             get {
@@ -844,11 +907,56 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company supply (electricity, water).
+        /// </summary>
+        public static string ExpenseSupport {
+            get {
+                return ResourceManager.GetString("ExpenseSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay monthly tax.
+        /// </summary>
+        public static string ExpenseTaxMonthly {
+            get {
+                return ResourceManager.GetString("ExpenseTaxMonthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay annual tax.
+        /// </summary>
+        public static string ExpenseTaxYearly {
+            get {
+                return ResourceManager.GetString("ExpenseTaxYearly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Travel and entertainment expenses.
+        /// </summary>
+        public static string ExpenseTravel {
+            get {
+                return ResourceManager.GetString("ExpenseTravel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expense Type.
         /// </summary>
         public static string ExpenseType {
             get {
                 return ResourceManager.GetString("ExpenseType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tax fines.
+        /// </summary>
+        public static string ExpeseTaxFine {
+            get {
+                return ResourceManager.GetString("ExpeseTaxFine", resourceCulture);
             }
         }
         
@@ -934,7 +1042,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate New Invoice.
+        ///   Looks up a localized string similar to Generate Invoice Information.
         /// </summary>
         public static string GenerateInvoice {
             get {
@@ -1015,7 +1123,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ganeral Income.
+        ///   Looks up a localized string similar to Income.
         /// </summary>
         public static string Income {
             get {
@@ -1074,6 +1182,15 @@ namespace JSMS.Resources {
         public static string IncomeManagement {
             get {
                 return ResourceManager.GetString("IncomeManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Income or Expense.
+        /// </summary>
+        public static string IncomeOrExpense {
+            get {
+                return ResourceManager.GetString("IncomeOrExpense", resourceCulture);
             }
         }
         
@@ -1204,7 +1321,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invoice​ Number.
+        ///   Looks up a localized string similar to Invoice​.
         /// </summary>
         public static string Invoice {
             get {

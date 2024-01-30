@@ -1,9 +1,9 @@
 ﻿<!-- Modal -->
-<div class="modal fade" id="otherexpenseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="otherexpenseModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">@JSMS.Resources.Language.GeneralLedger</h5>
+                <h5 class="modal-title">@JSMS.Resources.Language.GeneralLedger</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -15,63 +15,62 @@
                         <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label for="checkIn">@JSMS.Resources.Language.Date</label>
-                                <input type="text" onfocus="(this.type='date')" class="form-control" id="date-expense" placeholder="@JSMS.Resources.Language.Select@JSMS.Resources.Language.Date">
+                                <input type="text" class="form-control" id="date-expense" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.Date">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="fww-normal">@JSMS.Resources.Language.Activity</label>
+                                <label class="fww-normal">@JSMS.Resources.Language.IncomeOrExpense</label>
                                 <select class="form-select" id="expense-activity">
-                                    <option value="0">@JSMS.Resources.Language.Select</option>
-                                    <option value="1">ចំណូល</option>
-                                    <option value="2">ចំណាយ</option>
+                                    <option value="0">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.IncomeOrExpense---</option>
+                                    <option value="1">@JSMS.Resources.Language.Income</option>
+                                    <option value="2">@JSMS.Resources.Language.Expense</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-2">
                                 <div class="form-group mb-3">
-                                    <label class="fw-normal" for="invoice">@JSMS.Resources.Language.Invoice</label>
-                                    <input id="invoice-expense" type="text" class="form-control"  placeholder="@JSMS.Resources.Language.Input">
+                                    <label class="fw-normal" for="invoice">@JSMS.Resources.Language.InvoiceNumber</label>
+                                    <input id="invoice-expense" type="text" class="form-control"  placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.InvoiceNumber">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label id="expenseType-label" class="fw-normal" for="income-type">@JSMS.Resources.Language.ExpenseType</label>
+                                <label id="expenseType-label" class="fw-normal" for="income-type">@JSMS.Resources.Language.Transaction </label>
                                 <select id="expense-type" class="form-select">
-                                    <option value="0">@JSMS.Resources.Language.Select</option>
-                                    <option value="1">ចំណូលពីការឧបត្ថម្ភស្ម័គ្រចិត្ត</option>
-                                    <option value="2">ចំណូលពីការលក់សេវាកម្ម</option>
-                                    <option value="3"> ចំណូលពីការពីការឧបត្ថម្ភពីរដ្ឋ</option>
-                                    <option value="4">ប្រាក់ចំណូលពីការលក់ផលិតផល</option>
-                                    <option value="5">ចំណូលពីថ្លៃសេវា</option>
-                                    <option value="6"> ប្រាក់ចំណូលពីការផ្សាយពាណិជ្ជកម្ម</option>
-                                    <option value="7">ចំណូលពីចំណូលការប្រាក់</option>
-                                    <option value="8">ចំណូលពីសួយសារអាករ</option>
-                                    <option value="9">ចំណូលពីថ្លៃប្រឹក្សាយោបល់</option>
+                                    <option value="0"​ class="fw-normal">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Transaction---</option>
+                                    <option value="1">@JSMS.Resources.Language.IncomeSponsored</option>
+                                    <option value="2">@JSMS.Resources.Language.IncomeService</option>
+                                    <option value="3">@JSMS.Resources.Language.IncomeState</option>
+                                    <option value="4">@JSMS.Resources.Language.IncomeSell</option>
+                                    <option value="5">@JSMS.Resources.Language.IncomeCost</option>
+                                    <option value="6">@JSMS.Resources.Language.IncomeAds</option>
+                                    <option value="7">@JSMS.Resources.Language.IncomeExpensive</option>
+                                    <option value="8">@JSMS.Resources.Language.IncomeTax</option>
+                                    <option value="9">@JSMS.Resources.Language.IncomeAdvisor</option>
                                     <!--Expense-->
-                                    <option value="10">បង់ពន្ធប្រចាំខែ</option>
-                                    <option value="11">បង់ពន្ធប្រចាំឆ្នាំ</option>
-                                    <option value="12">ផាកពិន័យពន្ធ</option>
-                                    <option value="13">ប្រាក់បៀវត្សរ៍និងប្រាក់ឈ្នួលរបស់និយោជិត</option>
-                                    <option value="14">ថ្លៃសម្ភារៈ និងការផ្គត់ផ្គង់</option>
-                                    <option value="15">ការចំណាយលើការជួលទីតាំង</option>
-                                    <option value="16">ការផ្គត់ផ្គង់ក្រុមហ៊ុន (អគ្គិសនី, ថ្លៃទឹក)</option>
-                                    <option value="17">ការចំណាយលើការធានារ៉ាប់រង</option>
-                                    <option value="18">ថ្លៃថែទាំ និងជួសជុល</option>
-                                    <option value="19">ការចំណាយលើទីផ្សារ និងការផ្សាយពាណិជ្ជកម្ម</option>
-                                    <option value="20">ការចំណាយលើសម្ភារៈ</option>
-                                    <option value="21">ការចំណាយលើការធ្វើដំណើរ និងការកម្សាន្ត</option>
-                                    <option value="23">ផ្សេងៗ</option>
-                                    <option value="24">សូមជ្រើសរើសប្រតិបត្តិការចេញ ឬ ចូលជាមុនសិន</option>
-                                </select>
+                                    <option value="10">@JSMS.Resources.Language.ExpenseTaxMonthly</option>
+                                    <option value="11">@JSMS.Resources.Language.ExpenseTaxYearly</option>
+                                    <option value="12">@JSMS.Resources.Language.ExpeseTaxFine</option>
+                                    <option value="13">@JSMS.Resources.Language.ExpenseSalary</option>
+                                    <option value="14">@JSMS.Resources.Language.ExpenseCostMateial</option>
+                                    <option value="15">@JSMS.Resources.Language.ExpenseRent</option>
+                                    <option value="16">@JSMS.Resources.Language.ExpenseSupport</option>
+                                    <option value="17">@JSMS.Resources.Language.ExpenseInsurence</option>
+                                    <option value="18">@JSMS.Resources.Language.ExpenseMaintenance</option> 
+                                    <option value="19">@JSMS.Resources.Language.ExpenseMarkrting</option>
+                                    <option value="20">@JSMS.Resources.Language.ExpenseMaterial</option>
+                                    <option value="21">@JSMS.Resources.Language.ExpenseTravel</option>
+                                    <option value="23">@JSMS.Resources.Language.Other</option>
+                                </select> 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label class="fw-normal" for="income-type">@JSMS.Resources.Language.Cost</label>
-                                <input id="cost-expense" placeholder="@JSMS.Resources.Language.Input" type="text" class="form-control" aria-label="Cost" aria-describedby="inputGroup-sizing-default">
+                                <input id="cost-expense" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Cost" type="text" class="form-control" aria-label="Cost" aria-describedby="inputGroup-sizing-default">
                             </div>
                         </div>
 
@@ -79,7 +78,7 @@
                             <div class="form-group mb-3">
                                 <label class="fw-normal" for="income-type">@JSMS.Resources.Language.PaymentType</label>
                                 <select id="payment-expense" class="form-select">
-                                    <option value="0">@JSMS.Resources.Language.Select</option>
+                                    <option value="0">@JSMS.Resources.Language.Select @JSMS.Resources.Language.PaymentType</option>
                                     <option value="ABA">ABA</option>
                                     <option value="ACLEDA">ACELDA</option>
                                     <option value="WING">WING</option>
@@ -93,7 +92,7 @@
                         <div class="col-md-12">
                             <div class="form-group mb-3">
                                 <label class="fw-normal" for="note" id="note-expense">@JSMS.Resources.Language.Note</label>
-                                <textarea id="note" type="text" class="form-control" aria-label="note" placeholder="@JSMS.Resources.Language.Input"></textarea>
+                                <textarea id="note" type="text" class="form-control" aria-label="note" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Note"></textarea>
                             </div>
                         </div>
                     </div>

@@ -75,13 +75,28 @@
 
 @if (Request.IsAuthenticated)
 {
+
+
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item mx-2">
-            <a href="@Url.Action("Index", "Home")" class="nav-link @Url.IsLinkActive("Index", "Home")">
-                <i class="fas fa-tachometer-alt"></i>
-                <p class="text-bold text-white mx-1">@JSMS.Resources.Language.Dashboard</p>
-            </a>
-        </li>
+        @if (User.IsInRole("AdminOrHR"))
+        {
+            <li class="nav-item mx-2">
+                <a href="@Url.Action("Index", "Home")" class="nav-link @Url.IsLinkActive("Index", "Home")">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <p class="text-bold text-white mx-1">@JSMS.Resources.Language.Dashboard</p>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item mx-2">
+                <a href="@Url.Action("Index", "Home")" class="nav-link @Url.IsLinkActive("Index", "Home")">
+                    <i class="fas fa-home"></i>
+                    <p class="text-bold text-white mx-1">@JSMS.Resources.Language.Home</p>
+                </a>
+            </li>
+        }
+
 
         @*All menu item*@
         @foreach (var mainMenuItem in moduleMainMenuItems)

@@ -79,6 +79,16 @@ namespace JSMS.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var user = await UserManager.FindByNameAsync(model.UserName.ToLower());
+
+                    // Store user information in a cookie
+                    var userCookie = new HttpCookie("UserInfo");
+                    userCookie["Username"] = user.UserName;
+                    userCookie["Email"] = user.Email;
+                    userCookie["PhoneNumber"] = user.PhoneNumber;
+
+                    Response.Cookies.Add(userCookie);
+
                     return Json(new { success = true, message = Language.LoginSuccess });
                 case SignInStatus.LockedOut:
                     return Json(new { success = false, message = Language.AccountClosed });
@@ -169,7 +179,7 @@ namespace JSMS.Controllers
             // Continue with the registration process
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName.ToLower(), Email = EmailGenerator.GenerateEmail() };
+                var user = new ApplicationUser { UserName = EmailGenerator.SanitizeUsername(model.UserName.ToLower()), Email = EmailGenerator.GenerateEmail(model.UserName.ToLower()) };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

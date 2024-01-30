@@ -1,132 +1,186 @@
-﻿<section class="content-header">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <h1 class="m-0">@JSMS.Resources.Language.Summary</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@JSMS.Resources.Language.Home</a></li>
-                    <li class="breadcrumb-item active">@JSMS.Resources.Language.Dashboard</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div>
-</section>
-
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h5 class="my-3">@JSMS.Resources.Language.Applicant</h5>
-                        <h4>@ViewBag.Applicant <span><span>@JSMS.Resources.Language.People</span></span></h4>
-
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <a href="@Url.Action("Index","Applicant")" class="small-box-footer">
-                        @JSMS.Resources.Language.MoreInfo
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h5 class="my-3">@JSMS.Resources.Language.Staff</h5>
-                        <h4>@ViewBag.Staff <span><span>@JSMS.Resources.Language.People</span></span></h4>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <a href="@Url.Action("Index","Staff")" class="small-box-footer">
-                        @JSMS.Resources.Language.MoreInfo
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h5 class="my-3">@JSMS.Resources.Language.Client</h5>
-                        <h4>@ViewBag.Client <span>@JSMS.Resources.Language.People</span></h4>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <a href="@Url.Action("Index","Client")" class="small-box-footer">
-                        @JSMS.Resources.Language.MoreInfo
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h5 class="my-3">@JSMS.Resources.Language.User</h5>
-                        <h4>@ViewBag.User <span>@JSMS.Resources.Language.People</span></h4>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        @JSMS.Resources.Language.MoreInfo
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- ./col -->
-
+﻿@if (User.IsInRole("AdminOrHR"))
+{
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 class="m-0">@JSMS.Resources.Language.Summary</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@JSMS.Resources.Language.Home</a></li>
+                        <li class="breadcrumb-item active">@JSMS.Resources.Language.Dashboard</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div>
+    </section>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-primary">
-                    <div class="card-header">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h5 class="my-3">@JSMS.Resources.Language.Applicant</h5>
+                            <h4>@ViewBag.Applicant <span><span>@JSMS.Resources.Language.People</span></span></h4>
 
-                        <h6 class="text-sm-center pt-3">
-                            <i class="far fa-calendar-alt"></i>
-                            @JSMS.Resources.Language.Calendar
-                            &copy;<span id="display-date"></span>
-                            &reg;<span id="display-date-time" onload="showTime()"></span>
-                        </h6>
-
-                    </div>
-                    <div class="card-body">
-                        <!--The calendar -->
-                        <div id="calendar" class="w-h"></div>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <a href="@Url.Action("Index","Applicant")" class="small-box-footer">
+                            @JSMS.Resources.Language.MoreInfo
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-danger">
-                    <div class="card-header">
-                        <h6 class="text-sm-center pt-3">
-                            <i class="fas fa-shopping-cart"></i>
-                            @JSMS.Resources.Language.RemainStock
-                        </h6>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h5 class="my-3">@JSMS.Resources.Language.Staff</h5>
+                            <h4>@ViewBag.Staff <span><span>@JSMS.Resources.Language.People</span></span></h4>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <a href="@Url.Action("Index","Staff")" class="small-box-footer">
+                            @JSMS.Resources.Language.MoreInfo
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
                     </div>
-                    <div class="card-body">
-                        <div class="chart">
-                            <canvas id="pie-chart" class="w-h"></canvas>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h5 class="my-3">@JSMS.Resources.Language.Client</h5>
+                            <h4>@ViewBag.Client <span>@JSMS.Resources.Language.People</span></h4>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <a href="@Url.Action("Index","Client")" class="small-box-footer">
+                            @JSMS.Resources.Language.MoreInfo
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h5 class="my-3">@JSMS.Resources.Language.User</h5>
+                            <h4>@ViewBag.User <span>@JSMS.Resources.Language.People</span></h4>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <a href="@Url.Action("Index","UserRole")" class="small-box-footer">
+                            @JSMS.Resources.Language.MoreInfo
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <div class="card-header">
+
+                            <h6 class="text-sm-center pt-3">
+                                <i class="far fa-calendar-alt"></i>
+                                @JSMS.Resources.Language.Calendar
+                                &copy;<span id="display-date"></span>
+                                &reg;<span id="display-date-time" onload="showTime()"></span>
+                            </h6>
+
+                        </div>
+                        <div class="card-body">
+                            <!--The calendar -->
+                            <div id="calendar" class="w-h"></div>
                         </div>
                     </div>
-                    <!-- /.card-body -->
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h6 class="text-sm-center pt-3">
+                                <i class="fas fa-shopping-cart"></i>
+                                @JSMS.Resources.Language.RemainStock
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <canvas id="pie-chart" class="w-h"></canvas>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+                </ol>
+                <div class="carousel-inner rounded-3">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" height="700" src="~/Theme/Official/img/gard/1.jpg" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" height="700" src="~/Theme/Official/img/gard/Security-Guard-Cambodia.png" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" height="700" src="~/Theme/Official/img/gard/2.jpg" alt="Third slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" height="700" src="~/Theme/Official/img/gard/security-guards-workspace.jpg" alt="Third slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" height="700" src="~/Theme/Official/img/gard/security-guards-secure-service.jpg" alt="Third slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" height="700" src="~/Theme/Official/img/gard/professional-guard-men-working-together.jpg" alt="Third slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" height="700" src="~/Theme/Official/img/gard/15.jpg" alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+        </div>
     </div>
-</section>
+}
+
 @section scripts {
     @Scripts.Render("~/Scripts/Functions/Dashboard.js")
 }

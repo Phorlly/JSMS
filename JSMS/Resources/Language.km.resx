@@ -132,9 +132,6 @@
   <data name="Actions" xml:space="preserve">
     <value>សកម្មភាព</value>
   </data>
-  <data name="Activity" xml:space="preserve">
-    <value>ប្រតិបត្តិការ</value>
-  </data>
   <data name="Add" xml:space="preserve">
     <value>បន្ថែមថ្មី</value>
   </data>
@@ -190,7 +187,7 @@
     <value>បញ្ជីវត្តមាន</value>
   </data>
   <data name="AttendanceInfo" xml:space="preserve">
-    <value>ព័ត៌មានអំពីវត្តមាន</value>
+    <value>ព័ត៌មានអំពីបញ្ជីវត្តមាន</value>
   </data>
   <data name="AttendanceList" xml:space="preserve">
     <value>បញ្ជីវត្តមានរបស់បុគ្គលិក</value>
@@ -205,7 +202,7 @@
     <value>គណនីធនាគារ​ ៖</value>
   </data>
   <data name="Behavior" xml:space="preserve">
-    <value>បញ្ជាក់អាកប្បមាយាទ</value>
+    <value>បញ្ជាក់អាកប្បកិរិយាមាយាទ</value>
   </data>
   <data name="BehaviorInfo" xml:space="preserve">
     <value>ព័ត៌មានអំពីអាកប្បកិរិយាមាយាទ</value>
@@ -214,7 +211,7 @@
     <value>លិខិតបញ្ជាក់ពីអាកប្បកិរិយារបស់អ្នកដាក់ពាក្យ</value>
   </data>
   <data name="BehaviorManagement" xml:space="preserve">
-    <value>ការគ្រប់គ្រងអំពីអាកិរិយាមាយាទ</value>
+    <value>ការគ្រប់គ្រងអំពីអាកប្បកិរិយាមាយាទ</value>
   </data>
   <data name="Calculate" xml:space="preserve">
     <value>គណនា</value>
@@ -287,6 +284,9 @@
   </data>
   <data name="Cost" xml:space="preserve">
     <value>តម្លៃសរុប</value>
+  </data>
+  <data name="CostGreater" xml:space="preserve">
+    <value>ការចំណាយត្រូវតែធំជាងសូន្យ</value>
   </data>
   <data name="CountFrom" xml:space="preserve">
     <value>គិតចាប់ពីថ្ងៃទី</value>
@@ -367,19 +367,55 @@
     <value>ឈ្មោះអ្នកប្រើប្រាស់បានចុះឈ្មោះរួចហើយ</value>
   </data>
   <data name="Expense" xml:space="preserve">
-    <value>ចំណាយទូទៅ</value>
+    <value>ចំណាយ</value>
+  </data>
+  <data name="ExpenseCannot" xml:space="preserve">
+    <value>ការចំណាយមិនអាចលើសពីចំណូលសរុបបានទេ</value>
+  </data>
+  <data name="ExpenseCostMateial" xml:space="preserve">
+    <value>ថ្លៃសម្ភារៈ និងការផ្គត់ផ្គង់</value>
+  </data>
+  <data name="ExpenseInsurence" xml:space="preserve">
+    <value>ការចំណាយលើការធានារ៉ាប់រង</value>
+  </data>
+  <data name="ExpenseMaintenance" xml:space="preserve">
+    <value>ថ្លៃថែទាំ និងជួសជុល</value>
   </data>
   <data name="ExpenseManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងការចំណាយទូទៅ</value>
   </data>
+  <data name="ExpenseMarkrting" xml:space="preserve">
+    <value>ការចំណាយលើទីផ្សារ និងការផ្សាយពាណិជ្ជកម្ម</value>
+  </data>
+  <data name="ExpenseMaterial" xml:space="preserve">
+    <value>ការចំណាយលើសម្ភារៈ</value>
+  </data>
+  <data name="ExpenseRent" xml:space="preserve">
+    <value>ការចំណាយលើការជួលទីតាំង</value>
+  </data>
   <data name="ExpenseSalary" xml:space="preserve">
-    <value>ការចំណាយលើប្រាក់ខែ</value>
+    <value>ប្រាក់បៀវត្សរ៍និងប្រាក់ឈ្នួលរបស់និយោជិត</value>
   </data>
   <data name="ExpenseSalaryManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងចំណាយលើប្រាក់ខែ</value>
   </data>
+  <data name="ExpenseSupport" xml:space="preserve">
+    <value>ការផ្គត់ផ្គង់ក្រុមហ៊ុន (អគ្គិសនី, ថ្លៃទឹក)</value>
+  </data>
+  <data name="ExpenseTaxMonthly" xml:space="preserve">
+    <value>បង់ពន្ធប្រចាំខែ</value>
+  </data>
+  <data name="ExpenseTaxYearly" xml:space="preserve">
+    <value>បង់ពន្ធប្រចាំឆ្នាំ</value>
+  </data>
+  <data name="ExpenseTravel" xml:space="preserve">
+    <value>ការចំណាយលើការធ្វើដំណើរ និងការកម្សាន្ត</value>
+  </data>
   <data name="ExpenseType" xml:space="preserve">
     <value>ប្រភេទចំណាយ</value>
+  </data>
+  <data name="ExpeseTaxFine" xml:space="preserve">
+    <value>ផាកពិន័យពន្ធ</value>
   </data>
   <data name="Female" xml:space="preserve">
     <value>ស្រី</value>
@@ -409,7 +445,7 @@
     <value>អ្នកគ្រប់គ្រង</value>
   </data>
   <data name="GenerateInvoice" xml:space="preserve">
-    <value>បង្កើតវិក័យប័ត្រថ្មី</value>
+    <value>បង្កើតព័ត៌មានវិក្កយបត្រ</value>
   </data>
   <data name="GoToWork" xml:space="preserve">
     <value>ចូល​ធ្វើការងារ</value>
@@ -436,7 +472,7 @@
     <value>ល.រ</value>
   </data>
   <data name="Income" xml:space="preserve">
-    <value>ចំណូលទូទៅ</value>
+    <value>ចំណូល</value>
   </data>
   <data name="IncomeAds" xml:space="preserve">
     <value>ប្រាក់ចំណូលពីការផ្សាយពាណិជ្ជកម្ម</value>
@@ -455,6 +491,9 @@
   </data>
   <data name="IncomeManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងចំណូលទូទៅ</value>
+  </data>
+  <data name="IncomeOrExpense" xml:space="preserve">
+    <value>ចំណូល ឬចំណាយ</value>
   </data>
   <data name="IncomeSalary" xml:space="preserve">
     <value>ចំណូលដែលបានពីប្រាក់ខែ</value>
@@ -499,7 +538,7 @@
     <value>គំរូមិនត្រឹមត្រូវ</value>
   </data>
   <data name="Invoice" xml:space="preserve">
-    <value>លេខវិក័យបត្រ</value>
+    <value>វិក័យបត្រ</value>
   </data>
   <data name="InvoiceDay" xml:space="preserve">
     <value>កាលបរិច្ឆេទចេញវិក័យប័ត្រ</value>
@@ -730,7 +769,7 @@
     <value>ការជ្រើសរើស</value>
   </data>
   <data name="RecruitmentInfo" xml:space="preserve">
-    <value>ព័ត៌មានជ្រើសរើសបុគ្គលិក</value>
+    <value>ព័ត៌មាននៃការជ្រើសរើសបុគ្គលិក</value>
   </data>
   <data name="RecruitmentManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងការជ្រើសរើសបុគ្គលិក</value>

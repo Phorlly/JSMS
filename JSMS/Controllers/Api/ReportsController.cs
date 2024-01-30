@@ -187,7 +187,7 @@ namespace JSMS.Controllers.Api
                    Code = group.Key.Code.ToString(),
                    Shift = group.Key.Shift.ToString(),
                    Location = group.Key.Location.ToString(),
-                   group.Key.TotalWorkedDays,
+                   TotalWorked = group.Key.TotalWorkedDays,
                    TotalAbsent = group.Key.TotalAbsentDays,
                    TotalPayment = group.Key.SalaryPayment,
                }).ToList();

@@ -1,8 +1,8 @@
 ﻿
 $(document).ready(() => {
-    //loadingGif();
-    //getTotalFromAPI();
-    getAll();
+    loadingGif();
+    datePicker("#start-date");
+    datePicker("#end-date");
 });
 
 let tableInvoice = [];
@@ -42,12 +42,12 @@ let Gtotal = $("#Gtotal");
 let Gnote = $("#GSnote");
 let GsubTotal = $("#Gsub-total");
 
+$("#show-data").click(() => getAll());
 
 AddNewBtn.click(() => {
     clear();
+    setColors();
     modalInvoice.modal("show");
-    updateInvoice.hide();
-    saveBtn.show();
 });
 
 refresh.click(() => {
@@ -67,6 +67,7 @@ const getAll = () => {
         responsive: true,
         autoWidth: false,
         scrollX: true,
+        destroy: true,
         dom: "Bfrtip",
         buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
         language: {
@@ -78,7 +79,7 @@ const getAll = () => {
         drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
-                title: "N.O",
+                //title: "N.O",
                 data: null,
                 render: (data, type, row, meta) => `${meta.row + 1}`,
             },
@@ -129,31 +130,31 @@ const getAll = () => {
         ],
         buttons: [
             {
-                title: "Report of Users",
+                title: "Report of Invioce",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "Report of Users",
+                title: "Report of Invioce",
                 extend: "pdfHtml5",
                 text: "<i class='fa fa-file-pdf'> </i> PDF",
                 className: "btn btn-danger btn-sm mt-2",
             },
             {
-                title: "Report of Users",
+                title: "Report of Invioce",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "Report of Users",
+                title: "Report of Invioce",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "Report of Users",
+                title: "Report of Invioce",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -288,7 +289,8 @@ const edit = (id) => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         success: (response) => {
-            console.log(response);
+            //console.log(response);
+            setColors();
             updateBtn.show();
             saveBtn.hide();
 
@@ -370,12 +372,12 @@ updateBtn.click(() => {
 
 const remove = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែលឬទេ?",
-        text: "ទិន្នន័យដែលលុបមិនអាចទាញមកវិញបានទេ",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value ?
@@ -403,7 +405,7 @@ const remove = (id) => {
                     }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថិភាព",
+                title: lTheSame,
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -415,48 +417,57 @@ const remove = (id) => {
 const clear = () => {
     startDate.val("");
     endDate.val("");
-    invoiceNumber.val("0");
+    invoiceNumber.val("");
     clientId.val("0");
     descripe.val("");
     qty.val("");
     unitPrice.val("");
     tax.val("");
     note.val("");
+    updateInvoice.hide();
+    saveBtn.show();
+};
+
+const setColors = () => {
+    startDate.css("border-color", "#cccccc");
+    endDate.css("border-color", "#cccccc");
+    invoiceNumber.css("border-color", "#cccccc");
+    clientId.css("border-color", "#cccccc");
+    qty.css("border-color", "#cccccc");
+    unitPrice.css("border-color", "#cccccc");
 };
 
 const Validate = () => {
     let isValid = true;
     if (startDate.val() === "") {
         Swal.fire({
-            title: "សូមជ្រើសរើសកាលបរិច្ឆេទ",
+            title: `${lSelect} ${lStartDate}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
             timer: 1500,
         });
         startDate.css("border-color", "red");
-        startDate.focus();
         isValid = false;
     }
     else {
         startDate.css("border-color", "#cccccc");
         if (endDate.val() === "") {
             Swal.fire({
-                title: "សូមជ្រើសរើសប្រតិបត្តិការ",
+                title: `${lSelect} ${lEndDate}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
                 timer: 1500,
             });
             endDate.css("border-color", "red");
-            endDate.focus();
             isValid = false;
         }
         else {
             endDate.css("border-color", "#cccccc");
             if (invoiceNumber.val() === "") {
                 Swal.fire({
-                    title: "សូមបំពេញលេខវិកយប័ត្រ",
+                    title: `${lInput} ${lInvoiceNumber}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
@@ -470,7 +481,7 @@ const Validate = () => {
                 invoiceNumber.css("border-color", "#cccccc");
                 if (clientId.val() === "0") {
                     Swal.fire({
-                        title: "សូមជ្រើសរើសគោលបំណង",
+                        title: `${lSelect} ${lClient}`,
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
@@ -482,23 +493,23 @@ const Validate = () => {
                 }
                 else {
                     clientId.css("border-color", "#cccccc");
-                    if (descripe.val() === "") {
+                    if (qty.val() === "") {
                         Swal.fire({
-                            title: "សូមបំពេញតម្លៃសរុប",
+                            title: `${lInput} ${lQuantity}`,
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
                             timer: 1500,
                         });
-                        descripe.css("border-color", "red");
-                        descripe.focus();
+                        qty.css("border-color", "red");
+                        qty.focus();
                         isValid = false;
                     }
                     else {
-                        descripe.css("border-color", "#cccccc");
+                        qty.css("border-color", "#cccccc");
                         if (qty.val() === "") {
                             Swal.fire({
-                                title: "សូមជ្រើសរើសប្រភេទបង់ប្រាក់",
+                                title: `${lInput} ${lQuantity}`,
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
@@ -512,7 +523,7 @@ const Validate = () => {
                             qty.css("border-color", "#cccccc");
                             if (unitPrice.val() === "") {
                                 Swal.fire({
-                                    title: "សូមជ្រើសរើសប្រតិបត្តិការសិន",
+                                    title: `${lInput} ${lUnitPrice}`,
                                     icon: "warning",
                                     showConfirmButton: false,
                                     customClass: { title: 'custom-swal-title' },
@@ -521,6 +532,8 @@ const Validate = () => {
                                 unitPrice.css("border-color", "red");
                                 unitPrice.focus();
                                 isValid = false;
+                            } else {
+                                unitPrice.css("border-color", "#cccccc");
                             }
                         }
                     }

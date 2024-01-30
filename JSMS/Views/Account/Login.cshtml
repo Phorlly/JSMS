@@ -71,10 +71,10 @@
                     </div>
 
                     @*<div class="text-center p-t-12">
-                        <a id="txt2" href="@Url.Action("ForgotPassword", "Account")">
-                            @JSMS.Resources.Language.Forget @JSMS.Resources.Language.Username / @JSMS.Resources.Language.Password
-                        </a>
-                    </div>*@
+                            <a id="txt2" href="@Url.Action("ForgotPassword", "Account")">
+                                @JSMS.Resources.Language.Forget @JSMS.Resources.Language.Username / @JSMS.Resources.Language.Password
+                            </a>
+                        </div>*@
 
                     <div class="text-center p-t-20">
                         <a id="txt2" href="@Url.Action("Register", "Account")">
@@ -115,12 +115,12 @@
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
-<script>
+    <script>
         $('#js-tilt').tilt({
             scale: 1.1
         })
 
-        //< !--=============================================================================================== -->
+        //< !--===================================================================== -->
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -191,7 +191,7 @@
 
             return isValid;
         };
-</script>
+    </script>
 </body>
 
 </html>

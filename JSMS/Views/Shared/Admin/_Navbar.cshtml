@@ -1,18 +1,24 @@
 ﻿@using Microsoft.AspNet.Identity
+@{
+    var username = Request.Cookies["UserInfo"]?["Username"];
+    var email = Request.Cookies["UserInfo"]?["Email"];
+    var phoneNumber = Request.Cookies["UserInfo"]?["PhoneNumber"];
+}
+
 <!-- Left navbar links -->
 <ul class="navbar-nav">
     <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
     </li>
     @*<li class="nav-item d-none d-sm-inline-block">
-        <a href="@Url.Action("Index", "Home")" class="nav-link">@JSMS.Resources.Language.Home</a>
-    </li>
-    <li class="nav-item d-none d-sm-inline-block">
-        <a href="@Url.Action("Contact", "Home")" class="nav-link">@JSMS.Resources.Language.Contact</a>
-    </li>
-    <li class="nav-item d-none d-sm-inline-block">
-        <a href="@Url.Action("About", "Home")" class="nav-link">@JSMS.Resources.Language.About</a>
-    </li>*@
+            <a href="@Url.Action("Index", "Home")" class="nav-link">@JSMS.Resources.Language.Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="@Url.Action("Contact", "Home")" class="nav-link">@JSMS.Resources.Language.Contact</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="@Url.Action("About", "Home")" class="nav-link">@JSMS.Resources.Language.About</a>
+        </li>*@
 </ul>
 
 
@@ -46,15 +52,30 @@
             <i class="fas fa-expand-arrows-alt"></i>
         </a>
     </li>
-    <li class="nav-item user-menu mr-4">
-        <a href="#" class="nav-link">
+
+    <li class="nav-item dropdown user-menu mr-4">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
             <img src="~/Images/avatar5.png" class="user-image img-circle elevation-2" alt="User Image">
-            <span class="text-bold mr-4​​ text-uppercase" id="log-by" data-logby="@User.Identity.GetUserName()">@User.Identity.GetUserName()</span>
+            <span class="text-bold text-uppercase" id="log-by" data-logby="@User.Identity.GetUserName()">@User.Identity.GetUserName()</span>
+            <i class="ml-auto text-primary fas fa-angle-double-down"></i>
         </a>
+        <ul class="dropdown-menu rounded-3">
+            <!-- User image -->
+            <li class="user-header">
+                <img src="~/Images/avatar5.png" class="user-image img-circle elevation-2" alt="User Image">
+                <p>
+                    <b class="text-primary">@username</b> <br />
+                    <strong class="text-secondary">@email</strong> <br />
+                    <b class="text-warning">@phoneNumber</b>
+                </p>
+            </li>
+        </ul>
     </li>
 </ul>
+
 <script src="~/Scripts/Libraries/bootstrap.min.js"></script>
 <script src="~/Scripts/Libraries/jquery-3.7.1.min.js"></script>
+
 <script>
     //console.log({ UserName: $("#log-by").data("logby") });
     // const to set active class based on language stored in the cookie
@@ -90,4 +111,5 @@
         $(this).addClass('bg-info');
     });
 
+    $("#profile").click(() => $("#modal-profile").modal("show"));
 </script>

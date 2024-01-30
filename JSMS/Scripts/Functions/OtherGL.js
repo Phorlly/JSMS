@@ -1,14 +1,15 @@
 ﻿$(document).ready(() => {
     loadingGif();
     getTotalFromAPI();
-    getAll();
+    numberOnly("cost-expense");
+    datePicker("#date-expense");
 });
 
 let tableGL = [];
 let dataId = $("#data-id");
 let expenseSave = $("#save-expense");
 let modalExpense = $("#otherexpenseModal");
-let updateExpense = $("#date-expense");
+let updateExpense = $("#update-expense");
 let btnExpense = $("#add-new");
 let refresh = $("#refresh");
 let totalbtn = $("#total");
@@ -22,23 +23,31 @@ let costExpense = $("#cost-expense");
 let noteExpense = $("#note");
 let paymentType = $("#payment-expense");
 
-btnExpense.click(() => {
+$("#add-new").click(() => {
     clearGL();
     getTotalFromAPI();
-    updateExpense.hide();
-    expenseSave.show();
+    setColors();
+
     //hide select option 
     for (let i = 1; i <= 23; i++) {
         expenseType.find(`option[value="${i}"]`).hide();
     }
-    expenseType.find('option[value="24"]').show();
 
-    modalExpense.modal("show");
+    modalExpense.modal("toggle");
 });
+
+const ExpenseType = (value) => {
+    return translationData[value] || value;
+};
+const mapExpenseType = (value) => {
+    return translationData[value] || value;
+};
 
 refresh.click(() => {
     location.reload();
 })
+
+$("#show-data").click(() => getAll());
 
 totalbtn.click(() => {
     getTotalFromAPI();
@@ -53,8 +62,8 @@ const getAll = () => {
             dataSrc: "",
             method: "GET",
         },
-         responsive: true,
-         autoWidth: false,
+        responsive: true,
+        autoWidth: false,
         //scrollX: true,
         destroy: true,
         dom: "Bfrtip",
@@ -129,31 +138,31 @@ const getAll = () => {
         ],
         buttons: [
             {
-                title: "Report of Users",
+                title: "Report of General Leger",
                 extend: "excelHtml5",
                 text: "<i class='fa fa-file-excel'> </i> Excel",
                 className: "btn btn-success btn-sm mt-2",
             },
             {
-                title: "Report of Users",
+                title: "Report of General Leger",
                 extend: "pdfHtml5",
                 text: "<i class='fa fa-file-pdf'> </i> PDF",
                 className: "btn btn-danger btn-sm mt-2",
             },
             {
-                title: "Report of Users",
+                title: "Report of General Leger",
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
             {
-                title: "Report of Users",
+                title: "Report of General Leger",
                 extend: "copy",
                 text: "<i class='fa fa-copy'> </i> Copy Text",
                 className: "btn btn-info btn-sm mt-2",
             },
             {
-                title: "Report of Users",
+                title: "Report of General Leger",
                 extend: "colvis",
                 text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
                 className: "btn btn-primary btn-sm mt-2",
@@ -173,47 +182,46 @@ const getTotalFromAPI = () => {
             // Update the content of the card with the received total
             $("#totalValue").text("$ " + (data !== null ? data : "00.00"));
         },
-        error: function (error) {
-            console.error("Error fetching total:", error);
-        }
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
 //show text from select option
 const translationData = {
-    "1": "ចំណូលពីការឧបត្ថម្ភស្ម័គ្រចិត្ត",
-    "2": "ចំណូលពីការលក់សេវាកម្ម",
-    "3": "ចំណូលពីការពីការឧបត្ថម្ភពីរដ្ឋ",
-    "4": "ប្រាក់ចំណូលពីការលក់ផលិតផល",
-    "5": "ចំណូលពីថ្លៃសេវា",
-    "6": "ប្រាក់ចំណូលពីការផ្សាយពាណិជ្ជកម្ម",
-    "7": "ចំណូលពីចំណូលការប្រាក់",
-    "8": "ចំណូលពីសួយសារអាករ",
-    "9": "ចំណូលពីថ្លៃប្រឹក្សាយោបល់",
-    "10": "បង់ពន្ធប្រចាំខែ",
-    "11": "បង់ពន្ធប្រចាំឆ្នាំ",
-    "12": "ផាកពិន័យពន្ធ",
-    "13": "ប្រាក់បៀវត្សរ៍និងប្រាក់ឈ្នួលរបស់និយោជិត",
-    "14": "ថ្លៃសម្ភារៈ និងការផ្គត់ផ្គង់",
-    "15": "ការចំណាយលើការជួលទីតាំង",
-    "16": "ការផ្គត់ផ្គង់ក្រុមហ៊ុន (អគ្គិសនី, ថ្លៃទឹក)",
-    "17": "ការចំណាយលើការធានារ៉ាប់រង",
-    "18": "ថ្លៃថែទាំ និងជួសជុល",
-    "19": "ការចំណាយលើទីផ្សារ និងការផ្សាយពាណិជ្ជកម្ម",
-    "20": "ការចំណាយលើសម្ភារៈ",
-    "21": "ការចំណាយលើការធ្វើដំណើរ និងការកម្សាន្ត",
-    "23": "ផ្សេងៗ"
+    "1": lIncomeSponsored,
+    "2": lIncomeService,
+    "3": lIncomeState,
+    "4": lIncomeSell,
+    "5": lIncomeCost,
+    "6": lIncomeAds,
+    "7": lIncomeExpensive,
+    "8": lIncomeTax,
+    "9": lIncomeAdvisor,
+    "10": lExpenseTaxMonthly,
+    "11": lExpenseTaxYearly,
+    "12": lExpeseTaxFine,
+    "13": lExpenseSalary,
+    "14": lExpenseCostMateial,
+    "15": lExpenseRent,
+    "16": lExpenseSupport,
+    "17": lExpenseInsurence,
+    "18": lExpenseMaintenance,
+    "19": lExpenseMarkrting,
+    "20": lExpenseMaterial,
+    "21": lExpenseTravel,
+    "23": lOther
     // Add more mappings as needed
 };
 
-const ExpenseType = (value) => {
-    return translationData[value] || value;
-}; const mapExpenseType = (value) => {
-    return translationData[value] || value;
-};
-
 // Get the selected value from the activityExpense
-activityExpense.on('change', function () {
+activityExpense.change(() => {
     // Get the selected value from the activityExpense dropdown
     let selectedValue = activityExpense.val();
 
@@ -226,7 +234,7 @@ activityExpense.on('change', function () {
         for (let i = 10; i <= 22; i++) {
             expenseType.find(`option[value="${i}"]`).hide();
         }
-        expenseType.find('option[value="24"]').hide();
+        expenseType.val("0");
     } else if (selectedValue === '2') {
         // Show specific options in the expenseType dropdown
         for (let i = 11; i <= 22; i++) {
@@ -236,13 +244,13 @@ activityExpense.on('change', function () {
         for (let i = 1; i <= 9; i++) {
             expenseType.find(`option[value="${i}"]`).hide();
         }
-        expenseType.find('option[value="24"]').hide();
+        expenseType.val("0");
     } else {
         //hide select option
         for (let i = 1; i <= 23; i++) {
             expenseType.find(`option[value="${i}"]`).hide();
         }
-        expenseType.find('option[value="24"]').show();
+        expenseType.val("0");
     }
 });
 
@@ -266,98 +274,65 @@ expenseSave.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
-        statusCode: {
-            200: (response) => {
-                dataId.val(response.Id);
-                tableGL.ajax.reload();
-                clearGL();
-                modalExpense.modal("hide");
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                if (xhr.responseJSON) {
-                    if (xhr.responseJSON.Message === "InvoiceID already exists.") {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Invoice code already exists. Please use a different Invoice code",
-                        });
-                    } else if (xhr.responseJSON.Message === "Expense cannot exceed total income.") {
-                        Swal.fire({ 
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Expense cannot exceed total income.",
-                        });
-                    } else if (xhr.responseJSON.Message === "Cost must be greater than 0") {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Cost must be greater than 0",
-                        });
-                    } else {
-                        console.log(xhr.responseText);
-                    }
-                } else {
-                    console.log(xhr.responseText);
-                }
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "មានបញ្ហាកើតឡើងសូមពិនិត្យម្ដងទៀត") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+        success: response => {
+            dataId.val(response.Id);
+            tableGL.ajax.reload();
+            clearGL();
+            getAll();
+            getTotalFromAPI();
+            //modalExpense.modal("hide");
+            Swal.fire({
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 })
 
 const editExpense = (id) => {
-   
-    //getTotalFromAPI();
 
     $.ajax({
         url: "/api/hr/otherexpense/get/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
-        statusCode: {
-            200: (response) => {
-                console.log(response);
-                updateExpense.show();
-                expenseSave.hide();
+        success: response => {
+            //console.log(response);
+            updateExpense.show();
+            expenseSave.hide();
+            setColors();
+            getTotalFromAPI();
 
-                dataId.val(response.Id);
-                dateExpense.val(formatDate(response.Date));
-                activityExpense.val(response.Status);
-                expenseInvoice.val(response.InvoiceID);
-                expenseType.val(response.ExpenseType);
-                costExpense.val("");
-                paymentType.val(response.PaymentType);
-                noteExpense.val(response.Note);
-                modalExpense.modal("show");
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            dataId.val(response.Id);
+            dateExpense.val(formatDate(response.Date));
+            activityExpense.val(response.Status);
+            expenseInvoice.val(response.InvoiceID);
+            expenseType.val(response.ExpenseType);
+            costExpense.val("");
+            paymentType.val(response.PaymentType);
+            noteExpense.val(response.Note);
+            modalExpense.modal("show");
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
@@ -379,106 +354,70 @@ updateExpense.click(() => {
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
-        statusCode: {
-            200: (response) => {
-                dataId.val(response.Id);
-                tableGL.ajax.reload();
-                modalExpense.modal("hide");
+        success: (response) => {
+            dataId.val(response.Id);
+            tableGL.ajax.reload();
+            getTotalFromAPI();
+            getAll();
+            Swal.fire({
+                //position: "top-end",
+                title: response.message,
+                icon: "success",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            });
 
-                Swal.fire({
-                    //position: "top-end",
-                    title: response.message,
-                    icon: "success",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
-                });
-            },
-            400: (xhr) => {
-                if (xhr.responseJSON) {
-                    if (xhr.responseJSON.Message === "InvoiceID already exists.") {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Invoice code already exists. Please use a different Invoice code",
-                        });
-                    } else if (xhr.responseJSON.Message === "Expense cannot exceed total income.") {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Expense cannot exceed total income.",
-                        });
-                    } else if (xhr.responseJSON.Message === "Cost must be greater than 0") {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Cost must be greater than 0",
-                        });
-                    } else {
-                        console.log(xhr.responseText);
-                    }
-                } else {
-                    console.log(xhr.responseText);
-                }
-            },
-            404: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
-            500: (xhr) => {
-                xhr.responseJSON && xhr.responseJSON.message ?
-                    toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                    console.log(xhr.responseText);
-            },
+            modalExpense.modal("hide");
         },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                customClass: { title: 'custom-swal-title' },
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     }) : false;
 });
 
 const removeExpense = (id) => {
     Swal.fire({
-        title: "តើអ្នកប្រាកដដែលឬទេ?",
-        text: "ទិន្នន័យដែលលុបមិនអាចទាញមកវិញបានទេ",
+        title: lAreYouSure,
+        text: lToDelete,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "យល់ព្រម",
-        cancelButtonText: "បោះបង់",
-        customClass: { title: 'custom-swal-title' },
+        cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
+        confirmButtonText: `<i class='fas fa-trash'></i> <span>${lOK}</span>`,
     }).then((param) => {
         param.value ?
             $.ajax({
                 method: "DELETE",
                 url: "/api/hr/otherexpense/delete/" + id,
-                statusCode: {
-                    200: (response) => {
-                        tableGL.ajax.reload();
-                        Swal.fire({
-                            title: response.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            customClass: { title: 'custom-swal-title' },
-                            timer: 1500,
-                        });
-                    },
-                    400: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    404: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
-                    500: (xhr) => {
-                        xhr.responseJSON && xhr.responseJSON.message ?
-                            toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                            console.log(xhr.responseText);
-                    },
+                success: (response) => {
+                    tableGL.ajax.reload();
+                    getTotalFromAPI();
+                    Swal.fire({
+                        title: response.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    });
                 },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        //position: "top-end",
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
             }) : param.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
-                title: "ទិន្នន័យរបស់អ្នកគឺនៅសុវត្ថិភាព",
+                title: lTheSame,
                 icon: "error",
                 showConfirmButton: false,
                 timer: 1500,
@@ -488,7 +427,7 @@ const removeExpense = (id) => {
 };
 
 const clearGL = () => {
-    dateExpense.val("");
+    setCurrentDate("#date-expense");
     expenseInvoice.val("");
     expenseType.val("0");
     costExpense.val("");
@@ -499,110 +438,90 @@ const clearGL = () => {
     expenseSave.show();
 };
 
+const setColors = () => {
+    activityExpense.css("border-color", "#cccccc");
+    costExpense.css("border-color", "#cccccc");
+    paymentType.css("border-color", "#cccccc");
+    expenseInvoice.css("border-color", "#cccccc");
+    expenseType.css("border-color", "#cccccc");
+};
+
 const ValidateExpense = () => {
     let isValid = true;
-    if (dateExpense.val() === "") {
+    if (activityExpense.val() === "0") {
         Swal.fire({
-            title: "សូមជ្រើសរើសកាលបរិច្ឆេទ",
+            title: `${lSelect} ${lIncomeOrExpense}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
             timer: 1500,
         });
-        dateExpense.css("border-color", "red");
-        dateExpense.focus();
+        activityExpense.css("border-color", "red");
+        activityExpense.focus();
         isValid = false;
     }
     else {
-        dateExpense.css("border-color", "#cccccc");
-        if (activityExpense.val() === "0") {
+        activityExpense.css("border-color", "#cccccc");
+        if (expenseInvoice.val() === "") {
             Swal.fire({
-                title: "សូមជ្រើសរើសប្រតិបត្តិការ",
+                title: `${lInput} ${lInvoiceNumber}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
                 timer: 1500,
             });
-            activityExpense.css("border-color", "red");
-            activityExpense.focus();
+            expenseInvoice.css("border-color", "red");
+            expenseInvoice.focus();
             isValid = false;
         }
         else {
-            activityExpense.css("border-color", "#cccccc");
-            if (expenseInvoice.val() === "") {
+            expenseInvoice.css("border-color", "#cccccc");
+            if (expenseType.val() === "0") {
                 Swal.fire({
-                    title: "សូមបំពេញលេខវិកយប័ត្រ",
+                    title: `${lSelect} ${lTransaction}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
                     timer: 1500,
                 });
-                expenseInvoice.css("border-color", "red");
-                expenseInvoice.focus();
+                expenseType.css("border-color", "red");
+                expenseType.focus();
                 isValid = false;
             }
             else {
-                expenseInvoice.css("border-color", "#cccccc");
-                if (expenseType.val() === "0") {
+                expenseType.css("border-color", "#cccccc");
+                if (costExpense.val() === "") {
                     Swal.fire({
-                        title: "សូមជ្រើសរើសគោលបំណង",
+                        title: `${lInput} ${lCost}`,
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
                         timer: 1500,
                     });
-                    expenseType.css("border-color", "red");
-                    expenseType.focus();
+                    costExpense.css("border-color", "red");
+                    costExpense.focus();
                     isValid = false;
                 }
                 else {
-                    expenseType.css("border-color", "#cccccc");
-                    if (costExpense.val() === "") {
+                    costExpense.css("border-color", "#cccccc");
+                    if (paymentType.val() === "0") {
                         Swal.fire({
-                            title: "សូមបំពេញតម្លៃសរុប",
+                            title: `${lSelect} ${lPaymentType}`,
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
                             timer: 1500,
                         });
-                        costExpense.css("border-color", "red");
-                        costExpense.focus();
+                        paymentType.css("border-color", "red");
+                        paymentType.focus();
                         isValid = false;
                     }
                     else {
-                        costExpense.css("border-color", "#cccccc");
-                        if (paymentType.val() === "0") {
-                            Swal.fire({
-                                title: "សូមជ្រើសរើសប្រភេទបង់ប្រាក់",
-                                icon: "warning",
-                                showConfirmButton: false,
-                                customClass: { title: 'custom-swal-title' },
-                                timer: 1500,
-                            });
-                            paymentType.css("border-color", "red");
-                            paymentType.focus();
-                            isValid = false;
-                        }
-                        else {
-                            paymentType.css("border-color", "#cccccc");
-                            if (expenseType.val() === "24") {
-                                Swal.fire({
-                                    title: "សូមជ្រើសរើសប្រតិបត្តិការសិន",
-                                    icon: "warning",
-                                    showConfirmButton: false,
-                                    customClass: { title: 'custom-swal-title' },
-                                    timer: 1500,
-                                });
-                                activityExpense.css("border-color", "red");
-                                activityExpense.focus();
-                                isValid = false;
-                            }
-                        }
+                        paymentType.css("border-color", "#cccccc");
                     }
                 }
             }
         }
-
     }
 
     return isValid;

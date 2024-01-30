@@ -132,9 +132,6 @@
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
-  <data name="Activity" xml:space="preserve">
-    <value>Activity</value>
-  </data>
   <data name="Add" xml:space="preserve">
     <value>Add New</value>
   </data>
@@ -288,6 +285,9 @@
   <data name="Cost" xml:space="preserve">
     <value>Total Price</value>
   </data>
+  <data name="CostGreater" xml:space="preserve">
+    <value>Cost must be greater than 0</value>
+  </data>
   <data name="CountFrom" xml:space="preserve">
     <value>Count From</value>
   </data>
@@ -367,19 +367,55 @@
     <value>Username already registered</value>
   </data>
   <data name="Expense" xml:space="preserve">
-    <value>General Expense</value>
+    <value>Expense</value>
+  </data>
+  <data name="ExpenseCannot" xml:space="preserve">
+    <value>Expense cannot exceed total income</value>
+  </data>
+  <data name="ExpenseCostMateial" xml:space="preserve">
+    <value>Cost of materials and supplies</value>
+  </data>
+  <data name="ExpenseInsurence" xml:space="preserve">
+    <value>Insurance costs</value>
+  </data>
+  <data name="ExpenseMaintenance" xml:space="preserve">
+    <value>Maintenance and repair fees</value>
   </data>
   <data name="ExpenseManagement" xml:space="preserve">
     <value>General-Expense Management</value>
   </data>
+  <data name="ExpenseMarkrting" xml:space="preserve">
+    <value>Marketing and Advertising Costs</value>
+  </data>
+  <data name="ExpenseMaterial" xml:space="preserve">
+    <value>Material costs</value>
+  </data>
+  <data name="ExpenseRent" xml:space="preserve">
+    <value>Location rental costs</value>
+  </data>
   <data name="ExpenseSalary" xml:space="preserve">
-    <value>Expense on Salary</value>
+    <value>Salary and wages of employees</value>
   </data>
   <data name="ExpenseSalaryManagement" xml:space="preserve">
     <value>Expense on Salary Management</value>
   </data>
+  <data name="ExpenseSupport" xml:space="preserve">
+    <value>Company supply (electricity, water)</value>
+  </data>
+  <data name="ExpenseTaxMonthly" xml:space="preserve">
+    <value>Pay monthly tax</value>
+  </data>
+  <data name="ExpenseTaxYearly" xml:space="preserve">
+    <value>Pay annual tax</value>
+  </data>
+  <data name="ExpenseTravel" xml:space="preserve">
+    <value>Travel and entertainment expenses</value>
+  </data>
   <data name="ExpenseType" xml:space="preserve">
     <value>Expense Type</value>
+  </data>
+  <data name="ExpeseTaxFine" xml:space="preserve">
+    <value>Tax fines</value>
   </data>
   <data name="Female" xml:space="preserve">
     <value>Female</value>
@@ -409,7 +445,7 @@
     <value>General-Manager</value>
   </data>
   <data name="GenerateInvoice" xml:space="preserve">
-    <value>Generate New Invoice</value>
+    <value>Generate Invoice Information</value>
   </data>
   <data name="GoToWork" xml:space="preserve">
     <value>Go to Work</value>
@@ -436,7 +472,7 @@
     <value>No.</value>
   </data>
   <data name="Income" xml:space="preserve">
-    <value>Ganeral Income</value>
+    <value>Income</value>
   </data>
   <data name="IncomeAds" xml:space="preserve">
     <value>Advertising revenue</value>
@@ -455,6 +491,9 @@
   </data>
   <data name="IncomeManagement" xml:space="preserve">
     <value>General-Income Management</value>
+  </data>
+  <data name="IncomeOrExpense" xml:space="preserve">
+    <value>Income or Expense</value>
   </data>
   <data name="IncomeSalary" xml:space="preserve">
     <value>Income from Salary</value>
@@ -499,7 +538,7 @@
     <value>Invalid model</value>
   </data>
   <data name="Invoice" xml:space="preserve">
-    <value>Invoice​ Number</value>
+    <value>Invoice​</value>
   </data>
   <data name="InvoiceDay" xml:space="preserve">
     <value>Invoice Shared Date</value>

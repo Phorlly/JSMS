@@ -1,5 +1,6 @@
 ﻿using JSMS.Models.Admin;
 using System;
+using System.Text.RegularExpressions;
 
 namespace JSMS.Helpers
 {
@@ -7,7 +8,7 @@ namespace JSMS.Helpers
     {
         AdminOrHR,
         Accounting,
-        Staff, 
+        Staff,
         Customer,
         User
     }
@@ -87,30 +88,36 @@ namespace JSMS.Helpers
     public class EmailGenerator
     {
         private static readonly Random random = new Random();
-        private static readonly string[] domains = { "gmail.com", "yahoo.com", "hotmail.com", "example.com" };
+        private static readonly string[] domains = { "gmail.com", "yahoo.com", "system.com" };
 
 
-        public static string GenerateEmail()
+        public static string GenerateEmail(string username)
         {
-            string randomName = GenerateRandomString(8).ToLower(); // Generate a lowercase 8-character random string
-            string randomDomain = GenerateRandomString(5).ToLower(); // Generate a lowercase 5-character random string as the domain
+            //string randomName = GenerateRandomString(8).ToLower(); // Generate a lowercase 8-character random string
+            //string randomDomain = GenerateRandomString(5).ToLower(); // Generate a lowercase 5-character random string as the domain
             string domain = domains[random.Next(domains.Length)]; // You can replace this with your preferred domain
 
-            return $"{randomName}@{randomDomain}.{domain}";
+            return $"{username}@{domain}";
         }
 
-        private static string GenerateRandomString(int length)
+        public static string SanitizeUsername(string username)
         {
-            const string characters = "abcdefghijklmnopqrstuvwxyz";
-            char[] result = new char[length];
-
-            for (int i = 0; i < length; i++)
-            {
-                result[i] = characters[random.Next(characters.Length)];
-            }
-
-            return new string(result);
+            // Replace spaces with dots
+            return Regex.Replace(username, @"\s", ".");
         }
+
+        //private static string GenerateRandomString(int length)
+        //{
+        //    const string characters = "abcdefghijklmnopqrstuvwxyz";
+        //    char[] result = new char[length];
+
+        //    for (int i = 0; i < length; i++)
+        //    {
+        //        result[i] = characters[random.Next(characters.Length)];
+        //    }
+
+        //    return new string(result);
+        //}
     }
 
     public static class CodeGenerator

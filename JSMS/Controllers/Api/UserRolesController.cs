@@ -110,12 +110,12 @@ namespace JSMS.Controllers.Api
             {
                 var user = new ApplicationUser()
                 {
-                    UserName = request.UserName,
+                    UserName = EmailGenerator.SanitizeUsername(request.UserName.ToLower()),
                     PhoneNumber = request.Phone,
-                    Email = EmailGenerator.GenerateEmail()
+                    Email = EmailGenerator.GenerateEmail(request.UserName.ToLower())
                 };
 
-                var exist = await userManager.FindByNameAsync(request.UserName);
+                var exist = await userManager.FindByNameAsync(request.UserName.ToLower());
                 if (exist != null)
                 {
                     return MessageWithCode(400, Language.ExistUsername);
@@ -123,7 +123,7 @@ namespace JSMS.Controllers.Api
 
                 if (request.Password != request.ConfirmPassword)
                 {
-                    return  MessageWithCode(400, Language.PasswordNotMatch);
+                    return MessageWithCode(400, Language.PasswordNotMatch);
                 }
                 else
                 {
@@ -158,15 +158,15 @@ namespace JSMS.Controllers.Api
                     return NoDataFound();
                 }
 
-                var isExist = await context.Users.SingleOrDefaultAsync(u => u.UserName == request.UserName && u.Id != id);
-                if(isExist != null)
+                var isExist = await context.Users.SingleOrDefaultAsync(u => u.UserName.ToLower() == request.UserName.ToLower() && u.Id != id);
+                if (isExist != null)
                 {
                     return MessageWithCode(400, Language.ExistUsername);
                 }
 
-                response.UserName = request.UserName;
+                response.UserName = EmailGenerator.SanitizeUsername(request.UserName.ToLower());
                 response.PhoneNumber = request.Phone;
-                response.Email = response.Email;
+                response.Email = EmailGenerator.GenerateEmail(request.UserName.ToLower());
 
                 if (!string.IsNullOrEmpty(request.OldPassword))
                 {

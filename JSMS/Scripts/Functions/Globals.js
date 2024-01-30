@@ -33,7 +33,6 @@ const formatVattin = (id) => {
     return matchedItem ? matchedItem.name : "";
 };
 
-
 //get file image
 //const readUrl = (uploadInput, imagePreview) => {
 
@@ -106,11 +105,8 @@ const formatStatus = (id) => {
     ];
 
     let matchedItem = data.find((item) => item.id === id);
-
-    return matchedItem.id === 0 ? `<span class="btn btn-danger btn-sm">${matchedItem.name}</span>`
-        : matchedItem.id === 1 ? `<span class="btn btn-warning btn-sm">${matchedItem.name}</span>`
-            : matchedItem.id === 2 ? `<span class="btn btn-success btn-sm">${matchedItem.name}</span>`
-                : "";
+    let color = matchedItem.id === 0 ? "btn-warning" : matchedItem.id === 1 ? "btn-danger" : matchedItem.id === 2 ? "btn-success" : "btn-warning";
+    return `<span class="btn ${color} btn-sm">${matchedItem.name}</span>`;
 };
 
 //Format income type

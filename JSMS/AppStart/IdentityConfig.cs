@@ -99,5 +99,31 @@ namespace JSMS
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
+
+        public override async Task<SignInStatus> PasswordSignInAsync(string userName, string password, bool isPersistent, bool shouldLockout)
+        {
+            var user = await UserManager.FindByNameAsync(userName);
+
+            if (user == null && userName.Contains("@"))
+            {
+                user = await UserManager.FindByEmailAsync(userName);
+            }
+
+            if (await UserManager.CheckPasswordAsync(user, password))
+            {
+                if (shouldLockout)
+                {
+                    await UserManager.ResetAccessFailedCountAsync(user.Id);
+                }
+
+                // Continue with the rest of the authentication logic
+                var identity = await CreateUserIdentityAsync(user);
+                AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, identity);
+
+                return SignInStatus.Success;
+            }
+
+            return SignInStatus.Failure;
+        }
     }
 }

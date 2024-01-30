@@ -1,5 +1,6 @@
 ﻿
 using JSMS.Models.Admin;
+using JSMS.Resources;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -18,18 +19,23 @@ namespace JSMS.Controllers.Api
         [Route("get")]
         public async Task<IHttpActionResult> GetAll()
         {
-            var res = await context.OtherExpenses.ToListAsync();
-
-            if (res == null)
+            try
             {
-                return NoDataFound();
+                var res = await context.OtherExpenses.ToListAsync();
+
+                if (res == null)
+                {
+                    return NoDataFound();
+                }
+                else
+                {
+                    return Ok(res);
+                }
             }
-            else
+            catch (Exception err)
             {
-
-                return Ok(res);
+                return ServerError(err);
             }
-
         }
 
         //GET api/ProductType/{id}
@@ -37,24 +43,29 @@ namespace JSMS.Controllers.Api
         [Route("get/{id}")]
         public async Task<IHttpActionResult> Get(int Id)
         {
-            var res = await context.OtherExpenses.SingleAsync(c => c.Id == Id);
-
-            if (res == null)
+            try
             {
-                return NoDataFound();
-            }
-            else
-            {
-                return Ok(res);
-            }
+                var res = await context.OtherExpenses.SingleAsync(c => c.Id == Id);
 
+                if (res == null)
+                {
+                    return NoDataFound();
+                }
+                else
+                {
+                    return Ok(res);
+                }
+            }
+            catch (Exception err)
+            {
+                return ServerError(err);
+            }
         }
 
         [Route("getTotal")]
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
-
             try
             {
                 // Get the sum of the Cost field from the OtherExpenses table
@@ -63,7 +74,7 @@ namespace JSMS.Controllers.Api
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return ServerError(ex);
             }
 
         }
@@ -77,12 +88,12 @@ namespace JSMS.Controllers.Api
                 // Check if InvoiceID already exists
                 if (context.OtherExpenses.Any(e => e.InvoiceID == post.InvoiceID))
                 {
-                    return BadRequest("InvoiceID already exists.");
+                    return MessageWithCode(400, Language.ExistInvioce);
                 }
 
                 if (post.Cost <= 0)
                 {
-                    return BadRequest("Cost must be greater than 0");
+                    return MessageWithCode(400, Language.CostGreater);
                 }
 
                 if (post.Status == 1) // Income
@@ -101,17 +112,18 @@ namespace JSMS.Controllers.Api
 
                     context.OtherExpenses.Add(incomeTransaction);
                 }
-                else if (post.Status == 2) // Expense
+
+                if (post.Status == 2) // Expense
                 {
                     // Get the current total cost
                     var currentTotalCost = await context.OtherExpenses.SumAsync(t => t.Cost);
 
                     // Check if the expense exceeds the total income
-                    if ( currentTotalCost < post.Cost)
-                    if (currentTotalCost  > post.Cost)
+                    if (post.Cost > currentTotalCost)
                     {
-                        return BadRequest("Expense cannot exceed total income.");
-                    } else if( currentTotalCost == null)
+                        return MessageWithCode(400, Language.ExpenseCannot);
+                    }
+                    else if (currentTotalCost == null)
                     {
                         currentTotalCost = 0;
                     }
@@ -130,23 +142,19 @@ namespace JSMS.Controllers.Api
 
                     context.OtherExpenses.Add(expenseTransaction);
                 }
-                else
-                {
-                    return BadRequest("Invalid status value. Status must be 1 for income or 2 for expense.");
-                }
-
+  
                 // Update the Total field in the Transaction table
                 var total = await context.OtherExpenses.SumAsync(t => t.Cost);
                 post.Total = (decimal)total;
 
                 // Save changes to the database
-               await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
-                return Ok("Transaction added successfully!");
+                return Success(Language.DataCreated);
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return ServerError(ex);
             }
         }
 
@@ -162,7 +170,7 @@ namespace JSMS.Controllers.Api
                 //greater than 0
                 if (update.Cost <= 0)
                 {
-                    return BadRequest("Cost must be greater than 0");
+                    return MessageWithCode(400, Language.CostGreater);
                 }
 
                 // Check if the InvoiceID already exists for a different expense
@@ -171,17 +179,8 @@ namespace JSMS.Controllers.Api
 
                 if (existingWithSameInvoice != null)
                 {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "InvoiceID already exists." }));
+                    return MessageWithCode(400, Language.ExistInvioce);
                 }
-
-                // Update existing record
-                existingExpense.Date = update.Date;
-                existingExpense.InvoiceID = update.InvoiceID;
-                existingExpense.Cost = update.Cost;
-                existingExpense.ExpenseType = update.ExpenseType;
-                existingExpense.Note = update.Note;
-                existingExpense.Status = update.Status;
-                existingExpense.PaymentType = update.PaymentType;
 
                 if (update.Status == 1)
                 {
@@ -194,39 +193,36 @@ namespace JSMS.Controllers.Api
                     existingExpense.Status = update.Status;
                     existingExpense.PaymentType = update.PaymentType;
                 }
-                else if (update.Status == 2)
+
+                if (update.Status == 2)
                 {
                     var currentTotalCost = context.OtherExpenses.Sum(t => t.Cost);
 
                     // Check if the expense exceeds the total income
                     if (update.Cost > currentTotalCost)
                     {
-                        return BadRequest("Expense cannot exceed total income.");
+                        return MessageWithCode(400, Language.ExpenseCannot);
                     }
 
                     // Update existing record
                     existingExpense.Date = update.Date;
                     existingExpense.InvoiceID = update.InvoiceID;
-                    existingExpense.Cost = -update.Cost; // Positive for income
+                    existingExpense.Cost = -update.Cost; // Negative for expense
                     existingExpense.ExpenseType = update.ExpenseType;
                     existingExpense.Note = update.Note;
                     existingExpense.Status = update.Status;
                     existingExpense.PaymentType = update.PaymentType;
-                }
-                else
-                {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, new { message = "Invalid status value. Status must be 1 for income or 2 for expense." }));
                 }
 
                 // Save changes to the database
                 context.Entry(existingExpense).State = EntityState.Modified;
                 context.SaveChanges();
 
-                return Ok(existingExpense);
+                return Success(Language.DataUpdated);
             }
             catch (Exception ex)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, new { message = ex.Message }));
+                return ServerError(ex);
             }
         }
 
@@ -244,16 +240,16 @@ namespace JSMS.Controllers.Api
                     context.OtherExpenses.Remove(InDb);
                     context.SaveChanges();
 
-                    return Ok("Record deleted successfully");
+                    return Success(Language.DataDeleted);
                 }
 
                 // If InDb is null, it means the record was not found, but it's not treated as an error.
 
-                return BadRequest("Record not found");
+                return NoDataFound();
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return ServerError(ex);
             }
 
         }
