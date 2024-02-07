@@ -36,6 +36,8 @@
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
             new SubMenuItem { Name = JSMS.Resources.Language.GeneralLedger,Controller = "GeneralLedger",Icon = "fas fa-file-signature",Action = "Index",
                               Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
+            new SubMenuItem { Name = JSMS.Resources.Language.Invoice,Controller = "Invoice",Icon = "fas fa-donate",Action = "Index",
+                  Role = new List<string> { "AdminOrHR", "Accounting" }},
             //new SubMenuItem { Name = JSMS.Resources.Language.Transaction,Controller = "Transaction",Icon = "fas fa-id-card",Action = "Index",
             //                  Role = new List<string> { "AdminOrHR", "Accounting", "Customer" }},
         }
@@ -46,8 +48,7 @@
         Icon = "fas fa-chart-line",
         Role = new List<string> { "AdminOrHR", "Accounting", "Customer" },
         SubMenuItems = new List<SubMenuItem> {
-            new SubMenuItem { Name = JSMS.Resources.Language.Invoice,Controller = "Invoice",Icon = "fas fa-donate",Action = "Index",
-                              Role = new List<string> { "AdminOrHR", "Accounting" }},
+            
             new SubMenuItem { Name = JSMS.Resources.Language.Report+" "+JSMS.Resources.Language.Attendance,Controller = "Attendance",Icon = "fas fa-calculator",Action = "Report",
                               Role = new List<string> { "AdminOrHR", "Accounting" }},
             new SubMenuItem { Name = JSMS.Resources.Language.Report+" "+JSMS.Resources.Language.RemainStock,Controller = "Stock",Icon = "fas fa-layer-group",Action = "Report",
@@ -56,7 +57,7 @@
     });
     moduleMainMenuItems.Add(new MainMenuItem
     {
-        Name = JSMS.Resources.Language.Setting,
+        Name = JSMS.Resources.Language.StockManagement,
         Icon = "fas fa-sun",
         Role = new List<string> { "AdminOrHR", "Accounting", "Customer" },
         SubMenuItems = new List<SubMenuItem> {
