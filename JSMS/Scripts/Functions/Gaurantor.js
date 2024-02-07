@@ -3,7 +3,7 @@
     numberOnly("g-phone1");
     numberOnly("g-phone2");
     $("#show-data-guarantor").click(() => getGuarantor());
-    datePicker("#g-dob");
+    //datePicker("#g-dob");
 });
 
 //Declare variable for use global

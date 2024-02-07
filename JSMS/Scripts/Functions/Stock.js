@@ -89,17 +89,17 @@ const getAll = () => {
                 data: "Stock.Created",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
-            {
-                //title: "Updated",
-                data: "Stock.Updated",
-                render: (row) => row ? moment(row).fromNow() : "",
-            },
+            //{
+            //    //title: "Updated",
+            //    data: "Stock.Updated",
+            //    render: (row) => row ? moment(row).fromNow() : "",
+            //},
             {
                 //title: "Actions",
                 data: "Stock.Id",
                 render: (row) => `<div> 
                                       <button onclick= "editStock('${row}')" class= 'btn btn-warning btn-sm' >
-                                          <span class='fas fa-edit'></span>
+                                          <span class='fas fa-redo'></span>
                                       </button>
                                       <button onclick= "removeStock('${row}')" class= 'btn btn-danger btn-sm' >
                                           <span class='fas fa-trash-alt'></span>

@@ -142,7 +142,7 @@ namespace JSMS.Controllers.Api
                 else
                 {
                     response.IsActive = false;
-                    //response.DeletedAt = DateTime.Now;
+                    response.DeletedAt = DateTime.Now;
                     //context.Recruitments.Remove(response);
                     await context.SaveChangesAsync();
                 }

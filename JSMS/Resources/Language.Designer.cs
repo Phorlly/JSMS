@@ -115,7 +115,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Admin or HR.
+        ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string Admin {
             get {
@@ -651,6 +651,15 @@ namespace JSMS.Resources {
         public static string DataDeleted {
             get {
                 return ResourceManager.GetString("DataDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data has been redo.
+        /// </summary>
+        public static string DataRedo {
+            get {
+                return ResourceManager.GetString("DataRedo", resourceCulture);
             }
         }
         
@@ -2028,6 +2037,15 @@ namespace JSMS.Resources {
         public static string RecruitmentManagement {
             get {
                 return ResourceManager.GetString("RecruitmentManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redo.
+        /// </summary>
+        public static string Redo {
+            get {
+                return ResourceManager.GetString("Redo", resourceCulture);
             }
         }
         

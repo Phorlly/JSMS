@@ -12,7 +12,7 @@
     titleBehavior.hide();
     titleGuarantor.hide();
     $("#show-data-applicant").click(() => getApplicant());
-    datePicker("#dob");
+    //datePicker("#dob");
 });
 
 //Declare variable for use global

@@ -275,7 +275,7 @@ const convertToKhmerDate = (dateString) => {
     let khmerMonth = khmerMonthNames[date.getMonth()];
     let khmerYear = date.getFullYear().toString().split('').map(digit => khmerNumeralsMap[digit]).join('');
 
-    let khmerDate = `ថ្ងៃទី​${khmerDay} ខែ${khmerMonth} ឆ្នាំ${khmerYear}`;
+    let khmerDate = `${khmerDay} ${khmerMonth} ${khmerYear}`;
 
     return khmerDate;
 }
@@ -295,11 +295,11 @@ const setCurrentDate = (selector) => {
 //Format expense type
 const formatRole = (id) => {
     let data = [
-        { id: "AdminOrHR", name: admin },
+        { id: "Admin", name: admin },
         { id: "Accounting", name: accounting },
+        { id: "HR", name: hr },
         { id: "User", name: user },
-        { id: "Customer", name: client },
-        { id: "Staff", name: staff },
+        //{ id: "Staff", name: staff },
     ];
 
     let item = data.find((item) => item.id === id);

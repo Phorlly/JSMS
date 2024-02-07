@@ -172,7 +172,7 @@ namespace JSMS.Controllers.Api
                     await context.SaveChangesAsync();
                 }
 
-                return Success(Language.DataUpdated);
+                return Success(Language.DataRedo);
             }
             catch (Exception ex)
             {
@@ -196,7 +196,6 @@ namespace JSMS.Controllers.Api
                 {
                     response.IsActive = false;
                     response.Deleted = DateTime.Now;
-                    //product.Total -= response.Quantity;
                     //context.Stocks.Remove(response);
                     await context.SaveChangesAsync();
                 }

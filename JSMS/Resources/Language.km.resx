@@ -136,7 +136,7 @@
     <value>បន្ថែមថ្មី</value>
   </data>
   <data name="Admin" xml:space="preserve">
-    <value>អ្នកគ្រប់គ្រង ឬផ្នែកធនធានមនុស្ស</value>
+    <value>អ្នកគ្រប់គ្រង</value>
   </data>
   <data name="Age" xml:space="preserve">
     <value>អាយុ</value>
@@ -314,6 +314,9 @@
   </data>
   <data name="DataDeleted" xml:space="preserve">
     <value>ទិន្នន័យត្រូវបានលុបចេញរួចរាល់</value>
+  </data>
+  <data name="DataRedo" xml:space="preserve">
+    <value>ទិន្នន័យត្រូវបានធ្វើម្តងទៀត</value>
   </data>
   <data name="DataUpdated" xml:space="preserve">
     <value>ទិន្នន័យត្រូវបានកែប្រែរួចរាល់</value>
@@ -774,6 +777,9 @@
   <data name="RecruitmentManagement" xml:space="preserve">
     <value>ការគ្រប់គ្រងការជ្រើសរើសបុគ្គលិក</value>
   </data>
+  <data name="Redo" xml:space="preserve">
+    <value>ធ្វើម្ដងទៀត</value>
+  </data>
   <data name="Refresh" xml:space="preserve">
     <value>ទាញម្ដងទៀត</value>
   </data>
@@ -982,7 +988,7 @@
     <value>ថៅកែ</value>
   </data>
   <data name="Village" xml:space="preserve">
-    <value>ភូមិ</value>
+    <value>ភូមិ ក្រុម</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>ជីងឡុង សូមជម្រាបសួរ</value>

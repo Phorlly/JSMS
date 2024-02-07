@@ -184,7 +184,7 @@ namespace JSMS.Controllers
                 if (result.Succeeded)
                 {
                     //Add role to user permission
-                    await this.UserManager.AddToRoleAsync(user.Id, Roles.Accounting.ToString());
+                    await this.UserManager.AddToRoleAsync(user.Id, Roles.User.ToString());
 
                     //Sign In into System
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

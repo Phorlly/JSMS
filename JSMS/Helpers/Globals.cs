@@ -6,9 +6,10 @@ namespace JSMS.Helpers
 {
     public enum Roles
     {
-        AdminOrHR,
-        Accounting,
+        Admin,
+        Accounting, 
         Staff,
+        HR,
         Customer,
         User
     }

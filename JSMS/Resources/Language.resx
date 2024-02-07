@@ -136,7 +136,7 @@
     <value>Add New</value>
   </data>
   <data name="Admin" xml:space="preserve">
-    <value>Admin or HR</value>
+    <value>Admin</value>
   </data>
   <data name="Age" xml:space="preserve">
     <value>Age</value>
@@ -314,6 +314,9 @@
   </data>
   <data name="DataDeleted" xml:space="preserve">
     <value>Data has been deleted</value>
+  </data>
+  <data name="DataRedo" xml:space="preserve">
+    <value>Data has been redo</value>
   </data>
   <data name="DataUpdated" xml:space="preserve">
     <value>Data has been updated</value>
@@ -773,6 +776,9 @@
   </data>
   <data name="RecruitmentManagement" xml:space="preserve">
     <value>Recruitment Management</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>Redo</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
