@@ -105,7 +105,7 @@ namespace JSMS.Controllers.Api
                         Date = post.Date,
                         Cost = post.Cost,
                         ExpenseType = post.ExpenseType,
-                        Note = post.Note,
+                        Note = post.Note == "" ? Language.Created : post.Note,
                         Status = post.Status,
                         PaymentType = post.PaymentType
                     };
@@ -135,14 +135,14 @@ namespace JSMS.Controllers.Api
                         Date = DateTime.Now,
                         Cost = -post.Cost, // Negative for expenses
                         ExpenseType = post.ExpenseType,
-                        Note = post.Note,
+                        Note = post.Note == "" ? Language.Created : post.Note,
                         Status = post.Status,
                         PaymentType = post.PaymentType
                     };
 
                     context.OtherExpenses.Add(expenseTransaction);
                 }
-  
+
                 // Update the Total field in the Transaction table
                 var total = await context.OtherExpenses.SumAsync(t => t.Cost);
                 post.Total = (decimal)total;
@@ -189,7 +189,7 @@ namespace JSMS.Controllers.Api
                     existingExpense.InvoiceID = update.InvoiceID;
                     existingExpense.Cost = update.Cost; // Positive for income
                     existingExpense.ExpenseType = update.ExpenseType;
-                    existingExpense.Note = update.Note;
+                    existingExpense.Note = update.Note == "" ? Language.Updated : update.Note;
                     existingExpense.Status = update.Status;
                     existingExpense.PaymentType = update.PaymentType;
                 }
@@ -209,7 +209,7 @@ namespace JSMS.Controllers.Api
                     existingExpense.InvoiceID = update.InvoiceID;
                     existingExpense.Cost = -update.Cost; // Negative for expense
                     existingExpense.ExpenseType = update.ExpenseType;
-                    existingExpense.Note = update.Note;
+                    existingExpense.Note = update.Note == "" ? Language.Updated : update.Note;
                     existingExpense.Status = update.Status;
                     existingExpense.PaymentType = update.PaymentType;
                 }
@@ -233,7 +233,7 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var InDb = context.OtherExpenses.SingleOrDefault(c => c.Id == id);
+                var InDb = context.OtherExpenses.Find(id);
 
                 if (InDb != null)
                 {

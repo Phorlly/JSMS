@@ -291,7 +291,7 @@ const editStock = (id) => {
             productType.val(response.Product.Id);
             quantity.val(response.Stock.Quantity);
             sNoted.val(response.Stock.Noted);
-            dateIO.val(response ? formatDate(response.Stock.Date) : setCurrentDate("#date-in-out"));
+            setCurrentDate("#date-in-out");
             stockIO.val(response.Stock.Status === 1 ? 1 : 2)
 
             modalStock.modal("show");

@@ -397,6 +397,7 @@ const removeExpense = (id) => {
                 url: "/api/hr/otherexpense/delete/" + id,
                 success: (response) => {
                     tableGL.ajax.reload();
+                    getAll();
                     getTotalFromAPI();
                     Swal.fire({
                         title: response.message,
