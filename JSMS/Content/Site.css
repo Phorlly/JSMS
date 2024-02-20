@@ -26,6 +26,7 @@ option, h1, h2, h3, h4, h5, h6, th {
     /*font-size: 16px;*/
 }
 
+
 #calendar table {
     border-collapse: collapse;
     width: 100%;
@@ -37,13 +38,14 @@ option, h1, h2, h3, h4, h5, h6, th {
     padding: 5px;
     text-align: center;
 }
+
 .modal-title {
     margin: 0 auto;
 }
 
-span {
+.cursor-default {
     cursor: default;
-    font-weight: bold;
+    font-size: small;
 }
 
 .custom-swal-title {
@@ -66,7 +68,7 @@ span {
     /*body {
         display: none;
     }*/
-/*
+    /*
     #product {
         display: block;
         position: fixed;
@@ -163,3 +165,32 @@ span {
         .rating input:checked ~ label {
             color: #f90;
         }
+
+#dropArea {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    cursor: pointer;
+}
+
+#fileList {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 10px;
+}
+
+.fileItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    .fileItem button {
+        margin-left: 5px;
+        border: none;
+    }
+
+/* Increase specificity */
+.dataTables_wrapper .dataTables_length select {
+    width: 100px !important; /* Add !important */
+}

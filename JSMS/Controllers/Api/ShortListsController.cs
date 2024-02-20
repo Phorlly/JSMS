@@ -13,21 +13,21 @@ namespace JSMS.Controllers.Api
     {
 
         [HttpGet]
-        [Route("get")]
-        public async Task<IHttpActionResult> Get()
+        [Route("reads")]
+        public async Task<IHttpActionResult> Reads()
         {
             try
             {
-                var response = await (from Applicant in context.Applicants
-                                      join Recruitment in context.Recruitments on Applicant.Id equals Recruitment.Applicant
-                                      join ShortList in context.ShortLists on Recruitment.Id equals ShortList.Recruitment
-                                      where ShortList.IsActive == true
-                                      select new { ShortList, Applicant })
-                                      .OrderByDescending(c => c.ShortList.Id).ToListAsync();
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                var response = await (from applicant in context.JobApplicants
+                                      join shortList in context.ShortLists on applicant.Id equals shortList.Applicant
+                                      where shortList.IsActive == true
+                                      select new
+                                      {
+                                          shortList,
+                                          applicant
+                                      }).OrderByDescending(c => c.shortList.Id).ToListAsync();
+
+                if (response == null) return NoDataFound();
 
                 return Ok(response);
             }
@@ -38,21 +38,21 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpGet]
-        [Route("get-by-id/{id}")]
-        public async Task<IHttpActionResult> GetById(int id)
+        [Route("read/{id}")]
+        public async Task<IHttpActionResult> Read(int id)
         {
             try
             {
-                var response = await (from Applicant in context.Applicants
-                                      join Recruitment in context.Recruitments on Applicant.Id equals Recruitment.Applicant
-                                      join ShortList in context.ShortLists on Recruitment.Id equals ShortList.Recruitment
-                                      where ShortList.IsActive == true
-                                      select new { ShortList, Applicant })
-                                .FirstAsync(c => c.ShortList.Id.Equals(id));
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                var response = await (from applicant in context.JobApplicants
+                                      join shortList in context.ShortLists on applicant.Id equals shortList.Applicant
+                                      where shortList.IsActive == true
+                                      select new
+                                      {
+                                          shortList,
+                                          applicant
+                                      }).FirstAsync(c => c.shortList.Id.Equals(id));
+
+                if (response == null) return NoDataFound();
 
                 return Ok(response);
             }
@@ -63,20 +63,24 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPost]
-        [Route("post")]
-        public async Task<IHttpActionResult> Post(ShortList request)
+        [Route("create")]
+        public async Task<IHttpActionResult> Create(ShortList request)
         {
             try
             {
-                var isExist = await context.ShortLists.FirstOrDefaultAsync(c => c.Recruitment == request.Recruitment);
-                if (isExist != null)
-                {
-                    return MessageWithCode(400, Language.ExistShorList);  
-                }
+                var isExist = await context.ShortLists.FirstOrDefaultAsync(c => c.Applicant == request.Applicant);
+                if (isExist != null) return MessageWithCode(400, Language.ExistShorList);
+
+                var setStatus = await context.JobApplicants.FindAsync(request.Applicant);
+                if (setStatus == null) return NoDataFound();
+
+                setStatus.Status = 2;
+                request.Noted = request.Noted == "" ? Language.Selecting : request.Noted;
 
                 if (request != null)
                 {
                     context.ShortLists.Add(request);
+                    context.Entry(setStatus).State = EntityState.Modified;
                     await context.SaveChangesAsync();
                 }
 
@@ -89,28 +93,30 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPut]
-        [Route("put-by-id/{id}")]
-        public async Task<IHttpActionResult> PutById(ShortList request, int id)
+        [Route("update/{id}")]
+        public async Task<IHttpActionResult> Update(ShortList request, int id)
         {
             try
             {
                 var response = context.ShortLists.Find(id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
 
-                var isExist = await context.ShortLists.FirstOrDefaultAsync(c => c.Recruitment == request.Recruitment && c.Id != id);
-                if (isExist != null)
-                {
-                    return MessageWithCode(400, Language.ExistShorList); 
-                }
+                var isExist = await context.ShortLists.FirstOrDefaultAsync(c => c.Applicant == request.Applicant && c.Id != id);
+                if (isExist != null) return MessageWithCode(400, Language.ExistShorList);
+
+                var oldStatus = await context.JobApplicants.FirstOrDefaultAsync(c => c.Id == response.Applicant);
+                if (oldStatus == null) return NoDataFound();
+                oldStatus.Status = 1;
+
+                var newStatus = await context.JobApplicants.FirstOrDefaultAsync(c => c.Id == request.Applicant);
+                if (oldStatus == null) return NoDataFound();
+                newStatus.Status = 2;
 
                 response.UpdatedAt = DateTime.Now;
-                response.Recruitment = request.Recruitment;
+                response.Applicant = request.Applicant;
                 response.Rating = request.Rating;
                 response.InterviewNo = request.InterviewNo;
-                response.Noted = request.Noted;
+                response.Noted = request.Noted == "" ? Language.Selecting : request.Noted;
                 response.CreatedBy = response.CreatedBy;
                 response.CurrentDate = request.CurrentDate;
 
@@ -129,23 +135,18 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpDelete]
-        [Route("delete-by-id/{id}")]
-        public async Task<IHttpActionResult> DeleteById(int id)
+        [Route("delete/{id}")]
+        public async Task<IHttpActionResult> Delete(int id)
         {
             try
             {
                 var response = context.ShortLists.Find(id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
-                else
-                {
-                    response.IsActive = false;
-                    response.DeletedAt = DateTime.Now;
-                    //context.ShortLists.Remove(response);
-                    await context.SaveChangesAsync();
-                }
+                if (response == null) return NoDataFound();
+
+                response.IsActive = false;
+                response.DeletedAt = DateTime.Now;
+                //context.ShortLists.Remove(response);
+                await context.SaveChangesAsync();
 
                 return Success(Language.DataDeleted);
             }

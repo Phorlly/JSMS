@@ -13,21 +13,18 @@ namespace JSMS.Controllers.Api
     {
 
         [HttpGet]
-        [Route("get")]
-        public async Task<IHttpActionResult> Get()
+        [Route("reads")]
+        public async Task<IHttpActionResult> Reads()
         {
             try
             {
-                var response = await (from Product in context.Products
-                                      join Stock in context.Stocks on Product.Id equals Stock.Product
+                var response = await (from product in context.Products
+                                      join stock in context.Stocks on product.Id equals stock.Product
 
-                                      where Product.IsActive.Equals(true) && Stock.IsActive.Equals(true)
-                                      select new { Product, Stock }).OrderByDescending(c => c.Stock.Id).ToListAsync();
+                                      where product.IsActive.Equals(true) && stock.IsActive.Equals(true)
+                                      select new { product, stock }).OrderByDescending(c => c.stock.Id).ToListAsync();
 
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
 
                 return Ok(response);
             }
@@ -38,21 +35,18 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpGet]
-        [Route("get-by-id/{id}")]
-        public async Task<IHttpActionResult> GetById(int id)
+        [Route("read/{id}")]
+        public async Task<IHttpActionResult> Read(int id)
         {
             try
             {
-                var response = await (from Product in context.Products
-                                      join Stock in context.Stocks on Product.Id equals Stock.Product
+                var response = await (from product in context.Products
+                                      join stock in context.Stocks on product.Id equals stock.Product
 
-                                      where Product.IsActive.Equals(true) && Stock.IsActive.Equals(true)
-                                      select new { Product, Stock }).SingleOrDefaultAsync(c => c.Stock.Id.Equals(id));
+                                      where product.IsActive.Equals(true) && stock.IsActive.Equals(true)
+                                      select new { product, stock }).SingleOrDefaultAsync(c => c.stock.Id.Equals(id));
 
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
 
                 return Ok(response);
             }
@@ -63,19 +57,14 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPost]
-        [Route("post")]
-        public async Task<IHttpActionResult> StockInOrOut(Stock request)
+        [Route("create")]
+        public async Task<IHttpActionResult> Create(Stock request)
         {
             try
             {
                 request.Noted = request.Noted == "" ? Language.InOrOut : request.Noted;
-                request.CreatedBy = request.CreatedBy == "" ? "admin@system.com" : request.CreatedBy.ToString();
-
                 var product = await context.Products.FindAsync(request.Product);
-                if (product == null)
-                {
-                    return NoDataFound();
-                }
+                if (product == null) return NoDataFound();
 
                 //Stock-in
                 if (request.Status == 1)
@@ -123,8 +112,8 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPut]
-        [Route("put-by-id/{id}")]
-        public async Task<IHttpActionResult> PutById(Stock request, int id)
+        [Route("redo/{id}")]
+        public async Task<IHttpActionResult> Redo(Stock request, int id) 
         {
             try
             {
@@ -137,10 +126,7 @@ namespace JSMS.Controllers.Api
                 response.Noted = request.Noted == "" ? Language.InOrOut : request.Noted;
                 response.Date = request.Date;
 
-                if (response == null || product == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null || product == null) return NoDataFound();
 
                 //Stock-in
                 if (request.Status == 1)
@@ -181,24 +167,19 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpDelete]
-        [Route("delete-by-id/{id}")]
-        public async Task<IHttpActionResult> DeleteById(int id)
+        [Route("delete/{id}")]
+        public async Task<IHttpActionResult> Delete(int id)
         {
             try
             {
                 var response = await context.Stocks.FindAsync(id);
                 var product = await context.Products.FindAsync(response.Product);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
-                else
-                {
-                    response.IsActive = false;
-                    response.Deleted = DateTime.Now;
-                    //context.Stocks.Remove(response);
-                    await context.SaveChangesAsync();
-                }
+                if (response == null) return NoDataFound();
+
+                response.IsActive = false;
+                response.Deleted = DateTime.Now;
+                //context.Stocks.Remove(response);
+                await context.SaveChangesAsync();
 
                 return Success(Language.DataDeleted);
             }

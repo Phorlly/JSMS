@@ -87,7 +87,7 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var fileName = RequestFile("Attachment", "Applicant", "~/AppData/Files", "../AppData/Files");
+                var fileName = RequestFile("Attachment", "~/AppData/Files", "../AppData/Files");
                 //Assign value to OnlineApplicant
                 var request = new OnlineApplicant()
                 {
@@ -137,7 +137,7 @@ namespace JSMS.Controllers.Api
                     return NoDataFound();
                 }
 
-                var fileName = RequestFile("Attachment", "Applicant", "~/AppData/Files", "../AppData/Files");
+                var fileName = RequestFile("Attachment", "~/AppData/Files", "../AppData/Files");
                 if (fileName != null)
                 {
                     DeleteFile(response.Attachment, "~/AppData/Images");

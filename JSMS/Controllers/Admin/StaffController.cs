@@ -9,27 +9,20 @@ using System.Web.Mvc;
 namespace JSMS.Controllers.Admin
 {
     [Authorize]
-    public class StaffController : Controller
+    public class StaffController : BaseController
     {
-        protected readonly ApplicationDbContext context;
-
-        public StaffController()
-        {
-            context = new ApplicationDbContext();
-        }
-
         // GET: Staff
         public ActionResult Index()
         {
-            var shortList = (from Applicant in context.Applicants
-                             join Recruitment in context.Recruitments on Applicant.Id equals Recruitment.Applicant
-                             join ShortList in context.ShortLists on Recruitment.Id equals ShortList.Recruitment
-                             where ShortList.IsActive.Equals(true)
+            var shortList = (from applicant in context.JobApplicants  
+                             join shortLists in context.ShortLists on applicant.Id equals shortLists.Applicant
+                             where shortLists.IsActive.Equals(true)
                              select new ShortListApplicant
                              {
-                                 Applicant = Applicant,
-                                 ShortList = ShortList
+                                 Applicant = applicant,
+                                 ShortList = shortLists
                              }).ToList();
+
             var client = context.Clients.Where(x => x.IsClient.Equals(true)).ToList();
             var response = new ShortListClientMapper()
             {

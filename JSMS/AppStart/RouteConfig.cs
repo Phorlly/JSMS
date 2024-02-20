@@ -44,9 +44,9 @@ namespace JSMS
               url: "admin/client-info",
               defaults: new { controller = "Client", action = "Index" });
             routes.MapRoute(
-              name: "Applicant Management",
-              url: "admin/applicant-info",
-              defaults: new { controller = "Applicant", action = "Index" });
+              name: "Job Applicant Management",
+              url: "admin/job-applicant-info",
+              defaults: new { controller = "JobApplicant", action = "Index" });
             routes.MapRoute(
               name: "Gaurantor Management",
               url: "admin/guarantor-info",

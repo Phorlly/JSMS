@@ -1,29 +1,28 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    refresh.click(() => getAll());
+    $("#show").click(() => reads());
     datePicker("#on-date");
 });
 
 //Declare variable for use global
-let table = [];
-var rating;
-let addNew = $("#add-new");
-let update = $("#update");
-let save = $("#save");
-let modalShortList = $("#modal-short-List");
-let dataId = $("#data-id");
-let refresh = $("#refresh");
-let recruitment = $("#recruitment");
-let interview = $("#interview-number");
-let onDate = $("#on-date");
-let noted = $("#noted");
-let createdBy = $("#log-by").data("logby");
+let tables = [];
+let rating;
+const add = $("#add");
+const update = $("#update");
+const save = $("#save");
+const modalDialog = $("#modal-short-list");
+const dataId = $("#data-id");
+const applicant = $("#job-applicant");
+const interview = $("#interview-number");
+const onDate = $("#on-date");
+const noted = $("#noted");
+const createdBy = $("#log-by").data("logby");
 
 //Get all data
-const getAll = () => {
-    table = $("#short-list").DataTable({
+const reads = () => {
+    tables = $(".table").DataTable({
         ajax: {
-            url: "/api/hr/short-lists/get",
+            url: "/api/hr/short-lists/reads",
             dataSrc: "",
             method: "GET",
         },
@@ -32,14 +31,12 @@ const getAll = () => {
         // autoWidth: false,
         // scrollX: true,
         dom: "Bfrtip",
-        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
         language: {
             paginate: {
                 previous: "<i class='fas fa-chevron-left'>",
                 next: "<i class='fas fa-chevron-right'>",
             },
         },
-        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
                 //title: "#",
@@ -49,62 +46,66 @@ const getAll = () => {
             {
                 //title: "Name",
                 data: null,
-                render: (row) => `${row.Applicant.Name} ${row.Applicant.NickName}`,
+                render: (row) => `${row.applicant.FirstName} ${row.applicant.LastName}`,
             },
             {
                 //title: "Gender",
-                data: "Applicant.Gender",
+                data: "applicant.Sex",
                 render: (row) => row === true ? lMale : lFemale,
             },
             {
                 //title: "Profile",
-                data: "Applicant.Image",
-                render: (row) => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
-                    "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
+                data: "applicant.Image",
+                render: (row) => {
+                    const file = row ? row : "../Images/blank-image.png";
+                    return `<img src="${file}" class='rounded-circle' width='50px' height="50px"/>`;
+                },
             },
             {
                 //title: "Code",
-                data: "ShortList.InterviewNo",
+                data: "shortList.InterviewNo",
                 render: row => row ? formatInterview(row) : "",
             },
             {
                 //title: "Rating",
                 data: null,
                 render: (row) => {
-                    let rating = row.ShortList.Rating;
-                    let filledStarIcon = '<i class="fas fa-star" style="color: #f8d101;"></i>';
-                    let unfilledStarIcon = '<i class="far fa-star" style="color: #ddd;"></i>';
-                    let starIcons = filledStarIcon.repeat(rating) + unfilledStarIcon.repeat(5 - rating);
+                    const rating = row.shortList.Rating;
+                    const filledStarIcon = '<i class="fas fa-star" style="color: #f8d101;"></i>';
+                    const unfilledStarIcon = '<i class="far fa-star" style="color: #ddd;"></i>';
+                    const starIcons = filledStarIcon.repeat(rating) + unfilledStarIcon.repeat(5 - rating);
 
                     return `${starIcons}`;
                 }
-
-
             },
             {
                 //title: "Date",
-                data: "ShortList.CurrentDate",
-                render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
+                data: "shortList.CurrentDate",
+                render: (row) => row ? moment(row).format("DD MMM YYYY") : "",
+            },
+            {
+                data: "shortList.Status",
+                render: row => formatStatus(row),
             },
             {
                 //title: "Decription",
-                data: "ShortList.Noted",
+                data: "shortList.Noted",
             },
             {
                 //title: "Created",
-                data: "ShortList.CreatedAt",
+                data: "shortList.CreatedAt",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
-            {
-                //title: "Updated",
-                data: "ShortList.UpdatedAt",
-                render: (row) => row ? moment(row).fromNow() : "",
-            },
+            //{
+            //    //title: "Updated",
+            //    data: "shortList.UpdatedAt",
+            //    render: (row) => row ? moment(row).fromNow() : "",
+            //},
             {
                 //title: "Actions",
-                data: "ShortList.Id",
+                data: "shortList.Id",
                 render: (row) => `<div> 
-                                      <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
+                                      <button onclick= "read('${row}')" class= 'btn btn-warning btn-sm' >
                                           <span class='fas fa-edit'></span>
                                       </button>
                                       <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
@@ -139,34 +140,26 @@ const getAll = () => {
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
     });
 };
 
-//Reload data
-/*refresh.click(() => location.reload());*/
 
 $('.rating input').change((event) => {
     rating = $(event.target).val();
 });
 
 //Add new
-addNew.click(() => {
+add.click(() => {
     clear();
     setColor();
-    modalShortList.modal("show");
+    modalDialog.modal("toggle");
 });
-
 
 //Save data
 save.click(() => {
     let response = validate();
-    let data = {
-        Recruitment: recruitment.val(),
+    const data = {
+        Applicant: applicant.val(),
         Rating: rating,
         InterviewNo: interview.val(),
         CurrentDate: onDate.val(),
@@ -175,42 +168,38 @@ save.click(() => {
     };
 
     response ? $.ajax({
-        url: "/api/hr/short-lists/post",
+        url: "/api/hr/short-lists/create",
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
-            getAll();
+            reads();
             dataId.val(response.Id);
-            table.ajax.reload();
+            tables.ajax.reload();
             clear();
-            //modalShortList.modal("hide");
+            //modalDialog.modal("hide");
             Swal.fire({
-                //position: "top-end",
                 title: response.message,
                 icon: "success",
                 showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
                 timer: 2000,
             });
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
-                //position: "top-end",
                 title: xhr.responseJSON.message,
                 icon: "error",
                 showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
                 timer: 1500,
             }) : console.log(xhr.responseText),
     }) : false;
 });
 
 //Get data by id
-const edit = (id) => {
+const read = (id) => {
     $.ajax({
-        url: "/api/hr/short-lists/get-by-id/" + id,
+        url: "/api/hr/short-lists/read/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
@@ -221,23 +210,21 @@ const edit = (id) => {
             update.show();
             save.hide();
 
-            dataId.val(response.ShortList.Id);
-            recruitment.val(response.ShortList.Recruitment);
-            interview.val(response.ShortList.InterviewNo);
-            $('input[name="rating"][value="' + response.ShortList.Rating + '"]').prop('checked', true);
-            //rating.val(response.ShortList.Rating);
-            noted.val(response.ShortList.Noted);
-            onDate.val(formatDate(response.ShortList.CurrentDate));
+            dataId.val(response.shortList.Id);
+            applicant.val(response.shortList.Applicant);
+            interview.val(response.shortList.InterviewNo);
+            $('input[name="rating"][value="' + response.shortList.Rating + '"]').prop('checked', true);
+            //rating.val(response.shortList.Rating);
+            noted.val(response.shortList.Noted);
+            onDate.val(formatDate(response.shortList.CurrentDate));
 
-            modalShortList.modal("show");
+            modalDialog.modal("toggle");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
-                //position: "top-end",
                 title: xhr.responseJSON.message,
                 icon: "error",
                 showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
                 timer: 1500,
             }) : console.log(xhr.responseText),
     });
@@ -246,8 +233,8 @@ const edit = (id) => {
 //Update by id
 update.click(() => {
     let response = validate();
-    let data = {
-        Recruitment: recruitment.val(),
+    const data = {
+        applicant: applicant.val(),
         Rating: rating,
         InterviewNo: interview.val(),
         CurrentDate: onDate.val(),
@@ -256,18 +243,17 @@ update.click(() => {
     };
 
     response ? $.ajax({
-        url: "/api/hr/short-lists/put-by-id/" + dataId.val(),
+        url: "/api/hr/short-lists/update/" + dataId.val(),
         type: "PUT",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
             dataId.val(response.Id);
-            table.ajax.reload();
+            tables.ajax.reload();
             clear();
-            modalShortList.modal("hide");
+            modalDialog.modal("toggle");
             Swal.fire({
-                //position: "top-end",
                 title: response.message,
                 icon: "success",
                 showConfirmButton: false,
@@ -277,7 +263,6 @@ update.click(() => {
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
-                //position: "top-end",
                 title: xhr.responseJSON.message,
                 icon: "error",
                 showConfirmButton: false,
@@ -287,7 +272,7 @@ update.click(() => {
     }) : false;
 });
 
-//Delete data by id
+//Deconste data by id
 const remove = (id) => {
     Swal.fire({
         title: lAreYouSure,
@@ -301,9 +286,9 @@ const remove = (id) => {
         param.value
             ? $.ajax({
                 method: "DELETE",
-                url: "/api/hr/short-lists/delete-by-id/" + id,
+                url: "/api/hr/short-lists/delete/" + id,
                 success: (response) => {
-                    table.ajax.reload();
+                    tables.ajax.reload();
                     Swal.fire({
                         title: response.message,
                         icon: "success",
@@ -337,36 +322,36 @@ const clear = () => {
     update.hide();
     save.show();
     noted.val("");
-    recruitment.val(-1);
+    applicant.val("-1");
     setCurrentDate("#on-date");
     interview.val("-1");
-    $('.rating input[value="1"]').prop('checked', true);
+    $('.rating input[value="2"]').prop('checked', true);
 };
 
 //Set color to border control
 const setColor = () => {
-    recruitment.css("border-color", "#cccccc");
+    applicant.css("border-color", "#cccccc");
     interview.css("border-color", "#cccccc");
     onDate.css("border-color", "#cccccc");
 };
 
 //Check validation
 const validate = () => {
-    let isValid = true;
+    const isValid = true;
 
-    if (recruitment.val() === "-1") {
+    if (applicant.val() === "-1") {
         Swal.fire({
-            title: `${lSelect} ${lApplicantPassRecruitment}`,
+            title: `${lSelect} ${lJobApplicant}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
             timer: 2000,
         });
-        recruitment.css("border-color", "red");
-        recruitment.focus();
+        applicant.css("border-color", "red");
+        applicant.focus();
         isValid = false;
     } else {
-        recruitment.css("border-color", "#cccccc");
+        applicant.css("border-color", "#cccccc");
         if (interview.val() === "-1") {
             Swal.fire({
                 title: `${lSelect} ${lCode}`,

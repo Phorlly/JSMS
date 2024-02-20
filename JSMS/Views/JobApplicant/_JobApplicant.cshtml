@@ -1,0 +1,181 @@
+﻿<div class="modal fade" id="modal-job-applicant" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">@JSMS.Resources.Language.JobApplicantInfo</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" id="data-id">
+
+                <div class="modal-body">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group ">
+                                            <label for="birth-name">@JSMS.Resources.Language.FirstName</label>
+                                            <input type="text" class="form-control" id="first-name" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.FirstName">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group ">
+                                            <label for="nick-name">@JSMS.Resources.Language.LastName</label>
+                                            <input type="text" class="form-control" id="last-name" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.LastName">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group ">
+                                            <label for="phone1">@JSMS.Resources.Language.Phone</label>
+                                            <input type="text" maxlength="15" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask id="phone" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group ">
+                                            <label for="phone2">@JSMS.Resources.Language.Phone2</label>
+                                            <input type="text" maxlength="15" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask id="phone2" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone2">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="phone2">@JSMS.Resources.Language.Attachment</label>
+                                            <div id="dropArea" class="rounded-4">
+                                                <span>@JSMS.Resources.Language.DragAndDrop</span>
+                                                <input type="file" accept=".pdf,.doc,.docx" name="Files[]" id="fileInput" multiple style="display: none;" />
+                                                <div id="fileList"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 pl-5 mt-3">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <img class="center img-responsive rounded-4 img-thumbnail" style="width: 12rem; height: 10rem"
+                                             src="~/Images/blank-image.png" id="image" />
+                                        <b class="btn-style-2 btn btn-dark">
+                                            <i class="fa fa-upload pe-lg-3"></i><span> @JSMS.Resources.Language.UploadImage</span>
+                                            <input onchange="readImage(this);" type="file" id="image-file" accept=".png, .jpg, .jpeg, .svg" />
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="gender">@JSMS.Resources.Language.Gender</label>
+                                    <select class="form-select" id="sex">
+                                        <option value="false">@JSMS.Resources.Language.Female</option>
+                                        <option value="true">@JSMS.Resources.Language.Male</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dob">@JSMS.Resources.Language.DOB</label>
+                                    <input type="date" class="form-control" id="dob" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.DOB">
+
+                                </div>
+                            </div>
+                            @*<div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="education">@JSMS.Resources.Language.Status</label>
+                                    <select class="form-select" id="status">
+                                        <option value="1">@JSMS.Resources.Language.Pending</option>
+                                        <option value="2">@JSMS.Resources.Language.Selecting</option>
+                                        <option value="3">@JSMS.Resources.Language.Reject</option>
+                                        <option value="4">@JSMS.Resources.Language.Passed</option>
+                                    </select>
+                                </div>
+                            </div>*@
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="province">@JSMS.Resources.Language.Province</label>
+                                    <select id="province" class="form-select">
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Province---</option>
+                                        @foreach (var province in Model)
+                                        {
+                                            <option value="@province.Id">@province.NameKh / @province.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="district">@JSMS.Resources.Language.District</label>
+                                    <input type="hidden" id="dis-val" />
+                                    <select id="district" class="form-select">
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.District---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="commune">@JSMS.Resources.Language.Commune</label>
+                                    <input type="hidden" id="com-val" />
+                                    <select id="commune" class="form-select">
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Commune---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 ">
+                                <div class="form-group">
+                                    <label for="village">@JSMS.Resources.Language.Village</label>
+                                    <input type="hidden" id="vil-val" />
+                                    <select id="village" class="form-select">
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Village---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="noted">@JSMS.Resources.Language.Description</label>
+                                    <textarea class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="modal-footer">
+                    <section>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                            <i class=" fas fa-times-circle"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Close</span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="update">
+                            <i class=" fas fas fa-redo-alt"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Update</span>
+                        </button>
+                        <button type="button" class="btn btn-info" id="save">
+                            <i class=" fas fa-save"></i>
+                            <span class="text-uppercase">@JSMS.Resources.Language.Save</span>
+                        </button>
+                    </section>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+

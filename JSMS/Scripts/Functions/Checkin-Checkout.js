@@ -10,7 +10,7 @@ addCheckIn.click(() => {
     let response = validate();
 
     response ? $.ajax({
-        url: "/api/hr/attendances/post-check-in",
+        url: "/api/hr/attendances/check-in",
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
@@ -43,7 +43,7 @@ editCheckIn.click(() => {
     let response = validate();
 
     response ? $.ajax({
-        url: "/api/hr/attendances/put-ckeck-out",
+        url: "/api/hr/attendances/ckeck-out",
         type: "PUT",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",

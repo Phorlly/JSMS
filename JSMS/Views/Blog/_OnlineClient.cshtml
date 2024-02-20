@@ -12,53 +12,134 @@
                     </small>
                     <h1 class="display-5 mb-5">Where you want Our Services</h1>
                 </div>
-                <div class="row g-4 form">
-                    <div class="col-lg-4 col-md-6">
-                        <input type="text" id="register-name" class="form-control border-primary p-2" placeholder="Register Name">
+                <section class="form">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="ownername">@JSMS.Resources.Language.OwnerName</label>
+                                        <input type="text" class="form-control" id="ownername" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.OwnerName">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="company">@JSMS.Resources.Language.Company</label>
+                                        <input type="text" class="form-control" id="company" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Company">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="position">@JSMS.Resources.Language.Position</label>
+                                        <select class="form-select" id="position">
+                                            <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Position---</option>
+                                            <option value="1">@JSMS.Resources.Language.Owner</option>
+                                            <option value="2">@JSMS.Resources.Language.ViceManager</option>
+                                            <option value="3">@JSMS.Resources.Language.GeneralManager</option>
+                                            <option value="4">@JSMS.Resources.Language.Assistance</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="dob">@JSMS.Resources.Language.DOB</label>
+                                        <input type="date" class="form-control" id="dob" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.DOB">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="phone1">@JSMS.Resources.Language.Phone</label>
+                                        <input type="text" maxlength="15" class="form-control" id="phone1"
+                                               placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="phone2">@JSMS.Resources.Language.Phone2</label>
+                                        <input type="text" maxlength="15" class="form-control" id="phone2"
+                                               placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone2">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 pl-5 mt-4">
+                            <div class="row">
+                                <div class="form-group">
+                                    <img class="center img-responsive img-thumbnail"
+                                         style="width: 12rem; height: 10rem" src="~/Images/blank-image.png"
+                                         id="image" />
+                                    <b class="btn-style-2 btn btn-dark">
+                                        <i class="fa fa-upload pe-lg-3"></i> <span> @JSMS.Resources.Language.UploadImage</span>
+                                        <input onchange="readUrl(this);" type="file" id="imageFile" accept=".png, .jpg, .jpeg, .svg" />
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <input type="text" id="company" class="form-control border-primary p-2" placeholder="Company Name">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="province">@JSMS.Resources.Language.Province</label>
+                                <select id="province" class="form-select" name="province">
+                                    <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Province---</option>
+                                    @foreach (var province in Model)
+                                    {
+                                        <option value="@province.Id">@province.NameKh / @province.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="district">@JSMS.Resources.Language.District</label>
+                                <input type="hidden" id="district-id" />
+                                <select id="district" class="form-select" name="district">
+                                    <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.District---</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <select id="gender" class="form-select border-primary p-2" aria-label="Default select example">
-                            <option value="-1" selected>Select Gender</option>
-                            <option value="1">Female</option>
-                            <option value="2">Male</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="commune">@JSMS.Resources.Language.Commune</label>
+                                <input type="hidden" id="commune-id" />
+                                <select id="commune" class="form-select" name="commune">
+                                    <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Commune---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="form-group mb-3">
+                                <label for="village">@JSMS.Resources.Language.Village</label>
+                                <input type="hidden" id="village-id" />
+                                <select id="village" class="form-select" name="village">
+                                    <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Village---</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*<div class="col-md-12 mt-2">
+                                <div class="form-group mb-3">
+                                    <label for="noted">@JSMS.Resources.Language.Description</label>
+                                    <textarea class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
+
+                                </div>
+                            </div>*@
+                        <div class="col-12 text-center mt-5">
+                            <button type="button" id="save" class="btn btn-primary px-5 py-3 rounded-pill">Submit Now</button>
+                        </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <input type="email" id="email-address" class="form-control border-primary p-2" placeholder="Email address">
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <input type="text" id="c-phone1" class="form-control border-primary p-2" placeholder="Phone Number 1">
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <input type="text" id="c-phone2" class="form-control border-primary p-2" placeholder="Phone Number 2 (Optional)">
-                    </div>
-                    <!-- <div class="col-lg-4 col-md-6">
-                            <input type="date" class="form-control border-primary p-2" placeholder="Select Date">
-                        </div> -->
-                    <div class="col-lg-4 col-md-6">
-                        <select id="county" class="form-select">
-                            <option value="-1">Select Country</option>
-                            @foreach (var response in Model)
-                            {
-                                <option value="@response.Id">@response.Name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <select id="state-city" class="form-select">
-                            <option value="-1">Select Province/City</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <input type="text" id="c-noted" class="form-control border-primary p-2" placeholder="Note">
-                    </div>
-                    <div class="col-12 text-center">
-                        <button type="button" id="submit-now" class="btn btn-primary px-5 py-3 rounded-pill">Submit Now</button>
-                    </div>
-                </div>
+                </section>
+
             </div>
         </div>
         <div class="col-1">
@@ -68,6 +149,3 @@
     </div>
 </div>
 
-@section scripts {
-    @Scripts.Render("~/Scripts/Functions/Online-Client.js")
-}

@@ -21,7 +21,7 @@ namespace JSMS.Controllers.Blog
         // GET: Blog
         public ActionResult Index()
         {
-            return View(context.Countries.ToList());
+            return View(context.Provinces.ToList());
         }
 
         public ActionResult About()

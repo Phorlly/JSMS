@@ -12,10 +12,14 @@
         Icon = "fas fa-user",
         Role = new List<string> { "Admin", "HR" },
         SubMenuItems = new List<SubMenuItem> {
-            new SubMenuItem { Name = JSMS.Resources.Language.Applicant, Controller = "Applicant",Icon = "fas fa-user-friends",Action = "Index",
+            new SubMenuItem { Name = JSMS.Resources.Language.User, Controller = "UserRole",Icon = "fas fa-user-friends",Action = "Index",
+                              Role = new List<string> { "Admin"}},
+            new SubMenuItem { Name = JSMS.Resources.Language.JobApplicant, Controller = "JobApplicant",Icon = "fas fa-user-friends",Action = "Index",
                               Role = new List<string> { "Admin", "HR" }},
-            new SubMenuItem { Name = JSMS.Resources.Language.Recruitment,Controller = "Recruitment",Icon = "fas fa-user-edit",Action = "Index",
-                              Role = new List<string> { "Admin", "HR" }},
+            //new SubMenuItem { Name = JSMS.Resources.Language.Applicant, Controller = "Applicant",Icon = "fas fa-user-friends",Action = "Index",
+            //                  Role = new List<string> { "Admin", "HR" }},
+            //new SubMenuItem { Name = JSMS.Resources.Language.Recruitment,Controller = "Recruitment",Icon = "fas fa-user-edit",Action = "Index",
+            //                  Role = new List<string> { "Admin", "HR" }},
             new SubMenuItem { Name = JSMS.Resources.Language.ShortList,Controller = "ShortList",Icon = "fas fa-user-check",Action = "Index",
                               Role = new List<string> { "Admin", "HR" }},
             new SubMenuItem { Name = JSMS.Resources.Language.Client,Controller = "Client",Icon = "fas fa-user-friends",Action = "Index",
@@ -24,8 +28,6 @@
                               Role = new List<string> { "Admin", "HR" }},
             new SubMenuItem { Name = JSMS.Resources.Language.Attendance,Controller = "Attendance",Icon = "fas fa-calendar-alt",Action = "Index",
                               Role = new List<string> { "Admin", "HR" }},
-            new SubMenuItem { Name = JSMS.Resources.Language.User, Controller = "UserRole",Icon = "fas fa-user-friends",Action = "Index",
-                              Role = new List<string> { "Admin"}},
         }
     });
     moduleMainMenuItems.Add(new MainMenuItem

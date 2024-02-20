@@ -357,9 +357,11 @@
     <Compile Include="Controllers\Admin\AccountingController.cs" />
     <Compile Include="Controllers\Admin\ApplicantController.cs" />
     <Compile Include="Controllers\Admin\AttendanceController.cs" />
+    <Compile Include="Controllers\Admin\BaseController.cs" />
     <Compile Include="Controllers\Admin\ClientController.cs" />
     <Compile Include="Controllers\Admin\GeneralLedgerController.cs" />
     <Compile Include="Controllers\Admin\InvoiceController.cs" />
+    <Compile Include="Controllers\Admin\JobApplicantController.cs" />
     <Compile Include="Controllers\Admin\StockController.cs" />
     <Compile Include="Controllers\Admin\RecruitmentController.cs" />
     <Compile Include="Controllers\Admin\ReportController.cs" />
@@ -373,6 +375,7 @@
     <Compile Include="Controllers\Api\ClientsController.cs" />
     <Compile Include="Controllers\Api\GaurantorsController.cs" />
     <Compile Include="Controllers\Api\InvoiceController.cs" />
+    <Compile Include="Controllers\Api\JobApplicantsController.cs" />
     <Compile Include="Controllers\Api\OnlineClientsController.cs" />
     <Compile Include="Controllers\Api\OtherExpensesController.cs" />
     <Compile Include="Controllers\Api\ProductsController.cs" />
@@ -383,6 +386,7 @@
     <Compile Include="Controllers\Api\ShortListsController.cs" />
     <Compile Include="Controllers\Api\StaffsController.cs" />
     <Compile Include="Controllers\Api\StocksController.cs" />
+    <Compile Include="Controllers\Api\TestsController.cs" />
     <Compile Include="Controllers\Api\TransactionsController.cs" />
     <Compile Include="Controllers\Blog\AttendanceBlogController.cs" />
     <Compile Include="Controllers\Blog\BlogController.cs" />
@@ -407,6 +411,7 @@
     <Compile Include="Models\Admin\Client.cs" />
     <Compile Include="Models\Admin\Gaurantor.cs" />
     <Compile Include="Models\Admin\Invoice.cs" />
+    <Compile Include="Models\Admin\JobApplicant.cs" />
     <Compile Include="Models\Admin\Leave.cs" />
     <Compile Include="Models\Admin\LogAction.cs" />
     <Compile Include="Models\Admin\MenuItem.cs" />
@@ -545,6 +550,7 @@
     <Content Include="Scripts\Functions\Accounting.js" />
     <Content Include="Scripts\Functions\Dashboard.js" />
     <Content Include="Scripts\Functions\Invoice.js" />
+    <Content Include="Scripts\Functions\Job-Applicant.js" />
     <Content Include="Scripts\Functions\OtherGL.js" />
     <Content Include="Scripts\Functions\Product.js" />
     <Content Include="Scripts\Functions\Stock.js" />
@@ -3138,6 +3144,11 @@
     <Content Include="Views\Attendance\Report.cshtml" />
     <Content Include="Views\Stock\Product.cshtml" />
     <Content Include="Views\Stock\Report.cshtml" />
+    <Content Include="Views\Applicant\Guarantor.cshtml" />
+    <Content Include="Views\Applicant\Behavior.cshtml" />
+    <Content Include="Views\JobApplicant\Index.cshtml" />
+    <Content Include="Views\JobApplicant\_JobApplicant.cshtml" />
+    <Content Include="Views\Shared\OfficialWebsite\_Language.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\OfficialWebsite\Blog.cshtml" />

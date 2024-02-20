@@ -13,25 +13,18 @@ using System.Threading.Tasks;
 namespace JSMS.Controllers.Admin
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        protected readonly ApplicationDbContext context;
-
         public HomeController()
         {
-            context = new ApplicationDbContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            context.Dispose();
-        }
 
+        }
 
         public ActionResult Index()
         {
             int applicant, staff, client, user;
 
-            applicant = context.Applicants.Count();
+            applicant = context.JobApplicants.Count();
             staff = context.Staffs.Count();
             client = context.Clients.Count();
             user = context.Users.Count();
@@ -69,69 +62,35 @@ namespace JSMS.Controllers.Admin
 
         //Place of Birth
         [HttpGet]
-        public JsonResult BDistrict(int BProvince)
+        public JsonResult District(int province) 
         {
             context.Configuration.ProxyCreationEnabled = false;
 
-            var response = context.Districts.Where(a => a.Province == BProvince).ToList();
+            var response = context.Districts.Where(a => a.Province == province).ToList();
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public JsonResult BCommune(int BDistrict)
+        public JsonResult Commune(int district) 
         {
             context.Configuration.ProxyCreationEnabled = false;
 
-            var response = context.Communes.Where(a => a.District == BDistrict).ToList();
+            var response = context.Communes.Where(a => a.District == district).ToList();
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public JsonResult BVillage(int BCommune)
+        public JsonResult Village(int commune) 
         {
             context.Configuration.ProxyCreationEnabled = false;
 
-            //var response = context.Villages.ToList().Where(c => c.Commune.Equals(communeId));
-            var response = context.Villages.SqlQuery("SELECT * FROM Villages WHERE Commune = @BCommune",
-                                          new SqlParameter("@BCommune", BCommune)).ToList();
+            //var response = context.Villages.ToList().Where(c => c.Commune.Equals(commune));
+            var response = context.Villages.SqlQuery("SELECT * FROM Villages WHERE Commune = @commune",
+                                          new SqlParameter("@commune", commune)).ToList();
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
-
-        //Current Address
-        [HttpGet]
-        public JsonResult CDistrict(int CProvince)
-        {
-            context.Configuration.ProxyCreationEnabled = false;
-
-            var response = context.Districts.Where(a => a.Province == CProvince).ToList();
-
-            return Json(response, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public JsonResult CCommune(int CDistrict)
-        {
-            context.Configuration.ProxyCreationEnabled = false;
-
-            var response = context.Communes.Where(a => a.District == CDistrict).ToList();
-
-            return Json(response, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public JsonResult CVillage(int CCommune)
-        {
-            context.Configuration.ProxyCreationEnabled = false;
-
-            //var response = context.Villages.ToList().Where(c => c.Commune.Equals(communeId));
-            var response = context.Villages.SqlQuery("SELECT * FROM Villages WHERE Commune = @CCommune",
-                                          new SqlParameter("@CCommune", CCommune)).ToList();
-
-            return Json(response, JsonRequestBehavior.AllowGet);
-        }
-
     }
 }

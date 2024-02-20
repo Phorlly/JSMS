@@ -1,30 +1,28 @@
 ﻿//jQuery for load data
 jQuery(document).ready(() => {
     loadingGif();
-    //Refresh data
-    refresh.click(() => getAll());
+    //show data
+    $("#show").click(() => reads());
 });
 
 //Declare variable for use global
-let table = [];
-let addNew = $("#add-new");
-let update = $("#update");
-let save = $("#save");
-let username = $("#username");
-let phone = $("#phone");
-let role = $("#role");
-let dataId = $("#data-id");
-let password = $("#password");
-let modalUser = $("#modal-user");
-let refresh = $("#refresh");
-let confirmPassword = $("#confirm-password");
-let showPassword = $("#show-passowrd");
-let showChage = $("#show-change");
-let isChange = $("#is-change");
-let changePassword = $("#change-password");
-let oldPassword = $("#old-password");
-let newPassword = $("#new-password");
-let confirmNewPassword = $("#confirm-new-password");
+let tables = [];
+const update = $("#update");
+const save = $("#save");
+const username = $("#username");
+const phone = $("#phone");
+const role = $("#role");
+const dataId = $("#data-id");
+const password = $("#password");
+const modalDialog = $("#modal-user");
+const confirmPassword = $("#confirm-password");
+const showPassword = $("#show-passowrd");
+const showChage = $("#show-change");
+const isChange = $("#is-change");
+const changePassword = $("#change-password");
+const oldPassword = $("#old-password");
+const newPassword = $("#new-password");
+const confirmNewPassword = $("#confirm-new-password");
 //const Toast = Swal.mixin({
 //    toast: true,
 //    //position: "top-end",
@@ -32,11 +30,12 @@ let confirmNewPassword = $("#confirm-new-password");
 //    timer: 5000,
 //});
 
+
 //Get all data
-const getAll = () => {
-    table = $("#user").DataTable({
+const reads = () => {
+    tables = $(".table").DataTable({
         ajax: {
-            url: "/api/hr/users/get",
+            url: "/api/hr/users/reads",
             dataSrc: "",
             method: "GET",
         },
@@ -44,14 +43,12 @@ const getAll = () => {
         autoWidth: false,
         destroy: true,
         dom: "Bfrtip",
-        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
         language: {
             paginate: {
                 previous: "<i class='fas fa-chevron-left'>",
                 next: "<i class='fas fa-chevron-right'>",
             },
         },
-        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
                 //title: "#",
@@ -79,7 +76,7 @@ const getAll = () => {
                 //title: "Actions",
                 data: "UserId",
                 render: (row) => `<div> 
-                                    <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
+                                    <button onclick= "read('${row}')" class= 'btn btn-warning btn-sm' >
                                         <span class='fas fa-edit'></span>
                                     </button>
                                     <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
@@ -114,14 +111,15 @@ const getAll = () => {
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
-
 
 //Show hide
 changePassword.change(() => {
@@ -135,16 +133,16 @@ changePassword.change(() => {
 });
 
 //Add new
-addNew.click(() => {
+$("#add").click(() => {
     clear();
     setColor();
-    modalUser.modal("show");
+    modalDialog.modal("toggle");
 });
 
 //Save data
 save.click(() => {
-    let response = validate();
-    let data = {
+    const response = validate();
+    const data = {
         UserName: username.val(),
         Password: password.val(),
         ConfirmPassword: confirmPassword.val(),
@@ -154,17 +152,17 @@ save.click(() => {
     };
 
     response ? $.ajax({
-        url: "/api/hr/users/post",
+        url: "/api/hr/users/create",
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         success: (response) => {
-            getAll();
+            reads();
             dataId.val(response.Id);
-            table.ajax.reload();
+            tables.ajax.reload();
             clear();
-            modalUser.modal("hide");
+            modalDialog.modal("hide");
             Swal.fire({
                 //position: "top-end",
                 title: response.message,
@@ -186,9 +184,9 @@ save.click(() => {
 });
 
 //Get data by id
-const edit = (id) => {
+const read = (id) => {
     $.ajax({
-        url: "/api/hr/users/get-by-id/" + id,
+        url: "/api/hr/users/read/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
@@ -205,7 +203,7 @@ const edit = (id) => {
             username.val(response.Username);
             role.val(response.Role);
             phone.val(response.Phone);
-            modalUser.modal("show");
+            modalDialog.modal("toggle");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
@@ -220,9 +218,9 @@ const edit = (id) => {
 
 //Update by id
 update.click(() => {
-    let response = validateUpdate();
+    const response = validateUpdate();
 
-    let data = {
+    const data = {
         UserName: username.val(),
         OldPassword: oldPassword.val(),
         NewPassword: newPassword.val(),
@@ -232,16 +230,16 @@ update.click(() => {
     };
 
     response ? $.ajax({
-        url: "/api/hr/users/put-by-id/" + dataId.val(),
+        url: "/api/hr/users/update/" + dataId.val(),
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         success: (response) => {
             dataId.val(response.Id);
-            table.ajax.reload();
+            tables.ajax.reload();
             clear();
-            modalUser.modal("hide");
+            modalDialog.modal("hide");
             Swal.fire({
                 title: response.message,
                 icon: "success",
@@ -262,11 +260,11 @@ update.click(() => {
     }) : false;
 });
 
-//Delete data by id
+//Deconste data by id
 const remove = (id) => {
     Swal.fire({
         title: lAreYouSure,
-        text: lToDelete,
+        text: lToDeconste,
         icon: "warning",
         showCancelButton: true,
         cancelButtonText: `<i class='fas fa-times-circle'></i> <span>${lCancel}</span>`,
@@ -274,10 +272,10 @@ const remove = (id) => {
         customClass: { title: 'custom-swal-title' },
     }).then((param) => {
         param.value ? $.ajax({
-            method: "DELETE",
-            url: "/api/hr/users/delete-by-id/" + id,
+            method: "DEconstE",
+            url: "/api/hr/users/delete/" + id,
             success: (response) => {
-                table.ajax.reload();
+                tables.ajax.reload();
                 Swal.fire({
                     title: response.message,
                     icon: "success",
@@ -301,7 +299,6 @@ const remove = (id) => {
             icon: "error",
             showConfirmButton: false,
             timer: 1500,
-            customClass: { title: 'custom-swal-title' },
         });
     }).catch((err) => console.log(err.message));
 };
@@ -333,7 +330,7 @@ const setColor = () => {
 
 //Check validation
 const validate = () => {
-    let isValid = true;
+    const isValid = true;
     if (username.val() === "") {
         Swal.fire({
             title: `${lInput} ${lUsername}`,
@@ -394,7 +391,7 @@ const validate = () => {
 };
 
 const validateUpdate = () => {
-    let isValid = true;
+    const isValid = true;
     if (username.val() === "") {
         Swal.fire({
             title: `${lInput} ${lUsername}`,

@@ -74,10 +74,52 @@ const showFile = (filePath) => {
     return fileName !== null ? fileName : "";
 };
 
+const showFiles = (filePaths) => {
+    // Split the file paths by comma to get individual paths
+    const filePathArray = filePaths.split(',');
+
+    // Initialize an empty string to store the HTML for displaying the files
+    let filesHTML = '';
+
+    // Iterate through each file path
+    filePathArray.forEach((filePath) => {
+        // Split the path by the forward slash '/'
+        const pathParts = filePath.trim().split("/");
+
+        // Get the last part (the filename)
+        const fileName = pathParts[pathParts.length - 1];
+
+        // Add HTML for displaying the file with a link
+        if (fileName) {
+            filesHTML += `<div>${fileName}</div><br>`;
+        }
+    });
+
+    return filesHTML;
+};
+
 //Read file by url
-const readFile = (attachment) => {
-    let fileName = attachment.split("/").pop(); // Get the file name from the URL
-    return { name: fileName, url: attachment };
+const readFile = (filePath) => {
+    let fileName = filePath.split("/").pop(); // Get the file name from the URL
+    return { name: fileName, url: filePath };
+};
+
+
+// Function to read each file path and extract file name and URL
+const readFiles = (attachments) => {
+
+    // Split the files string by comma to get individual file paths
+    const filePaths = attachments.split(',');
+    const files = [];
+
+    // Iterate through each file path
+    filePaths.forEach((filePath) => {
+        const fileName = filePath.split("/").pop(); // Get the file name from the URL
+        const file = { name: fileName, url: filePath };
+        files.push(file);
+    });
+
+    return files;
 };
 
 //Format education
@@ -97,16 +139,17 @@ const formatEducation = (id) => {
 };
 
 //Format status
-const formatStatus = (id) => {
+const formatStatus = (status) => {
     let data = [
-        { id: 0, name: "Pending" },
-        { id: 1, name: "Loading" },
-        { id: 2, name: "Approved" },
+        { id: 1, name: lPending, color: "btn-dark" },
+        { id: 2, name: lSelecting, color: "btn-warning" },
+        { id: 3, name: lReject, color: "btn-danger" },
+        { id: 4, name: lPassed, color: "btn-primary" },
     ];
 
-    let matchedItem = data.find((item) => item.id === id);
-    let color = matchedItem.id === 0 ? "btn-warning" : matchedItem.id === 1 ? "btn-danger" : matchedItem.id === 2 ? "btn-success" : "btn-warning";
-    return `<span class="btn ${color} btn-sm">${matchedItem.name}</span>`;
+    const matchedItem = data.find((item) => item.id === status);
+
+    return `<span class="btn cursor-default ${matchedItem.color} btn-sm rounded-5" style="cursor: default;">${matchedItem.name}</span>`;
 };
 
 //Format income type
@@ -266,7 +309,7 @@ const convertToKhmerDate = (dateString) => {
 
     // Map English month names to Khmer month names
     let khmerMonthNames = [
-        'មករា', 'កុម្ភៈ', 'មិនា', 'មេសា', 'ឧសភា', 'មិថុនា',
+        'មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា',
         'កក្តដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'
     ];
 
@@ -304,4 +347,25 @@ const formatRole = (id) => {
 
     let item = data.find((item) => item.id === id);
     return item.name;
+};
+
+//Combine 2 to 1
+const combineName = (first, last) => {
+    if (first && last) {
+        return `${first}/ ${last}`;
+    } else {
+        return first;
+    }
+};
+
+//Format status
+const countPeople = (status) => {
+    let colors;
+    if (status === 0) {
+        colors = "btn-danger";
+    } else {
+        colors = "btn-primary";
+    }
+
+    return `<span class="btn cursor-default ${colors} btn-sm rounded-5" style="cursor: default;">${status}</span>`;
 };

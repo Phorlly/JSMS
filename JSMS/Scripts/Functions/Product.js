@@ -1,27 +1,26 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    showProduct.click(() => getProduct());
+    $("#show").click(() => reads());
 });
 
 //Declare variable
-let table = [];
-let modalProduct = $("#modal-product");
-let addProduct = $("#add-product");
-let saveProduct = $("#save-product");
-let updateProduct = $("#update-product");
-let productId = $("#product-id");
+let tables = [];
+let modalDialog = $("#modal-product");
+let save = $(".save");
+let update = $(".update");
+let dataId = $("#data-id");
 let productName = $("#product-name");
 let noted = $("#noted");
 let image = $("#image");
 let imageFile = $("#image-file")
 let createdBy = $("#log-by").data("logby");
-let showProduct = $("#show-product");
+
 
 //Get all data
-const getProduct = () => {
-    table = $("#product").DataTable({
+const reads = () => {
+    tables = $(".table").DataTable({
         ajax: {
-            url: "/api/hr/products/get",
+            url: "/api/hr/products/reads",
             dataSrc: "",
             method: "GET",
         },
@@ -36,7 +35,6 @@ const getProduct = () => {
                 next: "<i class='fas fa-chevron-right'>",
             },
         },
-        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
                 //title: "#",
@@ -50,8 +48,10 @@ const getProduct = () => {
             {
                 //title: "Photo",
                 data: "Image",
-                render: (row) => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
-                    "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
+                render: (row) => {
+                    const file = row ? row : "../Images/blank-image.png";
+                    return `<img src="${file}" class='rounded-circle' width='50px' height="50px"/>`;
+                },
             },
             {
                 //title: "Total",
@@ -75,7 +75,7 @@ const getProduct = () => {
                 //title: "Actions",
                 data: "Id",
                 render: (row) => `<div> 
-                                      <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
+                                      <button onclick= "read('${row}')" class= 'btn btn-warning btn-sm' >
                                           <span class='fas fa-edit'></span>
                                       </button>
                                       <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
@@ -112,16 +112,18 @@ const getProduct = () => {
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
+        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                title: xhr.responseJSON.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1500,
+            }) : console.log(xhr.responseText),
     });
 };
 
 
-const productImage = (input) => {
+const readImage = (input) => {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = (e) => {
@@ -131,16 +133,15 @@ const productImage = (input) => {
     }
 };
 
-
 //Add new product
-addProduct.click(() => {
-    clearProduct();
+$("#add").click(() => {
+    clear();
     setColor();
-    modalProduct.modal("show");
+    modalDialog.modal("show");
 });
 
 //Save data
-saveProduct.click(() => {
+save.click(() => {
     let isValid = validate();
     let formData = new FormData();
     let files = imageFile.get(0).files;
@@ -153,17 +154,17 @@ saveProduct.click(() => {
     formData.append("Noted", noted.val());
 
     isValid ? $.ajax({
-        url: "/api/hr/products/post",
+        url: "/api/hr/products/create",
         type: "POST",
         contentType: false,
         processData: false,
         data: formData,
         success: (response) => {
-            getProduct();
-            productId.val(response.Id);
-            table.ajax.reload();
-            clearProduct();
-            //modalProduct.modal("hide");
+            reads();
+            dataId.val(response.Id);
+            tables.ajax.reload();
+            clear();
+            //modalDialog.modal("hide");
             Swal.fire({
                 //position: "top-end",
                 title: response.message,
@@ -187,25 +188,25 @@ saveProduct.click(() => {
 });
 
 //Get data by id
-const edit = (id) => {
+const read = (id) => {
     $.ajax({
-        url: "/api/hr/products/get-by-id/" + id,
+        url: "/api/hr/products/read/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         success: (response) => {
             //console.log(response);
-            clearProduct();
+            clear();
             setColor();
-            updateProduct.show();
-            saveProduct.hide();
+            update.show();
+            save.hide();
 
-            productId.val(response.Id);
+            dataId.val(response.Id);
             productName.val(response.Name);
-            response.Image ? image.attr("src", response.Image) : image.attr("src", "../Images/blank-image.png");
+            image.attr("src", response.Image ? response.Image : "../Images/blank-image.png");
             noted.val(response.Noted);
 
-            modalProduct.modal("show");
+            modalDialog.modal("show");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
@@ -220,7 +221,7 @@ const edit = (id) => {
 };
 
 //Update by id
-updateProduct.click(() => {
+update.click(() => {
     let isValid = validate();
     let formData = new FormData();
     let files = imageFile.get(0).files;
@@ -233,14 +234,14 @@ updateProduct.click(() => {
     formData.append("Noted", noted.val());
 
     isValid ? $.ajax({
-        url: "/api/hr/products/put-by-id/" + productId.val(),
+        url: "/api/hr/products/update/" + dataId.val(),
         type: "PUT",
         contentType: false,
         processData: false,
         data: formData,
         success: (response) => {
-            table.ajax.reload();
-            modalProduct.modal("hide");
+            tables.ajax.reload();
+            modalDialog.modal("hide");
             Swal.fire({
                 //position: "top-end",
                 title: response.message,
@@ -276,9 +277,9 @@ const remove = (id) => {
         param.value ?
             $.ajax({
                 method: "DELETE",
-                url: "/api/hr/products/delete-by-id/" + id,
+                url: "/api/hr/products/delete/" + id,
                 success: (response) => {
-                    table.ajax.reload();
+                    tables.ajax.reload();
                     Swal.fire({
                         title: response.message,
                         icon: "success",
@@ -309,14 +310,14 @@ const remove = (id) => {
 
 
 //Clear control
-const clearProduct = () => {
-    saveProduct.show();
-    updateProduct.hide();
+const clear = () => {
+    save.show();
+    update.hide();
     productName.val("");
     imageFile.val("");
     image.attr("src", "../Images/blank-image.png");
     noted.val("");
-    productId.val("");
+    dataId.val("");
 };
 
 //Set color to border control

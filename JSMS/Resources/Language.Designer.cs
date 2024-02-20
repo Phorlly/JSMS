@@ -709,6 +709,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drag and drop files here, or click to select files.
+        /// </summary>
+        public static string DragAndDrop {
+            get {
+                return ResourceManager.GetString("DragAndDrop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit .
         /// </summary>
         public static string Edit {
@@ -1375,6 +1384,33 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Job Applicant.
+        /// </summary>
+        public static string JobApplicant {
+            get {
+                return ResourceManager.GetString("JobApplicant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Job-Applicant Infomation.
+        /// </summary>
+        public static string JobApplicantInfo {
+            get {
+                return ResourceManager.GetString("JobApplicantInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Job applicant management.
+        /// </summary>
+        public static string JobApplicantList {
+            get {
+                return ResourceManager.GetString("JobApplicantList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Joining Date.
         /// </summary>
         public static string JoiningDate {
@@ -1456,7 +1492,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Successful system access.
+        ///   Looks up a localized string similar to Successfully logged in.
         /// </summary>
         public static string LoginSuccess {
             get {
@@ -1771,6 +1807,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passed.
+        /// </summary>
+        public static string Passed {
+            get {
+                return ResourceManager.GetString("Passed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This applicant is already an staff.
         /// </summary>
         public static string PassesAsStaff {
@@ -1821,6 +1866,15 @@ namespace JSMS.Resources {
         public static string PaymentType {
             get {
                 return ResourceManager.GetString("PaymentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending.
+        /// </summary>
+        public static string Pending {
+            get {
+                return ResourceManager.GetString("Pending", resourceCulture);
             }
         }
         
@@ -2086,6 +2140,15 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reject.
+        /// </summary>
+        public static string Reject {
+            get {
+                return ResourceManager.GetString("Reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remain-Stock.
         /// </summary>
         public static string RemainStock {
@@ -2127,6 +2190,15 @@ namespace JSMS.Resources {
         public static string ReportStockAvailable {
             get {
                 return ResourceManager.GetString("ReportStockAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request security guards.
+        /// </summary>
+        public static string RequestGuard {
+            get {
+                return ResourceManager.GetString("RequestGuard", resourceCulture);
             }
         }
         
@@ -2199,6 +2271,15 @@ namespace JSMS.Resources {
         public static string Select {
             get {
                 return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecting.
+        /// </summary>
+        public static string Selecting {
+            get {
+                return ResourceManager.GetString("Selecting", resourceCulture);
             }
         }
         

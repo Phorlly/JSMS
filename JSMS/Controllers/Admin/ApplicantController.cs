@@ -11,19 +11,9 @@ using System.Web.Mvc;
 namespace JSMS.Controllers.Admin
 {
     [Authorize]
-    public class ApplicantController : Controller
+    public class ApplicantController : BaseController
     {
-        protected readonly ApplicationDbContext context;
-
-        public ApplicantController() 
-        {
-            context = new ApplicationDbContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            context.Dispose();
-        }
-
+      
         // GET: Applicant
         public ActionResult Index()
         {
@@ -32,6 +22,31 @@ namespace JSMS.Controllers.Admin
                 Applicants = context.Applicants.ToList(),
                 Provinces = context.Provinces.ToList(),
             };
+
+            return View(response);
+        }
+
+        // GET: Guarantor
+        public ActionResult Guarantor()
+        {
+            var response = new ApplicantProvince()
+            {
+                Applicants = context.Applicants.ToList(),
+                Provinces = context.Provinces.ToList(),
+            };
+
+            return View(response);
+        }
+
+        // GET: Behavior
+        public ActionResult Behavior()
+        {
+            var response = new ApplicantProvince()
+            {
+                Applicants = context.Applicants.ToList(),
+                Provinces = context.Provinces.ToList(),
+            };
+
             return View(response);
         }
     }

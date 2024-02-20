@@ -8,19 +8,19 @@ using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using JSMS.Resources;
+using JSMS.Controllers.Admin;
 
 namespace JSMS.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        protected readonly ApplicationDbContext context;
 
         public AccountController()
         {
-            context = new ApplicationDbContext();
+
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)

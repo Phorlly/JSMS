@@ -8,15 +8,8 @@ using System.Web.Mvc;
 namespace JSMS.Controllers.Admin
 {
     [Authorize]
-    public class StockController : Controller
+    public class StockController : BaseController
     {
-        protected readonly ApplicationDbContext context;
-
-        public StockController()
-        {
-            context = new ApplicationDbContext();
-        }
-
         // GET: Stock
         public ActionResult Product() 
         {

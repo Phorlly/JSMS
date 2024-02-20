@@ -16,16 +16,13 @@ namespace JSMS.Controllers.Api
         protected string noted = RequestForm("Noted");
 
         [HttpGet]
-        [Route("get")]
-        public async Task<IHttpActionResult> Get()
+        [Route("reads")]
+        public async Task<IHttpActionResult> Reads()
         {
             try
             {
                 var response = await context.Products.OrderByDescending(c => c.Id).ToListAsync();
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
 
                 return Ok(response);
             }
@@ -36,16 +33,13 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpGet]
-        [Route("get-by-id/{id}")]
-        public async Task<IHttpActionResult> GetById(int id)
+        [Route("read/{id}")]
+        public async Task<IHttpActionResult> Read(int id)
         {
             try
             {
-                var response = await context.Products.FirstAsync(c => c.Id.Equals(id));
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                var response = await context.Products.FindAsync(id);
+                if (response == null) return NoDataFound();
 
                 return Ok(response);
             }
@@ -56,12 +50,12 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPost]
-        [Route("post")]
-        public async Task<IHttpActionResult> Post()
+        [Route("create")]
+        public async Task<IHttpActionResult> Create()
         {
             try
             {
-                var fileName = RequestFile("Image", "Product", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "~/AppData/Images", "../AppData/Images");
                 var request = new Product()
                 {
                     Name = name,
@@ -85,18 +79,15 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPut]
-        [Route("put-by-id/{id}")]
-        public async Task<IHttpActionResult> PutById(int id)
+        [Route("update/{id}")]
+        public async Task<IHttpActionResult> Update(int id) 
         {
             try
             {
                 var response = await context.Products.FindAsync(id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
 
-                var fileName = RequestFile("Image", "Product", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "~/AppData/Images", "../AppData/Images");
                 if (fileName != null)
                 {
                     DeleteFile(response.Image, "~/AppData/Images");
@@ -125,24 +116,19 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpDelete]
-        [Route("delete-by-id/{id}")]
-        public async Task<IHttpActionResult> DeleteById(int id)
+        [Route("delete/{id}")]
+        public async Task<IHttpActionResult> Delete(int id) 
         {
             try
             {
                 var response = await context.Products.FindAsync(id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
-                else
-                {
-                    response.IsActive = false;
-                    response.Deleted = DateTime.Now;
-                    //DeleteFile(response.Image, "~/AppData/Images");
-                    //context.Products.Remove(response);
-                    await context.SaveChangesAsync();
-                }
+                if (response == null) return NoDataFound();
+
+                response.IsActive = false;
+                response.Deleted = DateTime.Now;
+                //DeleteFile(response.Image, "~/AppData/Images");
+                //context.Products.Remove(response);
+                await context.SaveChangesAsync();
 
                 return Success(Language.DataDeleted);
             }

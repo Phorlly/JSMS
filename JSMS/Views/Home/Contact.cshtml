@@ -1,19 +1,308 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿
+<form method="post" enctype="multipart/form-data">
+    <div class="row m-5">
+        <input type="hidden" name="Id" id="id" value="" />
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" name="FirstName" id="first-name" class="form-control" placeholder="Enter first name" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" name="LastName" id="last-name" class="form-control" placeholder="Enter last name" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <div id="dropArea" class="rounded-4">
+                    <p>Drag and drop files here, or click to select files</p>
+                    <input type="file" accept=".pdf,.doc,.docx" name="Files" id="fileInput" multiple style="display: none;" />
+                    <div id="fileList"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="form-group">
+                <button type="button" class="mt-3 save btn btn-primary rounded-5 text-uppercase">
+                    Save
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="mt-3 update btn btn-success rounded-5 text-uppercase">
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="m-2">
+    <table class="table  table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Fullname</th>
+                <th>Attachmens</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(() => {
+            reads();
+            resetFormData();
+        });
+
+        let fileList = [];
+        let table = [];
+
+        const updateFileList = () => {
+            var fileListContainer = document.getElementById('fileList');
+            fileListContainer.innerHTML = ''; // Clear previous file list
+
+            fileList.forEach((file, index) => {
+                var fileItem = document.createElement('div');
+                fileItem.className = 'fileItem';
+
+                var fileName = document.createElement('span');
+                fileName.textContent = file.name;
+                fileItem.appendChild(fileName);
+
+                var cancelButton = document.createElement('button');
+                cancelButton.innerHTML = `<span class="fas fa-times-circle"></span>`; // Add the icon
+                cancelButton.addEventListener('click', () => {
+                    fileList.splice(index, 1); // Remove file from the array
+                    fileItem.remove(); // Remove file item from the DOM
+                });
+
+                fileItem.appendChild(cancelButton);
+                fileListContainer.appendChild(fileItem);
+            });
+        }
+
+        document.getElementById('dropArea').addEventListener('dragover', event => {
+            event.preventDefault();
+            this.classList.add('dragover');
+        });
+
+        document.getElementById('dropArea').addEventListener('dragleave', () => {
+            this.classList.remove('dragover');
+        });
+
+        document.getElementById('dropArea').addEventListener('drop', event => {
+            event.preventDefault();
+            this.classList.remove('dragover');
+
+            var files = event.dataTransfer.files;
+            Array.from(files).forEach(file => {
+                fileList.push(file);
+            });
+
+            updateFileList();
+        });
+
+        document.getElementById('dropArea').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', event => {
+            var files = event.target.files;
+            Array.from(files).forEach(file => {
+                fileList.push(file);
+            });
+
+            updateFileList();
+        });
+
+        $(".save").click(() => {
+            const formData = new FormData();
+            // Check if any files are selected
+            if (fileList.length > 0) {
+                fileList.forEach((file) => {
+                    formData.append('Files[]', file);
+                });
+            }
+            formData.append('FirstName', $("#first-name").val());
+            formData.append('LastName', $("#last-name").val());
+
+
+            $.ajax({
+                url: "/api/hr/tests/create",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: (response) => {
+                    table.ajax.reload();
+                    resetFormData();
+                    Swal.fire({
+                        title: response.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+
+                },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
+            });
+        });
+
+        // Function to reset FormData object
+        const resetFormData = () => {
+            $("#first-name").val('');
+            $("#last-name").val('');
+            fileList = [];
+            $("#fileList").html('');
+            $(".save").show();
+            $(".update").hide();
+        }
+
+        const reads = () => {
+            table = $(".table").DataTable({
+                ajax: {
+                    url: "/api/hr/tests/reads",
+                    dataSrc: "",
+                    method: "GET",
+                },
+                responsive: true,
+                destroy: true,
+                // autoWidth: false,
+                //scrollX: true,
+                //dom: "Bfrltip",
+                language: {
+                    paginate: {
+                        previous: "<i class='fas fa-chevron-left'>",
+                        next: "<i class='fas fa-chevron-right'>",
+                    },
+                },
+
+                drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
+                columns: [
+                    {
+                        //title: "N<sup>o</sup>",
+                        data: null,
+                        render: (data, type, row, meta) => `${meta.row + 1}`,
+                    },
+                    {
+                        data: null,
+                        render: (row) => `${row.FirstName} ${row.LastName}`
+                    },
+                    {
+                        //title: "Attachment",
+                        data: "Files",
+                        render: row => {
+                            if (row === null || row === undefined) {
+                                return "";
+                            } else {
+                                let fileInfoArray = readFiles(row); // Get array of file objects
+                                let fileLinks = fileInfoArray.map(fileInfo => `<a href="${fileInfo.url}" target="_blank">${fileInfo.name}</a>`); // Map each file object to HTML string
+                                return fileLinks.join('<br>'); // Join HTML strings with comma separator
+                            }
+                        },
+                    },
+                    {
+                        //title: "Actions",
+                        data: "Id",
+                        render: row => `<div>
+                                                    <button onclick= "read('${row}')" class= 'btn btn-warning btn-sm' >
+                                                        <span class='fas fa-edit'></span>
+                                                    </button>
+                                                    <button onclick= "delete('${row}')" class= 'btn btn-danger btn-sm' >
+                                                        <span class='fas fa-trash-alt'></span>
+                                                    </button>
+                                                </div>`,
+                    },
+                ],
+
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        customClass: { title: 'custom-swal-title' },
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
+            });
+        };
+
+        const read = (id) => {
+            $.ajax({
+                url: "/api/hr/tests/read/" + id,
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "JSON",
+                success: (response) => {
+                    console.log(response);
+                    resetFormData();
+                    $(".save").hide();
+                    $(".update").show();
+
+                    $("#id").val(response.Id);
+                    $("#first-name").val(response.FirstName);
+                    $("#last-name").val(response.LastName);
+                    $("#fileList").html(response.Files ? showFiles(response.Files) : "");
+                },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
+            });
+        };
+
+        $(".update").click(() => {
+            const formData = new FormData();
+            // Add files if any
+            const files = document.getElementById("fileInput").files;
+            if (files.length > 0) {
+                Array.from(files).forEach((file) => {
+                    formData.append("Files[]", file);
+                });
+            }
+            formData.append('FirstName', $("#first-name").val());
+            formData.append('LastName', $("#last-name").val());
+
+
+            $.ajax({
+                url: "/api/hr/tests/update/" + $("#id").val(),
+                type: "PUT",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: (response) => {
+                    table.ajax.reload();
+                    resetFormData();
+                    Swal.fire({
+                        title: response.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+
+                },
+                error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
+                    Swal.fire({
+                        title: xhr.responseJSON.message,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    }) : console.log(xhr.responseText),
+            });
+        });
+
+    </script>
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
-
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
-</main>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
+using JSMS.Helpers;
 
 namespace JSMS.Models
 {
@@ -52,6 +53,8 @@ namespace JSMS.Models
         public DbSet<OtherExpense> OtherExpenses { get; set; }
 
         public  DbSet<Invoice> Invoices { get; set; }
+        public DbSet<JobApplicant> JobApplicants { get; set; } 
+        public DbSet<Test> Tests { get; set; } 
 
 
         //User blog

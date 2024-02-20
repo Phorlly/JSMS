@@ -32,23 +32,35 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    @*<div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label for="vattin">@JSMS.Resources.Language.VATTIN</label>
+                                                <select class="form-select" id="vattin">
+                                                    <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.VATTIN---</option>
+                                                    <option value="1">L001-901901806</option>
+                                                    <option value="2">L002-901901807</option>
+                                                    <option value="3">L003-901901808</option>
+                                                    <option value="4">L004-901901809</option>
+                                                    <option value="5">L004-901901810</option>
+                                                </select>
+                                            </div>
+                                        </div>*@
                                     <div class="col-md-6">
-                                        <div class="form-group mb-3">
-                                            <label for="vattin">@JSMS.Resources.Language.VATTIN</label>
-                                            <select class="form-select" id="vattin">
-                                                <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.VATTIN---</option>
-                                                <option value="1">L001-901901806</option>
-                                                <option value="2">L002-901901807</option>
-                                                <option value="3">L003-901901808</option>
-                                                <option value="4">L004-901901809</option>
-                                                <option value="5">L004-901901810</option>
+                                        <div class="form-group">
+                                            <label for="position">@JSMS.Resources.Language.Position</label>
+                                            <select class="form-select" id="position">
+                                                <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Position---</option>
+                                                <option value="1">@JSMS.Resources.Language.Owner</option>
+                                                <option value="2">@JSMS.Resources.Language.ViceManager</option>
+                                                <option value="3">@JSMS.Resources.Language.GeneralManager</option>
+                                                <option value="4">@JSMS.Resources.Language.Assistance</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="dob">@JSMS.Resources.Language.DOB</label>
-                                            <input type="text" class="form-control" id="dob" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.DOB">
+                                            <input type="date" class="form-control" id="dob" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.DOB">
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +87,7 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <img class="center img-responsive img-thumbnail"
-                                             style="width: 12rem; height: 10.5rem" src="~/Images/blank-image.png"
+                                             style="width: 12rem; height: 10rem" src="~/Images/blank-image.png"
                                              id="image" />
                                         <b class="btn-style-2 btn btn-dark">
                                             <i class="fa fa-upload pe-lg-3"></i> <span> @JSMS.Resources.Language.UploadImage</span>
@@ -86,29 +98,29 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="gender">@JSMS.Resources.Language.Gender</label>
-                                    <select class="form-select" id="gender">
-                                        <option value="false">@JSMS.Resources.Language.Female</option>
-                                        <option value="true">@JSMS.Resources.Language.Male</option>
-                                    </select>
+                        @*<div class="row">
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="gender">@JSMS.Resources.Language.Gender</label>
+                                            <select class="form-select" id="gender">
+                                                <option value="false">@JSMS.Resources.Language.Female</option>
+                                                <option value="true">@JSMS.Resources.Language.Male</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="position">@JSMS.Resources.Language.Position</label>
+                                        <select class="form-select" id="position">
+                                            <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Position---</option>
+                                            <option value="1">@JSMS.Resources.Language.Owner</option>
+                                            <option value="2">@JSMS.Resources.Language.ViceManager</option>
+                                            <option value="3">@JSMS.Resources.Language.GeneralManager</option>
+                                            <option value="4">@JSMS.Resources.Language.Assistance</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="position">@JSMS.Resources.Language.Position</label>
-                                    <select class="form-select" id="position">
-                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Position---</option>
-                                        <option value="1">@JSMS.Resources.Language.Owner</option>
-                                        <option value="2">@JSMS.Resources.Language.ViceManager</option>
-                                        <option value="3">@JSMS.Resources.Language.GeneralManager</option>
-                                        <option value="4">@JSMS.Resources.Language.Assistance</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                            </div>*@
 
                         <div class="row">
                             <div class="col-md-6">
@@ -123,7 +135,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6" id="dis">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="district">@JSMS.Resources.Language.District</label>
                                     <input type="hidden" id="district-id" />
@@ -134,7 +146,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6" id="com">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="commune">@JSMS.Resources.Language.Commune</label>
                                     <input type="hidden" id="commune-id" />

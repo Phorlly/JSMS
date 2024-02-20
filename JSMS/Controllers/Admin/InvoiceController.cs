@@ -8,14 +8,8 @@ using System.Collections.Generic;
 
 namespace JSMS.Controllers.Admin
 {
-    public class InvoiceController : Controller
+    public class InvoiceController : BaseController
     {
-        protected readonly ApplicationDbContext context;
-
-        public InvoiceController()
-        {
-            context = new ApplicationDbContext();
-        }
         // GET: Invoice
         public ActionResult Index()
         {

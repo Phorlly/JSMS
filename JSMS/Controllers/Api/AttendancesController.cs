@@ -12,24 +12,33 @@ namespace JSMS.Controllers.Api
     public class AttendancesController : ApiBaseController
     {
         [HttpGet]
-        [Route("get")]
-        public IHttpActionResult GetAttendance()
+        [Route("reads")]
+        public IHttpActionResult Reads()
         {
             try
             {
-                var response = (from Attendance in context.Attendances
-                                join Staff in context.Staffs on Attendance.Staff equals Staff.Id
-                                join ShortList in context.ShortLists on Staff.ShortList equals ShortList.Id
-                                join Recruitment in context.Recruitments on ShortList.Recruitment equals Recruitment.Id
-                                join Applicant in context.Applicants on Recruitment.Applicant equals Applicant.Id
-                                where Attendance.IsActive.Equals(true)
-                                select new { Attendance, Staff, Applicant }).OrderByDescending(c => c.Attendance.Id).ToList()  // Materialize the data
-                               .Select(c => new { c.Attendance, c.Staff, Status = GetAttendanceStatus(c.Attendance, c.Staff), c.Applicant }).ToList();
+                var response = (from attendance in context.Attendances
+                                join staff in context.Staffs on attendance.Staff equals staff.Id
+                                join shortList in context.ShortLists on staff.ShortList equals shortList.Id
+                                join applicant in context.JobApplicants on shortList.Applicant equals applicant.Id
+                                where attendance.IsActive.Equals(true)
+                                select new
+                                {
+                                    attendance,
+                                    staff,
+                                    applicant
+                                }).OrderByDescending(c => c.attendance.Id).ToList()  // Materialize the data
+                               .Select(c => new
+                               {
+                                   c.attendance,
+                                   c.staff,
+                                   Status = GetAttendanceStatus(c.attendance, c.staff),
+                                   location = context.Clients.SingleOrDefault(a => a.Id == c.staff.Client),
+                                   c.applicant
+                               }).ToList();
 
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
+
                 return Ok(response);
             }
             catch (Exception ex)
@@ -39,21 +48,23 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpGet]
-        [Route("get-by-id/{id}")]
-        public async Task<IHttpActionResult> GetById(int id)
+        [Route("read/{id}")]
+        public async Task<IHttpActionResult> Read(int id)
         {
             try
             {
-                var response = await (from Attendance in context.Attendances
-                                      join Staff in context.Staffs on Attendance.Staff equals Staff.Id
-                                      where Attendance.IsActive.Equals(true)
-                                      select new { Attendance, Staff })
-                                      .FirstAsync(c => c.Attendance.Id == id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
-                else { return Ok(response); }
+                var response = await (from attendance in context.Attendances
+                                      join staff in context.Staffs on attendance.Staff equals staff.Id
+                                      where attendance.IsActive.Equals(true)
+                                      select new
+                                      {
+                                          attendance,
+                                          staff
+                                      }).FirstAsync(c => c.attendance.Id == id);
+
+                if (response == null) return NoDataFound();
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -62,18 +73,14 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPost]
-        [Route("post")]
-        public async Task<IHttpActionResult> Post(Attendance request)
+        [Route("create")]
+        public async Task<IHttpActionResult> Create(Attendance request) 
         {
             try
             {
-                var isExist = await context.Attendances.FirstOrDefaultAsync(a => a.Staff == request.Staff &&
-                                                                      a.CheckIn != null &&
-                              DbFunctions.TruncateTime(a.CheckIn) == DbFunctions.TruncateTime(request.CheckIn));
-                if (isExist != null)
-                {
-                    return ExistData(Language.AlreadyCheckIn);
-                }
+                var isExist = await context.Attendances.FirstOrDefaultAsync(a => a.Staff == request.Staff && a.CheckIn != null &&
+                                            DbFunctions.TruncateTime(a.CheckIn) == DbFunctions.TruncateTime(request.CheckIn));
+                if (isExist != null) return ExistData(Language.AlreadyCheckIn);
 
                 //Insert default data
                 request.Noted = request.Noted == "" ? Language.ThankYou : request.Noted;
@@ -93,8 +100,8 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPost]
-        [Route("post-check-in")]
-        public async Task<IHttpActionResult> PostCheckIn(Attendance request)
+        [Route("check-in")]
+        public async Task<IHttpActionResult> CheckIn(Attendance request) 
         {
             try
             {
@@ -103,11 +110,8 @@ namespace JSMS.Controllers.Api
 
                 // Check if there's an existing check-in for the same staff member on the current date
                 var isExist = await context.Attendances.FirstOrDefaultAsync(m => m.Staff == request.Staff &&
-                              m.CheckIn.HasValue && DbFunctions.TruncateTime(m.CheckIn) == currentDate);
-                if (isExist != null)
-                {
-                    return ExistData(Language.AlreadyCheckIn);
-                }
+                                                                                 m.CheckIn.HasValue && DbFunctions.TruncateTime(m.CheckIn) == currentDate);
+                if (isExist != null) return ExistData(Language.AlreadyCheckIn);
 
                 //Insert default data
                 request.Noted = request.Noted == "" ? Language.ThankYou : request.Noted;
@@ -132,16 +136,13 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPut]
-        [Route("put-by-id/{id}")]
-        public async Task<IHttpActionResult> PutById(Attendance request, int id)
+        [Route("update/{id}")]
+        public async Task<IHttpActionResult> Update(Attendance request, int id) 
         {
             try
             {
                 var response = await context.Attendances.FindAsync(id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
 
                 response.UpdatedAt = DateTime.Now;
                 response.Staff = request.Staff;
@@ -165,8 +166,8 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPut]
-        [Route("put-ckeck-out")]
-        public async Task<IHttpActionResult> PutCkeckOutById(Attendance request)
+        [Route("check-out")]
+        public async Task<IHttpActionResult> CkeckOut(Attendance request)  
         {
             try
             {
@@ -219,9 +220,9 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpDelete]
-        [Route("delete-by-id/{id}")]
+        [Route("delete/{id}")]
 
-        public async Task<IHttpActionResult> DeleteById(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             try
             {
@@ -243,43 +244,6 @@ namespace JSMS.Controllers.Api
             {
                 return ServerError(ex);
             }
-        }
-
-        public string GetAttendanceStatus(Attendance attendance, Staff staff)
-        {
-            if (attendance.CheckIn.HasValue)
-            {
-                TimeSpan checkInTime = attendance.CheckIn.Value.TimeOfDay;
-                TimeSpan expectedCheckInMorning = new TimeSpan(6, 0, 0);
-                TimeSpan expectedCheckInNight = new TimeSpan(18, 0, 0);
-                TimeSpan shiftTolerance = new TimeSpan(0, 19, 0); // 19 minutes tolerance
-
-                if (staff.Status == 0) // Morning shift
-                {
-                    if (checkInTime <= expectedCheckInMorning.Add(shiftTolerance))
-                    {
-                        return Language.Normal;
-                    }
-                    else
-                    {
-                        return Language.Late;
-                    }
-                }
-                else if (staff.Status == 1) // Night shift
-                {
-                    if (checkInTime <= expectedCheckInNight.Add(shiftTolerance))
-                    {
-                        return Language.Normal;
-                    }
-                    else
-                    {
-                        return Language.Late;
-                    }
-                }
-            }
-
-            // If there is no check-in, consider it Early
-            return Language.Normal;
         }
     }
 }

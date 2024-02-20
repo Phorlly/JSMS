@@ -11,14 +11,14 @@ jQuery(document).ready(() => {
             previous: 'fas fa-chevron-left'  // Customize the previous button icon
         }
     });
-    createStockChart();
+    pieChart();
     showTime();
 });
 // Function to create the stock chart
-const createStockChart = () => {
+const pieChart = () => {
     let ctx = document.getElementById('pie-chart').getContext('2d');
     $.ajax({
-        url: "/api/hr/products/get",
+        url: "/api/hr/products/reads",
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",

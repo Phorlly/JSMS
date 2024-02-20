@@ -1,19 +1,15 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    numberOnly("phone1");
-    numberOnly("phone2");
-    datePicker("#dob");
-    refresh.click(() => getAll());
+    //datePicker("#dob");
+    $("#show").click(() => reads());
 });
 
 //Declare variable for use global
-let table = [];
-let addNew = $("#add-new");
+let tables = [];
 let update = $("#update");
 let save = $("#save");
-let modalClient = $("#modal-client");
+let modalDialog = $("#modal-client");
 let dataId = $("#data-id");
-let refresh = $("#refresh");
 let imageFile = $("#imageFile");
 let image = $("#image");
 let ownername = $("#ownername");
@@ -33,15 +29,12 @@ let createdBy = $("#log-by").data("logby");
 let districtId = $("#district-id");
 let communeId = $("#commune-id");
 let villageId = $("#village-id");
-let dis = $("#dis");
-let com = $("#com");
-let vil = $("#vil");
 
 //Get all data
-const getAll = () => {
-    table = $("#client").DataTable({
+const reads = () => {
+    tables = $(".table").DataTable({
         ajax: {
-            url: "/api/hr/clients/get",
+            url: "/api/hr/clients/reads",
             dataSrc: "",
             method: "GET",
         },
@@ -56,7 +49,6 @@ const getAll = () => {
                 next: "<i class='fas fa-chevron-right'>",
             },
         },
-        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
                 //title: "#",
@@ -65,70 +57,77 @@ const getAll = () => {
             },
             {
                 //title: "Name",
-                data: "Client.Name",
+                data: "client.Name",
             },
-            {
-                //title: "Gender",
-                data: "Client.Gender",
-                render: (row) => row === true ? lMale : lFemale,
-            },
+            //{
+            //    //title: "Gender",
+            //    data: "Client.Gender",
+            //    render: (row) => row === true ? lMale : lFemale,
+            //},
             {
                 //title: "Position",
-                data: "Client.Position",
+                data: "client.Position",
                 render: row => row ? formatPosition(row) : "",
             },
             {
                 //title: "Company",
-                data: "Client.Company",
+                data: "client.Company",
             },
             {
                 //title: "Profile",
-                data: "Client.Image",
-                render: row => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
-                    "<img src='../Images/blank-image.png' class='rounded-circle' width='50px'/>",
+                data: "client.Image",
+                render: (row) => {
+                    const file = row ? row : "../Images/blank-image.png";
+                    return `<img src="${file}" class='rounded-circle' width='50px' height="50px"/>`;
+                },
             },
             {
                 //title: "DOB",
-                data: "Client.DOB",
-                render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
+                data: "client.DOB",
+                render: (row) => row ? convertToKhmerDate(row) : "",
             },
-            {
-                //title: "VATTIN",
-                data: "Client.VATTIN",
-                render: row => formatVattin(row),
-            },
+            //{
+            //    //title: "VATTIN",
+            //    data: "Client.VATTIN",
+            //    render: row => formatVattin(row),
+            //},
             {
                 //title: "Telephone",
                 data: null,
-                render: (row) => `${row.Client.Phone1} ${row.Client.Phone2}`,
+                render: (row) => `${row.client.Phone1} ${row.client.Phone2}`,
             },
             {
                 //title: "Address",
                 data: null,
-                render: (row) => `${row.Village.NameKh},
-                                  ${row.Commune.NameKh},
-                                  ${row.District.NameKh},
-                                  ${row.Province.NameKh}`,
+                render: (row) => `${row.village.NameKh}
+                                  ${row.commune.NameKh}
+                                  ${row.district.NameKh}
+                                  ${row.province.NameKh}`
             },
             {
                 //title: "Description",
-                data: "Client.Noted",
+                data: "Staff",
+                render: row => countPeople(row),
             },
             {
-                //title: "Created",
-                data: "Client.CreatedAt",
-                render: (row) => row ? moment(row).fromNow() : "",
+                //title: "Description",
+                data: "client.Noted",
             },
-            {
-                //title: "Updated",
-                data: "Client.UpdatedAt",
-                render: (row) => row ? moment(row).fromNow() : "",
-            },
+            //{
+            //    //title: "Created",
+            //    data: "client.CreatedAt",
+            //    render: (row) => row ? moment(row).fromNow() : "",
+            //},
+            //{
+            //    //title: "Updated",
+            //    data: "client.UpdatedAt",
+            //    render: (row) => row ? moment(row).fromNow() : "",
+            //},
             {
                 //title: "Actions",
-                data: "Client.Id",
+                data: "client.Id",
                 render: (row) => `<div> 
-                                      <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
+                                      <button onclick= "read('${row}')" class= 'btn btn-warning btn-sm' >
                                           <span class='fas fa-edit'></span>
                                       </button>
                                       <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
@@ -190,10 +189,10 @@ const readUrl = (input) => {
 /*refresh.click(() => location.reload());*/
 
 //Add new
-addNew.click(() => {
+$("#add").click(() => {
     clear();
     setColor();
-    modalClient.modal("show");
+    modalDialog.modal("show");
 });
 
 //Save data
@@ -222,17 +221,17 @@ save.click(() => {
     formData.append("Village", village.val());
 
     response ? $.ajax({
-        url: "/api/hr/clients/post",
+        url: "/api/hr/clients/create",
         type: "POST",
         contentType: false,
         processData: false,
         data: formData,
         success: (response) => {
-            getAll();
+            reads();
             dataId.val(response.Id);
-            table.ajax.reload();
+            tables.ajax.reload();
             clear();
-            //modalClient.modal("hide");
+            //modalDialog.modal("hide");
             Swal.fire({
                 //position: "top-end",
                 title: response.message,
@@ -256,39 +255,36 @@ save.click(() => {
 });
 
 //Get data by id
-const edit = (id) => {
+const read = (id) => {
     $.ajax({
-        url: "/api/hr/clients/get-by-id/" + id,
+        url: "/api/hr/clients/read/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         success: (response) => {
-            console.log(response);
+            //console.log(response);
             setColor();
             clear();
             update.show();
             save.hide();
 
-            dataId.val(response.Client.Id);
-            ownername.val(response.Client.Name);
-            company.val(response.Client.Company);
-            vattin.val(response.Client.VATTIN);
-            response.Client.Gender === true ? gender.val("true") : gender.val("false");
-            phone1.val(response.Client.Phone1);
-            phone2.val(response.Client.Phone2);
-            position.val(response.Client.Position);
-            response.Client.Image ? image.attr("src", response.Client.Image) : image.attr("src", "../Images/blank-image.png");
-            noted.val(response.Client.Noted);
-            dob.val(formatDate(response.Client.DOB));
-            province.val(response.Province.Id);
-            districtId.val(response.District.Id);
-            communeId.val(response.Commune.Id);
-            villageId.val(response.Village.Id);
+            dataId.val(response.client.Id);
+            ownername.val(response.client.Name);
+            company.val(response.client.Company);
+            vattin.val(response.client.VATTIN);
+            gender.val(response.client.Gender === true ? "true" : "false");
+            phone1.val(response.client.Phone1);
+            phone2.val(response.client.Phone2);
+            position.val(response.client.Position);
+            image.attr("src", response.client.Image ? response.client.Image : "../Images/blank-image.png");
+            noted.val(response.client.Noted);
+            dob.val(formatDate(response.client.DOB));
+            province.val(response.province.Id);
+            districtId.val(response.district.Id);
+            communeId.val(response.commune.Id);
+            villageId.val(response.village.Id);
 
-            //dis.hide();
-            //com.hide();
-            //vil.hide();
-            modalClient.modal("show");
+            modalDialog.modal("show");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
@@ -334,17 +330,16 @@ update.click(() => {
     }
 
     response ? $.ajax({
-        url: "/api/hr/clients/put-by-id/" + dataId.val(),
+        url: "/api/hr/clients/update/" + dataId.val(),
         type: "PUT",
         contentType: false,
         processData: false,
         data: formData,
         success: (response) => {
-            table.ajax.reload();
+            tables.ajax.reload();
             clear();
-            modalClient.modal("hide");
+            modalDialog.modal("hide");
             Swal.fire({
-                //position: "top-end",
                 title: response.message,
                 icon: "success",
                 showConfirmButton: false,
@@ -377,9 +372,9 @@ const remove = (id) => {
     }).then((param) => {
         param.value ? $.ajax({
             method: "DELETE",
-            url: "/api/hr/clients/delete-by-id/" + id,
+            url: "/api/hr/clients/delete/" + id,
             success: (response) => {
-                table.ajax.reload();
+                tables.ajax.reload();
                 Swal.fire({
                     //position: "top-end",
                     title: response.message,
@@ -421,16 +416,13 @@ const clear = () => {
     phone1.val("");
     phone2.val("");
     gender.val("false");
-    position.val(-1);
+    position.val("-1");
     dob.val("");
     noted.val("");
-    province.val(-1);
-    district.val(-1);
-    commune.val(-1);
-    village.val(-1);
-    dis.show();
-    com.show();
-    vil.show();
+    province.val("-1");
+    district.val("-1");
+    commune.val("-1");
+    village.val("-1");
 };
 
 //Set color to border control
@@ -549,20 +541,19 @@ const validate = () => {
 //Change value
 province.change(() => {
     let provinceId = province.val();
-    dis.show();
 
     provinceId ? $.ajax({
-        url: "/home/cDistrict",
+        url: "/home/district",
         type: "GET",
-        data: { CProvince: provinceId },
+        data: { province: provinceId },
         dataType: "JSON",
         success: (response) => {
             district.empty();
             commune.empty();
             village.empty();
-            district.append($("<option>").val(-1).text(`---${lSelect} ${lDistrict}---`));
-            commune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
-            village.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
+            district.append($("<option>").val("-1").text(`---${lSelect} ${lDistrict}---`));
+            commune.append($("<option>").val("-1").text(`---${lSelect} ${lCommune}---`));
+            village.append($("<option>").val("-1").text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 district.append(
@@ -575,24 +566,23 @@ province.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : province.append($("<option>").val(-1).text(`---${lSelect} ${lProvince}---`));
+    }) : province.append($("<option>").val("-1").text(`---${lSelect} ${lProvince}---`));
 });
 
 //Change value
 district.change(() => {
     let districtId = district.val();
-    com.show();
 
     districtId ? $.ajax({
-        url: "/home/cCommune",
+        url: "/home/commune",
         type: "GET",
-        data: { CDistrict: districtId },
+        data: { district: districtId },
         dataType: "JSON",
         success: (response) => {
             commune.empty();
             village.empty();
-            commune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
-            village.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
+            commune.append($("<option>").val("-1").text(`---${lSelect} ${lCommune}---`));
+            village.append($("<option>").val("-1").text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 commune.append(
@@ -606,22 +596,21 @@ district.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : district.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
+    }) : district.append($("<option>").val("-1").text(`---${lSelect} ${lVillage}---`));
 });
 
 //Change value
 commune.change(() => {
     let communeId = commune.val();
-    vil.show();
 
     communeId ? $.ajax({
-        url: "/home/cVillage",
+        url: "/home/village",
         type: "GET",
-        data: { CCommune: communeId },
+        data: { commune: communeId },
         dataType: "JSON",
         success: (response) => {
             village.empty();
-            village.append($("<option>").val(-1).text(`---${lSelect} ${lVillage}---`));
+            village.append($("<option>").val("-1").text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
                 village.append(
@@ -635,5 +624,5 @@ commune.change(() => {
         error: (hasError) => {
             console.log(hasError);
         },
-    }) : commune.append($("<option>").val(-1).text(`---${lSelect} ${lCommune}---`));
+    }) : commune.append($("<option>").val("-1").text(`---${lSelect} ${lCommune}---`));
 });

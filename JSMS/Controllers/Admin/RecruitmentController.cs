@@ -9,15 +9,8 @@ using System.Web.Mvc;
 namespace JSMS.Controllers.Admin
 {
     [Authorize]
-    public class RecruitmentController : Controller
+    public class RecruitmentController : BaseController
     {
-        protected readonly ApplicationDbContext context;
-
-        public RecruitmentController()
-        {
-            context = new ApplicationDbContext();
-        }
-
         // GET: Recuitment
         public ActionResult Index()
         {

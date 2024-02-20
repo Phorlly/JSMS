@@ -26,6 +26,8 @@ namespace JSMS.Models.Admin
         public Client()
         {
             IsClient = true;
+            VATTIN = 1;
+            Gender = false;
         }
     }
 }

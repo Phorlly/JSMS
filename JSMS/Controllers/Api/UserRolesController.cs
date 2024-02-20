@@ -25,8 +25,8 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpGet]
-        [Route("get")]
-        public IHttpActionResult Get()
+        [Route("reads")]
+        public IHttpActionResult Reads()
         {
             try
             {
@@ -50,10 +50,8 @@ namespace JSMS.Controllers.Api
                                     Password = p.Password,
                                     Role = string.Join(",", p.RoleNames)
                                 });
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+
+                if (response == null) return NoDataFound();
 
                 return Ok(response);
             }
@@ -61,11 +59,11 @@ namespace JSMS.Controllers.Api
             {
                 return ServerError(ex);
             }
-        }
+        } 
 
         [HttpGet]
-        [Route("get-by-id/{id}")]
-        public IHttpActionResult GetById(string id)
+        [Route("read/{id}")]
+        public IHttpActionResult Read(string id)
         {
             try
             {
@@ -100,39 +98,31 @@ namespace JSMS.Controllers.Api
             {
                 return ServerError(ex);
             }
-        }
+        } 
 
         [HttpPost]
-        [Route("post")]
-        public async Task<IHttpActionResult> Post(RegisterViewModel request)
+        [Route("create")]
+        public async Task<IHttpActionResult> Create(RegisterViewModel request) 
         {
             try
             {
                 var user = new ApplicationUser()
                 {
-                    UserName = EmailGenerator.SanitizeUsername(request.UserName.ToLower()),
+                    UserName = SanitizeUsername(request.UserName.ToLower()),
                     PhoneNumber = request.Phone,
-                    Email = EmailGenerator.GenerateEmail(request.UserName.ToLower())
+                    Email = GenerateEmail(request.UserName.ToLower())
                 };
 
                 var exist = await userManager.FindByNameAsync(request.UserName.ToLower());
-                if (exist != null)
-                {
-                    return MessageWithCode(400, Language.ExistUsername);
-                }
+                if (exist != null) return MessageWithCode(400, Language.ExistUsername);
 
-                if (request.Password != request.ConfirmPassword)
+                if (request.Password != request.ConfirmPassword) return MessageWithCode(400, Language.PasswordNotMatch);
+
+                var result = await userManager.CreateAsync(user, request.Password);
+                if (result.Succeeded)
                 {
-                    return MessageWithCode(400, Language.PasswordNotMatch);
-                }
-                else
-                {
-                    var result = await userManager.CreateAsync(user, request.Password);
-                    if (result.Succeeded)
-                    {
-                        await userManager.AddToRoleAsync(user.Id, request.Role);
-                        await context.SaveChangesAsync();
-                    }
+                    await userManager.AddToRoleAsync(user.Id, request.Role);
+                    await context.SaveChangesAsync();
                 }
 
                 return MessageWithCode(201, Language.DataCreated);
@@ -144,8 +134,8 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPut]
-        [Route("put-by-id/{id}")]
-        public async Task<IHttpActionResult> Put(RegisterViewModel request, string id)
+        [Route("update/{id}")]
+        public async Task<IHttpActionResult> Update(RegisterViewModel request, string id) 
         {
             try
             {
@@ -153,35 +143,22 @@ namespace JSMS.Controllers.Api
                 var oldrole = await roleManager.FindByIdAsync(response.Roles.FirstOrDefault().RoleId);
                 var role = await roleManager.FindByNameAsync(request.Role);
 
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
 
                 var isExist = await context.Users.SingleOrDefaultAsync(u => u.UserName.ToLower() == request.UserName.ToLower() && u.Id != id);
-                if (isExist != null)
-                {
-                    return MessageWithCode(400, Language.ExistUsername);
-                }
+                if (isExist != null) return MessageWithCode(400, Language.ExistUsername);
 
-                response.UserName = EmailGenerator.SanitizeUsername(request.UserName.ToLower());
+                response.UserName = SanitizeUsername(request.UserName.ToLower());
                 response.PhoneNumber = request.Phone;
-                response.Email = EmailGenerator.GenerateEmail(request.UserName.ToLower());
+                response.Email = GenerateEmail(request.UserName.ToLower());
 
                 if (!string.IsNullOrEmpty(request.OldPassword))
                 {
-                    if (request.NewPassword != request.ConfirmPassword)
-                    {
-                        return MessageWithCode(400, Language.PasswordNotMatch);
-                    }
+                    if (request.NewPassword != request.ConfirmPassword) return MessageWithCode(400, Language.PasswordNotMatch);
 
                     // Check if the old password is correct
                     var isOldPasswordCorrect = await userManager.CheckPasswordAsync(response, request.OldPassword);
-
-                    if (!isOldPasswordCorrect)
-                    {
-                        return MessageWithCode(400, Language.OldPasswordInvalid);
-                    }
+                    if (!isOldPasswordCorrect) return MessageWithCode(400, Language.OldPasswordInvalid);
 
                     var result = await userManager.ChangePasswordAsync(response.Id, request.OldPassword, request.NewPassword);
                     if (result.Succeeded)
@@ -207,7 +184,7 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpDelete]
-        [Route("delete-by-id/{id}")]
+        [Route("delete=/{id}")]
         public async Task<IHttpActionResult> Delete(string id)
         {
             try

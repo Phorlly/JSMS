@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <h1 class="m-0 text-uppercase" id="tite-report">@JSMS.Resources.Language.Report​​ @JSMS.Resources.Language.Attendance</h1>
+                <h1 class="m-0 text-uppercase">@JSMS.Resources.Language.Report​​ @JSMS.Resources.Language.Attendance</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -38,8 +38,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="by-staff">@JSMS.Resources.Language.Code</label>
-                            <select id="by-staff" class="form-select">
+                            <label for="staff">@JSMS.Resources.Language.Code</label>
+                            <select id="staff" class="form-select staff">
                                 <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.Code</option>
                                 @foreach (var response in Model)
                                 {
@@ -50,8 +50,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="by-shift">@JSMS.Resources.Language.ShiftType</label>
-                            <select id="by-shift" class="form-select">
+                            <label for="shift">@JSMS.Resources.Language.ShiftType</label>
+                            <select id="shift" class="form-select">
                                 <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.ShiftType</option>
                                 <option value="0">@JSMS.Resources.Language.Morning</option>
                                 <option value="1">@JSMS.Resources.Language.Night</option>
@@ -61,7 +61,7 @@
 
 
                     <div class="col-md-12 mt-3">
-                        <table id="attendance-summary" class="table table-group-divider text-nowrap">
+                        <table class="table table-group-divider text-nowrap">
                             <thead>
                                 <tr>
                                     <th>@JSMS.Resources.Language.Id</th>

@@ -333,6 +333,9 @@
   <data name="DOB" xml:space="preserve">
     <value>Date of Birth</value>
   </data>
+  <data name="DragAndDrop" xml:space="preserve">
+    <value>Drag and drop files here, or click to select files</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit </value>
   </data>
@@ -555,6 +558,15 @@
   <data name="InvoicePage" xml:space="preserve">
     <value>Invoice Generate Page</value>
   </data>
+  <data name="JobApplicant" xml:space="preserve">
+    <value>Job Applicant</value>
+  </data>
+  <data name="JobApplicantInfo" xml:space="preserve">
+    <value>Job-Applicant Infomation</value>
+  </data>
+  <data name="JobApplicantList" xml:space="preserve">
+    <value>Job applicant management</value>
+  </data>
   <data name="JoiningDate" xml:space="preserve">
     <value>Joining Date</value>
   </data>
@@ -583,7 +595,7 @@
     <value>Login into System</value>
   </data>
   <data name="LoginSuccess" xml:space="preserve">
-    <value>Successful system access</value>
+    <value>Successfully logged in</value>
   </data>
   <data name="LoginWith" xml:space="preserve">
     <value>Login with Username and Password</value>
@@ -687,6 +699,9 @@
   <data name="PartTime" xml:space="preserve">
     <value>Part-Time</value>
   </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Passed</value>
+  </data>
   <data name="PassesAsStaff" xml:space="preserve">
     <value>This applicant is already an staff</value>
   </data>
@@ -704,6 +719,9 @@
   </data>
   <data name="PaymentType" xml:space="preserve">
     <value>Payment Type</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
   </data>
   <data name="People" xml:space="preserve">
     <value>People</value>
@@ -792,6 +810,9 @@
   <data name="Registration" xml:space="preserve">
     <value>Registration</value>
   </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
   <data name="RemainStock" xml:space="preserve">
     <value>Remain-Stock</value>
   </data>
@@ -806,6 +827,9 @@
   </data>
   <data name="ReportStockAvailable" xml:space="preserve">
     <value>Report Stock Available</value>
+  </data>
+  <data name="RequestGuard" xml:space="preserve">
+    <value>Request security guards</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role Permission</value>
@@ -830,6 +854,9 @@
   </data>
   <data name="Select" xml:space="preserve">
     <value>Please select</value>
+  </data>
+  <data name="Selecting" xml:space="preserve">
+    <value>Selecting</value>
   </data>
   <data name="SelectStaff" xml:space="preserve">
     <value>Please select an staff ID</value>

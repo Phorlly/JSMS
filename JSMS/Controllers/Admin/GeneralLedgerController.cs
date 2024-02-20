@@ -7,15 +7,8 @@ using System.Web.Mvc;
 
 namespace JSMS.Controllers.Admin
 {
-    public class GeneralLedgerController : Controller
+    public class GeneralLedgerController : BaseController
     {
-
-        protected readonly ApplicationDbContext context;
-        public GeneralLedgerController()
-        {
-            context = new ApplicationDbContext();
-        }
-
         // GET: GeneralLedger
         public ActionResult Index()
         {

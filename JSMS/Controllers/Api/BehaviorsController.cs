@@ -78,7 +78,7 @@ namespace JSMS.Controllers.Api
                     return ExistData(Language.ExistApplicant);
                 }
 
-                var fileName = RequestFile("Attachment", "Behavior", "~/AppData/Files", "../AppData/Files");
+                var fileName = RequestFile("Attachment", "~/AppData/Files", "../AppData/Files");
                 var request = new Behavior()
                 {
                     Applicant = int.Parse(applicant),
@@ -124,7 +124,7 @@ namespace JSMS.Controllers.Api
                     return ExistData(Language.ExistApplicant);
                 }
 
-                var fileName = RequestFile("Attachment", "Behavior", "~/AppData/Files", "../AppData/Files");
+                var fileName = RequestFile("Attachment", "~/AppData/Files", "../AppData/Files");
                 if (fileName != null)
                 {
                     DeleteFile(response.Attachment, "~/AppData/Files");

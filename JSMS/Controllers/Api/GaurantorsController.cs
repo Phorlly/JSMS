@@ -47,7 +47,7 @@ namespace JSMS.Controllers.Api
                                       join BDistrict in context.Districts on Gaurantor.BDistrict equals BDistrict.Id
                                       join BCommune in context.Communes on Gaurantor.BCommune equals BCommune.Id
                                       join BVillage in context.Villages on Gaurantor.BVillage equals BVillage.Id
-                                      where Gaurantor.IsActive == true
+                                      where Gaurantor.IsActive == true 
                                       select new { Gaurantor, CProvince, CDistrict, CCommune, CVillage, BProvince, BDistrict, BCommune, BVillage })
                                 .OrderByDescending(c => c.Gaurantor.Id).ToListAsync();
                 if (response == null)
@@ -101,7 +101,7 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var fileName = RequestFile("Image", "Gaurantor", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "~/AppData/Images", "../AppData/Images");
                 //Assign value
                 var request = new Gaurantor()
                 {
@@ -154,7 +154,7 @@ namespace JSMS.Controllers.Api
                     return NoDataFound();
                 }
 
-                var fileName = RequestFile("Image", "Gaurantor", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "~/AppData/Images", "../AppData/Images");
                 if (fileName != null)
                 {
                     DeleteFile(response.Image, "~/AppData/Images");
@@ -184,8 +184,35 @@ namespace JSMS.Controllers.Api
                 response.BCommune = int.Parse(bCommune);
                 response.CVillage = int.Parse(bVillage);
 
+                //Applicant
+                var request = new Applicant()
+                {
+                    Name = name,
+                    NickName = nickName,
+                    National = national,
+                    Nationality = nationality,
+                    CreatedBy = createdBy,
+                    Gender = bool.Parse(gender),
+                    Phone1 = phone1,
+                    Phone2 = phone2,
+                    Education = int.Parse(education),
+                    Image = fileName ?? response.Image,
+                    DOB = DateTime.Parse(dob),
+                    CProvince = int.Parse(province),
+                    CDistrict = int.Parse(district),
+                    CCommune = int.Parse(commune),
+                    CVillage = int.Parse(village),
+                    Noted = noted == "" ? Language.Created : noted,
+                    BProvince = int.Parse(bProvince),
+                    BDistrict = int.Parse(bDistrict),
+                    BCommune = int.Parse(bCommune),
+                    BVillage = int.Parse(bVillage),
+                    Status = 2
+                };
+
                 if (response != null)
                 {
+                    context.Applicants.Add(request);
                     context.Entry(response).State = EntityState.Modified;
                     await context.SaveChangesAsync();
                 }

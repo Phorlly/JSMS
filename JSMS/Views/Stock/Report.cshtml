@@ -39,8 +39,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="by-product">@JSMS.Resources.Language.Product</label>
-                            <select id="by-product" class="form-select">
+                            <label for="product">@JSMS.Resources.Language.Product</label>
+                            <select id="product" class="form-select">
                                 <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.Product</option>
                                 @foreach (var response in Model)
                                 {
@@ -51,8 +51,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="by-stock">@JSMS.Resources.Language.StockType</label>
-                            <select id="by-stock" class="form-select">
+                            <label for="stock">@JSMS.Resources.Language.StockType</label>
+                            <select id="stock" class="form-select">
                                 <option value="null">@JSMS.Resources.Language.Select @JSMS.Resources.Language.StockType</option>
                                 <option value="1">@JSMS.Resources.Language.StockIn</option>
                                 <option value="2">@JSMS.Resources.Language.StockOut</option>
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="col-md-12 mt-3">
-                        <table id="stock-summary" class="table table-group-divider text-nowrap">
+                        <table class="table table-group-divider text-nowrap">
                             <thead>
                                 <tr>
                                     <th>@JSMS.Resources.Language.Id</th>

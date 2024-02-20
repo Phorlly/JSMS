@@ -21,7 +21,7 @@ namespace JSMS.Helpers
     public class ShortListApplicant
     {
         public ShortList ShortList { get; set; }
-        public Applicant Applicant { get; set; }
+        public JobApplicant Applicant { get; set; }
     }
 
     public class ShortListClientMapper

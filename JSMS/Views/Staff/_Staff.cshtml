@@ -17,12 +17,12 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group ">
-                                    <label for="short-list">@JSMS.Resources.Language.ApplicantPassedShortList</label>
+                                    <label for="short-list">@JSMS.Resources.Language.JobApplicant</label>
                                     <select id="short-list" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.ApplicantPassedShortList---</option>
+                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.JobApplicant---</option>
                                         @foreach (var response in Model.ShortLists)
                                         {
-                                            <option value="@response.ShortList.Id">@response.Applicant.Name @response.Applicant.NickName</option>
+                                            <option value="@response.ShortList.Id">@response.Applicant.FullName</option>
                                         }
                                     </select>
                                 </div>
@@ -62,7 +62,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3 ">
                                     <label for="main-salary">@JSMS.Resources.Language.Main</label>
-                                    <input type="text" class="form-control" id="main-salary" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Main">
+                                    <input type="number" class="form-control" id="main-salary" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Main">
 
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                 <div class="form-group ">
                                     <label for="position">@JSMS.Resources.Language.Type</label>
                                     <select id="position" class="form-select">
-                                        <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Type---</option>
+                                        @*<option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Type---</option>*@
                                         <option value="1">@JSMS.Resources.Language.FullTime</option>
                                         <option value="2">@JSMS.Resources.Language.PartTime</option>
                                         <option value="3">@JSMS.Resources.Language.Instead</option>

@@ -1,18 +1,15 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    refresh.click(() => getAll());
+    $("#show").click(() => reads());
     datePicker("#on-date");
-    numberOnly("main-salary");
 });
 
 //Declare variable for use global
-let table = [];
-let addNew = $("#add-new");
+let tables = [];
 let update = $("#update");
 let save = $("#save");
-let modalStaff = $("#modal-staff");
+let modalDialog = $("#modal-staff");
 let dataId = $("#data-id");
-let refresh = $("#refresh");
 let shortList = $("#short-list");
 let client = $("#client");
 let onDate = $("#on-date");
@@ -24,10 +21,10 @@ let shift = $("#shift");
 let createdBy = $("#log-by").data("logby");
 
 //Get all data
-const getAll = () => {
-    table = $("#staff").DataTable({
+const reads = () => {
+    tables = $(".table").DataTable({
         ajax: {
-            url: "/api/hr/staffs/get",
+            url: "/api/hr/staffs/reads",
             dataSrc: "",
             method: "GET",
         },
@@ -42,7 +39,6 @@ const getAll = () => {
                 next: "<i class='fas fa-chevron-right'>",
             },
         },
-        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
                 //title: "#",
@@ -51,72 +47,73 @@ const getAll = () => {
             },
             {
                 //title: "Name",
-                data: null,
-                render: (row) => `${row.Applicant.Name} ${row.Applicant.NickName}`,
+                data: "applicant.FullName",
             },
             {
                 //title: "Code",
-                data: "Staff.Code",
+                data: "staff.Code",
             },
             {
                 //title: "Gender",
-                data: "Applicant.Gender",
+                data: "applicant.Sex",
                 render: (row) => row === true ? lMale : lFemale,
             },
             {
                 //title: "Shift",
-                data: "Staff.Status",
+                data: "staff.Status",
                 render: row => row === 0 ? lMorning : lNight
             },
             {
                 //title: "Profile",
-                data: "Applicant.Image",
-                render: (row) => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
-                    "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
+                data: "applicant.Image",
+                render: (row) => {
+                    const file = row ? row : "../Images/blank-image.png";
+                    return `<img src="${file}" class='rounded-circle' width='50px' height="50px"/>`;
+                },
             },
             {
                 //title: "Company",
-                data: "Client.Company",
+                data: "client.Company",
             },
             {
                 //title: "Type",
-                data: "Staff.Position",
+                data: "staff.Position",
                 render: row => row === 1 ? lFullTime : row == 2 ? lPartTime : lInstead
             },
             {
                 //title: "Main",
                 data: null,
-                render: (row) => `${row.Staff.MainSalary.toFixed(2)} <sup>$</sup>`,
+                render: (row) => `${row.staff.MainSalary.toFixed(2)} <sup>$</sup>`,
             },
             {
                 //title: "Premier",
                 data: null,
-                render: (row) => `${row.Staff.PremierSalary.toFixed(2)} <sup>$</sup>`,
+                render: (row) => `${row.staff.PremierSalary.toFixed(2)} <sup>$</sup>`,
             },
             {
                 //title: "Joined",
-                data: "Staff.CurrentDate",
-                render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
+                data: "staff.CurrentDate",
+                render: (row) => row ? moment(row).format("DD MMM YYYY") : "",
             },
             {
                 //title: "Description",
-                data: "Staff.Noted",
+                data: "staff.Noted",
             },
-            {
-                //title: "Created",
-                data: "Staff.CreatedAt",
-                render: (row) => row ? moment(row).fromNow() : "",
-            },
-            {
-                //title: "Updated",
-                data: "Staff.UpdatedAt",
-                render: (row) => row ? moment(row).fromNow() : "",
-            },
+            //{
+            //    //title: "Created",
+            //    data: "staff.CreatedAt",
+            //    render: (row) => row ? moment(row).fromNow() : "",
+            //},
+            //{
+            //    //title: "Updated",
+            //    data: "staff.UpdatedAt",
+            //    render: (row) => row ? moment(row).fromNow() : "",
+            //},
             {
                 //title: "Actions",
-                data: "Staff.Id",
+                data: "staff.Id",
                 render: (row) => `<div> 
-                                      <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
+                                      <button onclick= "read('${row}')" class= 'btn btn-warning btn-sm' >
                                           <span class='fas fa-edit'></span>
                                       </button>
                                       <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
@@ -158,17 +155,16 @@ const getAll = () => {
                 title: xhr.responseJSON.message,
                 icon: "error",
                 showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
                 timer: 1500,
             }) : console.log(xhr.responseText),
     });
 };
 
 //Add new
-addNew.click(() => {
+$("#add").click(() => {
     clear();
     setColor();
-    modalStaff.modal("show");
+    modalDialog.modal("show");
 });
 
 //Refresh data
@@ -192,17 +188,18 @@ save.click(() => {
     //console.log(data);
 
     response ? $.ajax({
-        url: "/api/hr/staffs/post",
+        url: "/api/hr/staffs/create",
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
-            getAll();
+            reads();
             dataId.val(response.Id);
-            table.ajax.reload();
             clear();
-            //modalStaff.modal("hide");
+            tables.ajax.reload();
+            
+            //modalDialog.modal("hide");
             Swal.fire({
                 //position: "top-end",
                 title: response.message,
@@ -217,17 +214,17 @@ save.click(() => {
                 //position: "top-end",
                 title: xhr.responseJSON.message,
                 icon: "error",
-                showConfirmButton: false,
+                showConfirmButton: true,
                 customClass: { title: 'custom-swal-title' },
-                timer: 1500,
+                //timer: 1500,
             }) : console.log(xhr.responseText),
     }) : false;
 });
 
 //Get data by id
-const edit = (id) => {
+const read = (id) => {
     $.ajax({
-        url: "/api/hr/staffs/get-by-id/" + id,
+        url: "/api/hr/staffs/read/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
@@ -238,17 +235,17 @@ const edit = (id) => {
             update.show();
             save.hide();
 
-            dataId.val(response.Staff.Id);
-            shortList.val(response.ShortList.Id);
-            client.val(response.Client.Id);
-            position.val(response.Staff.Position);
-            mainSalary.val(response.Staff.MainSalary);
-            noted.val(response.Staff.Noted);
-            onDate.val(formatDate(response.Staff.CurrentDate));
-            code.val(response.Staff.Code);
-            shift.val(response.Staff.Status === 0 ? 0 : 1)
+            dataId.val(response.staff.Id);
+            shortList.val(response.shortList.Id);
+            client.val(response.client.Id);
+            position.val(response.staff.Position);
+            mainSalary.val(response.staff.MainSalary);
+            noted.val(response.staff.Noted);
+            onDate.val(formatDate(response.staff.CurrentDate));
+            code.val(response.staff.Code);
+            shift.val(response.staff.Status === 0 ? 0 : 1)
 
-            modalStaff.modal("show");
+            modalDialog.modal("show");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
@@ -280,16 +277,16 @@ update.click(() => {
     //console.log(data);
 
     response ? $.ajax({
-        url: "/api/hr/staffs/put-by-id/" + dataId.val(),
+        url: "/api/hr/staffs/update/" + dataId.val(),
         type: "PUT",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
             dataId.val(response.Id);
-            table.ajax.reload();
+            tables.ajax.reload();
             clear();
-            modalStaff.modal("hide");
+            modalDialog.modal("hide");
 
             Swal.fire({
                 //position: "top-end",
@@ -326,9 +323,9 @@ const remove = (id) => {
         param.value ?
             $.ajax({
                 method: "DELETE",
-                url: "/api/hr/staffs/delete-by-id/" + id,
+                url: "/api/hr/staffs/delete/" + id,
                 success: (response) => {
-                    table.ajax.reload();
+                    tables.ajax.reload();
                     Swal.fire({
                         title: response.message,
                         icon: "success",
@@ -364,8 +361,8 @@ const clear = () => {
     noted.val("");
     shortList.val("-1");
     setCurrentDate("#on-date");
-    mainSalary.val("");
-    position.val("-1");
+    mainSalary.val("160");
+    position.val("1");
     client.val("-1");
     code.val("X");
     shift.val("0");
@@ -386,7 +383,7 @@ const validate = () => {
     let isValid = true;
     if (shortList.val() === "-1") {
         Swal.fire({
-            title: `${lSelect} ${lApplicantPassedShortList}`,
+            title: `${lSelect} ${lJobApplicant}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },

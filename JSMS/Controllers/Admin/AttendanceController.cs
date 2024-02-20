@@ -8,16 +8,8 @@ using System.Web.Mvc;
 namespace JSMS.Controllers.Admin
 {
     [Authorize]
-    public class AttendanceController : Controller
+    public class AttendanceController : BaseController
     {
-        protected readonly ApplicationDbContext context;
-
-        public AttendanceController() 
-        {
-            context = new ApplicationDbContext();
-        }
-
-
         // GET: Attendance
         public ActionResult Index()
         {

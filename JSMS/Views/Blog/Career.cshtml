@@ -35,90 +35,140 @@
                             <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Apply Now</small>
                             <h1 class="display-5 mb-5">Need job?</h1>
                         </div>
-                        <div class="row g-4 form">
-                            <div class="col-lg-4 col-md-6">
-                                <input type="text" class="form-control border-primary p-2" id="name-in-certificate" placeholder="Applicant Name">
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <input type="text" class="form-control border-primary p-2" id="nick-name" placeholder="NickName">
-                            </div>
 
-                            <div class="col-lg-4 col-md-6">
-                                <select class="form-select border-primary p-2" id="sex" aria-label="Default select example">
-                                    <option value="-1" selected>Gender</option>
-                                    <option value="1">Female</option>
-                                    <option value="2">Male</option>
-                                    <option value="3">Batman</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <input type="text" class="form-control border-primary p-2" id="national" placeholder="National">
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <input type="text" class="form-control border-primary p-2" id="nationality" placeholder="Nationality">
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <input type="text" maxlength="15" class="form-control border-primary p-2" id="phone1" placeholder="Phone Number 1">
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <input type="text" maxlength="15" class="form-control border-primary p-2" id="phone2" placeholder="Phone Number 2(Optional)">
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <select class="form-select border-primary p-2" id="education" aria-label="Default select example">
-                                    <option value="-1" selected>Education level</option>
-                                    <option value="1">មិនបានសិក្សា(Not Study)</option>
-                                    <option value="2">បឋមសិក្សា(Primary School)</option>
-                                    <option value="3">អនុវិទ្យាល័យ (Secondary School)</option>
-                                    <option value="4">វិទ្យាល័យ (High School)</option>
-                                    <option value="5">សាកលវិទ្យាល័យ (University)</option>
-                                    <option value="6">ផ្សេងៗ (Other)</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <select class="form-select border-primary p-2" id="place-of-birth" aria-label="Default select example">
-                                    <option value="-1" selected>Place of Birth</option>
-                                    @foreach (var response in Model)
-                                    {
-                                        <option value="@response.Id">@response.NameKh (@response.Name)</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <input type="date" class="form-control border-primary p-2" id="date-of-birth" placeholder="Date Of Birth">
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <select class="form-select border-primary p-2" id="address" aria-label="Default select example">
-                                    <option value="-1" selected>Current Address</option>
-                                    @foreach (var response in Model)
-                                    {
-                                        <option value="@response.Id">@response.NameKh (@response.Name)</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <select class="form-select border-primary p-2" id="position" aria-label="Default select example">
-                                    <option value="-1" selected>Please Choose Position</option>
-                                    <option value="1">IT</option>
-                                    <option value="2">HR</option>
-                                    <option value="3">Guard</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="mb-3">
-                                    <input class="form-control border-primary p-2" accept=".doc, .docx,.pdf" type="file" id="attachment">
+                        <section>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mt-3 ">
+                                                <label for="birth-name">@JSMS.Resources.Language.FirstName</label>
+                                                <input type="text" class="form-control" id="first-name" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.FirstName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mt-3 ">
+                                                <label for="nick-name">@JSMS.Resources.Language.LastName</label>
+                                                <input type="text" class="form-control" id="last-name" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.LastName">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mt-3 ">
+                                                <label for="phone1">@JSMS.Resources.Language.Phone</label>
+                                                <input type="text" maxlength="15" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask id="phone" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mt-3 ">
+                                                <label for="phone2">@JSMS.Resources.Language.Phone2</label>
+                                                <input type="text" maxlength="15" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask id="phone2" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Phone2">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group mt-3">
+                                                <label for="phone2">@JSMS.Resources.Language.Attachment</label>
+                                                <div id="dropArea" class="rounded-4">
+                                                    <span>@JSMS.Resources.Language.DragAndDrop</span>
+                                                    <input type="file" accept=".pdf,.doc,.docx" name="Files[]" id="fileInput" multiple style="display: none;" />
+                                                    <div id="fileList"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 pl-5 mt-4">
+                                    <div class="row">
+                                        <div class="form-group mt-3">
+                                            <img class="center img-responsive rounded-4 img-thumbnail" style="width: 12rem; height: 10rem"
+                                                 src="~/Images/blank-image.png" id="image" />
+                                            <b class="btn-style-2 btn btn-dark">
+                                                <i class="fa fa-upload pe-lg-3"></i><span> @JSMS.Resources.Language.UploadImage</span>
+                                                <input onchange="readImage(this);" type="file" id="image-file" accept=".png, .jpg, .jpeg, .svg" />
+                                            </b>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6">
-                                <input type="text" class="form-control border-primary p-2" id="noted" placeholder="Note">
-                            </div>
 
-                            <div class="col-12 text-center">
-                                <button type="button" class="btn btn-primary px-5 py-3 rounded-pill" id="apply-now">Apply Now</button>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mt-3">
+                                        <label for="gender">@JSMS.Resources.Language.Gender</label>
+                                        <select class="form-select" id="sex">
+                                            <option value="false">@JSMS.Resources.Language.Female</option>
+                                            <option value="true">@JSMS.Resources.Language.Male</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mt-3">
+                                        <label for="dob">@JSMS.Resources.Language.DOB</label>
+                                        <input type="date" class="form-control" id="dob" placeholder="@JSMS.Resources.Language.Select @JSMS.Resources.Language.DOB">
+
+                                    </div>
+                                </div>
+       
+                                <div class="col-md-3">
+                                    <div class="form-group mt-3">
+                                        <label for="province">@JSMS.Resources.Language.Province</label>
+                                        <select id="province" class="form-select">
+                                            <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Province---</option>
+                                            @foreach (var province in Model)
+                                            {
+                                                <option value="@province.Id">@province.NameKh / @province.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mt-3">
+                                        <label for="district">@JSMS.Resources.Language.District</label>
+                                        <input type="hidden" id="dis-val" />
+                                        <select id="district" class="form-select">
+                                            <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.District---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mt-3">
+                                        <label for="commune">@JSMS.Resources.Language.Commune</label>
+                                        <input type="hidden" id="com-val" />
+                                        <select id="commune" class="form-select">
+                                            <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Commune---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="form-group mt-3">
+                                        <label for="village">@JSMS.Resources.Language.Village</label>
+                                        <input type="hidden" id="vil-val" />
+                                        <select id="village" class="form-select">
+                                            <option value="-1">---@JSMS.Resources.Language.Select @JSMS.Resources.Language.Village---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group mt-3">
+                                        <label for="noted">@JSMS.Resources.Language.Description</label>
+                                        <textarea class="form-control" id="noted" placeholder="@JSMS.Resources.Language.Input @JSMS.Resources.Language.Description"></textarea>
+
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center mt-5">
+                                    <button type="button" class="btn btn-primary px-5 py-3 rounded-pill" id="save">Apply Now</button>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
                 </div>
-
 
                 <div class="col-1">
                     <img src="~/Theme/Official/img/gard/15.jpg" class="img-fluid h-100 w-100 rounded-end" style="object-fit: cover; opacity: 0.7;" alt="">

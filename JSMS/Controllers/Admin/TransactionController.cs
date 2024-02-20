@@ -10,14 +10,8 @@ using System.Web.Mvc;
 namespace JSMS.Controllers.Admin
 {
     [Authorize]
-    public class TransactionController : Controller
+    public class TransactionController : BaseController
     {
-        protected readonly ApplicationDbContext context;
-        public TransactionController()
-        {
-            context = new ApplicationDbContext();
-        }
-
         // GET: Transaction
         public ActionResult Index()
         {

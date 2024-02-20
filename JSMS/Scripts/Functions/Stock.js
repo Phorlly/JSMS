@@ -1,39 +1,38 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    monthYear.change(() => getStockReport());
-    byProduct.change(() => getStockReport());
-    byStock.change(() => getStockReport());
-    getStockReport();
+    monthYear.change(() => readReport());
+    product.change(() => readReport());
+    stock.change(() => readReport());
+    readReport();
     datePicker("#date-in-out");
-    numberOnly("quantity");
-    $("#show-stock").click(() => getAll());
+    $("#show").click(() => reads());
 });
 
 //Declare variable for use global
-let tableStock = [];
-let addStock = $("#add-stock");
-let updateStock = $("#update-stock");
-let saveStock = $("#save-stock");
-let modalStock = $("#modal-stock");
-let dataId = $("#data-id");
-let productType = $("#product-type");
-let stockIO = $("#stock-in-out");
-let quantity = $("#quantity");
-let dateIO = $("#date-in-out");
-let sNoted = $("#s-noted");
-let createdBy2 = $("#log-by").data("logby");
-let monthYear = formatMonthYear("#month-year");
-let byProduct = $("#by-product");
-let byStock = $("#by-stock");
+let tables = [];
+const add = $("#add");
+const redo = $(".redo");
+const save = $(".save");
+const modalDialog = $("#modal-stock");
+const dataId = $("#data-id");
+const productType = $("#product-type");
+const stockIO = $("#stock-in-out");
+const quantity = $("#quantity");
+const dateIO = $("#date-in-out");
+const noted = $("#noted");
+const createdBy = $("#log-by").data("logby");
+const monthYear = formatMonthYear("#month-year");
+const product = $("#product");
+const stock = $("#stock");
 
 
 $("#refesh").click(() => location.reload());
 
 //Get all data
-const getAll = () => {
-    tableStock = $("#stock").DataTable({
+const reads = () => {
+    tables = $(".table").DataTable({
         ajax: {
-            url: "/api/hr/stocks/get",
+            url: "/api/hr/stocks/reads",
             dataSrc: "",
             method: "GET",
         },
@@ -48,7 +47,6 @@ const getAll = () => {
                 next: "<i class='fas fa-chevron-right'>",
             },
         },
-        drawCallback: () => $(".datatableStocks_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
                 //title: "#",
@@ -57,36 +55,38 @@ const getAll = () => {
             },
             {
                 //title: "Product's Name",
-                data: "Product.Name",
+                data: "product.Name",
             },
             {
                 //title: "Image",
-                data: "Product.Image",
-                render: (row) => row ? `<img src="${row}" class='rounded-circle' width='50px'/>` :
-                    "<img src='../Images/blank-image.png' class='rounded-circle'  width='50px'/>",
+                data: "product.Image",
+                render: (row) => {
+                    const file = row ? row : "../Images/blank-image.png";
+                    return `<img src="${file}" class='rounded-circle' width='50px' height="50px"/>`;
+                },
             },
             {
                 //title: "Stock In",
                 data: null,
-                render: row => row.Stock.Status === 1 ? `<span class="text-warning fw-bolder">${lAmount}​ ${row.Stock.Quantity}</span>` : 0
+                render: row => row.stock.Status === 1 ? `<span class="text-warning fw-bolder">${lAmount}​ ${row.stock.Quantity}</span>` : 0
             },
             {
                 //title: "Stock Out",
                 data: null,
-                render: row => row.Stock.Status === 2 ? `<span class="text-danger fw-bolder">${lAmount}​ -${row.Stock.Quantity}</span>` : 0
+                render: row => row.stock.Status === 2 ? `<span class="text-danger fw-bolder">${lAmount}​ -${row.stock.Quantity}</span>` : 0
             },
             {
                 //title: "Date In/Out",
-                data: "Stock.Date",
-                render: (row) => row ? moment(row).format("DD/MMM/YYYY") : "",
+                data: "stock.Date",
+                render: (row) => row ? moment(row).format("DD MMM YYYY") : "",
             },
             {
                 //title: "Description",
-                data: "Stock.Noted",
+                data: "stock.Noted",
             },
             {
                 //title: "Created",
-                data: "Stock.Created",
+                data: "stock.Created",
                 render: (row) => row ? moment(row).fromNow() : "",
             },
             //{
@@ -96,12 +96,12 @@ const getAll = () => {
             //},
             {
                 //title: "Actions",
-                data: "Stock.Id",
+                data: "stock.Id",
                 render: (row) => `<div> 
-                                      <button onclick= "editStock('${row}')" class= 'btn btn-warning btn-sm' >
+                                      <button onclick= "read('${row}')" class= 'btn btn-warning btn-sm' >
                                           <span class='fas fa-redo'></span>
                                       </button>
-                                      <button onclick= "removeStock('${row}')" class= 'btn btn-danger btn-sm' >
+                                      <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
                                           <span class='fas fa-trash-alt'></span>
                                       </button>
                                   </div>`,
@@ -148,24 +148,24 @@ const getAll = () => {
 };
 
 //Get report stock
-const getStockReport = () => {
+const readReport = () => {
     $.ajax({
         url: "/api/hr/reports/get-stock",
         type: "GET",
         data: {
             monthYear: monthYear.val(),
-            product: byProduct.val(),
-            stock: byStock.val(),
+            product: product.val(),
+            stock: stock.val(),
         },
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         success: (response) => {
-            $('#stock-summary').DataTable().destroy();
-            $('#stock-summary tbody').empty();
+            $('.table').DataTable().destroy();
+            $('.table tbody').empty();
             $.each(response, (index, row) => {
-                let date = moment(row.Created).format('DD/MMM/YY');
-                let stockIn = row.Status === 1 ? `<b class="text-warning fst-italic fw-bolder">${lAmount} ${row.Quantity} </b>` : 0;
-                let stockOut = row.Status === 2 ? `<b class="text-danger fst-italic fw-bolder">${lAmount}​ -${row.Stock.Quantity}</b>` : 0;
+                const date = moment(row.Created).format('DD MMM YY');
+                const stockIn = row.Status === 1 ? `<b class="text-warning fst-italic fw-bolder">${lAmount} ${row.Quantity} </b>` : 0;
+                const stockOut = row.Status === 2 ? `<b class="text-danger fst-italic fw-bolder">${lAmount}​ -${row.Quantity}</b>` : 0;
 
                 var newRow = `<tr>
                                     <td>${index + 1}</td>
@@ -175,11 +175,11 @@ const getStockReport = () => {
                                     <td>${date}</td>
                                     <td>${row.Noted}</td>
                                   </tr>`;
-                $('#stock-summary tbody').append(newRow);
+                $('.table tbody').append(newRow);
             });
 
             // Initialize DataTables
-            $('#stock-summary').DataTable({
+            $('.table').DataTable({
                 dom: "Bfrtip",
                 buttons: ["excel", "pdf", "print"],
                 language: {
@@ -188,7 +188,7 @@ const getStockReport = () => {
                         next: "<i class='fas fa-chevron-right'>",
                     },
                 },
-                drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
+                drawCallback: () => $(".DataTables_paginate > .pagination").addClass("pagination-rounded"),
                 searching: false,
                 lengthChange: false,
                 buttons: [
@@ -221,37 +221,37 @@ const getStockReport = () => {
 
 
 //Add new
-addStock.click(() => {
-    clearStock();
-    setColorStock();
-    modalStock.modal("show");
+$("#add").click(() => {
+    clear();
+    setColor();
+    modalDialog.modal("show");
 });
 
 //Save data
-saveStock.click(() => {
+save.click(() => {
 
-    let response = validateStock();
-    let data = {
+    let response = validate();
+    const data = {
         Product: productType.val(),
         Quantity: quantity.val(),
         Date: dateIO.val(),
-        CreatedBy: createdBy2,
-        Noted: sNoted.val(),
+        CreatedBy: createdBy,
+        Noted: noted.val(),
         Status: stockIO.val()
     };
 
     response ? $.ajax({
-        url: "/api/hr/stocks/post",
+        url: "/api/hr/stocks/create",
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
-            getAll();
+            reads();
             dataId.val(response.Id);
-            tableStock.ajax.reload();
-            clearStock();
-            //modalStock.modal("hide");
+            tables.ajax.reload();
+            clear();
+            //modalDialog.modal("hide");
             Swal.fire({
                 //position: "top-end",
                 title: response.message,
@@ -274,27 +274,27 @@ saveStock.click(() => {
 });
 
 //Get data by id
-const editStock = (id) => {
+const read = (id) => {
     $.ajax({
-        url: "/api/hr/stocks/get-by-id/" + id,
+        url: "/api/hr/stocks/read/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         success: (response) => {
             //console.log(response);
-            setColorStock();
-            clearStock();
-            updateStock.show();
-            saveStock.hide();
+            setColor();
+            clear();
+            redo.show();
+            save.hide();
 
-            dataId.val(response.Stock.Id);
-            productType.val(response.Product.Id);
-            quantity.val(response.Stock.Quantity);
-            sNoted.val(response.Stock.Noted);
+            dataId.val(response.stock.Id);
+            productType.val(response.product.Id);
+            quantity.val(response.stock.Quantity);
+            noted.val(response.stock.Noted);
             setCurrentDate("#date-in-out");
-            stockIO.val(response.Stock.Status === 1 ? 1 : 2)
+            stockIO.val(response.stock.Status === 1 ? 1 : 2)
 
-            modalStock.modal("show");
+            modalDialog.modal("show");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
@@ -309,28 +309,28 @@ const editStock = (id) => {
 };
 
 //Update by id
-updateStock.click(() => {
-    let response = validateStock();
-    let data = {
+redo.click(() => {
+    let response = validate();
+    const data = {
         Product: productType.val(),
         Quantity: quantity.val(),
         Date: dateIO.val(),
-        CreatedBy: createdBy2,
-        Noted: sNoted.val(),
+        CreatedBy: createdBy,
+        Noted: noted.val(),
         Status: stockIO.val()
     };
 
     response ? $.ajax({
-        url: "/api/hr/stocks/put-by-id/" + dataId.val(),
+        url: "/api/hr/stocks/redo/" + dataId.val(),
         type: "PUT",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
             dataId.val(response.Id);
-            tableStock.ajax.reload();
-            clearStock();
-            modalStock.modal("hide");
+            tables.ajax.reload();
+            clear();
+            modalDialog.modal("hide");
 
             Swal.fire({
                 //position: "top-end",
@@ -353,8 +353,8 @@ updateStock.click(() => {
     }) : false;
 });
 
-//Delete data by id
-const removeStock = (id) => {
+//Deconste data by id
+const remove = (id) => {
     Swal.fire({
         title: lAreYouSure,
         text: lToDelete,
@@ -367,9 +367,9 @@ const removeStock = (id) => {
         param.value ?
             $.ajax({
                 method: "DELETE",
-                url: "/api/hr/stocks/delete-by-id/" + id,
+                url: "/api/hr/stocks/delete/" + id,
                 success: (response) => {
-                    tableStock.ajax.reload();
+                    tables.ajax.reload();
                     Swal.fire({
                         title: response.message,
                         icon: "success",
@@ -399,10 +399,10 @@ const removeStock = (id) => {
 };
 
 //clearStock control
-const clearStock = () => {
-    updateStock.hide();
-    saveStock.show();
-    sNoted.val("");
+const clear = () => {
+    redo.hide();
+    save.show();
+    noted.val("");
     productType.val("-1");
     dataId.val("");
     quantity.val("");
@@ -411,15 +411,15 @@ const clearStock = () => {
 };
 
 //Set color to border control
-const setColorStock = () => {
+const setColor = () => {
     productType.css("border-color", "#cccccc");
     stockIO.css("border-color", "#cccccc");
     quantity.css("border-color", "#cccccc");
 };
 
 //Check validation
-const validateStock = () => {
-    let isValid = true;
+const validate = () => {
+    const isValid = true;
     if (productType.val() === "-1") {
         Swal.fire({
             title: `${lSelect} ${lProduct}`,

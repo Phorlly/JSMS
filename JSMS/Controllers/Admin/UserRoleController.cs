@@ -8,19 +8,8 @@ using System.Web.Mvc;
 namespace JSMS.Controllers.Admin
 {
     [Authorize]
-    public class UserRoleController : Controller
+    public class UserRoleController : BaseController
     {
-        protected readonly ApplicationDbContext context;
-
-        public UserRoleController() 
-        {
-            context = new ApplicationDbContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            context.Dispose();
-        }
-
         // GET: UserRole
         public ActionResult Index()
         {

@@ -15,24 +15,25 @@ namespace JSMS.Controllers.Api
     {
 
         [HttpGet]
-        [Route("get")]
-        public async Task<IHttpActionResult> Get()
+        [Route("reads")]
+        public async Task<IHttpActionResult> Reads()
         {
             try
             {
-                var response = await (from Applicant in context.Applicants
-                                      join Recruitment in context.Recruitments on Applicant.Id equals Recruitment.Applicant
-                                      join ShortList in context.ShortLists on Recruitment.Id equals ShortList.Recruitment
-                                      join Staff in context.Staffs on ShortList.Id equals Staff.ShortList
-                                      join Client in context.Clients on Staff.Client equals Client.Id
-                                      where Staff.IsActive == true
-                                      select new { Staff, Applicant, Client, ShortList })
-                                    //.OrderByDescending(c => c.Staff.Id).ToList();
-                                    .OrderBy(c => c.Staff.Code).ToListAsync();
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                var response = await (from applicant in context.JobApplicants
+                                      join shortList in context.ShortLists on applicant.Id equals shortList.Applicant
+                                      join staff in context.Staffs on shortList.Id equals staff.ShortList
+                                      join client in context.Clients on staff.Client equals client.Id
+                                      where staff.IsActive == true
+                                      select new
+                                      {
+                                          staff,
+                                          applicant,
+                                          client,
+                                          shortList
+                                      }).OrderBy(c => c.staff.Code).ToListAsync();
+
+                if (response == null) return NoDataFound();
 
                 return Ok(response);
             }
@@ -43,23 +44,25 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpGet]
-        [Route("get-by-id/{id}")]
-        public async Task<IHttpActionResult> GetById(int id)
+        [Route("read/{id}")]
+        public async Task<IHttpActionResult> Read(int id)
         {
             try
             {
-                var response = await (from Applicant in context.Applicants
-                                      join Recruitment in context.Recruitments on Applicant.Id equals Recruitment.Applicant
-                                      join ShortList in context.ShortLists on Recruitment.Id equals ShortList.Recruitment
-                                      join Staff in context.Staffs on ShortList.Id equals Staff.ShortList
-                                      join Client in context.Clients on Staff.Client equals Client.Id
-                                      where Staff.IsActive == true
-                                      select new { Staff, Applicant, Client, ShortList })
-                                .FirstAsync(c => c.Staff.Id.Equals(id));
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                var response = await (from applicant in context.JobApplicants
+                                      join shortList in context.ShortLists on applicant.Id equals shortList.Applicant
+                                      join staff in context.Staffs on shortList.Id equals staff.ShortList
+                                      join client in context.Clients on staff.Client equals client.Id
+                                      where staff.IsActive == true
+                                      select new
+                                      {
+                                          staff,
+                                          applicant,
+                                          client,
+                                          shortList
+                                      }).FirstAsync(c => c.staff.Id.Equals(id));
+
+                if (response == null) return NoDataFound();
 
                 return Ok(response);
             }
@@ -70,22 +73,21 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPost]
-        [Route("post")]
-        public async Task<IHttpActionResult> Post(Staff request)
+        [Route("create")]
+        public async Task<IHttpActionResult> Create(Staff request)
         {
             try
             {
-                var isExist = await context.Staffs.FirstOrDefaultAsync(c => c.Code.Equals(request.Code));
-                if (isExist != null)
-                {
-                    return MessageWithCode(400, Language.ExistCode);
-                }
 
-                var isPasses = await context.Staffs.FirstOrDefaultAsync(c => c.ShortList.Equals(request.ShortList));
-                if (isPasses != null)
-                {
-                    return MessageWithCode(400, Language.PassesAsStaff);
-                }
+                var isExist = await context.Staffs.SingleOrDefaultAsync(c => c.Code == request.Code);
+                if (isExist != null) return MessageWithCode(400, Language.ExistCode);
+
+                var isPassed = await context.Staffs.FirstOrDefaultAsync(c => c.ShortList == request.ShortList);
+                if (isPassed != null) return MessageWithCode(400, Language.PassesAsStaff);
+
+                var setStatus = await context.ShortLists.SingleOrDefaultAsync(c => c.Id == request.ShortList);
+                if (setStatus == null) return NoDataFound();
+                setStatus.Status = 4;
 
                 if (request != null)
                 {
@@ -102,32 +104,30 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpPut]
-        [Route("put-by-id/{id}")]
-        public async Task<IHttpActionResult> PutById(Staff request, int id)
+        [Route("update/{id}")]
+        public async Task<IHttpActionResult> Update(Staff request, int id)
         {
             try
             {
                 var response = await context.Staffs.FindAsync(id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
 
                 var isExist = await context.Staffs.FirstOrDefaultAsync(c => c.Code.Equals(request.Code) && c.Id != id);
-                if (isExist != null)
-                {
-                    return MessageWithCode(400, Language.ExistCode);
-                }
+                if (isExist != null) return MessageWithCode(400, Language.ExistCode);
 
                 var isPasses = await context.Staffs.FirstOrDefaultAsync(c => c.ShortList.Equals(request.ShortList) && c.Id != id);
-                if (isPasses != null)
-                {
-                    return MessageWithCode(400, Language.PassesAsStaff);
-                }
+                if (isPasses != null) return MessageWithCode(400, Language.PassesAsStaff);
+
+                var oldStatus = await context.ShortLists.FirstOrDefaultAsync(c => c.Id == response.ShortList);
+                if (oldStatus == null) return NoDataFound();
+                oldStatus.Status = 3;
+
+                var newStatus = await context.ShortLists.FirstOrDefaultAsync(c => c.Id == request.ShortList);
+                if (newStatus == null) return NoDataFound();
+                newStatus.Status = 4;
 
                 response.Status = request.Status;
                 response.UpdatedAt = DateTime.Now;
-                response.CreatedAt = response.CreatedAt;
                 response.IsActive = true;
                 response.ShortList = request.ShortList;
                 response.Position = request.Position;
@@ -154,23 +154,18 @@ namespace JSMS.Controllers.Api
         }
 
         [HttpDelete]
-        [Route("delete-by-id/{id}")]
-        public async Task<IHttpActionResult> DeleteById(int id)
+        [Route("delete/{id}")]
+        public async Task<IHttpActionResult> Delete(int id)
         {
             try
             {
                 var response = context.Staffs.Find(id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
-                else
-                {
-                    response.IsActive = false;
-                    response.DeletedAt = DateTime.Now;
-                    //context.Staffs.Remove(response);
-                    await context.SaveChangesAsync();
-                }
+                if (response == null) return NoDataFound();
+
+                response.IsActive = false;
+                response.DeletedAt = DateTime.Now;
+                //context.Staffs.Remove(response);
+                await context.SaveChangesAsync();
 
                 return Success(Language.DataDeleted);
             }

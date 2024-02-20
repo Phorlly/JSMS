@@ -47,7 +47,7 @@ namespace JSMS.Controllers.Api
                                       join BCommune in context.Communes on Applicant.BCommune equals BCommune.Id
                                       join BVillage in context.Villages on Applicant.BVillage equals BVillage.Id
 
-                                      where Applicant.IsActive.Equals(true)
+                                      where Applicant.IsActive.Equals(true) && Applicant.Status == 1
                                       select new
                                       {
                                           Applicant,
@@ -90,7 +90,7 @@ namespace JSMS.Controllers.Api
                                       join BCommune in context.Communes on Applicant.BCommune equals BCommune.Id
                                       join BVillage in context.Villages on Applicant.BVillage equals BVillage.Id
 
-                                      where Applicant.IsActive.Equals(true)
+                                      where Applicant.IsActive.Equals(true) && Applicant.Status == 1
                                       select new
                                       {
                                           Applicant,
@@ -123,8 +123,8 @@ namespace JSMS.Controllers.Api
         {
             try
             {
-                var fileName = RequestFile("Image", "Applicant", "~/AppData/Images", "../AppData/Images");
-        
+                var fileName = RequestFile("Image", "~/AppData/Images", "../AppData/Images");
+
                 //Assign value to Applicant
                 var request = new Applicant()
                 {
@@ -171,12 +171,9 @@ namespace JSMS.Controllers.Api
             try
             {
                 var response = await context.Applicants.FindAsync(id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
+                if (response == null) return NoDataFound();
 
-                var fileName = RequestFile("Image", "Applicant", "~/AppData/Images", "../AppData/Images");
+                var fileName = RequestFile("Image", "~/AppData/Images", "../AppData/Images");
                 if (fileName != null)
                 {
                     DeleteFile(response.Image, "~/AppData/Images");
@@ -205,14 +202,30 @@ namespace JSMS.Controllers.Api
                 response.BDistrict = int.Parse(bDistrict);
                 response.BCommune = int.Parse(bCommune);
                 response.BVillage = int.Parse(bVillage.Split(',')[0]);
+                context.Entry(response).State = EntityState.Modified;
 
-                //Update
-                if (response != null)
+                var req = new JobApplicant()
                 {
-                    context.Entry(response).State = EntityState.Modified;
-                    await context.SaveChangesAsync();
-                }
+                    FirstName = name,
+                    LastName = nickName,
+                    FullName = CombineName(name, nickName),
+                    CreatedBy = createdBy,
+                    Sex = bool.Parse(gender),
+                    Phone = phone1,
+                    Phone2 = phone2,
+                    Image = response.Image,
+                    DOB = DateTime.Parse(dob),
+                    Village = int.Parse(village),
+                    Commune = int.Parse(commune),
+                    District = int.Parse(district),
+                    Province = int.Parse(province),
+                    Noted = noted == "" ? Language.Applicant : noted,
+                };
 
+                context.JobApplicants.Add(req);
+               
+
+                await context.SaveChangesAsync();
                 return Success(Language.DataUpdated);
             }
             catch (Exception ex)
@@ -228,18 +241,13 @@ namespace JSMS.Controllers.Api
             try
             {
                 var response = await context.Applicants.FindAsync(id);
-                if (response == null)
-                {
-                    return NoDataFound();
-                }
-                else
-                {
-                    response.IsActive = false;
-                    response.DeletedAt = DateTime.Now;
-                    //DeleteFile(response.Image, "~/AppData/Images");
-                    //context.Applicants.Remove(response);
-                    await context.SaveChangesAsync();
-                }
+                if (response == null) return NoDataFound();
+
+                response.IsActive = false;
+                response.DeletedAt = DateTime.Now;
+                //DeleteFile(response.Image, "~/AppData/Images");
+                //context.Applicants.Remove(response);
+                await context.SaveChangesAsync();
 
                 return Success(Language.DataDeleted);
             }

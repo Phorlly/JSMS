@@ -11,7 +11,8 @@
     titleApplicant.show();
     titleBehavior.hide();
     titleGuarantor.hide();
-    $("#show-data-applicant").click(() => getApplicant());
+    //$("#show-data-applicant").click(() => getApplicant());
+    getApplicant();
     //datePicker("#dob");
 });
 

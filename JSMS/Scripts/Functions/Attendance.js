@@ -1,37 +1,32 @@
 ﻿jQuery(document).ready(() => {
     loadingGif();
-    monthYear.change(() => getReportAttendance());
-    byShift.change(() => getReportAttendance());
-    byStaff.change(() => getReportAttendance());
-    getReportAttendance();
-    showData.click(() => getAttendance());
+    monthYear.change(() => readReport());
+    shift.change(() => readReport());
+    setStaff.change(() => readReport());
+    readReport();
+    $("#show").click(() => reads());
 });
 
 //Declare variable for use global
-let tblAttendance = [];
+let tables = [];
 let createdBy = $("#log-by").data("logby");
-let addNew = $("#add-new");
 let update = $("#update");
 let dataId = $("#data-id");
 let save = $("#save");
 let monthYear = formatMonthYear("#month-year");
-let byStaff = $("#by-staff");
-let byShift = $("#by-shift");
-let tabAttendance = $("#tab-attendance");
-let tabSummary = $("#tab-summary");
+const setStaff = $("#staff");
+let shift = $("#shift");
 
 //You can change it whatever you want
-let modalAtt = $("#modal-attendance");
-let staff = $("#staff");
+let modalDialog = $("#modal-attendance");
 let checkIn = $("#check-in");
 let checkOut = $("#check-out");
 let noted = $("#noted");
-let showData = $("#show-data");
 
-const getAttendance = () => {
-    tblAttendance = $("#attendance").DataTable({
+const reads = () => {
+    tables = $(".table").DataTable({
         ajax: {
-            url: "/api/hr/attendances/get",
+            url: "/api/hr/attendances/reads",
             dataSrc: "",
             method: "GET",
         },
@@ -45,7 +40,6 @@ const getAttendance = () => {
                 next: "<i class='fas fa-chevron-right'>",
             },
         },
-        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         columns: [
             {
                 //title: "No.",
@@ -54,32 +48,30 @@ const getAttendance = () => {
             },
             {
                 //title: "Name",
-                data: null,
-                render: (row) => {
-                    return `${row.Applicant.Name} ${row.Applicant.NickName}`;
-                },
+                data: "applicant.FullName",
             },
             {
                 //title: "Code",
-                data: "Staff.Code",
+                data: "staff.Code",
             },
             {
                 //title: "Shift",
-                data: "Staff.Status",
+                data: "staff.Status",
                 render: row => row === 0 ? lMorning : lNight,
             },
             {
                 //title: "Location",
-                data: "Staff.Noted",
+                data: null,
+                render: row => !row.staff.Noted ? row.location.Company : row.staff.Noted,
             },
             {
                 //title: "Check In",
-                data: "Attendance.CheckIn",
+                data: "attendance.CheckIn",
                 render: row => row ? moment(row).format('DD/MMM/YY, LT') : ""
             },
             {
                 //title: "Check Out",
-                data: "Attendance.CheckOut",
+                data: "attendance.CheckOut",
                 render: row => row ? moment(row).format('DD/MMM/YY, LT') : ""
             },
             {
@@ -88,9 +80,9 @@ const getAttendance = () => {
             },
             {
                 //title: "Actions",
-                data: "Attendance.Id",
+                data: "attendance.Id",
                 render: (row) => `<div> 
-                                      <button onclick= "edit('${row}')" class= 'btn btn-warning btn-sm' >
+                                      <button onclick= "read('${row}')" class= 'btn btn-warning btn-sm' >
                                           <span class='fas fa-edit'></span>
                                       </button>
                                       <button onclick= "remove('${row}')" class= 'btn btn-danger btn-sm' >
@@ -125,11 +117,6 @@ const getAttendance = () => {
                 className: "btn btn-primary btn-sm mt-2",
             },
         ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
     });
 };
 
@@ -137,36 +124,37 @@ const getAttendance = () => {
 $("#refesh").click(() => location.reload());
 
 //Get report attendance
-const getReportAttendance = () => {
+const readReport = () => {
     $.ajax({
         url: "/api/hr/reports/get-attendance",
         type: "GET",
         data: {
             monthYear: monthYear.val(),
-            staff: byStaff.val(),
-            shift: byShift.val(),
-        },
+            staff: setStaff.val(),
+            shift: shift.val(),
+        }, 
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         success: (response) => {
-            $('#attendance-summary').DataTable().destroy();
-            $('#attendance-summary tbody').empty();
+            $('.table').DataTable().destroy();
+            $('.table tbody').empty();
             $.each(response, (index, row) => {
                 let checkIn = row.CheckIn ? moment(row.CheckIn).format('DD/MMM/YY, LT') : "";
                 let checkOut = row.CheckOut ? moment(row.CheckOut).format('DD/MMM/YY, LT') : "";
+                let location = row.location.Company;
                 var newRow = `<tr>
                                     <td>${index + 1}</td>
-                                    <td>${row.Name}</td>
+                                    <td>${row.FullName}</td>
                                     <td>${row.Code}</td>
                                     <td>${row.Shift}</td>
-                                    <td>${row.Location}</td>
+                                    <td>${location}</td>
                                     <td>${checkIn}</td>
                                     <td>${checkOut}</td>
                                   </tr>`;
-                $('#attendance-summary tbody').append(newRow);
+                $('.table tbody').append(newRow);
             });
             // Initialize DataTables
-            $('#attendance-summary').DataTable({
+            $('.table').DataTable({
                 dom: "Bfrtip",
                 buttons: ["excel", "pdf", "print"],
                 responive: true,
@@ -178,7 +166,6 @@ const getReportAttendance = () => {
                         next: "<i class='fas fa-chevron-right'>",
                     },
                 },
-                drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
                 searching: false,
                 lengthChange: false,
                 buttons: [
@@ -208,18 +195,18 @@ const getReportAttendance = () => {
                 //position: "top-end",
                 title: xhr.responseJSON.message,
                 icon: "error",
-                showConfirmButton: false,
+                showConfirmButton: true,
                 customClass: { title: 'custom-swal-title' },
-                timer: 1500,
+                //timer: 1500,
             }) : console.log(xhr.responseText),
     });
 };
 
 //Add new
-addNew.click(() => {
+$("#add").click(() => {
     clear();
     setColor();
-    modalAtt.modal('show');
+    modalDialog.modal('show');
 });
 
 
@@ -227,7 +214,7 @@ addNew.click(() => {
 save.click(() => {
     let response = validate();
     let data = {
-        Staff: staff.val(),
+        Staff: setStaff.val(),
         CheckIn: checkIn.val(),
         CheckOut: checkOut.val(),
         Noted: noted.val(),
@@ -235,24 +222,23 @@ save.click(() => {
     };
 
     response ? $.ajax({
-        url: "/api/hr/attendances/post",
+        url: "/api/hr/attendances/create",
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
-            getAttendance();
+            reads();
             dataId.val(response.Id);
-            tblAttendance.ajax.reload();
+            tables.ajax.reload();
 
             clear();
-            //modalAtt.modal("hide");
+            //modalDialog.modal("hide");
             Swal.fire({
                 //position: "top-end",
                 title: response.message,
                 icon: "success",
                 showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
                 timer: 1500,
             });
         },
@@ -261,9 +247,8 @@ save.click(() => {
                 Swal.fire({
                     title: xhr.responseJSON.message,
                     icon: "warning",
-                    showConfirmButton: false,
-                    customClass: { title: 'custom-swal-title' },
-                    timer: 1500,
+                    showConfirmButton: true,
+                    //timer: 1500,
                 }) : console.log(xhr.responseText);
         },
 
@@ -271,9 +256,9 @@ save.click(() => {
 });
 
 //Get data by Id
-const edit = (id) => {
+const read = (id) => {
     $.ajax({
-        url: "/api/hr/attendances/get-by-id/" + id,
+        url: "/api/hr/attendances/read/" + id,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
@@ -284,13 +269,13 @@ const edit = (id) => {
             update.show();
             save.hide();
 
-            dataId.val(response.Attendance.Id); //object in controller
-            staff.val(response.Attendance.Staff); //object in controller
-            checkIn.val(response.Attendance.CheckIn);
-            checkOut.val(response.Attendance.CheckOut); //input that we declared on the top.val(response.Key-Database)
-            noted.val(response.Attendance.Noted);
+            dataId.val(response.attendance.Id); //object in controller
+            setStaff.val(response.attendance.Staff); //object in controller
+            checkIn.val(response.attendance.CheckIn);
+            checkOut.val(response.attendance.CheckOut); //input that we declared on the top.val(response.Key-Database)
+            noted.val(response.attendance.Noted);
 
-            modalAtt.modal("show");
+            modalDialog.modal("show");
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
@@ -308,23 +293,23 @@ const edit = (id) => {
 update.click(() => {
     let response = validate();
     let data = {
-        staff: staff.val(),
+        Staff: setStaff.val(),
         CheckIn: checkIn.val(),
         CheckOut: checkOut.val(),
         Noted: noted.val(),
     };
 
     response ? $.ajax({
-        url: "/api/hr/attendances/put-by-id/" + dataId.val(),
+        url: "/api/hr/attendances/update/" + dataId.val(),
         type: "PUT",
         contentType: "application/json;charset=UTF-8",
         dataType: "JSON",
         data: JSON.stringify(data),
         success: (response) => {
-            tblAttendance.ajax.reload();
+            tables.ajax.reload();
 
             clear();
-            modalAtt.modal("hide");
+            modalDialog.modal("hide");
             Swal.fire({
                 //position: "top-end",
                 title: response.message,
@@ -360,9 +345,9 @@ const remove = (id) => {
         param.value
             ? $.ajax({
                 method: "DELETE",
-                url: "/api/hr/attendances/delete-by-id/" + id,
+                url: "/api/hr/attendances/delete/" + id,
                 success: (response) => {
-                    tblAttendance.ajax.reload();
+                    tables.ajax.reload();
 
                     Swal.fire({
                         title: response.message,
@@ -397,14 +382,14 @@ const clear = () => {
     update.hide();
     save.show();
     noted.val("");
-    staff.val("-1");
+    setStaff.val("-1");
     checkOut.val("");
     checkIn.val("");
 };
 
 //Set color to border control
 const setColor = () => {
-    staff.css("border-color", "#cccccc");
+    setStaff.css("border-color", "#cccccc");
     checkIn.css("border-color", "#cccccc");
     checkOut.css("border-color", "#cccccc");
     noted.css("border-color", "#cccccc");
@@ -413,7 +398,7 @@ const setColor = () => {
 //Check validation
 const validate = () => {
     let isValid = true;
-    if (staff.val() === "-1") {
+    if (setStaff.val() === "-1") {
         Swal.fire({
             title: lSelectStaff,
             icon: "warning",
@@ -421,11 +406,11 @@ const validate = () => {
             customClass: { title: 'custom-swal-title' },
             timer: 1500,
         });
-        staff.css("border-color", "red");
-        staff.focus();
+        setStaff.css("border-color", "red");
+        setStaff.focus();
         isValid = false;
     } else {
-        staff.css("border-color", "#cccccc");
+        setStaff.css("border-color", "#cccccc");
         if (checkIn.val() === "") {
             Swal.fire({
                 title:  `${lSelect} ${lCheckIn}`,

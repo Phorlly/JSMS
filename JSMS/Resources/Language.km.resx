@@ -307,7 +307,7 @@
     <value>អាសយដ្ឋានបច្ចុប្បន្ន</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
-    <value>ផ្ទាំងគ្រប់គ្រងពត៌មានសង្ខេប</value>
+    <value>ផ្ទាំងគ្រប់គ្រង</value>
   </data>
   <data name="DataCreated" xml:space="preserve">
     <value>ទិន្នន័យត្រូវបានបង្កើតរួចរាល់</value>
@@ -332,6 +332,9 @@
   </data>
   <data name="DOB" xml:space="preserve">
     <value>ថ្ងៃខែឆ្នាំកំណើត</value>
+  </data>
+  <data name="DragAndDrop" xml:space="preserve">
+    <value>អូស និងទម្លាក់ឯកសារនៅទីនេះ ឬចុចដើម្បីជ្រើសរើសឯកសារ</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>កែសម្រួល</value>
@@ -555,6 +558,15 @@
   <data name="InvoicePage" xml:space="preserve">
     <value>ទំព័រវិក័យប័ត្រ</value>
   </data>
+  <data name="JobApplicant" xml:space="preserve">
+    <value>អ្នកស្នើសុំចូលបម្រើការងារ</value>
+  </data>
+  <data name="JobApplicantInfo" xml:space="preserve">
+    <value>ពត៌មានអ្នកស្នើសុំចូលបម្រើការងារ</value>
+  </data>
+  <data name="JobApplicantList" xml:space="preserve">
+    <value>ការគ្រប់គ្រងអ្នកស្នើសុំចូលបម្រើការងារ</value>
+  </data>
   <data name="JoiningDate" xml:space="preserve">
     <value>ថ្ងៃខែចូលធ្វើការងារ</value>
   </data>
@@ -583,7 +595,7 @@
     <value>ចូលប្រើប្រាស់ប្រព័ន្ធ</value>
   </data>
   <data name="LoginSuccess" xml:space="preserve">
-    <value>ការចូលប្រើប្រាស់ប្រព័ន្ធទទួលបានជោគជ័យ</value>
+    <value>ចូលបានដោយជោគជ័យ</value>
   </data>
   <data name="LoginWith" xml:space="preserve">
     <value>ចូលប្រើប្រព័ន្ធជាមួយឈ្មោះអ្នកប្រើប្រាស់ និងពាក្យសម្ងាត់</value>
@@ -687,6 +699,9 @@
   <data name="PartTime" xml:space="preserve">
     <value>ការងារ​ក្រៅម៉ោង</value>
   </data>
+  <data name="Passed" xml:space="preserve">
+    <value>ជាប់ហើយ</value>
+  </data>
   <data name="PassesAsStaff" xml:space="preserve">
     <value>បេក្ខជន​នេះ​ជា​បុគ្គលិក​ហើយ</value>
   </data>
@@ -704,6 +719,9 @@
   </data>
   <data name="PaymentType" xml:space="preserve">
     <value>ប្រភេទបង់ប្រាក់</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>កំពុងរង់ចាំ</value>
   </data>
   <data name="People" xml:space="preserve">
     <value>នាក់</value>
@@ -792,6 +810,9 @@
   <data name="Registration" xml:space="preserve">
     <value>ការចុះឈ្មោះ</value>
   </data>
+  <data name="Reject" xml:space="preserve">
+    <value>បដិសេធ</value>
+  </data>
   <data name="RemainStock" xml:space="preserve">
     <value>ទំនិញនៅសល់</value>
   </data>
@@ -806,6 +827,9 @@
   </data>
   <data name="ReportStockAvailable" xml:space="preserve">
     <value>របាយការណ៍ស្តុកមុខទំនិញដែលមាន</value>
+  </data>
+  <data name="RequestGuard" xml:space="preserve">
+    <value>ស្នើសុំសន្តិសុខ</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>តួនាទីជា</value>
@@ -831,6 +855,9 @@
   <data name="Select" xml:space="preserve">
     <value>សូមជ្រើសរើស</value>
   </data>
+  <data name="Selecting" xml:space="preserve">
+    <value>ការជ្រើសរើស</value>
+  </data>
   <data name="SelectStaff" xml:space="preserve">
     <value>សូមជ្រើសរើស អត្តលេខបុគ្គលិក</value>
   </data>
@@ -844,13 +871,13 @@
     <value>ប្រភេទវេន</value>
   </data>
   <data name="ShortList" xml:space="preserve">
-    <value>អ្នកជាប់ក្នុងបញ្ជីហៅសម្ភាសន៍</value>
+    <value>បញ្ជីសម្រាំង</value>
   </data>
   <data name="ShortListInfo" xml:space="preserve">
-    <value>ព័ត៌មានអ្នកជាប់ក្នុងបញ្ជីហៅសម្ភាសន៍</value>
+    <value>ព័ត៌មានបញ្ជីសម្រាំង</value>
   </data>
   <data name="ShortListManagement" xml:space="preserve">
-    <value>ការគ្រប់គ្រងអ្នកជាប់ក្នុងបញ្ជីហៅសម្ភាសន៍</value>
+    <value>ការគ្រប់គ្រងបញ្ជីសម្រាំង</value>
   </data>
   <data name="ShowData" xml:space="preserve">
     <value>បង្ហាញទាំងអស់</value>
@@ -905,6 +932,9 @@
   </data>
   <data name="Telephone" xml:space="preserve">
     <value>លេខទូរសព្ទ</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>សូមអរគុណ</value>
   </data>
   <data name="ThankYouIn" xml:space="preserve">
     <value>សូមអរគុណ សម្រាប់ការកត់ត្រាចូល</value>

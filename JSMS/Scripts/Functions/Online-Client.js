@@ -1,177 +1,80 @@
-﻿jQuery(document).ready(() => {
-    loadingGif();
-    $("#show-data-client").click(() => getClient());
-    $("#show-data-client").show();
-    $("#show-data-applicant").hide();
-});
-
-//Declare vaariable 
-let client = [];
-let submitNow = $("#submit-now");
-let registerName = $("#register-name");
+﻿
+let save = $("#save");
+let modalDialog = $("#modal-client");
+let dataId = $("#data-id");
+let imageFile = $("#imageFile");
+let image = $("#image");
+let ownername = $("#ownername");
 let company = $("#company");
+let vattin = $("#vattin");
+let phone1 = $("#phone1");
+let phone2 = $("#phone2");
 let gender = $("#gender");
-let emailAddress = $("#email-address");
-let cPhone1 = $("#c-phone1");
-let cPhone2 = $("#c-phone2");
-let county = $("#county");
-let stateCity = $("#state-city");
-let cNoted = $("#c-noted");
+let position = $("#position");
+let dob = $("#dob");
+let noted = $("#noted");
+let province = $("#province");
+let district = $("#district");
+let commune = $("#commune");
+let village = $("#village");
+let createdBy = $("#log-by").data("logby");
+let districtId = $("#district-id");
+let communeId = $("#commune-id");
+let villageId = $("#village-id");
 
-//Get data
-const getClient = () => {
-    client = $("#client").DataTable({
-        ajax: {
-            url: "/api/hr/online-clients/get",
-            dataSrc: "",
-            method: "GET",
-        },
-        responsive: true,
-        destroy: true,
-        // autoWidth: false,
-        //scrollX: true,
-        dom: "Bfrtip",
-        language: {
-            paginate: {
-                previous: "<i class='fas fa-chevron-left'>",
-                next: "<i class='fas fa-chevron-right'>",
-            },
-        },
-        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
-        columns: [
-            {
-                //title: "N<sup>o</sup>",
-                data: null,
-                render: (data, type, row, meta) => `${meta.row + 1}`,
-            },
-            {
-                //title: "Name",
-                data: null,
-                render: row => `${row.Client.Name} (${row.Client.Company})`,
-            },
-            {
-                //title: "Gender",
-                data: "Client.Sex",
-                render: row => row === 2 ? "Male" : row === 1 ? "Female" : "Batmen"
-            },
-            {
-                //title: "Telephone",
-                data: null,
-                render: row => `${row.Client.Phone1} ${row.Client.Phone2}`,
-            },
-            {
-                //title: "Address",
-                data: null,
-                render: row => `${row.Province.Name}, ${row.Country.Name}`,
-            },
-            {
-                //title: "Status",
-                data: "Client.Status",
-                render: row => formatStatus(row),
-            },
-            {
-                //title: "Description",
-                data: "Client.Noted",
-            },
-            {
-                //title: "Created",
-                data: "Client.CreatedAt",
-                render: row => row ? moment(row).fromNow() : "",
-            },
-            {
-                //title: "Updated",
-                data: "Client.UpdatedAt",
-                render: row => row ? moment(row).fromNow() : "",
-            },
-            {
-                //title: "Actions",
-                data: "Client.Id",
-                render: row => `<div> 
-                                     <button onclick= "editClient('${row}')" class= 'btn btn-warning btn-sm' >
-                                          <span class='fas fa-edit'></span>
-                                      </button>
-                                      <button onclick= "removeClient('${row}')" class= 'btn btn-danger btn-sm' >
-                                          <span class='fas fa-trash-alt'></span>
-                                      </button>      
-                                </div>`,
-            },
-        ],
-        buttons: [
-            {
-                title: "បញ្ជីអតិថិជនស្នើតាមអនឡាញ",
-                extend: "excelHtml5",
-                text: "<i class='fa fa-file-excel'> </i> Excel",
-                className: "btn btn-success btn-sm mt-2",
-            },
-            {
-                title: "បញ្ជីអតិថិជនស្នើតាមអនឡាញ",
-                extend: "print",
-                text: "<i class='fa fa-print'> </i> Print",
-                className: "btn btn-dark btn-sm mt-2",
-            },
-            {
-                title: "បញ្ជីអតិថិជនស្នើតាមអនឡាញ",
-                extend: "copy",
-                text: "<i class='fa fa-copy'> </i> Copy Text",
-                className: "btn btn-info btn-sm mt-2",
-            },
-            {
-                title: "បញ្ជីអតិថិជនស្នើតាមអនឡាញ",
-                extend: "colvis",
-                text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
-                className: "btn btn-primary btn-sm mt-2",
-            },
-        ],
-        error: (xhr) => {
-            xhr.responseJSON && xhr.responseJSON.message ?
-                toastr.error(xhr.responseJSON.message, "ម៉ាស៊ីនបានឆ្លើយតបមកវិញ") :
-                console.log(xhr.responseText);
-        },
-    });
+//get file image
+const readUrl = (input) => {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = (e) => {
+            image.attr("src", e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 };
 
-//Hide show tab
-$("#tab-client").click(() => {
-    $("#show-data-client").show();
-    $("#show-data-applicant").hide();
-});
+//Save data
+save.click(() => {
+    let response = validate();
+    let formData = new FormData();
+    let files = imageFile.get(0).files;
 
-//Submit now
-submitNow.click(() => {
-    let isValid = validateClient();
-    let data = {
-        Name: registerName.val(),
-        Company: company.val(),
-        Sex: gender.val(),
-        Email: emailAddress.val(),
-        Phone1: cPhone1.val(),
-        Phone2: cPhone2.val(),
-        Country: county.val(),
-        Province: stateCity.val(),
-        Noted: cNoted.val()
-    };
+    if (files.length > 0) {
+        formData.append("Image", files[0]);
+    }
 
-    isValid ? $.ajax({
-        url: "/api/hr/online-clients/post",
+    formData.append("Name", ownername.val());
+    formData.append("Company", company.val());
+    formData.append("VATTIN", vattin.val());
+    formData.append("Gender", gender.val());
+    formData.append("DOB", dob.val());
+    formData.append("Position", position.val());
+    formData.append("Phone1", phone1.val());
+    formData.append("Phone2", phone2.val());
+    formData.append("CreatedBy", createdBy);
+    formData.append("Noted", noted.val());
+    formData.append("Province", province.val());
+    formData.append("District", district.val());
+    formData.append("Commune", commune.val());
+    formData.append("Village", village.val());
+
+    response ? $.ajax({
+        url: "/api/hr/clients/create",
         type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "JSON",
-        data: JSON.stringify(data),
+        contentType: false,
+        processData: false,
+        data: formData,
         success: (response) => {
-            clearClient();
-            setColorClient();
+            clear();
             Swal.fire({
-                //position: "top-end",
                 title: response.message,
                 icon: "success",
                 showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
                 timer: 1500,
             });
         },
         error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
             Swal.fire({
-                //position: "top-end",
                 title: xhr.responseJSON.message,
                 icon: "error",
                 showConfirmButton: false,
@@ -179,50 +82,58 @@ submitNow.click(() => {
                 timer: 1500,
             }) : console.log(xhr.responseText),
     }) : false;
+
 });
 
-//clearClient control
-const clearClient = () => {
-    registerName.val("");
+
+//Clear control
+const clear = () => {
+    imageFile.val("");
+    image.attr("src", "../Images/blank-image.png");
+    ownername.val("");
     company.val("");
-    gender.val("-1");
-    emailAddress.val("");
-    cPhone1.val("");
-    cPhone2.val("");
-    county.val("-1");
-    stateCity.val("-1");
-    cNoted.val("");
+    vattin.val("-1");
+    phone1.val("");
+    phone2.val("");
+    gender.val("false");
+    position.val("-1");
+    dob.val("");
+    noted.val("");
+    province.val("-1");
+    district.val("-1");
+    commune.val("-1");
+    village.val("-1");
 };
 
-//Set color control
-const setColorClient = () => {
-    registerName.css("border-color", "#cccccc");
+//Set color to border control
+const setColor = () => {
+    ownername.css("border-color", "#cccccc");
     company.css("border-color", "#cccccc");
-    gender.css("border-color", "#cccccc");
-    cPhone1.css("border-color", "#cccccc");
-    county.css("border-color", "#cccccc");
-    stateCity.css("border-color", "#cccccc");
+    position.css("border-color", "#cccccc");
+    vattin.css("border-color", "#cccccc");
+    phone1.css("border-color", "#cccccc");
+    dob.css("border-color", "#cccccc");
 };
 
-//Validation 
-const validateClient = () => {
+//Check validation
+const validate = () => {
     let isValid = true;
-    if (registerName.val() === "") {
+    if (ownername.val() === "") {
         Swal.fire({
-            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+            title: `${lInput} ${lOwnerName}`,
             icon: "warning",
             showConfirmButton: false,
             customClass: { title: 'custom-swal-title' },
             timer: 1500,
         });
-        registerName.css("border-color", "red");
-        registerName.focus();
+        ownername.css("border-color", "red");
+        ownername.focus();
         isValid = false;
     } else {
-        registerName.css("border-color", "#cccccc");
+        ownername.css("border-color", "#cccccc");
         if (company.val() === "") {
             Swal.fire({
-                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                title: `${lInput} ${lCompany}`,
                 icon: "warning",
                 showConfirmButton: false,
                 customClass: { title: 'custom-swal-title' },
@@ -233,88 +144,165 @@ const validateClient = () => {
             isValid = false;
         } else {
             company.css("border-color", "#cccccc");
-            if (gender.val() === "-1") {
+            if (vattin.val() === "-1") {
                 Swal.fire({
-                    title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                    title: `${lSelect} ${lVATTIN}`,
                     icon: "warning",
                     showConfirmButton: false,
                     customClass: { title: 'custom-swal-title' },
                     timer: 1500,
                 });
-                gender.css("border-color", "red");
-                gender.focus();
+                vattin.css("border-color", "red");
+                vattin.focus();
                 isValid = false;
             } else {
-                gender.css("border-color", "#cccccc");
-                if (cPhone1.val() === "") {
+                vattin.css("border-color", "#cccccc");
+                if (dob.val() === "") {
                     Swal.fire({
-                        title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                        title: `${lSelect} ${lDOB}`,
                         icon: "warning",
                         showConfirmButton: false,
                         customClass: { title: 'custom-swal-title' },
                         timer: 1500,
                     });
-                    cPhone1.css("border-color", "red");
-                    cPhone1.focus();
+                    dob.css("border-color", "red");
                     isValid = false;
                 } else {
-                    cPhone1.css("border-color", "#cccccc");
-                    if (county.val() === "-1") {
+                    dob.css("border-color", "#cccccc");
+                    if (phone1.val() === "") {
                         Swal.fire({
-                            title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                            title: `${lInput} ${lPhone}`,
                             icon: "warning",
                             showConfirmButton: false,
                             customClass: { title: 'custom-swal-title' },
                             timer: 1500,
                         });
-                        county.css("border-color", "red");
-                        county.focus();
+                        phone1.css("border-color", "red");
+                        phone1.focus();
                         isValid = false;
                     } else {
-                        county.css("border-color", "#cccccc");
-                        if (stateCity.val() === "-1") {
+                        phone1.css("border-color", "#cccccc");
+                        if (position.val() === "-1") {
                             Swal.fire({
-                                title: "សូមបញ្ចូលទិន្នន័យមួយនេះផង",
+                                title: `${lSelect} ${lPosition}`,
                                 icon: "warning",
                                 showConfirmButton: false,
                                 customClass: { title: 'custom-swal-title' },
                                 timer: 1500,
                             });
-                            stateCity.css("border-color", "red");
-                            stateCity.focus();
+                            position.css("border-color", "red");
+                            position.focus();
                             isValid = false;
                         } else {
-                            stateCity.css("border-color", "#cccccc");
+                            position.css("border-color", "#cccccc");
+                            if (province.val() === "-1") {
+                                Swal.fire({
+                                    title: `${lSelect} ${lProvince}`,
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    customClass: { title: 'custom-swal-title' },
+                                    timer: 1500,
+                                });
+                                province.css("border-color", "red");
+                                province.focus();
+                                isValid = false;
+                            } else {
+                                province.css("border-color", "#cccccc");
+                            }
                         }
                     }
                 }
             }
         }
     }
-
     return isValid;
 };
 
 //Change value
-county.change(() => {
-    let countryId = county.val();
-    //console.log(countryId)
+province.change(() => {
+    let provinceId = province.val();
 
-    countryId ? $.ajax({
-        url: "/blog/state",
+    provinceId ? $.ajax({
+        url: "/home/district",
         type: "GET",
-        data: { Country: countryId },
+        data: { province: provinceId },
         dataType: "JSON",
         success: (response) => {
-            //console.log(response);
-
-            stateCity.empty();
-            stateCity.append($("<option>").val("-1").html("Select Province/City"));
+            district.empty();
+            commune.empty();
+            village.empty();
+            district.append($("<option>").val("-1").text(`---${lSelect} ${lDistrict}---`));
+            commune.append($("<option>").val("-1").text(`---${lSelect} ${lCommune}---`));
+            village.append($("<option>").val("-1").text(`---${lSelect} ${lVillage}---`));
 
             $.each(response, (inex, row) => {
-                stateCity.append($("<option>").val(row.Id).text(row.Name));
+                district.append(
+                    $("<option>")
+                        .val(row.Id)
+                        .text(row.NameKh + " / " + row.Name)
+                );
             });
         },
-        error: (hasError) => console.log(hasError),
-    }) : stateCity.append($("<option>").val("-1").html("Select Province/City"));
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : province.append($("<option>").val("-1").text(`---${lSelect} ${lProvince}---`));
+});
+
+//Change value
+district.change(() => {
+    let districtId = district.val();
+
+    districtId ? $.ajax({
+        url: "/home/commune",
+        type: "GET",
+        data: { district: districtId },
+        dataType: "JSON",
+        success: (response) => {
+            commune.empty();
+            village.empty();
+            commune.append($("<option>").val("-1").text(`---${lSelect} ${lCommune}---`));
+            village.append($("<option>").val("-1").text(`---${lSelect} ${lVillage}---`));
+
+            $.each(response, (inex, row) => {
+                commune.append(
+                    $("<option>")
+                        .val(row.Id)
+                        .text(row.NameKh + " / " + row.Name)
+                );
+            });
+
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : district.append($("<option>").val("-1").text(`---${lSelect} ${lVillage}---`));
+});
+
+//Change value
+commune.change(() => {
+    let communeId = commune.val();
+
+    communeId ? $.ajax({
+        url: "/home/village",
+        type: "GET",
+        data: { commune: communeId },
+        dataType: "JSON",
+        success: (response) => {
+            village.empty();
+            village.append($("<option>").val("-1").text(`---${lSelect} ${lVillage}---`));
+
+            $.each(response, (inex, row) => {
+                village.append(
+                    $("<option>")
+                        .val(row.Id)
+                        .html(row.NameKh + " / " + row.Name)
+                );
+            });
+
+        },
+        error: (hasError) => {
+            console.log(hasError);
+        },
+    }) : commune.append($("<option>").val("-1").text(`---${lSelect} ${lCommune}---`));
 });
