@@ -75,6 +75,7 @@ namespace JSMS.Controllers.Api
                 if (setStatus == null) return NoDataFound();
 
                 setStatus.Status = 2;
+                request.Status = 2;
                 request.Noted = request.Noted == "" ? Language.Selecting : request.Noted;
 
                 if (request != null)
@@ -112,6 +113,7 @@ namespace JSMS.Controllers.Api
                 if (oldStatus == null) return NoDataFound();
                 newStatus.Status = 2;
 
+                response.Status = response.Status == 1 ? 2 : response.Status;
                 response.UpdatedAt = DateTime.Now;
                 response.Applicant = request.Applicant;
                 response.Rating = request.Rating;

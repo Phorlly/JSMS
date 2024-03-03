@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/OfficialWebsite/Blog.cshtml";
 }
 <!-- Hero Start -->
-<div class="container-fluid bg-light py-6 my-6 mt-0">
+<div class="container-fluid bg-light  my-6 mt-0">
     <div class="container text-center animated bounceInDown">
         <h1 class="display-1 mb-4">Career</h1>
         <ol class="breadcrumb justify-content-center mb-0 animated bounceInDown">
@@ -15,8 +15,15 @@
     </div>
 </div>
 <!-- Hero End -->
+<div class="card mx-sm-5">
+    <div class="card-header">
+        <h3 class="text-center">នេះគឺជាឯកសារភ្ជាប់សម្រាប់អ្នកដាក់ពាក្យ</h3>
+    </div>
+    <div class="card-body">
+        <div class="files text-center fs-1"></div>
+    </div>
+</div>
 <!-- Book Us Start -->
-
 <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="dataId" id="data-id" value="" />
@@ -115,7 +122,7 @@
 
                                     </div>
                                 </div>
-       
+
                                 <div class="col-md-3">
                                     <div class="form-group mt-3">
                                         <label for="province">@JSMS.Resources.Language.Province</label>
@@ -239,3 +246,39 @@
 @section scripts {
     @Scripts.Render("~/Scripts/Functions/Online-Applicant.js")
 }
+<script src="~/Scripts/Libraries/bootstrap.min.js"></script>
+<script src="~/Scripts/Libraries/jquery-3.7.1.min.js"></script>
+<script>
+    const filesPath = {
+        1: { file: "../Images/ពាក្យសុំចូលបម្រើធ្វើការងារ.pdf", name: "ពាក្យសុំចូលបម្រើធ្វើការងារ", },
+        2: { file: "../Images/ប្រវត្តិរូបសង្ខេបសន្ដិសុខ.pdf", name: "ប្រវត្តិរូបសង្ខេបសន្ដិសុខរ", },
+        3: { file: "../Images/លិខិតធានាពីអាណាព្យាបាល.pdf", name: "លិខិតធានាពីអាណាព្យាបាល", },
+        4: { file: "../Images/លិខិតបញ្ជាក់កិរិយាមាយាទ.pdf", name: "លិខិតបញ្ជាក់កិរិយាមាយាទ", }
+    }
+
+    const renderFiles = () => {
+        const filesContainer = document.querySelector('.files');
+        for (const key in filesPath) {
+            if (filesPath.hasOwnProperty(key)) {
+                const item = filesPath[key];
+                const fileName = item.name; // Get the name property from the object
+                const filePath = item.file; // Get the file path
+
+                const fileLink = document.createElement('a');
+                fileLink.textContent = fileName;
+                fileLink.href = filePath; // Set the href to the file path
+                fileLink.target = '_blank'; // Open link in a new tab
+                fileLink.rel = 'noopener noreferrer'; // Security best practice for target="_blank" links
+
+                const fileContainer = document.createElement('div');
+                fileContainer.appendChild(fileLink); // Append the file link to the container
+                filesContainer.appendChild(fileContainer); // Append the file container to the files container
+            }
+        }
+    };
+
+
+    // Call the function to render files
+    renderFiles();
+
+</script>

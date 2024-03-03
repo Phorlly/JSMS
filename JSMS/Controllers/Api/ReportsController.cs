@@ -44,7 +44,7 @@ namespace JSMS.Controllers.Api
                                       //(attendance.CheckOut.HasValue && attendance.CheckOut >= startOfMonth && attendance.CheckOut <= endOfMonth)
                                       select new
                                       {
-                                          FullName = applicant.FirstName + " " + applicant.LastName,
+                                          applicant.FullName, 
                                           staffEntity.Code,
                                           Shift = staffEntity.Status == 0 ? Language.Morning : Language.Night,
                                           location = context.Clients.FirstOrDefault(c => c.Id == staffEntity.Client),
@@ -144,7 +144,7 @@ namespace JSMS.Controllers.Api
                          select new
                          {
                              staffEntity.Id,
-                             FullName = applicant.FirstName + " " + applicant.LastName,
+                             applicant.FullName, 
                              staffEntity.Code,
                              Shift = staffEntity.Status == 0 ? Language.Morning : Language.Night,
                              Location = client.Company,

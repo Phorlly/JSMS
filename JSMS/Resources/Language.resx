@@ -868,16 +868,16 @@
     <value>Setting</value>
   </data>
   <data name="ShiftType" xml:space="preserve">
-    <value>Shift Type</value>
+    <value>Shift-Type</value>
   </data>
   <data name="ShortList" xml:space="preserve">
-    <value>Short​​ List</value>
+    <value>Sort​​-List</value>
   </data>
   <data name="ShortListInfo" xml:space="preserve">
-    <value>Short-List Infomations</value>
+    <value>Sort-List Infomations</value>
   </data>
   <data name="ShortListManagement" xml:space="preserve">
-    <value>Short-List Management</value>
+    <value>Sort-List Management</value>
   </data>
   <data name="ShowData" xml:space="preserve">
     <value>Show all</value>
