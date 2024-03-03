@@ -58,7 +58,12 @@ const getSalaryReport = () => {
                 $('#accounting-summary tbody').append(newRow);
             });
         },
-        error: err => console.log(err),
+        error: (xhr) => {
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+                $('#accounting-summary tbody').empty();
+            }
+            console.log(xhr.responseText)
+        },
     });
 };
 
@@ -80,7 +85,6 @@ const updateData = () => {
                 next: "<i class='fas fa-chevron-right'>",
             },
         },
-        drawCallback: () => $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
         searching: false,
         lengthChange: false,
         buttons: [

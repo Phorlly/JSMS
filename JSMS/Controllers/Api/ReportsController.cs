@@ -44,7 +44,7 @@ namespace JSMS.Controllers.Api
                                       //(attendance.CheckOut.HasValue && attendance.CheckOut >= startOfMonth && attendance.CheckOut <= endOfMonth)
                                       select new
                                       {
-                                          FullName = applicant.FirstName + " " + applicant.LastName,
+                                          applicant.FullName, 
                                           staffEntity.Code,
                                           Shift = staffEntity.Status == 0 ? Language.Morning : Language.Night,
                                           location = context.Clients.FirstOrDefault(c => c.Id == staffEntity.Client),
@@ -76,14 +76,14 @@ namespace JSMS.Controllers.Api
                 var record = getAttendance.GetAttendanceData(start, end, staff);
                 int totalWorkedDays = getAttendance.CountPresentDays(start, end, staff);
                 int totalAbsentDays = getAttendance.CountAbsentDays(start, end, staff);
-                decimal salary = getAttendance.GetSalaryPayment(context.Staffs.ToList(), totalAbsentDays, staff);
+                decimal salary = getAttendance.GetSalaryPayment(context.Staffs.ToList(), totalAbsentDays, staff, totalWorkedDays);
                 var response = GetSalaryQuery(start, end, staff, shift, totalWorkedDays, totalAbsentDays, salary);
 
                 if (totalWorkedDays == 0 || staff == null) return NoDataFound();
 
                 return Ok(response);
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 return ServerError(ex);
             }
@@ -144,7 +144,7 @@ namespace JSMS.Controllers.Api
                          select new
                          {
                              staffEntity.Id,
-                             FullName = applicant.FirstName + " " + applicant.LastName,
+                             applicant.FullName, 
                              staffEntity.Code,
                              Shift = staffEntity.Status == 0 ? Language.Morning : Language.Night,
                              Location = client.Company,

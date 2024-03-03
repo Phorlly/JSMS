@@ -62,9 +62,10 @@ namespace JSMS.Helpers
         }
 
         //Calculate salary 
-        public decimal GetSalaryPayment(IEnumerable<Staff> staffList, int absentDays, int? staff = null)
+        public decimal GetSalaryPayment(IEnumerable<Staff> staffList, int absentDays, int? staff = null, int totalWorkingDays = 0)
         {
             decimal totalSalaries = 0;
+
             foreach (var allStaff in staffList)
             {
                 if (staff.HasValue && allStaff.Id != staff)
@@ -72,22 +73,9 @@ namespace JSMS.Helpers
                     continue;
                 }
 
-                decimal totalSalary = CalculateTotalSalary(allStaff);
+                decimal totalSalary = CalculateTotalSalary(allStaff) / (absentDays + totalWorkingDays);
 
-                // Calculate rate per working day
-                //decimal ratePerWorkingDay = totalSalary / totalWorkingDays;
-
-                // Deduct salary for absent days
-                if (absentDays == 1)
-                {
-                    totalSalary -= 15; // Deduct $15 for the first absent day
-                }
-                else if (absentDays > 1)
-                {
-                    totalSalary -= 5 * absentDays; // Deduct $5 for each subsequent absent day
-                }
-
-                totalSalaries += totalSalary;
+                totalSalaries += totalWorkingDays * totalSalary;
 
                 if (staff.HasValue)
                 {
@@ -97,6 +85,7 @@ namespace JSMS.Helpers
 
             return totalSalaries;
         }
+
 
         // Calculate total salary for a staff member
         private decimal CalculateTotalSalary(Staff staff)

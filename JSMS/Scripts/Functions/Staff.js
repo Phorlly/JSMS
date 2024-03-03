@@ -93,7 +93,7 @@ const reads = () => {
             {
                 //title: "Joined",
                 data: "staff.CurrentDate",
-                render: (row) => row ? moment(row).format("DD MMM YYYY") : "",
+                render: (row) => row ? convertToKhmerDate(row) : "",
             },
             {
                 //title: "Description",

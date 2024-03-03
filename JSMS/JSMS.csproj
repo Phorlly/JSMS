@@ -610,6 +610,10 @@
     <Content Include="lib\font-awesome\webfonts\fontawesome-webfont.woff" />
     <Content Include="lib\font-awesome\webfonts\fontawesome-webfont.woff2" />
     <Content Include="lib\font-awesome\webfonts\FontAwesome.otf" />
+    <Content Include="Images\ប្រវត្តិរូបសង្ខេបសន្ដិសុខ.pdf" />
+    <Content Include="Images\ពាក្យសុំចូលបម្រើធ្វើការងារ.pdf" />
+    <Content Include="Images\លិខិតធានាពីអាណាព្យាបាល.pdf" />
+    <Content Include="Images\លិខិតបញ្ជាក់កិរិយាមាយាទ.pdf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

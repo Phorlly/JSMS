@@ -2311,7 +2311,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shift Type.
+        ///   Looks up a localized string similar to Shift-Type.
         /// </summary>
         public static string ShiftType {
             get {
@@ -2320,7 +2320,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Short​​ List.
+        ///   Looks up a localized string similar to Sort​​-List.
         /// </summary>
         public static string ShortList {
             get {
@@ -2329,7 +2329,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Short-List Infomations.
+        ///   Looks up a localized string similar to Sort-List Infomations.
         /// </summary>
         public static string ShortListInfo {
             get {
@@ -2338,7 +2338,7 @@ namespace JSMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Short-List Management.
+        ///   Looks up a localized string similar to Sort-List Management.
         /// </summary>
         public static string ShortListManagement {
             get {
