@@ -6,8 +6,8 @@ const formatCurrency = (currencyType, data) => {
             .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} <sup>$</sup></span>`
         : `<span class="btn btn-warning btn-sm">${data
             .toFixed(2)
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} <sup>៛</sup></span>`;
-};
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} <sup>៛</sup></span>`
+}
 
 //Format datepicker
 const datePicker = (selecter) => {
@@ -15,8 +15,8 @@ const datePicker = (selecter) => {
         //enableTime: true,
         dateFormat: "Y-m-d",
         allowInput: false,
-    });
-};
+    })
+}
 
 //Format VATTIN
 const formatVattin = (id) => {
@@ -26,101 +26,101 @@ const formatVattin = (id) => {
         { id: 3, name: "L003-901901808" },
         { id: 4, name: "L004-901901809" },
         { id: 5, name: "L004-901901810" },
-    ];
+    ]
 
-    let matchedItem = data.find((item) => item.id === id);
+    let matchedItem = data.find((item) => item.id === id)
 
-    return matchedItem ? matchedItem.name : "";
-};
+    return matchedItem ? matchedItem.name : ""
+}
 
 //get file image
 //const readUrl = (uploadInput, imagePreview) => {
 
-//    let input = $(uploadInput);
+//    let input = $(uploadInput)
 
 //    if (input.files && input.files[0]) {
-//        const reader = new FileReader();
+//        const reader = new FileReader()
 
 //        reader.onload = function (e) {
-//            $(imagePreview).src = e.target.result;
-//        };
+//            $(imagePreview).src = e.target.result
+//        }
 
-//        reader.readAsDataURL(input.files[0]);
+//        reader.readAsDataURL(input.files[0])
 //    }
-//};
+//}
 
 //Format to number and dot only
 const numberOnly = (selector) => {
-    let numberInput = document.getElementById(selector);
+    let numberInput = document.getElementById(selector)
 
     numberInput.addEventListener("input", (e) => {
-        let inputText = e.target.value;
-        let numberPattern = /^[0-9]*$/;
+        let inputText = e.target.value
+        let numberPattern = /^[0-9]*$/
 
         if (!numberPattern.test(inputText)) {
-            e.target.value = inputText.replace(/[^\d.]/g, ""); // Remove non-numeric characters
+            e.target.value = inputText.replace(/[^\d.]/g, "") // Remove non-numeric characters
         }
-    });
-};
+    })
+}
 
 //Show file in label
 const showFile = (filePath) => {
     // Split the path by the forward slash '/'
-    let pathParts = filePath.split("/");
+    let pathParts = filePath.split("/")
 
     // Get the last part (the filename)
-    let fileName = pathParts[pathParts.length - 1];
+    let fileName = pathParts[pathParts.length - 1]
 
-    return fileName !== null ? fileName : "";
-};
+    return fileName !== null ? fileName : ""
+}
 
 const showFiles = (filePaths) => {
     // Split the file paths by comma to get individual paths
-    const filePathArray = filePaths.split(',');
+    const filePathArray = filePaths.split(',')
 
     // Initialize an empty string to store the HTML for displaying the files
-    let filesHTML = '';
+    let filesHTML = ''
 
     // Iterate through each file path
     filePathArray.forEach((filePath) => {
         // Split the path by the forward slash '/'
-        const pathParts = filePath.trim().split("/");
+        const pathParts = filePath.trim().split("/")
 
         // Get the last part (the filename)
-        const fileName = pathParts[pathParts.length - 1];
+        const fileName = pathParts[pathParts.length - 1]
 
         // Add HTML for displaying the file with a link
         if (fileName) {
-            filesHTML += `<div>${fileName}</div><br>`;
+            filesHTML += `<div>${fileName}</div><br>`
         }
-    });
+    })
 
-    return filesHTML;
-};
+    return filesHTML
+}
 
 //Read file by url
 const readFile = (filePath) => {
-    let fileName = filePath.split("/").pop(); // Get the file name from the URL
-    return { name: fileName, url: filePath };
-};
+    let fileName = filePath.split("/").pop() // Get the file name from the URL
+    return { name: fileName, url: filePath }
+}
 
 
 // Function to read each file path and extract file name and URL
 const readFiles = (attachments) => {
 
     // Split the files string by comma to get individual file paths
-    const filePaths = attachments.split(',');
-    const files = [];
+    const filePaths = attachments.split(',')
+    const files = []
 
     // Iterate through each file path
     filePaths.forEach((filePath) => {
-        const fileName = filePath.split("/").pop(); // Get the file name from the URL
-        const file = { name: fileName, url: filePath };
-        files.push(file);
-    });
+        const fileName = filePath.split("/").pop() // Get the file name from the URL
+        const file = { name: fileName, url: filePath }
+        files.push(file)
+    })
 
-    return files;
-};
+    return files
+}
 
 //Format education
 const formatEducation = (id) => {
@@ -131,12 +131,12 @@ const formatEducation = (id) => {
         { id: 4, name: lHighSchool },
         { id: 5, name: lUniversity },
         { id: 6, name: lOther },
-    ];
+    ]
 
-    let matchedItem = data.find((item) => item.id === id);
+    let matchedItem = data.find((item) => item.id === id)
 
-    return matchedItem ? matchedItem.name : "";
-};
+    return matchedItem ? matchedItem.name : ""
+}
 
 //Format status
 const formatStatus = (status) => {
@@ -145,12 +145,12 @@ const formatStatus = (status) => {
         { id: 2, name: lSelecting, color: "btn-warning" },
         { id: 3, name: lReject, color: "btn-danger" },
         { id: 4, name: lPassed, color: "btn-primary" },
-    ];
+    ]
 
-    const matchedItem = data.find((item) => item.id === status);
+    const matchedItem = data.find((item) => item.id === status)
 
-    return `<span class="btn cursor-default ${matchedItem.color} btn-sm rounded-5" style="cursor: default;">${matchedItem.name}</span>`;
-};
+    return `<span class="btn cursor-default ${matchedItem.color} btn-sm rounded-5" style="cursor: default">${matchedItem.name}</span>`
+}
 
 //Format income type
 const formatIncome = (id) => {
@@ -164,11 +164,11 @@ const formatIncome = (id) => {
         { id: 7, name: "ចំណូលពីចំណូលការប្រាក់" },
         { id: 8, name: "ចំណូលពីសួយសារអាករ" },
         { id: 9, name: "ចំណូលពីថ្លៃប្រឹក្សាយោបល់" },
-    ];
+    ]
 
-    let item = data.find((item) => item.id === id);
-    return item.name;
-};
+    let item = data.find((item) => item.id === id)
+    return item.name
+}
 
 //Format expense type
 const formatExpense = (id) => {
@@ -184,11 +184,11 @@ const formatExpense = (id) => {
         { id: 10, name: "ការចំណាយលើទីផ្សារ និងការផ្សាយពាណិជ្ជកម្ម" },
         { id: 11, name: "ការចំណាយលើសម្ភារៈ" },
         { id: 12, name: "ការចំណាយលើការធ្វើដំណើរ និងការកម្សាន្ត" },
-    ];
+    ]
 
-    let item = data.find((item) => item.id === id);
-    return item.name;
-};
+    let item = data.find((item) => item.id === id)
+    return item.name
+}
 
 //Format expense type
 const formatPosition = (id) => {
@@ -197,11 +197,11 @@ const formatPosition = (id) => {
         { id: 2, name: lViceManager },
         { id: 3, name: lGeneralManager },
         { id: 4, name: lAssistance },
-    ];
+    ]
 
-    let item = data.find((item) => item.id === id);
-    return item.name;
-};
+    let item = data.find((item) => item.id === id)
+    return item.name
+}
 
 //Format code for interview
 const formatInterview = (id) => {
@@ -218,80 +218,80 @@ const formatInterview = (id) => {
         { id: 10, name: "JLS-010" },
         { id: 11, name: "JLS-011" },
         { id: 12, name: "JLS-012" },
-    ];
+    ]
 
-    let item = data.find((item) => item.id === id);
-    return item.name;
-};
+    let item = data.find((item) => item.id === id)
+    return item.name
+}
 
 //Format month year
 const formatMonthYear = (selector) => {
-    let currentDate = new Date();
-    let dateFormat = currentDate.toISOString().slice(0, 7);
-    let monthYear = $(selector).val(dateFormat);
+    let currentDate = new Date()
+    let dateFormat = currentDate.toISOString().slice(0, 7)
+    let monthYear = $(selector).val(dateFormat)
 
-    return monthYear;
+    return monthYear
 }
 
 //Format date
 const formatDate = (val) => {
-    let date = new Date(val);
+    let date = new Date(val)
     let dateFormated = date.getFullYear() + "-" +
         ("0" + (date.getMonth() + 1)).slice(-2) + "-" +
-        ("0" + date.getDate()).slice(-2);
-    return val ? dateFormated : "";
-};
+        ("0" + date.getDate()).slice(-2)
+    return val ? dateFormated : ""
+}
 
 const formatDateDayFirst = (val) => {
-    let date = new Date(val);
+    let date = new Date(val)
 
     // Array of month names to use in the format
     const monthNames = [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
-    ];
+    ]
 
     let dateFormatted = ("0" + date.getDate()).slice(-2) + "/" +
         monthNames[date.getMonth()] + "/" +
-        date.getFullYear();
+        date.getFullYear()
 
-    return val ? dateFormatted : "";
-};
+    return val ? dateFormatted : ""
+}
 
 //Loading gif
 const loadingGif = () => {
     $(document).ajaxStart(() => {
-        $("#loading-gif").addClass("show");
+        $("#loading-gif").addClass("show")
     }).ajaxStop(() => {
-        $("#loading-gif").removeClass("show");
-    });
+        $("#loading-gif").removeClass("show")
+    })
 }
 
 
 //Calculate age
 const calculateAge = (birthdate) => {
     // Parse the birthdate string to a Date object
-    let birthDate = new Date(birthdate);
+    let birthDate = new Date(birthdate)
 
     // Get the current date
-    let currentDate = new Date();
+    let currentDate = new Date()
 
     // Calculate the difference in years
-    let age = currentDate.getFullYear() - birthDate.getFullYear();
+    let age = currentDate.getFullYear() - birthDate.getFullYear()
 
     // Adjust age if the birthday hasn't occurred yet this year
     if (currentDate.getMonth() < birthDate.getMonth() ||
         (currentDate.getMonth() === birthDate.getMonth() &&
             currentDate.getDate() < birthDate.getDate())) {
-        age--;
+        age--
     }
 
-    return age + "​ ឆ្នាំ";
+    return age + "​ ឆ្នាំ"
 }
 
 //Convert date to khmer
 const convertToKhmerDate = (dateString) => {
-    let date = new Date(dateString);
+    let date = new Date(dateString)
 
     // Map Western Arabic numerals to Khmer numerals
     let khmerNumeralsMap = {
@@ -305,34 +305,34 @@ const convertToKhmerDate = (dateString) => {
         '7': '៧',
         '8': '៨',
         '9': '៩',
-    };
+    }
 
     // Map English month names to Khmer month names
     let khmerMonthNames = [
         'មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា',
         'កក្តដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'
-    ];
+    ]
 
     // Convert Western Arabic numerals to Khmer numerals
-    let khmerDay = date.getDate().toString().split('').map(digit => khmerNumeralsMap[digit]).join('');
-    let khmerMonth = khmerMonthNames[date.getMonth()];
-    let khmerYear = date.getFullYear().toString().split('').map(digit => khmerNumeralsMap[digit]).join('');
+    let khmerDay = date.getDate().toString().split('').map(digit => khmerNumeralsMap[digit]).join('')
+    let khmerMonth = khmerMonthNames[date.getMonth()]
+    let khmerYear = date.getFullYear().toString().split('').map(digit => khmerNumeralsMap[digit]).join('')
 
-    let khmerDate = `${khmerDay} ${khmerMonth} ${khmerYear}`;
+    let khmerDate = `${khmerDay} ${khmerMonth} ${khmerYear}`
 
-    return khmerDate;
+    return khmerDate
 }
 
 
 //set current date
 const setCurrentDate = (selector) => {
     // Get the current date in the format YYYY-MM-DD
-    let currentDate = new Date().toISOString().split('T')[0];
+    let currentDate = new Date().toISOString().split('T')[0]
 
     // Set the current date as the default value for the input field
-    let setDate = $(selector).val(currentDate);
+    let setDate = $(selector).val(currentDate)
 
-    return setDate;
+    return setDate
 }
 
 //Format expense type
@@ -343,29 +343,45 @@ const formatRole = (id) => {
         { id: "HR", name: hr },
         { id: "User", name: user },
         //{ id: "Staff", name: staff },
-    ];
+    ]
 
-    let item = data.find((item) => item.id === id);
-    return item.name;
-};
+    let item = data.find((item) => item.id === id)
+    return item.name
+}
 
 //Combine 2 to 1
 const combineName = (first, last) => {
     if (first && last) {
-        return `${first}/ ${last}`;
+        return `${first}/ ${last}`
     } else {
-        return first;
+        return first
     }
-};
+}
 
 //Format status
 const countPeople = (status) => {
-    let colors;
-    if (status === 0) {
-        colors = "btn-danger";
+    let colors
+    if (status <= 0) {
+        colors = "btn-danger"
     } else {
-        colors = "btn-primary";
+        colors = "btn-primary"
     }
 
-    return `<span class="btn cursor-default ${colors} btn-sm rounded-5" style="cursor: default;">${status}</span>`;
-};
+    return `<span class="btn cursor-default ${colors} btn-sm rounded-5" style="cursor: default">${status}</span>`
+}
+
+//crud operation 
+const crud = ({ url, method, data, whenComplete = (res) => { } }) => {
+    return $.ajax({
+        url: `/api/hr/${url}`,
+        type: method,
+        data: data,
+        success: res => whenComplete(res),
+        error: xhr => xhr.responseJSON && xhr.responseJSON.message ?
+            Swal.fire({
+                //position: "top-end",
+                title: xhr.responseJSON.message,
+                icon: "error",
+            }) : console.log(xhr.responseText),
+    })
+}

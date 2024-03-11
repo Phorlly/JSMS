@@ -42,7 +42,7 @@ const reads = () => {
         autoWidth: false,
         destroy: true,
         //scrollX: true,
-        dom: "Bfrtip",
+        //dom: "Bfrtip",
         language: {
             paginate: {
                 previous: "<i class='fas fa-chevron-left'>",
@@ -136,41 +136,32 @@ const reads = () => {
                                   </div>`,
             },
         ],
-        buttons: [
-            {
-                title: lClientList,
-                extend: "excelHtml5",
-                text: "<i class='fa fa-file-excel'> </i> Excel",
-                className: "btn btn-success btn-sm mt-2",
-            },
-            {
-                title: lClientList,
-                extend: "print",
-                text: "<i class='fa fa-print'> </i> Print",
-                className: "btn btn-dark btn-sm mt-2",
-            },
-            {
-                title: lClientList,
-                extend: "copy",
-                text: "<i class='fa fa-copy'> </i> Copy Text",
-                className: "btn btn-info btn-sm mt-2",
-            },
-            {
-                title: lClientList,
-                extend: "colvis",
-                text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
-                className: "btn btn-primary btn-sm mt-2",
-            },
-        ],
-        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-            Swal.fire({
-                //position: "top-end",
-                title: xhr.responseJSON.message,
-                icon: "error",
-                showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
-                timer: 1500,
-            }) : console.log(xhr.responseText),
+        //buttons: [
+        //    {
+        //        title: lClientList,
+        //        extend: "excelHtml5",
+        //        text: "<i class='fa fa-file-excel'> </i> Excel",
+        //        className: "btn btn-success btn-sm mt-2",
+        //    },
+        //    {
+        //        title: lClientList,
+        //        extend: "print",
+        //        text: "<i class='fa fa-print'> </i> Print",
+        //        className: "btn btn-dark btn-sm mt-2",
+        //    },
+        //    {
+        //        title: lClientList,
+        //        extend: "copy",
+        //        text: "<i class='fa fa-copy'> </i> Copy Text",
+        //        className: "btn btn-info btn-sm mt-2",
+        //    },
+        //    {
+        //        title: lClientList,
+        //        extend: "colvis",
+        //        text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
+        //        className: "btn btn-primary btn-sm mt-2",
+        //    },
+        //],
     });
 };
 

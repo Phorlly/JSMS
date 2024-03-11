@@ -40,7 +40,7 @@ const reads = () => {
         autoWidth: false,
         destroy: true,
         // scrollX: true,
-        dom: "Bfrtip",
+        //dom: "Bfrtip",
         language: {
             paginate: {
                 previous: "<i class='fas fa-chevron-left'>",
@@ -108,42 +108,33 @@ const reads = () => {
 
             },
         ],
-        buttons: [
-            {
-                title: lProductAvailable,
-                extend: "excelHtml5",
-                text: "<i class='fa fa-file-excel'> </i> Excel",
-                className: "btn btn-success btn-sm mt-2",
-            },
+        //buttons: [
+        //    {
+        //        title: lProductAvailable,
+        //        extend: "excelHtml5",
+        //        text: "<i class='fa fa-file-excel'> </i> Excel",
+        //        className: "btn btn-success btn-sm mt-2",
+        //    },
 
-            {
-                title: lProductAvailable,
-                extend: "print",
-                text: "<i class='fa fa-print'> </i> Print",
-                className: "btn btn-dark btn-sm mt-2",
-            },
-            {
-                title: lProductAvailable,
-                extend: "copy",
-                text: "<i class='fa fa-copy'> </i> Copy Text",
-                className: "btn btn-info btn-sm mt-2",
-            },
-            {
-                title: lProductAvailable,
-                extend: "colvis",
-                text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
-                className: "btn btn-primary btn-sm mt-2",
-            },
-        ],
-        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-            Swal.fire({
-                //position: "top-end",
-                title: xhr.responseJSON.message,
-                icon: "error",
-                showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
-                timer: 1500,
-            }) : console.log(xhr.responseText),
+        //    {
+        //        title: lProductAvailable,
+        //        extend: "print",
+        //        text: "<i class='fa fa-print'> </i> Print",
+        //        className: "btn btn-dark btn-sm mt-2",
+        //    },
+        //    {
+        //        title: lProductAvailable,
+        //        extend: "copy",
+        //        text: "<i class='fa fa-copy'> </i> Copy Text",
+        //        className: "btn btn-info btn-sm mt-2",
+        //    },
+        //    {
+        //        title: lProductAvailable,
+        //        extend: "colvis",
+        //        text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
+        //        className: "btn btn-primary btn-sm mt-2",
+        //    },
+        //],
     });
 };
 
@@ -200,6 +191,12 @@ const readReport = () => {
                     },
                     {
                         title: lReportStockAvailable,
+                        extend: "pdfHtml5",
+                        text: "<i class='fa fa-file-pdf'> </i> PDF",
+                        className: "btn btn-danger btn-sm mt-2",
+                    },
+                    {
+                        title: lReportStockAvailable,
                         extend: "print",
                         text: "<i class='fa fa-print'> </i> Print",
                         className: "btn btn-dark btn-sm mt-2",
@@ -207,15 +204,6 @@ const readReport = () => {
                 ],
             });
         },
-        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-            Swal.fire({
-                //position: "top-end",
-                title: xhr.responseJSON.message,
-                icon: "error",
-                showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
-                timer: 1500,
-            }) : console.log(xhr.responseText),
     });
 };
 

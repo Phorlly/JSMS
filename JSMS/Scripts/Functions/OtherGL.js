@@ -90,7 +90,7 @@ const getAll = () => {
                 data: "Date",
                 render: function (data, type, row) {
                     // Format the date using moment.js
-                    return moment(data).format("DD/MMM/YYYY");
+                    return moment(data).format("DD MMM YYYY");
                 },
             },
 
@@ -155,18 +155,18 @@ const getAll = () => {
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
-            {
-                title: "Report of General Leger",
-                extend: "copy",
-                text: "<i class='fa fa-copy'> </i> Copy Text",
-                className: "btn btn-info btn-sm mt-2",
-            },
-            {
-                title: "Report of General Leger",
-                extend: "colvis",
-                text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
-                className: "btn btn-primary btn-sm mt-2",
-            },
+            //{
+            //    title: "Report of General Leger",
+            //    extend: "copy",
+            //    text: "<i class='fa fa-copy'> </i> Copy Text",
+            //    className: "btn btn-info btn-sm mt-2",
+            //},
+            //{
+            //    title: "Report of General Leger",
+            //    extend: "colvis",
+            //    text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
+            //    className: "btn btn-primary btn-sm mt-2",
+            //},
         ],
 
     });
