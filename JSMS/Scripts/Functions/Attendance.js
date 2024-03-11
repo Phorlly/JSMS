@@ -67,12 +67,12 @@ const reads = () => {
             {
                 //title: "Check In",
                 data: "attendance.CheckIn",
-                render: row => row ? moment(row).format('DD/MMM/YY, LT') : ""
+                render: row => row ? moment(row).format('DD MMM YY, LT') : ""
             },
             {
                 //title: "Check Out",
                 data: "attendance.CheckOut",
-                render: row => row ? moment(row).format('DD/MMM/YY, LT') : ""
+                render: row => row ? moment(row).format('DD MMM YY, LT') : ""
             },
             {
                 //title: "Status",
@@ -99,23 +99,29 @@ const reads = () => {
                 className: "btn btn-success btn-sm mt-2",
             },
             {
+                title: "Report of General Leger",
+                extend: "pdfHtml5",
+                text: "<i class='fa fa-file-pdf'> </i> PDF",
+                className: "btn btn-danger btn-sm mt-2",
+            },
+            {
                 title: lAttendanceList,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
-            {
-                title: lAttendanceList,
-                extend: "copy",
-                text: "<i class='fa fa-copy'> </i> Copy Text",
-                className: "btn btn-info btn-sm mt-2",
-            },
-            {
-                title: lAttendanceList,
-                extend: "colvis",
-                text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
-                className: "btn btn-primary btn-sm mt-2",
-            },
+            //{
+            //    title: lAttendanceList,
+            //    extend: "copy",
+            //    text: "<i class='fa fa-copy'> </i> Copy Text",
+            //    className: "btn btn-info btn-sm mt-2",
+            //},
+            //{
+            //    title: lAttendanceList,
+            //    extend: "colvis",
+            //    text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
+            //    className: "btn btn-primary btn-sm mt-2",
+            //},
         ],
     });
 };
@@ -139,8 +145,8 @@ const readReport = () => {
             $('.table').DataTable().destroy();
             $('.table tbody').empty();
             $.each(response, (index, row) => {
-                let checkIn = row.CheckIn ? moment(row.CheckIn).format('DD/MMM/YY, LT') : "";
-                let checkOut = row.CheckOut ? moment(row.CheckOut).format('DD/MMM/YY, LT') : "";
+                let checkIn = row.CheckIn ? moment(row.CheckIn).format('DD MMM YY, LT') : "";
+                let checkOut = row.CheckOut ? moment(row.CheckOut).format('DD MMM YY, LT') : "";
                 let location = row.location.Company;
                 var newRow = `<tr>
                                     <td>${index + 1}</td>
@@ -183,9 +189,9 @@ const readReport = () => {
                     },
                     {
                         title: "ATTENDANCE REPORT",
-                        extend: "copy",
-                        text: "<i class='fa fa-copy'> </i> Copy Text",
-                        className: "btn btn-info btn-sm mt-2",
+                        extend: "pdfHtml5",
+                        text: "<i class='fa fa-file-pdf'> </i> PDF",
+                        className: "btn btn-danger btn-sm mt-2",
                     },
                 ],
             });

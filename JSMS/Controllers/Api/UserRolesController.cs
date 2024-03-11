@@ -49,7 +49,7 @@ namespace JSMS.Controllers.Api
                                     Phone = p.Phone,
                                     Password = p.Password,
                                     Role = string.Join(",", p.RoleNames)
-                                });
+                                }).OrderBy(c => c.Username);
 
                 if (response == null) return NoDataFound();
 

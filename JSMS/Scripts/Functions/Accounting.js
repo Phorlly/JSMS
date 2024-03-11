@@ -96,26 +96,17 @@ const updateData = () => {
             },
             {
                 title: lSalaryReport,
+                extend: "pdfHtml5",
+                text: "<i class='fa fa-file-pdf'> </i> PDF",
+                className: "btn btn-danger btn-sm mt-2",
+            },
+            {
+                title: lSalaryReport,
                 extend: "print",
                 text: "<i class='fa fa-print'> </i> Print",
                 className: "btn btn-dark btn-sm mt-2",
             },
-            {
-                title: lSalaryReport,
-                extend: "copy",
-                text: "<i class='fa fa-copy'> </i> Copy Text",
-                className: "btn btn-info btn-sm mt-2",
-            },
         ],
-        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-            Swal.fire({
-                //position: "top-end",
-                title: xhr.responseJSON.message,
-                icon: "error",
-                showConfirmButton: false,
-                customClass: { title: 'custom-swal-title' },
-                timer: 1500,
-            }) : console.log(xhr.responseText),
     });
 }
 
@@ -138,7 +129,7 @@ const pushToGetPayroll = (id, name, code, shift, location, totalWorked, totalAbs
         totalWorked + lPresentOrAbsent,
         totalAbsent + lPresentOrAbsent,
         totalPayment.toFixed(2) + '<sup>$</sup>' + "  " +
-        `<button class="remove-row-btn btn btn-danger btn-sm pl-3" data-id="${id}">
+        `<button class="remove-row-btn btn btn-danger btn-sm" data-id="${id}">
             <span class='fas fa-trash-alt'></span> 
         </button>`,
     ];

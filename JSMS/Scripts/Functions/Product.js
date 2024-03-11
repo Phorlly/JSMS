@@ -28,7 +28,7 @@ const reads = () => {
         destroy: true,
         autoWidth: false,
         // scrollX: true,
-        dom: "Bfrtip",
+        //dom: "Bfrtip",
         language: {
             paginate: {
                 previous: "<i class='fas fa-chevron-left'>",
@@ -56,6 +56,7 @@ const reads = () => {
             {
                 //title: "Total",
                 data: "Total",
+                render: row => countPeople(row),
             },
             {
                 //title: "Description",
@@ -85,40 +86,33 @@ const reads = () => {
 
             },
         ],
-        buttons: [
-            {
-                title: lProductList,
-                extend: "excelHtml5",
-                text: "<i class='fa fa-file-excel'> </i> Excel",
-                className: "btn btn-success btn-sm mt-2",
-            },
+        //buttons: [
+        //    {
+        //        title: lProductList,
+        //        extend: "excelHtml5",
+        //        text: "<i class='fa fa-file-excel'> </i> Excel",
+        //        className: "btn btn-success btn-sm mt-2",
+        //    },
 
-            {
-                title: lProductList,
-                extend: "print",
-                text: "<i class='fa fa-print'> </i> Print",
-                className: "btn btn-dark btn-sm mt-2",
-            },
-            {
-                title: lProductList,
-                extend: "copy",
-                text: "<i class='fa fa-copy'> </i> Copy Text",
-                className: "btn btn-info btn-sm mt-2",
-            },
-            {
-                title: lProductList,
-                extend: "colvis",
-                text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
-                className: "btn btn-primary btn-sm mt-2",
-            },
-        ],
-        error: (xhr) => xhr.responseJSON && xhr.responseJSON.message ?
-            Swal.fire({
-                title: xhr.responseJSON.message,
-                icon: "error",
-                showConfirmButton: false,
-                timer: 1500,
-            }) : console.log(xhr.responseText),
+        //    {
+        //        title: lProductList,
+        //        extend: "print",
+        //        text: "<i class='fa fa-print'> </i> Print",
+        //        className: "btn btn-dark btn-sm mt-2",
+        //    },
+        //    {
+        //        title: lProductList,
+        //        extend: "copy",
+        //        text: "<i class='fa fa-copy'> </i> Copy Text",
+        //        className: "btn btn-info btn-sm mt-2",
+        //    },
+        //    {
+        //        title: lProductList,
+        //        extend: "colvis",
+        //        text: "<i class='fas fa-angle-double-down'> </i> Colunm Vision",
+        //        className: "btn btn-primary btn-sm mt-2",
+        //    },
+        //],
     });
 };
 

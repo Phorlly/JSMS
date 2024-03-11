@@ -148,14 +148,15 @@ namespace JSMS.Controllers.Api
                 if (response == null) return NoDataFound();
 
                 var image = RequestFile("Image", "~/AppData/Images", "../AppData/Images");
-                if ((image != null && image.Length > 0) || !string.IsNullOrEmpty(response.Image))
+                if (image != null && image.Length > 0)
                 {
                     DeleteFile(response.Image, "~/AppData/Images");
                     response.Image = image;
                 }
+           
              
                 var files = RequestFiles("../AppData/Files", "~/AppData/Files");
-                if((files != null && files.Length > 0) || !string.IsNullOrEmpty(response.Attachments))
+                if(files != null && files.Length > 0)
                 {
                     DeleteFiles(response.Attachments, "~/AppData/Files");
                     response.Attachments = files;
